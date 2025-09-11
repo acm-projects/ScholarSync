@@ -250,8 +250,13 @@ Introducing ScholarSync, an intelligent research collaboration platform designed
 - [Figma for Design](https://www.figma.com/signup)
 - [Academic Paper APIs Comparison](https://blog.front-matter.io/posts/scholarly-api-comparison/)
 
-## Developers 👥
-*[Team members to be added]*
+## Developers 👥  
+- Tony Vu  
+- Joseph Botros  
+- Neha Mundhada  
+- Namrata Kulkarni  
 
-## Project Team
-*[Project Manager and Industry Mentor to be added]*
+## Project Team  
+- **Project Manager** – Nadeeba Atiqui  
+- **Industry Mentor** – Thilak Jayachandran  
+
