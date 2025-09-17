@@ -1,6 +1,6 @@
 # ScholarSync
 <p align="center">
-  <img src="https://via.placeholder.com/400x200/4A90E2/FFFFFF?text=ScholarSync" alt="ScholarSync Demo">
+   <img src="https://i.gifer.com/6M8G.gif" alt="ScholarSync Demo" width="400" height="200">
 </p>
 
 ## Summary
