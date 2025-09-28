@@ -6,7 +6,6 @@ import lxml
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
-import uuid
 
 BASE_URL = 'https://profiles.utdallas.edu/browse'
 
