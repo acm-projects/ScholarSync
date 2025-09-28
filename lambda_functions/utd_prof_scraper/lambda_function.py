@@ -10,6 +10,7 @@ import time
 BASE_URL = 'https://profiles.utdallas.edu/browse'
 
 dynamodb = boto3.resource('dynamodb')
+eventbridge = boto3.client("events")
 table = dynamodb.Table('UTD_Professor')
 
 def lambda_handler(event, context):
@@ -134,6 +135,18 @@ def lambda_handler(event, context):
                 'statusCode': 200,
                 'body': f'Professor {email} added.'
             }
+        
+    # Publish custom event when done
+    eventbridge.put_events(
+        Entries=[
+            {
+                'Source': 'utd.prof.scraper',
+                'DetailType': 'ScraperFinished',
+                'Detail': '{"status": "success"}',
+                'EventBusName': 'default'
+            }
+        ]
+    )
 
 def scrape_name(contact_info_tag):
     h1_name_tag = contact_info_tag.find('h1')

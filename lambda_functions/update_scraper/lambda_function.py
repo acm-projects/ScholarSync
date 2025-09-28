@@ -31,7 +31,7 @@ def lambda_handler(event, context):
     # Update max_page if it is different from prev_max_page and is not -1
     if max_page != prev_max_page and max_page != -1:
         table.update_item(
-            Key={"scraper_name": "utd_prof_scraper"},
+            Key={"scraper_name": "utd_professor_scraper"},
             UpdateExpression="SET max_page = :val",
             ExpressionAttributeValues={":val": max_page}
         )
@@ -41,7 +41,7 @@ def lambda_handler(event, context):
     next_page = next_page + 1 if next_page < max_page else 1
 
     table.update_item(
-        Key={"scraper_name": "utd_prof_scraper"},
+        Key={"scraper_name": "utd_professor_scraper"},
         UpdateExpression="SET next_page = :np",
         ExpressionAttributeValues={":np": next_page}
     )
