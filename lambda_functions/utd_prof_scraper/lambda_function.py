@@ -11,11 +11,19 @@ BASE_URL = 'https://profiles.utdallas.edu/browse'
 
 dynamodb = boto3.resource('dynamodb')
 eventbridge = boto3.client("events")
-table = dynamodb.Table('UTD_Professor')
+professor_table = dynamodb.Table('UTD_Professor')
+scraper_table = dynamodb.Table('Scraper_State')
 
 def lambda_handler(event, context):
-    page = event.get('page', 1) # Get page number we're parsing, with default being page 1
-    response = requests.get(f"{BASE_URL}?page={page}") # Make a GET request to the url using the page number, receiving the HTML
+    scraper_response = scraper_table.get_item(
+        Key={
+            "scraper_name": "utd_professor_scraper"
+        }
+    )
+    scraper_item = scraper_response.get("Item", {})
+    page = scraper_item.get("next_page", 1) # Get page number we're parsing, with default being page 1
+    
+    response = requests.get(f"{BASE_URL}?page={str(page)}") # Make a GET request to the url using the page number, receiving the HTML
     soup = BeautifulSoup(response.text, "lxml") # Create soup by parsing HTML using the lxml parser (faster than built-in "html.parser")
 
     for prof_div in soup.select('.profile-card'):
@@ -129,7 +137,7 @@ def lambda_handler(event, context):
                 continue
 
             # Add professor to UTD_Professors table
-            table.put_item(Item=item)
+            professor_table.put_item(Item=item)
             # Return successful status code
             return {
                 'statusCode': 200,
