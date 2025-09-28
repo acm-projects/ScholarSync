@@ -6,68 +6,72 @@ import lxml
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
+import uuid
 
-BASE_URL = "https://profiles.utdallas.edu/browse"
+BASE_URL = 'https://profiles.utdallas.edu/browse'
+
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('UTD_Professor')
 
 def lambda_handler(event, context):
-    #page = event.get("page", 1) # Get page number we're parsing, with default being page 1
-    page = 1
+    page = event.get('page', 1) # Get page number we're parsing, with default being page 1
     response = requests.get(f"{BASE_URL}?page={page}") # Make a GET request to the url using the page number, receiving the HTML
     soup = BeautifulSoup(response.text, "lxml") # Create soup by parsing HTML using the lxml parser (faster than built-in "html.parser")
 
-    for prof_div in soup.select(".profile-card"):
-        profile_tag = prof_div.find("a")
+    for prof_div in soup.select('.profile-card'):
+        profile_tag = prof_div.find('a')
 
         if profile_tag:
                 
-            name = None
+            email = None
+            full_name = None
             titles = None
             summary = None
-            email = None
             phone_number = None
             office_room = None
             education = None
             publications = None
+            tags = None
 
-            profile_url = profile_tag["href"]
-            if not profile_url.startswith("http"):
-                profile_url = f"https://profiles.utdallas.edu{profile_url}"
+            profile_url = profile_tag['href']
+            if not profile_url.startswith('http'):
+                profile_url = f'https://profiles.utdallas.edu{profile_url}'
 
             profile_response = requests.get(profile_url)
-            profile_soup = BeautifulSoup(profile_response.text, "lxml")
+            profile_soup = BeautifulSoup(profile_response.text, 'lxml')
 
-            contact_info_tag = profile_soup.select_one(".contact_info")
+            contact_info_tag = profile_soup.select_one('.contact_info')
 
             if contact_info_tag:
                 # Get professor's name
-                h1_name_tag = contact_info_tag.find("h1")
-                if h1_name_tag:
-                    name = h1_name_tag.text.strip()
+                full_name = scrape_name(contact_info_tag)
                 
                 # Get professor's titles
-                div_titles = contact_info_tag.find("div", class_="profile-titles")
-
-                titles = []
-                if div_titles:
-                    div_title_tags = div_titles.find_all("div", class_="profile-title")
-
-                    for div in div_title_tags:
-                        titles.append(div.text.strip())
+                titles = scrape_titles(contact_info_tag)
                 
                 # Get professor's profile summary
-                p_summary_tag = contact_info_tag.find("p", class_="profile_summary")
-                if p_summary_tag:
-                    summary = p_summary_tag.text.strip()
+                summary = scrape_summary(contact_info_tag)
 
                 # Get professor's email
                 driver = webdriver.Chrome()
                 driver.get(profile_url) # Opens on Chrome
 
-                time.sleep(0.5) # wait 0.5 seconds
+                email = scrape_email(driver)
 
-                email_tag = driver.find_element(By.CSS_SELECTOR, 'a[data-evaluate="profile-eml"]')
-                if email_tag:
-                    email = email_tag.text.strip()
+                # Get Professional Preparation and Publications
+                links_tag = profile_soup.select_one('#links')
+
+                if links_tag:
+                    links = links_tag.find_all('a')
+
+                    for link in links:
+                        target_id = link['href'].lstrip('#')
+
+                        if target_id == 'preparation':
+                            education = scrape_education(profile_soup)
+
+                        elif target_id == 'publications':
+                            publications = scrape_publications(driver)
 
                 driver.quit()
 
@@ -98,21 +102,92 @@ def lambda_handler(event, context):
 
                     if office_pattern.search(line): # If line follows office pattern:
                         office_room = line.strip()
-            
-            # Get Professional Preparation
-            links_tag = profile_soup.select_one("#links")
+                
+                # Get tags to search by
+                tags = scrape_tags(contact_info_tag)
+        
+            item = {
+                "email": email,
+                "full_name": full_name,
+                "titles": titles,
+                "summary": summary,
+                "phone_number": phone_number,
+                "office_room": office_room,
+                "education": education,
+                "publications": publications,
+                "tags": tags
+            }
 
-            if links_tag:
-                links = links_tag.find_all('a')
+            # Skip empty strings, None, and empty lists
+            item = {
+                k: v for k, v in item.items()
+                if v not in (None, '') and not (isinstance(v, list) and len(v) == 0)
+            }
 
-                for link in links:
-                    target_id = link["href"].lstrip("#")
+            # If professor_id is missing, skip this record
+            if 'email' not in item:
+                continue
 
-                    if target_id == "preparation":
-                        education = scrape_education(profile_soup)
+            # Add professor to UTD_Professors table
+            table.put_item(Item=item)
+            # Return successful status code
+            return {
+                'statusCode': 200,
+                'body': f'Professor {email} added.'
+            }
 
-                    elif target_id == "publications":
-                        publications = scrape_publications(profile_soup)
+def scrape_name(contact_info_tag):
+    h1_name_tag = contact_info_tag.find('h1')
+    
+    full_name = ''
+    if h1_name_tag:
+        full_name = h1_name_tag.text.strip()
+    
+    return full_name
+
+def scrape_titles(contact_info_tag):
+    div_titles = contact_info_tag.find('div', class_='profile-titles')
+
+    titles = []
+    if div_titles:
+        div_title_tags = div_titles.find_all('div', class_='profile-title')
+
+        for div in div_title_tags:
+            titles.append(div.text.strip())
+        
+    return titles
+
+def scrape_summary(contact_info_tag):
+    p_summary_tag = contact_info_tag.find('p', class_='profile_summary')
+    
+    summary = ''
+    if p_summary_tag:
+        summary = p_summary_tag.text.strip()
+
+    return summary
+
+def scrape_email(driver):
+    time.sleep(0.5) # wait 0.5 seconds
+
+    email_tag = driver.find_element(By.CSS_SELECTOR, 'a[data-evaluate="profile-eml"]')
+
+    email = ''
+    if email_tag:
+        email = email_tag.text.strip()
+    
+    return email
+
+def scrape_tags(contact_info_tag):
+    research_tags_tag = contact_info_tag.find("span", class_="tags")
+    
+    tags = []
+    if research_tags_tag:
+        linked_tags = research_tags_tag.find_all("a")
+
+        for link in linked_tags:
+            tags.append(link.text.strip())
+    
+    return tags
 
 def scrape_education(profile_soup):
     education = [] # Stores strings of format:
@@ -140,34 +215,38 @@ def scrape_education(profile_soup):
         
         return education
 
-def scrape_publications(profile_tag):
-    # TODO: Handle pagination
+def scrape_publications(driver):
+    publications = []   # Stores dictionaries of format:
+                        # "text": citation for publication
+                        # "pdf": link to pdf
 
-    publications = [] # Stores dictionaries of format:
-    # "text": citation for publication
-    # "pdf": link to pdf
-    
-    section_tag = profile_tag.find(id="publications")
-    
-    if section_tag:
-        entries = section_tag.select(".entry")
-
-        # Parse entries for publications
-        for entry in entries:
-            text = entry.get_text(separator=" ", strip=True)
-            # Fix website formatting to remove "- publication" at the end
-            text = text.replace("- publication", "").replace("- publications", "").strip()
+    while True:
+        time.sleep(0.3)
+        soup = BeautifulSoup(driver.page_source, "lxml")
             
-            # Get PDF link
-            link_tag = entry.find("a")
-            pdf_link = link_tag["href"] if link_tag else ""
+        section_tag = soup.find(id="publications")
             
-            # Append dictionary to publications
-            publications.append({
-                "text": text,
-                "pdf": pdf_link
-            })
+        if section_tag:
+            entries = section_tag.select(".entry")
 
-        return publications
+            # Parse entries for publications
+            for entry in entries:
+                text = entry.get_text(separator=" ", strip=True)
+                # Fix website formatting to remove "- publication" at the end
+                text = text.replace("- publication", "").replace("- publications", "").strip()
+                    
+                # Get PDF link
+                link_tag = entry.find("a")
+                pdf_link = link_tag["href"] if link_tag else ""
+                    
+                # Append dictionary to publications
+                publications.append({
+                    "text": text,
+                    "pdf": pdf_link
+                })
 
-lambda_handler("", "")
+        try:
+            next_button = driver.find_element(By.CSS_SELECTOR, 'button[rel="next"]')
+            next_button.click()
+        except:
+            return publications
