@@ -61,15 +61,11 @@ export default function OpportunitiesPage() {
 
   return (
     <div className="min-h-screen bg-blue-500">
-      {/* Rounded navbar wrapper */}
       <div className="relative z-10 bg-white rounded-b-2xl shadow">
         <Navbar />
       </div>
-
-      {/* Full-bleed filter bar */}
       <div className="relative z-0 -mt-2 w-full bg-white shadow-sm py-3">
         <div className="w-full px-6 py-3 flex items-center">
-          {/* LEFT: tabs + filters */}
           <div className="flex items-center gap-6 overflow-x-auto flex-1 min-w-0">
             <ToggleTabs
               value={tab}
