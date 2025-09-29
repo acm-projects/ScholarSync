@@ -2,7 +2,7 @@
 
 import { useContext } from "react";
 import { useRouter } from "next/navigation";
-import { OnboardingCtx } from "../layout";
+import { OnboardingCtx } from "../onboarding/layout";
 import ProgressBar from "@/components/progressbar";
 
 export default function OnboardingComplete() {

@@ -15,7 +15,7 @@ export default function ToggleTabs({ value, onChange }) {
             type="button"
             onClick={() => onChange?.(t.key)}
             className={[
-              "px-4 py-2 text-sm rounded-md",
+              "px-4 py-2 text-m font-bold rounded-md",
               active ? "bg-black text-white" : "text-gray-700 hover:bg-gray-100",
             ].join(" ")}
           >

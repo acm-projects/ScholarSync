@@ -56,18 +56,18 @@ export default function OpportunityCard({ item, userTags, showPct = true }) {
     <div className="h-64 min-w-[380px] w-full overflow-hidden rounded-2xl border border-gray-200 bg-white p-7 shadow-md flex flex-col">
       <div className="flex items-start justify-between gap-6">
         <div className="min-w-0">
-          <div className="text-xl font-semibold text-black">{item.title}</div>
-          <div className="text-sm text-gray-500 truncate">By {item.author}</div>
+          <div className="text-2xl font-bold text-black">{item.title}</div>
+          <div className="text-m text-gray-700 truncate">By {item.author}</div>
         </div>
 
         {showPct && pct != null && (
-          <div className="rounded-md bg-green-600/10 px-3 py-1 text-xs font-semibold text-green-700 shrink-0">
+          <div className="rounded-md bg-green-600/10 px-3 py-1 text-m font-semibold text-green-700 shrink-0">
             {pct}% match
           </div>
         )}
       </div>
 
-      <p className="mt-3 text-[15px] leading-6 text-gray-700 line-clamp-3">
+      <p className="mt-3 text-m leading-6 text-gray-700 line-clamp-3">
         {item.description}
       </p>
 

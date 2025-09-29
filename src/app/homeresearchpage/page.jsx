@@ -75,14 +75,14 @@ export default function OpportunitiesPage() {
               }}
             />
             <div className="flex items-center gap-2">
-              <span className="whitespace-nowrap text-sm font-medium text-gray-700">
+              <span className="whitespace-nowrap text-m font-medium text-black">
                 Filters:
               </span>
               {["Paid", "Remote", "Part-time", "UG-friendly"].map((p) => (
                 <button
                   key={p}
                   type="button"
-                  className="whitespace-nowrap rounded-full border border-gray-200 bg-white px-3 py-1 text-xs text-gray-700 hover:bg-gray-50"
+                  className="whitespace-nowrap rounded-full border border-gray-200 bg-white px-3 py-1 text-m text-black hover:bg-gray-50"
                 >
                   {p}
                 </button>
@@ -90,14 +90,14 @@ export default function OpportunitiesPage() {
             </div>
           </div>
 
-          <div className="ml-auto flex items-center gap-4 shrink-0">
+          <div className="ml-auto flex items-center gap-4 shrink-0 ">
             <select
               value={sort}
               onChange={(e) => {
                 setSort(e.target.value);
                 setVisible(6);
               }}
-              className="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900"
+              className="rounded-md border border-gray-300 bg-white px-3 py-2 text-m text-black"
             >
               <option value="recent">Date posted: Recent</option>
               <option value="oldest">Date posted: Oldest</option>
@@ -110,13 +110,13 @@ export default function OpportunitiesPage() {
                 setVisible(6);
               }}
               placeholder="Search by title…"
-              className="w-80 md:w-96 rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder-gray-400"
+              className="w-80 md:w-96 rounded-md border border-gray-300 px-3 py-2 text-m text-black placeholder-gray-400"
             />
           </div>
         </div>
       </div>
 
-      <main className="mx-auto max-w-7xl px-8 py-8">
+      <main className="mx-auto max-w-7xl py-15">
         <div className="grid gap-8 sm:grid-cols-2 items-stretch">
           {toShow.map((item) => (
             <OpportunityCard
