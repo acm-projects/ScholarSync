@@ -1,0 +1,25 @@
+.card {
+  width: 20rem;
+  height: 10rem;
+  border: 1px solid #959595;
+  border-radius: 25px;
+  padding: 1rem;
+  background-color: white;
+  box-shadow: 5px 5px #000000;
+}
+
+.card:hover {
+  transform: translateY(-15px);
+}
+
+.card-title {
+  margin-bottom: 0.5rem;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.card-description {
+  margin-bottom: 0;
+  font-size: 15px;
+  color: #b1b1b1;
+}

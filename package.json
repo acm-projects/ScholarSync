@@ -1,0 +1,28 @@
+{
+  "name": "scholarsync",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">   <img src=\"https://via.placeholder.com/400x200/4A90E2/FFFFFF?text=ScholarSync\" alt=\"ScholarSync Demo\"> </p>",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acm-projects/ScholarSync.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/acm-projects/ScholarSync/issues"
+  },
+  "homepage": "https://github.com/acm-projects/ScholarSync#readme",
+  "dependencies": {
+    "next": "^15.5.3",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  }
+}
