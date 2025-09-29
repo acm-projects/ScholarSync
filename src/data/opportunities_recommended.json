@@ -1,0 +1,183 @@
+[
+    {
+      "id": "rec-1",
+      "title": "NLP for Clinical Notes",
+      "author": "Dr. Lee",
+      "description": "Extract clinical entities from notes; weekly paper club and model prototyping.",
+      "datePosted": "2025-09-15",
+      "tags": {
+        "green": ["NLP", "Python"],
+        "yellow": ["Healthcare", "Evaluation"],
+        "red": ["Wet Lab", "Animal Handling"]
+      }
+    },
+    {
+      "id": "rec-2",
+      "title": "Robotics Perception Stack",
+      "author": "Prof. Chen",
+      "description": "Camera/LiDAR fusion and SLAM for mobile robots; ROS stack.",
+      "datePosted": "2025-09-05",
+      "tags": {
+        "green": ["Robotics", "C++"],
+        "yellow": ["ROS", "Computer Vision"],
+        "red": ["SLAM", "Wet Lab"]
+      }
+    },
+    {
+      "id": "rec-3",
+      "title": "Sustainability Forecasting",
+      "author": "Dr. Patel",
+      "description": "Time-series energy forecasting for city dashboards.",
+      "datePosted": "2025-09-10",
+      "tags": {
+        "green": ["Python", "Data Viz"],
+        "yellow": ["Time Series", "Pandas"],
+        "red": ["Field Sampling", "Organic Chemistry"]
+      }
+    },
+    {
+      "id": "rec-4",
+      "title": "HCI + Education Study",
+      "author": "Dr. Nguyen",
+      "description": "Run user studies on classroom tools; qualitative + quantitative analysis.",
+      "datePosted": "2025-08-31",
+      "tags": {
+        "green": ["HCI", "User Studies"],
+        "yellow": ["Statistics", "Mixed Methods"],
+        "red": ["Benchwork", "SLAM"]
+      }
+    },
+    {
+      "id": "rec-5",
+      "title": "BioNLP for Genomics",
+      "author": "Dr. Singh",
+      "description": "LLMs over gene/protein corpora; retrieval and grounding.",
+      "datePosted": "2025-09-12",
+      "tags": {
+        "green": ["NLP", "LLM"],
+        "yellow": ["RAG", "Annotation"],
+        "red": ["Tissue Culture", "CRISPR"]
+      }
+    },
+    {
+      "id": "rec-6",
+      "title": "Computer Vision for Wildlife",
+      "author": "Dr. Alvarez",
+      "description": "Detect/track animals in camera traps; conservation analytics.",
+      "datePosted": "2025-08-28",
+      "tags": {
+        "green": ["PyTorch", "Datasets"],
+        "yellow": ["Computer Vision", "YOLO"],
+        "red": ["Wet Lab", "Organic Chemistry"]
+      }
+    },
+    {
+      "id": "rec-7",
+      "title": "Finance Anomaly Detection",
+      "author": "Prof. Kim",
+      "description": "Detect anomalies in transactions using graph learning.",
+      "datePosted": "2025-09-02",
+      "tags": {
+        "green": ["Graph ML", "Python"],
+        "yellow": ["Feature Stores", "Docker"],
+        "red": ["IRB", "Clinical Trials"]
+      }
+    },
+    {
+      "id": "rec-8",
+      "title": "Neuroimaging Pipelines",
+      "author": "Dr. Romero",
+      "description": "fMRI preprocessing and GLM analysis for cognition studies.",
+      "datePosted": "2025-09-01",
+      "tags": {
+        "green": ["Python", "Neuroscience"],
+        "yellow": ["Statistics", "Bayesian"],
+        "red": ["Field Sampling", "CRISPR"]
+      }
+    },
+    {
+      "id": "rec-9",
+      "title": "LLM Safety Evaluations",
+      "author": "Safety Lab",
+      "description": "Red teaming + automated evals for safety benchmarks.",
+      "datePosted": "2025-09-18",
+      "tags": {
+        "green": ["LLM", "Python"],
+        "yellow": ["Eval", "Prompting"],
+        "red": ["IRB", "Wet Lab"]
+      }
+    },
+    {
+      "id": "rec-10",
+      "title": "Secure Systems Research",
+      "author": "Dr. Zhao",
+      "description": "Program analysis and fuzzing for low-level systems.",
+      "datePosted": "2025-09-06",
+      "tags": {
+        "green": ["Security"],
+        "yellow": ["Rust"],
+        "red": ["Wet Lab", "EEG"]
+      }
+    },
+    {
+      "id": "rec-11",
+      "title": "Reinforcement Learning for Control",
+      "author": "Prof. Romero",
+      "description": "Continuous control with simulation to real transfer.",
+      "datePosted": "2025-09-08",
+      "tags": {
+        "green": ["RL", "PyTorch"],
+        "yellow": ["Model-based RL", "MuJoCo"],
+        "red": ["Benchwork", "CRISPR"]
+      }
+    },
+    {
+      "id": "rec-12",
+      "title": "Medical Imaging QA",
+      "author": "Dr. O'Neill",
+      "description": "Quality assurance models for radiology image pipelines.",
+      "datePosted": "2025-09-14",
+      "tags": {
+        "green": ["Python"],
+        "yellow": ["Healthcare"],
+        "red": ["Organic Chemistry", "Animal Handling"]
+      }
+    },
+    {
+      "id": "rec-13",
+      "title": "Quantum Algorithms Simulation",
+      "author": "Dr. Rao",
+      "description": "Quantum-inspired algorithms for optimization problems.",
+      "datePosted": "2025-09-03",
+      "tags": {
+        "green": [],
+        "yellow": ["Statistics", "Visualization"],
+        "red": ["Organic Chemistry", "Field Sampling"]
+      }
+    },
+    {
+      "id": "rec-14",
+      "title": "Augmented Reality Prototyping",
+      "author": "Prof. Park",
+      "description": "Design AR educational experiences with Unity + user studies.",
+      "datePosted": "2025-09-09",
+      "tags": {
+        "green": ["HCI", "Prototyping"],
+        "yellow": ["Evaluation", "Mixed Methods"],
+        "red": ["Benchwork", "Wet Lab"]
+      }
+    },
+    {
+      "id": "rec-15",
+      "title": "Adversarial ML Defense",
+      "author": "Dr. Carter",
+      "description": "Robustness evaluations of neural networks under adversarial attack.",
+      "datePosted": "2025-09-07",
+      "tags": {
+        "green": ["PyTorch", "Security"],
+        "yellow": ["Evaluation", "Docker"],
+        "red": ["Soldering", "Wet Lab"]
+      }
+    }
+  ]
+  
