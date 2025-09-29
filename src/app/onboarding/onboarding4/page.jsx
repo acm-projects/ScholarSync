@@ -2,7 +2,7 @@
 
 import { useContext } from "react";
 import { useRouter } from "next/navigation";
-import { OnboardingCtx } from "../../layout";
+import { OnboardingCtx } from "../layout";
 import ProgressBar from "@/components/progressbar";
 import MultiSelectDropdown from "@/components/multidropdown";
 import tags from "@/data/tags.json";

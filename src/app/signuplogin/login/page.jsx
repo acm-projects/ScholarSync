@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const Login = () => {
   return (
-    <div>
+    <div >
       <div className={styles.container}>
         <div className={styles.Header}>
           <div className={styles.text}>Login</div>
