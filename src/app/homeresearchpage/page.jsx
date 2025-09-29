@@ -94,7 +94,6 @@ export default function OpportunitiesPage() {
             </div>
           </div>
 
-          {/* RIGHT: sort + search */}
           <div className="ml-auto flex items-center gap-4 shrink-0">
             <select
               value={sort}
