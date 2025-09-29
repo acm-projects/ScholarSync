@@ -1,0 +1,81 @@
+{
+    "skills": [
+      "Coding", "Lab Techniques", "Writing", "Data Analysis", "Statistics",
+      "Experiment Design", "Literature Review", "Presentation", "Project Management",
+      "Hardware", "Field Work", "Grant Writing", "Machine Learning", "Deep Learning",
+      "Database Management", "Cloud Computing", "Web Development", "Mobile App Development",
+      "UI/UX Design", "3D Modeling", "GIS Mapping", "Signal Processing",
+      "Networking", "Cybersecurity Tools", "Simulation", "Data Visualization",
+      "Technical Writing", "Critical Thinking", "Collaboration", "Public Speaking",
+      "Leadership", "Entrepreneurship", "Time Management", "Software Testing",
+      "CAD Design", "Robotics Programming", "Bioinformatics Tools", "Statistical Modeling",
+      "Clinical Research Skills", "Survey Design", "Interview Techniques",
+      "Archival Research", "Content Analysis", "Ethnographic Methods",
+      "Computational Modeling", "High-Performance Computing",
+      "Big Data Processing", "Lab Safety & Protocols"
+    ],
+  
+    "interests": [
+      "AI", "Sustainability", "Neuroscience", "Human-Computer Interaction",
+      "Healthcare", "Climate", "Robotics", "Education", "Finance", "Cybersecurity",
+      "Social Impact", "Bioinformatics", "Genetics", "Renewable Energy",
+      "Nanotechnology", "Quantum Computing", "Blockchain", "Augmented Reality",
+      "Virtual Reality", "Space Exploration", "Astrophysics", "Oceanography",
+      "Psychology of Learning", "Behavioral Economics", "Public Health",
+      "Epidemiology", "Cognitive Science", "Linguistics", "Sociology of Technology",
+      "Political Science", "Ethics in AI", "Digital Humanities", "Music Technology",
+      "Sports Science", "Biotechnology", "Materials Science", "Climate Policy",
+      "Environmental Justice", "Smart Cities", "Sustainable Agriculture",
+      "Cancer Research", "Aging & Longevity", "Mental Health", "Drug Discovery",
+      "Genomics", "Precision Medicine", "Ecosystem Restoration",
+      "STEM Education", "Urban Development", "Water Resources"
+    ],
+  
+    "projectTypes": [
+      "Team Projects", "Independent", "Survey-based", "Experimental",
+      "Theoretical", "Computational", "Field Study", "Prototype/Build",
+      "Simulation Modeling", "Longitudinal Study", "Meta-Analysis",
+      "Literature Synthesis", "Case Study", "Clinical Trial",
+      "Data-Driven Research", "Archival Research", "Mixed Methods",
+      "Community-Based Research", "Policy Analysis", "Design Thinking Project",
+      "Systematic Review", "Pilot Study", "Comparative Study",
+      "Cross-Disciplinary Project", "Capstone Project", "Industry Collaboration"
+    ],
+  
+    "fields": [
+      "Computer Science", "Biology", "Business", "Psychology", "Economics",
+      "Physics", "Math", "Chemistry", "Electrical Engineering", "Mechanical Engineering",
+      "Public Policy", "Sociology", "Political Science", "Philosophy", "Linguistics",
+      "Anthropology", "Environmental Science", "History", "Education",
+      "Biomedical Engineering", "Chemical Engineering", "Civil Engineering",
+      "Materials Science", "Statistics", "Neuroscience", "Cognitive Science",
+      "Astronomy", "Public Health", "Law", "Architecture", "Media Studies",
+      "Art History", "International Relations", "Agricultural Science",
+      "Urban Planning", "Geology", "Marine Biology", "Veterinary Science",
+      "Epidemiology", "Genomics", "Health Informatics", "Sustainability Studies",
+      "Bioethics", "Cultural Studies", "Communication Studies", "Data Science"
+    ],
+  
+    "researchTypes": [
+      "Theoretical", "Applied", "Computational", "Experimental",
+      "Qualitative", "Quantitative", "Mixed Methods", "Clinical",
+      "Translational", "Interdisciplinary", "Policy-Oriented",
+      "Community-Engaged", "Design-Oriented", "Exploratory",
+      "Simulation-Based", "Longitudinal", "Cross-Sectional",
+      "Meta-Analysis", "Systematic Review", "Pilot Studies",
+      "User-Centered Research", "Action Research", "Comparative Research",
+      "Big Data Research", "Experimental Economics", "Observational Research"
+    ],
+  
+    "careerGoals": [
+      "Grad School", "Startups", "Industry R&D", "Policy Impact",
+      "Academia", "Nonprofit", "Entrepreneurship", "Product/ML Engineer",
+      "Data Scientist", "Consulting", "Healthcare Professional",
+      "Government Research", "NGO Work", "Think Tank",
+      "Teacher/Professor", "Innovation/Design", "Venture Capital",
+      "Public Service", "Corporate Leadership", "Clinical Practice",
+      "Science Communication", "Research Lab Director", "Patent/Tech Transfer",
+      "STEM Outreach", "AI Safety Research", "Sustainability Leadership"
+    ]
+  }
+  
