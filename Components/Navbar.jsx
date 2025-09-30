@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import './Navbar.css';
-
+import styles from '../styles/Navbar.module.css';
 const Navbar = () =>{
     return (
         <div className = "Navbar">

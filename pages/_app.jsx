@@ -1,5 +1,6 @@
 // pages/_app.tsx
 import '../styles/globals.css';
+
 import { Geist, Geist_Mono } from "next/font/google";
 
 const geistSans = Geist({
