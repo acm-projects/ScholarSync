@@ -6,8 +6,8 @@
       "description": "Extract clinical entities from notes; weekly paper club and model prototyping.",
       "datePosted": "2025-09-15",
       "tags": {
-        "green": ["NLP", "Python"],
-        "yellow": ["Healthcare", "Evaluation"],
+        "green": ["NLP", "Full-time", "On-site"],
+        "yellow": [],
         "red": ["Wet Lab", "Animal Handling"]
       }
     },
@@ -18,8 +18,8 @@
       "description": "Camera/LiDAR fusion and SLAM for mobile robots; ROS stack.",
       "datePosted": "2025-09-05",
       "tags": {
-        "green": ["Robotics", "C++"],
-        "yellow": ["ROS", "Computer Vision"],
+        "green": ["Robotics", "C++", "Remote"],
+        "yellow": ["ROS", "Computer Vision", "Part-time"],
         "red": ["SLAM", "Wet Lab"]
       }
     },
@@ -30,8 +30,8 @@
       "description": "Time-series energy forecasting for city dashboards.",
       "datePosted": "2025-09-10",
       "tags": {
-        "green": ["Python", "Data Viz"],
-        "yellow": ["Time Series", "Pandas"],
+        "green": ["Python", "On-site"],
+        "yellow": ["Time Series", "Pandas", "Full-time"],
         "red": ["Field Sampling", "Organic Chemistry"]
       }
     },
@@ -42,8 +42,8 @@
       "description": "Run user studies on classroom tools; qualitative + quantitative analysis.",
       "datePosted": "2025-08-31",
       "tags": {
-        "green": ["HCI", "User Studies"],
-        "yellow": ["Statistics", "Mixed Methods"],
+        "green": ["Part-time", "Remote", "HCI"],
+        "yellow": ["Statistics", "Mixed Methods", "Qualtrics"],
         "red": ["Benchwork", "SLAM"]
       }
     },
@@ -54,8 +54,8 @@
       "description": "LLMs over gene/protein corpora; retrieval and grounding.",
       "datePosted": "2025-09-12",
       "tags": {
-        "green": ["NLP", "LLM"],
-        "yellow": ["RAG", "Annotation"],
+        "green": ["NLP", "Remote"],
+        "yellow": ["Annotation", "Bioinformatics", "Part-time"],
         "red": ["Tissue Culture", "CRISPR"]
       }
     },
@@ -66,8 +66,8 @@
       "description": "Detect/track animals in camera traps; conservation analytics.",
       "datePosted": "2025-08-28",
       "tags": {
-        "green": ["PyTorch", "Datasets"],
-        "yellow": ["Computer Vision", "YOLO"],
+        "green": ["PyTorch", "Remote"],
+        "yellow": ["Computer Vision", "YOLO", "Field Work", "Full-time"],
         "red": ["Wet Lab", "Organic Chemistry"]
       }
     },
@@ -78,8 +78,8 @@
       "description": "Detect anomalies in transactions using graph learning.",
       "datePosted": "2025-09-02",
       "tags": {
-        "green": ["Graph ML", "Python"],
-        "yellow": ["Feature Stores", "Docker"],
+        "green": ["Graph ML", "Python", "On-site"],
+        "yellow": ["Feature Stores", "Docker", "SQL", "Full-time"],
         "red": ["IRB", "Clinical Trials"]
       }
     },
@@ -90,8 +90,8 @@
       "description": "fMRI preprocessing and GLM analysis for cognition studies.",
       "datePosted": "2025-09-01",
       "tags": {
-        "green": ["Python", "Neuroscience"],
-        "yellow": ["Statistics", "Bayesian"],
+        "green": ["Python", "Neuroscience", "Part-time"],
+        "yellow": ["Statistics", "Bayesian", "Remote"],
         "red": ["Field Sampling", "CRISPR"]
       }
     },
@@ -102,8 +102,8 @@
       "description": "Red teaming + automated evals for safety benchmarks.",
       "datePosted": "2025-09-18",
       "tags": {
-        "green": ["LLM", "Python"],
-        "yellow": ["Eval", "Prompting"],
+        "green": ["LLM", "Python", "Full-time"],
+        "yellow": ["Eval", "Prompting", "Remote"],
         "red": ["IRB", "Wet Lab"]
       }
     },
@@ -114,8 +114,8 @@
       "description": "Program analysis and fuzzing for low-level systems.",
       "datePosted": "2025-09-06",
       "tags": {
-        "green": ["Security"],
-        "yellow": ["Rust"],
+        "green": ["Security", "Remote"],
+        "yellow": ["Rust", "Kubernetes", "Part-time"],
         "red": ["Wet Lab", "EEG"]
       }
     },
@@ -126,8 +126,8 @@
       "description": "Continuous control with simulation to real transfer.",
       "datePosted": "2025-09-08",
       "tags": {
-        "green": ["RL", "PyTorch"],
-        "yellow": ["Model-based RL", "MuJoCo"],
+        "green": ["RL", "PyTorch", "On-site"],
+        "yellow": ["Model-based RL", "MuJoCo", "Full-time"],
         "red": ["Benchwork", "CRISPR"]
       }
     },
@@ -138,8 +138,8 @@
       "description": "Quality assurance models for radiology image pipelines.",
       "datePosted": "2025-09-14",
       "tags": {
-        "green": ["Python"],
-        "yellow": ["Healthcare"],
+        "green": ["Python", "Part-time"],
+        "yellow": ["Healthcare", "Remote", "DICOM"],
         "red": ["Organic Chemistry", "Animal Handling"]
       }
     },
@@ -150,8 +150,8 @@
       "description": "Quantum-inspired algorithms for optimization problems.",
       "datePosted": "2025-09-03",
       "tags": {
-        "green": [],
-        "yellow": ["Statistics", "Visualization"],
+        "green": ["On-site", "MATLAB"],
+        "yellow": ["Statistics", "Visualization", "Full-time"],
         "red": ["Organic Chemistry", "Field Sampling"]
       }
     },
@@ -162,8 +162,8 @@
       "description": "Design AR educational experiences with Unity + user studies.",
       "datePosted": "2025-09-09",
       "tags": {
-        "green": ["HCI", "Prototyping"],
-        "yellow": ["Evaluation", "Mixed Methods"],
+        "green": ["HCI", "Prototyping", "Remote"],
+        "yellow": ["Unity", "Evaluation", "Part-time"],
         "red": ["Benchwork", "Wet Lab"]
       }
     },
@@ -174,9 +174,189 @@
       "description": "Robustness evaluations of neural networks under adversarial attack.",
       "datePosted": "2025-09-07",
       "tags": {
-        "green": ["PyTorch", "Security"],
-        "yellow": ["Evaluation", "Docker"],
+        "green": ["PyTorch", "Security", "Full-time"],
+        "yellow": ["Evaluation", "Docker", "On-site"],
         "red": ["Soldering", "Wet Lab"]
+      }
+    },
+    {
+      "id": "rec-16",
+      "title": "Clinical Text De-identification",
+      "author": "Dr. Kapoor",
+      "description": "PHI removal from EMR notes using transformer fine-tuning.",
+      "datePosted": "2025-09-16",
+      "tags": {
+        "green": ["Python", "NLP", "Remote"],
+        "yellow": ["Healthcare", "Evaluation", "Part-time"],
+        "red": ["Wet Lab"]
+      }
+    },
+    {
+      "id": "rec-17",
+      "title": "LLM-Powered Literature Triage",
+      "author": "Prof. Alvarez",
+      "description": "Rank new papers with retrieval + LLM reranking.",
+      "datePosted": "2025-09-13",
+      "tags": {
+        "green": [],
+        "yellow": ["RAG", "Statistics", "Full-time"],
+        "red": ["Organic Chemistry"]
+      }
+    },
+    {
+      "id": "rec-18",
+      "title": "Graph ML for Fraud Rings",
+      "author": "Dr. Gupta",
+      "description": "Detect collusive clusters in transactions.",
+      "datePosted": "2025-09-11",
+      "tags": {
+        "green": ["Python", "Remote"],
+        "yellow": [],
+        "red": ["Field Sampling"]
+      }
+    },
+    {
+      "id": "rec-19",
+      "title": "Vision QA for Medical Scans",
+      "author": "Dr. Chen",
+      "description": "Detect low-quality frames and artifacts before diagnosis.",
+      "datePosted": "2025-09-12",
+      "tags": {
+        "green": ["PyTorch"],
+        "yellow": ["Computer Vision", "Healthcare", "On-site"],
+        "red": ["Animal Handling"]
+      }
+    },
+    {
+      "id": "rec-20",
+      "title": "Code Assistant for Lab Reports",
+      "author": "Safety Lab",
+      "description": "LLM tool to summarize and highlight risk statements.",
+      "datePosted": "2025-09-18",
+      "tags": {
+        "green": ["LLM"],
+        "yellow": [ "Part-time"],
+        "red": ["Wet Lab"]
+      }
+    },
+    {
+      "id": "rec-21",
+      "title": "RAG for Policy Briefs",
+      "author": "Dr. Patel",
+      "description": "Grounded answers over city energy ordinances.",
+      "datePosted": "2025-09-09",
+      "tags": {
+        "green": ["Python"],
+        "yellow": ["Full-time"],
+        "red": ["Field Sampling"]
+      }
+    },
+    {
+      "id": "rec-22",
+      "title": "Human-in-the-Loop Dataset Curation",
+      "author": "Dr. Nguyen",
+      "description": "UI to review and label edge cases for models.",
+      "datePosted": "2025-09-08",
+      "tags": {
+        "green": ["PyTorch", "Part-time"],
+        "yellow": ["HCI", "Evaluation", "Remote"],
+        "red": ["SLAM"]
+      }
+    },
+    {
+      "id": "rec-23",
+      "title": "Telehealth Conversation Summaries",
+      "author": "Dr. Lee",
+      "description": "NLP pipeline for SOAP-style summarization.",
+      "datePosted": "2025-09-19",
+      "tags": {
+        "green": ["NLP", "Full-time"],
+        "yellow": ["Healthcare", "Remote"],
+        "red": ["Wet Lab"]
+      }
+    },
+    {
+      "id": "rec-24",
+      "title": "LLM Prompt Robustness Benchmarks",
+      "author": "Prof. Kim",
+      "description": "Evaluate sensitivity across prompt templates.",
+      "datePosted": "2025-09-17",
+      "tags": {
+        "green": ["LLM", "PyTorch", "Remote"],
+        "yellow": ["Evaluation", "HCI", "Part-time"],
+        "red": ["Field Sampling"]
+      }
+    },
+    {
+      "id": "rec-25",
+      "title": "Time-Series Anomaly Dashboards",
+      "author": "Dr. Romero",
+      "description": "Interactive UIs for real-time anomaly alerts.",
+      "datePosted": "2025-09-10",
+      "tags": {
+        "green": ["Data Viz", "Python", "Full-time"],
+        "yellow": ["Statistics", "On-site"],
+        "red": ["SLAM"]
+      }
+    },
+    {
+      "id": "rec-26",
+      "title": "ROS Perception Tools UX",
+      "author": "Prof. Chen",
+      "description": "Design debugging panels for ROS camera pipelines.",
+      "datePosted": "2025-09-06",
+      "tags": {
+        "green": ["Python", "Remote"],
+        "yellow": ["ROS", "HCI", "Part-time"],
+        "red": ["SLAM"]
+      }
+    },
+    {
+      "id": "rec-27",
+      "title": "Adverse Event Detection in Forums",
+      "author": "Dr. Singh",
+      "description": "Mine patient-reported outcomes with LLMs.",
+      "datePosted": "2025-09-07",
+      "tags": {
+        "green": ["NLP", "On-site"],
+        "yellow": ["Healthcare", "Evaluation", "Full-time"],
+        "red": ["Animal Handling"]
+      }
+    },
+    {
+      "id": "rec-28",
+      "title": "Multimodal Chart Reader",
+      "author": "Dr. Zhao",
+      "description": "Parse plots and tables with CV + LLM.",
+      "datePosted": "2025-09-05",
+      "tags": {
+        "green": ["Python"],
+        "yellow": ["Computer Vision"],
+        "red": ["Organic Chemistry"]
+      }
+    },
+    {
+      "id": "rec-29",
+      "title": "RL Reward Visualization",
+      "author": "Prof. Romero",
+      "description": "Tools to inspect reward shaping and stability.",
+      "datePosted": "2025-09-08",
+      "tags": {
+        "green": [],
+        "yellow": ["Evaluation", "HCI", "Full-time"],
+        "red": ["Field Sampling"]
+      }
+    },
+    {
+      "id": "rec-30",
+      "title": "Notebook-to-App Converter",
+      "author": "Dr. Brooks",
+      "description": "Turn research notebooks into small web apps.",
+      "datePosted": "2025-09-04",
+      "tags": {
+        "green": ["Python", "Data Viz", "Remote"],
+        "yellow": ["HCI", "Evaluation", "Part-time"],
+        "red": ["SLAM"]
       }
     }
   ]

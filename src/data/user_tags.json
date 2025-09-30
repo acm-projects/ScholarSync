@@ -1,6 +1,20 @@
-{
-    "green": ["Python", "NLP", "PyTorch", "Data Viz", "LLM"],
-    "yellow": ["Computer Vision", "ROS", "Statistics", "Healthcare", "RAG", "HCI", "Evaluation"],
-    "red": ["Wet Lab", "Animal Handling", "Organic Chemistry", "Field Sampling", "SLAM"]
-  }
+[
+    "Python",
+    "NLP",
+    "PyTorch",
+    "Data Viz",
+    "LLM",
+    "Computer Vision",
+    "ROS",
+    "Statistics",
+    "Healthcare",
+    "RAG",
+    "HCI",
+    "Evaluation",
+    "Wet Lab",
+    "Animal Handling",
+    "Organic Chemistry",
+    "Field Sampling",
+    "SLAM"
+  ]
   

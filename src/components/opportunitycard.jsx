@@ -67,7 +67,7 @@ export default function OpportunityCard({ item, userTags, showPct = true }) {
         )}
       </div>
 
-      <p className="mt-3 text-m leading-6 text-gray-700 line-clamp-3">
+      <p className="mt-3 text-m font-semibold leading-6 text-black line-clamp-3">
         {item.description}
       </p>
 
@@ -77,7 +77,7 @@ export default function OpportunityCard({ item, userTags, showPct = true }) {
             <TagChip key={`${item.id}-t-${i}`} text={t.text} color={t.color} />
           ))}
         </div>
-        <div className="mt-3 text-xs text-gray-400">Posted: {item.datePosted}</div>
+        <div className="mt-3 text-s text-gray-700">Posted: {item.datePosted}</div>
       </div>
     </div>
   );
