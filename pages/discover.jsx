@@ -1,3 +1,4 @@
+import discoverStyles from '../styles/discover.module.css';
 import CardPage from '../Components/card'; 
 import Navbar from '../Components/Navbar';
 

@@ -24,6 +24,7 @@ const Signup = () => {
 
           <div className={styles['Sign-submit-container']}>
             <div className={styles.submit}>Sign up</div>
+            
           </div>
 
           <div className={styles.account}>

@@ -14,7 +14,7 @@ const Login = () => {
             <input type="email" placeholder="Email" />
           </div>
           <div className={styles.input}>
-            <input type="password" placeholder="Create Password" />
+            <input type="password" placeholder="Password" />
           </div>
 
           <div className={styles.forgot}>

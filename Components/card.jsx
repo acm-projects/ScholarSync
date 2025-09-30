@@ -1,5 +1,5 @@
 'use client';
-import Cardstyles from '../styles/card.module.css';
+import styles from '../styles/card.module.css';
 
 const CardPage = ({ opportunity }) => {
   function titleClicked() {
