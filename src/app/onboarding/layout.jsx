@@ -32,7 +32,7 @@ export default function Layout({ children }) {
   };
 
   const submitData = async () => {
-    console.log("🔹 Onboarding data ready to submit:", data);
+    console.log("Onboarding data ready to submit:", data);
 
     const formData = new FormData();
     for (const key in data) {
