@@ -12,7 +12,8 @@ export default function Navbar() {
         
         <nav className="hidden items-center gap-6 md:flex">
           <Link href="/" className="hover:opacity-80 font-medium">create</Link>
-          <Link href="/" className="hover:opacity-80 font-medium">discover</Link>
+          <Link href="/professorpage" className="hover:opacity-80 font-medium">professors</Link>
+          <Link href="/homeresearchpage" className="hover:opacity-80 font-medium">discover</Link>
           <Link href="/" className="hover:opacity-80 font-medium">library</Link>
           <Link href="/" className="rounded-md bg-white px-3 py-1.5 text-black font-medium hover:bg-gray-200">Profile</Link>
         </nav>

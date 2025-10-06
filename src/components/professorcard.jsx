@@ -2,10 +2,8 @@
 
 import TagChip from "@/components/tagchip";
 
-// checks if v is aray if so return v not return empty
 const asArray = (v) => (Array.isArray(v) ? v : []);
 
-// picks up top 3 tags from g > y > r
 function pickTopTagsColored(colored) {
   const out = [];
   const pushSome = (arr, color) => {
@@ -20,7 +18,6 @@ function pickTopTagsColored(colored) {
   return out;
 }
 
-// get 3 top tags and avg them to find user match %
 function computeThreeTagPctAndColor(topTags) {
   const W = { green: 33.3333, yellow: 22.2222, red: 11.1111 };
   let g = 0, y = 0, r = 0;
@@ -37,8 +34,12 @@ function computeThreeTagPctAndColor(topTags) {
   return { pct, color };
 }
 
-// more simple way of declaring variables now
-export default function OpportunityCard({ item, userTags, showPct = true }) {
+export default function ProfessorCard({ item, userTags, showPct = true }) {
+  const name = item?.full_name || "Unknown Faculty";
+  const room = item?.office_room?.trim() ? item.office_room : "N/A";
+  const summary = item?.summary?.trim() ? item.summary : "N/A";
+  const email = item?.email?.trim() || null;
+
   const colored = item.tags;
   const topTags = pickTopTagsColored(colored);
 
@@ -59,8 +60,8 @@ export default function OpportunityCard({ item, userTags, showPct = true }) {
     <div className="h-64 min-w-[380px] w-full overflow-hidden rounded-2xl border border-gray-200 bg-white p-7 shadow-md flex flex-col">
       <div className="flex items-start justify-between gap-6">
         <div className="min-w-0">
-          <div className="text-2xl font-bold text-black">{item.title}</div>
-          <div className="text-m text-gray-700 truncate">By {item.author}</div>
+          <div className="text-2xl font-bold text-black">{name}</div>
+          <div className="text-m text-gray-700 truncate">Room: {room}</div>
         </div>
         {showPct && pct != null && (
           <div className={`rounded-md px-3 py-1 text-m font-semibold shrink-0 ${badgeClass}`}>
@@ -68,16 +69,29 @@ export default function OpportunityCard({ item, userTags, showPct = true }) {
           </div>
         )}
       </div>
-      <p className="mt-3 text-m font-semibold leading-6 text-black line-clamp-3">
-        {item.description}
-      </p>
-      <div className="mt-auto pt-4">
-        <div className="flex flex-wrap items-center gap-2">
-          {topTags.map((t, i) => (
-            <TagChip key={`${item.id}-t-${i}`} text={t.text} color={t.color} />
-          ))}
+      <p className="mt-3 text-m font-semibold leading-6 text-black line-clamp-3">{summary}</p>
+      <div className="mt-auto pt-6 flex items-end justify-between">
+        <div className="flex flex-wrap items-end gap-2">
+          {topTags.length ? (
+            topTags.map((t, i) => (
+              <TagChip
+                key={`${item.id || item.email || item.full_name || "x"}-t-${i}`} 
+                text={t.text} 
+                color={t.color}/>
+            ))
+          ) : (
+            <div className="text-sm text-gray-500">No tags available</div>
+          )}
         </div>
-        <div className="mt-3 text-s text-gray-700">Posted: {item.datePosted}</div>
+        {email ? (
+          <a
+            href={`mailto:${email}`}
+            className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+            Email
+          </a>
+        ) : (
+          <div className="text-sm text-gray-500 italic">N/A</div>
+        )}
       </div>
     </div>
   );
