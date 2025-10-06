@@ -1,4 +1,4 @@
-"use client";  
+"use client";
 
 import React, { createContext, useState } from "react";
 
@@ -32,10 +32,9 @@ export default function Layout({ children }) {
   };
 
   const submitData = async () => {
-    console.log("🔹 Onboarding data ready to submit:", data);
+    console.log("Onboarding data ready to submit:", data);
 
     const formData = new FormData();
-
     for (const key in data) {
       if (Array.isArray(data[key])) {
         formData.append(key, JSON.stringify(data[key]));
@@ -56,3 +55,4 @@ export default function Layout({ children }) {
     </OnboardingCtx.Provider>
   );
 }
+

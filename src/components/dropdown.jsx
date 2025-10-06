@@ -23,6 +23,7 @@ export default function Dropdown({
 }) {
   const [query, setQuery] = useState("");
 
+  // only rerender if oprtions, query, or serachable changes
   const filtered = useMemo(() => {
     if (!searchable || !query.trim()) return options;
     const q = query.toLowerCase();

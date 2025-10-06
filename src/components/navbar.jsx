@@ -2,10 +2,10 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <header className="top-0 left-0 w-full z-50 bg-black text-white rounded-b-xl shadow-md">
+    <header className="top-0 left-0 w-full z-50 bg-black text-white rounded-b-2xl shadow-md">
       <div className="flex items-center justify-between px-6 py-6 ">
     
-        <Link href="/" className="font-extrabold text-3xl tracking-tight">
+        <Link href="../homeresearchpage " className="font-extrabold text-3xl tracking-tight">
           ScholarSync
         </Link>
 
