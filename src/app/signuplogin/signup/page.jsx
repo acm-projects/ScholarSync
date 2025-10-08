@@ -10,13 +10,14 @@ import Image from 'next/image';
 const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setusername] = useState('');
   const [confirmPassword, setConfirmPassword] = useState();
 
   const handle = (e) =>{
     e.preventDefault();
 
     const Using = {
-      email,password,
+      email, username, password,
     };
 
   };
@@ -31,6 +32,9 @@ const Signup = () => {
             <div className="inputs">
                 <div className="input">
                     <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                </div>
+                <div className="input">
+                    <input type="Username" placeholder="Username" value={email} onChange={(e) => setusername(e.target.value)}/>
                 </div>
                 <div className="input">
                 <input type="password" placeholder="Create Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
@@ -53,7 +57,6 @@ const Signup = () => {
                 <Link href="/signuplogin/login">
                 <span>Login</span>
                 </Link>
-               
                 </div>
 
 
