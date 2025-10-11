@@ -14,24 +14,20 @@ export default function ProfessorsPage() {
   const [query, setQuery] = useState("");
   const [visible, setVisible] = useState(6);
 
-  // usememo here to keep cards from stopping to rerender after every user actoin
-  // compare and pass in data and user tags
   const dataset = useMemo(() => {
     return tab === "recommended"
       ? normalizeAllItems(profRecommended, userTags)
       : normalizeAllItems(profAll, userTags);
   }, [tab]);
 
-  // filter by query and then sort by tag relevance (green > yellow > red)
   const filtered = useMemo(() => {
     let out = dataset;
-
     if (query.trim()) {
       const q = query.toLowerCase();
       out = out.filter((it) => {
         const tagArray = Array.isArray(it.tags)
           ? it.tags
-          : Object.values(it.tags || {}).flat()
+          : Object.values(it.tags || {}).flat();
         const hay = [
           it.name || it.full_name,
           it.field || it.department || it.subtitle,
@@ -41,30 +37,30 @@ export default function ProfessorsPage() {
         ]
           .filter(Boolean)
           .map((x) => String(x).toLowerCase());
-
         return hay.some((s) => s.includes(q));
       });
     }
-
     const score = (obj) =>
       (obj?.tags?.green?.length || 0) * 3 +
       (obj?.tags?.yellow?.length || 0) * 2 +
       (obj?.tags?.red?.length || 0) * 1;
-
     return [...out].sort((a, b) => score(b) - score(a));
   }, [dataset, query]);
 
   const toShow = filtered.slice(0, visible);
   const canLoadMore = visible < filtered.length;
 
+  const emailToPhotoPath = (email) =>
+    email ? `/images/picure/${String(email).toLowerCase()}.jpg` : null;
+
   return (
-    <div className="min-h-screen bg-blue-500">
-      <div className="relative z-10 bg-white rounded-b-2xl shadow">
+    <div className="min-h-screen bg-[#3D110F] text-[#EEEef0]">
+      <div className="relative z-10 rounded-b-2xl shadow">
         <Navbar />
       </div>
 
-      <div className="relative z-0 -mt-2 w-full bg-white shadow-sm py-3">
-        <div className="w-full px-6 py-3 flex items-center">
+      <div className="-mt-5 w-full bg-[#3D110F] border-b-2 border-[#5A2B29] shadow-sm pt-3 pb-2">
+        <div className="w-full px-6 pt-5 pb-4 flex items-center">
           <div className="flex items-center gap-6 overflow-x-auto flex-1 min-w-0">
             <ToggleTabs
               value={tab}
@@ -83,19 +79,21 @@ export default function ProfessorsPage() {
                 setVisible(6);
               }}
               placeholder="Search professors, fields, or tags…"
-              className="w-80 md:w-96 rounded-md border border-gray-500 px-3 py-2 text-m text-black placeholder-gray-400"
+              className="w-80 md:w-96 rounded-md border border-[#5A2B29] bg-[#201311] px-3 py-2 text-m text-[#EEEef0] placeholder-[#EEEef0]/60 hover:bg-[#3C1A19] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#BA3F3D]"
             />
           </div>
         </div>
       </div>
-
 
       <main className="mx-auto px-20 py-15">
         <div className="grid gap-8 sm:grid-cols-2 items-stretch">
           {toShow.map((item) => (
             <ProfessorCard
               key={item.id || item.email || item.name}
-              item={item}
+              item={{
+                ...item,
+                photo: item.photo || emailToPhotoPath(item.email),
+              }}
               showPct={tab === "recommended"}
               userTags={userTags}
             />

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import TagChip from "@/components/tagchip";
 
 const asArray = (v) => (Array.isArray(v) ? v : []);
@@ -34,7 +35,7 @@ function computeThreeTagPctAndColor(topTags) {
   return { pct, color };
 }
 
-export default function ProfessorCard({ item, userTags, showPct = true }) {
+export default function ProfessorCard({ item, userTags, showPct = true , theme = "base" }) {
   const name = item?.full_name || "Unknown Faculty";
   const room = item?.office_room?.trim() ? item.office_room : "N/A";
   const summary = item?.summary?.trim() ? item.summary : "N/A";
@@ -47,52 +48,93 @@ export default function ProfessorCard({ item, userTags, showPct = true }) {
     ? computeThreeTagPctAndColor(topTags)
     : { pct: null, color: "gray" };
 
+    const cardStyle =
+    theme === "base"
+      ? "border border-[#5A2B29] bg-[#170F0E] hover:bg-[#241312] hover:border-[#BA3F3D]"
+      : "border border-[#FFD1CC] bg-[#983734] hover:bg-[#a9443f] hover:border-[#ffb3a7]";
+
   const badgeClass =
     badgeColor === "green"
-      ? "bg-green-600/10 text-green-700"
+      ? "bg-green-700/15 text-green-300 border border-green-600/40"
       : badgeColor === "yellow"
-      ? "bg-yellow-500/10 text-yellow-700"
+      ? "bg-amber-600/15 text-amber-200 border border-amber-500/40"
       : badgeColor === "red"
-      ? "bg-red-600/10 text-red-700"
-      : "bg-gray-300/30 text-gray-600";
+      ? "bg-rose-700/15 text-rose-300 border border-rose-600/40"
+      : "bg-gray-500/10 text-gray-300 border border-gray-500/30";
+
+  const photo = item?.photo || item?.image || null;
+  const [imgOk, setImgOk] = useState(true);
+  const initials =
+    (name || "")
+      .split(" ")
+      .filter(Boolean)
+      .map((w) => w[0])
+      .join("")
+      .slice(0, 2)
+      .toUpperCase() || "NA";
 
   return (
-    <div className="h-64 min-w-[380px] w-full overflow-hidden rounded-2xl border border-gray-200 bg-white p-7 shadow-md flex flex-col">
-      <div className="flex items-start justify-between gap-6">
-        <div className="min-w-0">
-          <div className="text-2xl font-bold text-black">{name}</div>
-          <div className="text-m text-gray-700 truncate">Room: {room}</div>
-        </div>
-        {showPct && pct != null && (
-          <div className={`rounded-md px-3 py-1 text-m font-semibold shrink-0 ${badgeClass}`}>
-            {pct}% match
+    <div className={`h-64 min-w-[380px] w-full overflow-hidden rounded-2xl p-7 shadow-md flex ${cardStyle}`}>
+      <div className="w-[30%] p-3">
+        {photo && imgOk ? (
+          <img
+            src={photo}
+            alt={name}
+            className="h-full w-full object-cover rounded-xl"
+            onError={() => setImgOk(false)}
+          />
+        ) : (
+          <div className="h-full w-full rounded-xl bg-[#983734] grid place-items-center text-3xl font-bold text-[#EEEef0]">
+            {initials}
           </div>
         )}
       </div>
-      <p className="mt-3 text-m font-semibold leading-6 text-black line-clamp-3">{summary}</p>
-      <div className="mt-auto pt-6 flex items-end justify-between">
-        <div className="flex flex-wrap items-end gap-2">
-          {topTags.length ? (
-            topTags.map((t, i) => (
-              <TagChip
-                key={`${item.id || item.email || item.full_name || "x"}-t-${i}`} 
-                text={t.text} 
-                color={t.color}/>
-            ))
-          ) : (
-            <div className="text-sm text-gray-500">No tags available</div>
+
+      <div className="w-[70%] min-w-0 pl-4 flex flex-col">
+        <div className="flex items-start justify-between gap-6">
+          <div className="min-w-0">
+            <div className="text-2xl font-bold text-[#EEEef0]">{name}</div>
+            <div className="text-m text-[#E2E3E6] truncate">Room: {room}</div>
+          </div>
+          {showPct && pct != null && (
+            <div className={`rounded-md px-3 py-1 text-m font-semibold shrink-0 ${badgeClass}`}>
+              {pct}% match
+            </div>
           )}
         </div>
-        {email ? (
-          <a
-            href={`mailto:${email}`}
-            className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
-            Email
-          </a>
-        ) : (
-          <div className="text-sm text-gray-500 italic">N/A</div>
-        )}
+        <p
+          className="mt-3 text-m font-medium leading-6 text-[#F4F4F5] line-clamp-3"
+          style={{ hyphens: "auto", overflowWrap: "anywhere" }}
+        >
+          {summary}
+        </p>
+        <div className="mt-auto pt-6 flex items-end justify-between">
+          <div className="flex flex-wrap items-end gap-2">
+            {topTags.length ? (
+              topTags.map((t, i) => (
+                <TagChip
+                  key={`${item.id || item.email || item.full_name || "x"}-t-${i}`}
+                  text={t.text}
+                  color={t.color}
+                />
+              ))
+            ) : (
+              <div className="text-sm text-gray-500">No tags available</div>
+            )}
+          </div>
+          {email ? (
+            <a
+              href={`mailto:${email}`}
+              className="rounded-md border border-[#5A2B29] bg-[#983734] px-3 py-1.5 text-sm font-medium text-[#F4F4F5] shadow-sm hover:bg-gray-50"
+            >
+              Email
+            </a>
+          ) : (
+            <div className="text-sm text-gray-500 italic">N/A</div>
+          )}
+        </div>
       </div>
     </div>
   );
 }
+

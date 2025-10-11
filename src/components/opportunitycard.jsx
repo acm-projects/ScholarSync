@@ -38,7 +38,7 @@ function computeThreeTagPctAndColor(topTags) {
 }
 
 // more simple way of declaring variables now
-export default function OpportunityCard({ item, userTags, showPct = true }) {
+export default function OpportunityCard({ item, userTags, showPct = true, theme = "base" }) {
   const colored = item.tags;
   const topTags = pickTopTagsColored(colored);
 
@@ -48,36 +48,46 @@ export default function OpportunityCard({ item, userTags, showPct = true }) {
 
   const badgeClass =
     badgeColor === "green"
-      ? "bg-green-600/10 text-green-700"
+      ? "bg-green-700/15 text-green-300 border border-green-600/40"
       : badgeColor === "yellow"
-      ? "bg-yellow-500/10 text-yellow-700"
+      ? "bg-amber-600/15 text-amber-200 border border-amber-500/40"
       : badgeColor === "red"
-      ? "bg-red-600/10 text-red-700"
-      : "bg-gray-300/30 text-gray-600";
+      ? "bg-rose-700/15 text-rose-300 border border-rose-600/40"
+      : "bg-gray-500/10 text-gray-300 border border-gray-500/30";
+
+
+  const cardStyle =
+    theme === "base"
+      ? "border border-[#5A2B29] bg-[#170F0E] hover:bg-[#241312] hover:border-[#BA3F3D]"
+      : "border border-[#FFD1CC] bg-[#983734] hover:bg-[#a9443f] hover:border-[#ffb3a7]";
 
   return (
-    <div className="h-64 min-w-[380px] w-full overflow-hidden rounded-2xl border border-gray-200 bg-white p-7 shadow-md flex flex-col">
-      <div className="flex items-start justify-between gap-6">
+    <div
+      className={`h-48 w-full overflow-hidden rounded-2xl p-5 shadow-md flex flex-col transition-all duration-200 ${cardStyle}`}
+    >
+      <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
-          <div className="text-2xl font-bold text-black">{item.title}</div>
-          <div className="text-m text-gray-700 truncate">By {item.author}</div>
+          <div className="text-xl font-bold text-[#EEEef0] truncate">{item.title}</div>
+          <div className="text-sm text-[#E2E3E6] truncate">By {item.author}</div>
         </div>
         {showPct && pct != null && (
-          <div className={`rounded-md px-3 py-1 text-m font-semibold shrink-0 ${badgeClass}`}>
+          <div className={`rounded-md px-2.5 py-0.5 text-sm font-semibold shrink-0 ${badgeClass}`}>
             {pct}% match
           </div>
         )}
       </div>
-      <p className="mt-3 text-m font-semibold leading-6 text-black line-clamp-3">
+
+      <p className="mt-2 text-m font-medium leading-5 text-[#F4F4F5] line-clamp-2">
         {item.description}
       </p>
-      <div className="mt-auto pt-4">
-        <div className="flex flex-wrap items-center gap-2">
+
+      <div className="mt-auto pt-3 flex items-end justify-between">
+        <div className="flex flex-wrap items-end gap-2">
           {topTags.map((t, i) => (
             <TagChip key={`${item.id}-t-${i}`} text={t.text} color={t.color} />
           ))}
         </div>
-        <div className="mt-3 text-s text-gray-700">Posted: {item.datePosted}</div>
+        <div className="text-xs text-[#D1D2D6] shrink-0">Posted: {item.datePosted}</div>
       </div>
     </div>
   );
