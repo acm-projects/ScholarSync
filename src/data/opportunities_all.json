@@ -1,0 +1,99 @@
+[
+    {
+      "id": 1,
+      "title": "Undergraduate Research Assistant in Machine Learning",
+      "author": "Dr. Smith",
+      "description": "Assist in developing machine learning models for healthcare applications. Great opportunity for undergraduates interested in AI and data science.",
+      "datePosted": "2025-09-01",
+      "tags": ["Paid", "Undergraduate-friendly", "Computer Science", "AI / Machine Learning", "Semester-long", "Research Assistantship"]
+    },
+    {
+      "id": 2,
+      "title": "Remote Internship: Climate Data Analysis",
+      "author": "Green Future Lab",
+      "description": "Analyze global climate datasets and contribute to sustainability research. Flexible hours and remote participation allowed.",
+      "datePosted": "2025-08-25",
+      "tags": ["Paid", "Remote", "Data Analysis", "Sustainability", "Python", "Flexible hours", "Semester-long"]
+    },
+    {
+      "id": 3,
+      "title": "Business & Economics Research Fellow",
+      "author": "UTD Economics Dept",
+      "description": "Work with faculty to conduct survey-based research on entrepreneurship and social impact. Open to students from multiple majors.",
+      "datePosted": "2025-09-10",
+      "tags": ["Unpaid", "Undergraduate-friendly", "Business", "Economics", "Survey-based", "Social Sciences", "Short-term (< 3 months)"]
+    },
+    {
+      "id": 4,
+      "title": "Robotics Perception Assistant",
+      "author": "Robotics Lab",
+      "description": "Help build perception pipelines with camera/LiDAR fusion for mobile robots.",
+      "datePosted": "2025-09-05",
+      "tags": ["Paid", "On-site", "Engineering", "Robotics", "Prototype/Build", "Semester-long"]
+    },
+    {
+      "id": 5,
+      "title": "Bioinformatics Data Curation",
+      "author": "Genomics Center",
+      "description": "Curate gene/protein datasets and create clean benchmarks for downstream models.",
+      "datePosted": "2025-09-12",
+      "tags": ["Undergraduate-friendly", "Biology", "Data Analysis", "Healthcare", "Part-time", "Semester-long"]
+    },
+    {
+      "id": 6,
+      "title": "Education Technology UX Study",
+      "author": "HCI Group",
+      "description": "Run user studies on classroom tools; qualitative coding and survey analysis.",
+      "datePosted": "2025-09-03",
+      "tags": ["Undergraduate-friendly", "Human-Computer Interaction", "Education", "User Studies", "Literature Review", "Short-term (< 3 months)"]
+    },
+    {
+      "id": 7,
+      "title": "Sustainability Dashboard Prototype",
+      "author": "City Data Lab",
+      "description": "Build a React dashboard for municipal energy metrics; collaborate with analysts.",
+      "datePosted": "2025-09-08",
+      "tags": ["Paid", "Remote", "Software Development", "Sustainability", "Prototype/Build", "Part-time"]
+    },
+    {
+      "id": 8,
+      "title": "Cybersecurity Log Analysis",
+      "author": "Security Research Group",
+      "description": "Analyze large-scale logs for anomaly detection and threat intelligence.",
+      "datePosted": "2025-09-06",
+      "tags": ["Paid", "Computer Science", "Cybersecurity", "Data Analysis", "Semester-long", "Hybrid"]
+    },
+    {
+      "id": 9,
+      "title": "Medical Imaging Segmentation",
+      "author": "Radiology AI Lab",
+      "description": "Assist with dataset labeling and model evaluation for MRI segmentation.",
+      "datePosted": "2025-09-14",
+      "tags": ["Undergraduate-friendly", "Healthcare", "AI / Machine Learning", "Computer Vision", "Lab Work", "Semester-long"]
+    },
+    {
+      "id": 10,
+      "title": "Behavioral Economics Survey Study",
+      "author": "Social Science Lab",
+      "description": "Design and deploy online surveys; analyze results using R or Python.",
+      "datePosted": "2025-09-02",
+      "tags": ["Unpaid", "Social Sciences", "Survey-based", "Data Analysis", "Undergraduate-friendly", "Short-term (< 3 months)"]
+    },
+    {
+      "id": 11,
+      "title": "Quantum Computing Literature Review",
+      "author": "Quantum Systems Group",
+      "description": "Summarize state-of-the-art quantum algorithms and simulators.",
+      "datePosted": "2025-09-04",
+      "tags": [ "Part-time","Undergraduate-friendly", "Physics", "Literature Review", "Theoretical Work", "On-site"]
+    },
+    {
+      "id": 12,
+      "title": "Assistive Tech App for Accessibility",
+      "author": "Inclusive Tech Lab",
+      "description": "Prototype an accessibility-focused mobile app and conduct usability tests.",
+      "datePosted": "2025-09-09",
+      "tags": ["Paid", "Software Development", "Human-Computer Interaction", "Prototype/Build", "UG-friendly", "Hybrid"]
+    }
+  ]
+  
