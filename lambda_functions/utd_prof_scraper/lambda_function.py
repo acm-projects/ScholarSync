@@ -131,10 +131,8 @@ def lambda_handler(page):
             if 'email' not in item:
                 continue
 
-            print(f'{item.get("full_name")}: {item.get("research_interests")}\n\n')
-
             # Add professor to UTD_Professors table
-            #professor_table.put_item(Item=item)
+            professor_table.put_item(Item=item)
 
 def scrape_name(contact_info_tag):
     h1_name_tag = contact_info_tag.find('h1')
