@@ -2,7 +2,6 @@ import boto3
 import re
 import requests
 from bs4 import BeautifulSoup
-import lxml
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
@@ -10,21 +9,11 @@ import time
 BASE_URL = 'https://profiles.utdallas.edu/browse'
 
 dynamodb = boto3.resource('dynamodb')
-eventbridge = boto3.client("events")
 professor_table = dynamodb.Table('UTD_Professor')
-scraper_table = dynamodb.Table('Scraper_State')
 
-def lambda_handler(event, context):
-    scraper_response = scraper_table.get_item(
-        Key={
-            "scraper_name": "utd_professor_scraper"
-        }
-    )
-    scraper_item = scraper_response.get("Item", {})
-    page = scraper_item.get("next_page", 1) # Get page number we're parsing, with default being page 1
-    
+def lambda_handler(page):
     response = requests.get(f"{BASE_URL}?page={str(page)}") # Make a GET request to the url using the page number, receiving the HTML
-    soup = BeautifulSoup(response.text, "lxml") # Create soup by parsing HTML using the lxml parser (faster than built-in "html.parser")
+    soup = BeautifulSoup(response.text, "html.parser") # Create soup by parsing HTML using the lxml parser (faster than built-in "html.parser")
 
     for prof_div in soup.select('.profile-card'):
         profile_tag = prof_div.find('a')
@@ -37,6 +26,7 @@ def lambda_handler(event, context):
             summary = None
             phone_number = None
             office_room = None
+            research_interests = None
             education = None
             publications = None
             tags = None
@@ -46,7 +36,7 @@ def lambda_handler(event, context):
                 profile_url = f'https://profiles.utdallas.edu{profile_url}'
 
             profile_response = requests.get(profile_url)
-            profile_soup = BeautifulSoup(profile_response.text, 'lxml')
+            profile_soup = BeautifulSoup(profile_response.text, 'html.parser')
 
             contact_info_tag = profile_soup.select_one('.contact_info')
 
@@ -62,7 +52,7 @@ def lambda_handler(event, context):
 
                 # Get professor's email
                 driver = webdriver.Chrome()
-                driver.get(profile_url) # Opens on Chrome
+                driver.get(profile_url)
 
                 email = scrape_email(driver)
 
@@ -80,6 +70,9 @@ def lambda_handler(event, context):
 
                         elif target_id == 'publications':
                             publications = scrape_publications(driver)
+                        
+                        elif target_id == "areas":
+                            research_interests = scrape_interests(profile_soup)
 
                 driver.quit()
 
@@ -121,9 +114,11 @@ def lambda_handler(event, context):
                 "summary": summary,
                 "phone_number": phone_number,
                 "office_room": office_room,
+                "research_interests": research_interests,
                 "education": education,
                 "publications": publications,
-                "tags": tags
+                "tags": tags,
+                "profile_url": profile_url
             }
 
             # Skip empty strings, None, and empty lists
@@ -136,25 +131,10 @@ def lambda_handler(event, context):
             if 'email' not in item:
                 continue
 
+            print(f'{item.get("full_name")}:\n\nResearch Interests: {item.get("research_interests")}\n\nProfile URL: {item.get("profile_url")}\n\n\n')
+
             # Add professor to UTD_Professors table
-            professor_table.put_item(Item=item)
-            # Return successful status code
-            return {
-                'statusCode': 200,
-                'body': f'Professor {email} added.'
-            }
-        
-    # Publish custom event when done
-    eventbridge.put_events(
-        Entries=[
-            {
-                'Source': 'utd.prof.scraper',
-                'DetailType': 'ScraperFinished',
-                'Detail': '{"status": "success"}',
-                'EventBusName': 'default'
-            }
-        ]
-    )
+            #professor_table.put_item(Item=item)
 
 def scrape_name(contact_info_tag):
     h1_name_tag = contact_info_tag.find('h1')
@@ -242,7 +222,7 @@ def scrape_publications(driver):
 
     while True:
         time.sleep(0.3)
-        soup = BeautifulSoup(driver.page_source, "lxml")
+        soup = BeautifulSoup(driver.page_source, "html.parser")
             
         section_tag = soup.find(id="publications")
             
@@ -270,3 +250,15 @@ def scrape_publications(driver):
             next_button.click()
         except:
             return publications
+
+def scrape_interests(profile_soup):
+    section_tag = profile_soup.find(id="areas")
+
+    for tag_name in ['strong', 'h1', 'h3']:
+        for tag in section_tag.find_all(tag_name):
+            tag.decompose() # Remove text in <strong>, <h1>, <h3>
+
+
+    return section_tag.text.strip()
+        
+lambda_handler(1)
