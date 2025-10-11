@@ -131,7 +131,7 @@ def lambda_handler(page):
             if 'email' not in item:
                 continue
 
-            print(f'{item.get("full_name")}:\n\nResearch Interests: {item.get("research_interests")}\n\nProfile URL: {item.get("profile_url")}\n\n\n')
+            print(f'{item.get("full_name")}: {item.get("research_interests")}\n\n')
 
             # Add professor to UTD_Professors table
             #professor_table.put_item(Item=item)
@@ -258,7 +258,8 @@ def scrape_interests(profile_soup):
         for tag in section_tag.find_all(tag_name):
             tag.decompose() # Remove text in <strong>, <h1>, <h3>
 
+    interests = re.sub(r'\s+', ' ', section_tag.text.strip().replace('Research Interests\n', ' ').replace('\t', ' ').replace('\n', ' ')).strip()
 
-    return section_tag.text.strip()
+    return interests
         
 lambda_handler(1)
