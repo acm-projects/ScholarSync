@@ -1,4 +1,4 @@
-// File: /Users/sushmakulkarni/Desktop/ACM_PROJECT/ScholarSync/src/app/layout.js
+// File: /Users/nehamundhada/Documents/ACM Project/ScholarSync/src/app/layout.js
 import * as entry from '../../../src/app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

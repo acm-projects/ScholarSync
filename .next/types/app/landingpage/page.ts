@@ -1,4 +1,4 @@
-// File: /Users/sushmakulkarni/Desktop/ACM_PROJECT/ScholarSync/src/app/landingpage/page.jsx
+// File: /Users/nehamundhada/Documents/ACM Project/ScholarSync/src/app/landingpage/page.jsx
 import * as entry from '../../../../src/app/landingpage/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

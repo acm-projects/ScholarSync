@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import Link from 'next/Link';
+import Link from 'next/link';
 import './login.css';
 import Image from 'next/image';
 
@@ -8,12 +8,35 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handle = (e) =>{
+  const handle = async (e) => {
     e.preventDefault();
 
-    const UsingL = {
-      email, password,
-    };
+    if (!email || !password) {
+      alert('Please fill in all fields');
+      return;
+    }
+
+    try {
+      const response = await fetch('https://eckapa4iqi.execute-api.us-east-2.amazonaws.com/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(data.message || data.error || 'Login failed');
+        return;
+      }
+
+      alert('Login successful!');
+      // Optionally redirect after login
+      window.location.href = '/dashboard'; // replace with your logged-in route
+    } catch (err) {
+      console.error('Error connecting to backend:', err);
+      alert('Error connecting to backend');
+    }
   };
     return (
         <div>

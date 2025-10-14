@@ -1,7 +1,7 @@
 'use client';
 
 //import { useRouter } from 'next/navigation';
-import Link from 'next/Link';
+import Link from 'next/link';
 import { useState } from 'react';
 
 import './signup.css';
@@ -10,15 +10,42 @@ import Image from 'next/image';
 const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState();
+  const [username, setusername] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handle = (e) =>{
+  const handle = async (e) => {
     e.preventDefault();
 
-    const Using = {
-      email,password,
-    };
+    if (!email || !password || !confirmPassword) {
+      alert('Please fill in all fields');
+      return;
+    }
 
+    if (password !== confirmPassword) {
+      alert('Passwords do not match!');
+      return;
+    }
+
+    try {
+      const response = await fetch('https://eckapa4iqi.execute-api.us-east-2.amazonaws.com/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, username }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(data.message || data.error || 'Signup failed');
+        return;
+      }
+
+      alert('Signup successful! Please check your email to confirm.');
+      window.location.href = '/signuplogin/login';
+    } catch (err) {
+      console.error('Error connecting to backend:', err);
+      alert('Error connecting to backend');
+    }
   };
 
     return (
@@ -31,6 +58,9 @@ const Signup = () => {
             <div className="inputs">
                 <div className="input">
                     <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                </div>
+                <div className="input">
+                    <input type="Username" placeholder="Username" value={username} onChange={(e) => setusername(e.target.value)}/>
                 </div>
                 <div className="input">
                 <input type="password" placeholder="Create Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
