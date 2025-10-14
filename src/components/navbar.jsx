@@ -11,7 +11,7 @@ export default function Navbar() {
 
         
         <nav className="hidden items-center gap-6 md:flex">
-          <Link href="/" className="hover:text-[#ffb3a7] font-medium transition-colors">create</Link>
+          <Link href="/onboarding/onboarding1" className="hover:text-[#ffb3a7] font-medium transition-colors">create</Link>
           <Link href="/professorpage" className="hover:text-[#ffb3a7] font-medium transition-colors">professors</Link>
           <Link href="/homeresearchpage" className="hover:text-[#ffb3a7] font-medium transition-colors">discover</Link>
           <Link href="/" className="hover:text-[#ffb3a7] font-medium transition-colors">library</Link>

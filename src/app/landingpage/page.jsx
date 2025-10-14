@@ -6,8 +6,8 @@ import HowItWorks from "@/components/steps";
 export default function LandingPage() {
   return (
     <>
-    <div className="min-h-screen bg-blue-500">
-      <div className="relative z-10 bg-white rounded-b-2xl shadow">
+    <div className="min-h-screen bg-[#3D110F] text-[#EEEef0]">
+      <div className="relative z-10 rounded-b-2xl shadow">
         <Navbar />
       </div>
     

@@ -172,7 +172,7 @@ export default function OpportunitiesPage() {
             <button
               type="button"
               onClick={() => setVisible((v) => v + 6)}
-              className="rounded-md border border-[#5A2B29] bg-[#201311] px-5 py-2 text-sm font-medium text-[#EEEef0] shadow-sm hover:bg-[#3C1A19] hover:border-[#BA3F3D] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#BA3F3D] transition"
+              className="rounded-md border border-[#5A2B29] bg-[#983734] px-5 py-2 text-sm font-medium text-[#EEEef0] shadow-sm hover:bg-[#3C1A19] hover:border-[#BA3F3D] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#BA3F3D] transition"
             >
               Load more opportunities
             </button>

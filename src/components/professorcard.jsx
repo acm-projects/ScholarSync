@@ -125,7 +125,7 @@ export default function ProfessorCard({ item, userTags, showPct = true , theme =
           {email ? (
             <a
               href={`mailto:${email}`}
-              className="rounded-md border border-[#5A2B29] bg-[#983734] px-3 py-1.5 text-sm font-medium text-[#F4F4F5] shadow-sm hover:bg-gray-50"
+              className="rounded-md border border-[#5A2B29] bg-[#983734] px-3 py-1.5 text-sm font-medium text-[#F4F4F5] shadow-sm hover:bg-[#3C1A19]"
             >
               Email
             </a>
