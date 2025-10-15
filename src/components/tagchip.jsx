@@ -1,14 +1,14 @@
 export default function TagChip({ text, color = "gray" }) {
-    let styles = "bg-gray-100 text-gray-700 border-gray-200";
+    let styles = "bg-[#983734]/25 text-[#EEEef0] border-[#FFD1CC]/60";
     switch (color) {
       case "green":
-        styles = "bg-green-500/15 text-green-800 border-green-300";
+        styles = "bg-emerald-600/20 text-emerald-200 border-emerald-300/70";
         break;
       case "yellow":
-        styles = "bg-yellow-400/20 text-yellow-900 border-yellow-300";
+        styles = "bg-amber-500/25 text-amber-100 border-amber-300/70";
         break;
       case "red":
-        styles = "bg-red-500/15 text-red-800 border-red-300";
+        styles = "bg-rose-600/20 text-rose-200 border-rose-400/70";
         break;
     }
   

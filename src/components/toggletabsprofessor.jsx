@@ -1,9 +1,10 @@
 "use client";
 
+// switch button for home page
 export default function ToggleTabs({ value, onChange }) {
   const tabs = [
     { key: "recommended", label: "AI Recommended" },
-    { key: "all", label: "All Opportunities" },
+    { key: "all", label: "All Professors" },
   ];
   return (
     <div className="inline-flex rounded-lg border border-[#5A2B29] bg-[#201311] p-1">
@@ -28,4 +29,3 @@ export default function ToggleTabs({ value, onChange }) {
     </div>
   );
 }
-
