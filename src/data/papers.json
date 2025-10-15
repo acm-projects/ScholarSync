@@ -1,0 +1,146 @@
+[
+  {
+    "id": 1,
+    "title": "Interpretable Neural Architectures",
+    "tags": ["Neural Translation", "Transformer", "Low-resource Languages"],
+    "author": "Dr. Aisha Khan, Prof. Tomás Varela, Mei Lin",
+    "description": "This paper proposes a modular transformer model optimized for low-resource language pairs, improving translation quality while maintaining interpretability through attention heatmaps.",
+    "date": "1996-03-21"
+  },
+  {
+    "id": 2,
+    "title": "Biochar Applications in Agroecosystems",
+    "tags": ["Biochar Yields", "Soil Health", "Carbon Sequestration", "Crop Systems"],
+    "author": "Priya Deshmukh, Dr. Nathaniel Moore, Isabel Rocha",
+    "description": "A systematic review and meta-analysis of biochar use across 42 crop systems globally, analyzing its effects on yield, soil health, and carbon sequestration.",
+    "date": "2008-11-12"
+  },
+  {
+    "id": 3,
+    "title": "Digital Burnouts",
+    "tags": ["Digital Fatigue", "EEG", "Stress", "Knowledge Workers"],
+    "author": "Dr. Ananya Singh, Matteo Ricci, Hannah Feld",
+    "description": "Using EEG and self-reported stress scores, this study examines the cognitive fatigue caused by persistent notification exposure in knowledge workers.",
+    "date": "2016-06-18"
+  },
+  {
+    "id": 4,
+    "title": "Targeting Mitochondrial Dysfunction",
+    "tags": ["Mitochondrial Dysfunction", "Cell Biology", "Molecular Pathways"],
+    "author": "Dr. Kevin Okafor, Alice Bianchi, Min-Jae Park",
+    "description": "Uncover hidden patterns and let the numbers tell their stories.",
+    "date": "1979-10-05"
+  },
+  {
+    "id": 5,
+    "title": "The Sociolinguistics of AI-Generated Text",
+    "tags": ["Computational Linguistics", "AI Text", "Dialect Drift", "Multilingual Corpora"],
+    "author": "Luis Fernandez, Dr. Rebecca Chong, Simona Volkov",
+    "description": "An analysis of dialect drift in large language models trained on multilingual corpora, and its implications for cross-cultural communication.",
+    "date": "2013-04-22"
+  },
+  {
+    "id": 6,
+    "title": "Decentralized Federated Learning for Healthcare",
+    "tags": ["Machine Learning", "Federated Learning", "Healthcare", "Privacy"],
+    "author": "Dr. Rohan Patel, Emily Johansson, Farah Al-Tamimi",
+    "description": "Presents a secure, decentralized approach to federated learning in hospital networks, preserving patient privacy while enhancing predictive accuracy.",
+    "date": "1987-09-09"
+  },
+  {
+    "id": 7,
+    "title": "Resilient Urban Infrastructure under Climate Stress",
+    "tags": ["Urban Planning", "Climate Change", "Infrastructure Resilience", "Simulation Modeling"],
+    "author": "Dr. Naomi Adegoke, Chen Liu, Marco Santoro",
+    "description": "Using simulation-based modeling, this study evaluates urban infrastructure resilience across five megacities facing extreme weather patterns.",
+    "date": "2020-05-14"
+  },
+  {
+    "id": 8,
+    "title": "The Future of Remote Work in Emerging Economies",
+    "tags": ["Digital Sociology", "Remote Work", "Emerging Economies", "Productivity", "Digital Equity"],
+    "author": "Anjali Krishnan, Dr. Tadeusz Nowak, Jamal Okeke",
+    "description": "Sociotechnical analysis of remote work adoption in rural regions, with focus on infrastructure gaps, productivity metrics, and digital equity.",
+    "date": "1992-01-17"
+  },
+  {
+    "id": 9,
+    "title": "Metabolic Modeling of Gut Microbiota",
+    "tags": ["Systems Biology", "Gut Microbiota", "Metabolic Modeling", "Bacterial Interactions"],
+    "author": "Dr. Lucia Romano, Haruto Yamazaki, Nia K. Davis",
+    "description": "Presents a dynamic model of short-chain fatty acid production in response to dietary shifts, simulating over 200 bacterial interactions.",
+    "date": "2002-02-03"
+  },
+  {
+    "id": 10,
+    "title": "Neuromorphic Chips for Edge Robotics",
+    "tags": ["Neuro-Robotics", "Neuromorphic Computing", "Swarm Robotics", "Edge AI"],
+    "author": "Dr. Felix Anders, Zahra Elhassan, Miguel Barreto",
+    "description": "Explores energy-efficient processing in swarm robotics using silicon-based neuromorphic chips that mimic brain signal patterns.",
+    "date": "1984-08-07"
+  },
+  {
+    "id": 11,
+    "title": "Low-Carbon Cement from Industrial Waste",
+    "tags": ["Sustainable Materials", "Low-Carbon Cement", "Industrial Waste", "Environmental Engineering"],
+    "author": "Dr. Hanna Becker, Ahmed El-Masry, Tenzin Norbu",
+    "description": "This work introduces a novel cement formulation utilizing steel slag and fly ash, achieving 60% carbon footprint reduction compared to OPC.",
+    "date": "1975-12-11"
+  },
+  {
+    "id": 12,
+    "title": "Acoustic Monitoring of Pollinator Populations",
+    "tags": ["Ecoacoustics", "Pollinators", "Deep Learning", "Agricultural Zones"],
+    "author": "Dr. Jonas Eriksson, Alice M. Wong, Thando Khumalo",
+    "description": "Uses acoustic signatures and deep learning to monitor bee and insect activity across 12 agricultural zones during peak flowering seasons.",
+    "date": "1990-06-30"
+  },
+  {
+    "id": 13,
+    "title": "Reconstructing Ancient Trade Routes with Network Theory",
+    "tags": ["Historical Networks", "Archaeology", "Graph Theory", "Trade Routes"],
+    "author": "Elena Grigoriev, Dr. Omar Bashir, Matteo Romano",
+    "description": "Applies graph theory to archaeological data to uncover probable trade corridors across the Mediterranean during the Bronze Age.",
+    "date": "2011-09-19"
+  },
+  {
+    "id": 14,
+    "title": "Photonic Crystals for Optical Neural Networks",
+    "tags": ["Photonic AI", "Optical Computing", "Neural Networks", "Photonic Crystals"],
+    "author": "Dr. Grace Kamau, Viktor Novák, Diana Liu",
+    "description": "Proposes a scalable optical neural computing architecture using tunable photonic crystal arrays to perform matrix multiplication tasks.",
+    "date": "2017-07-05"
+  },
+  {
+    "id": 15,
+    "title": "Behavioral Economics in Pandemic Policy Compliance",
+    "tags": ["Behavioral Economics", "Policy Modeling", "Public Health", "Pandemic Compliance"],
+    "author": "Dr. Nadia Bellucci, Faisal Rahman, Yuki Nakamura",
+    "description": "A cross-national survey and simulation of behavioral incentives used to increase public compliance with emergency health measures.",
+    "date": "1981-03-28"
+  },
+  {
+    "id": 16,
+    "title": "Autonomous Farming Systems in Arid Regions",
+    "tags": ["AgriTech", "Autonomous Systems", "Irrigation", "Drones", "Crop Yield"],
+    "author": "Mohammed Idris, Dr. Clara Neves, Seung-Ho Park",
+    "description": "Demonstrates sensor-driven autonomous irrigation and drone planting methods to optimize crop yield in desertified farmland.",
+    "date": "2005-10-21"
+  },
+  {
+    "id": 17,
+    "title": "Emotion Recognition from Multimodal Biometric Inputs",
+    "tags": ["Affective Computing", "Emotion Recognition", "Biometrics", "Machine Learning"],
+    "author": "Dr. Marta Silva, Henry Ofori, Jin-Soo Han",
+    "description": "Combines facial micro-expression analysis with galvanic skin response and vocal tone to improve real-time emotion classification.",
+    "date": "1971-05-09"
+  },
+  {
+    "id": 18,
+    "title": "Smart Grids and Decentralized Energy Governance",
+    "tags": ["Energy Systems", "Smart Grids", "Decentralized Governance", "Local Energy Markets"],
+    "author": "Dr. Viktoria Petrov, Samuel Achebe, Reema Kapoor",
+    "description": "Explores governance models for smart microgrids using local energy markets and peer-to-peer trading in semi-urban communities.",
+    "date": "1999-01-04"
+  }
+]

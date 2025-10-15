@@ -34,7 +34,7 @@ const Signup = () => {
                     <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
                 </div>
                 <div className="input">
-                    <input type="Username" placeholder="Username" value={email} onChange={(e) => setusername(e.target.value)}/>
+                    <input type="text" placeholder="Username" value={username} onChange={(e) => setusername(e.target.value)}/>
                 </div>
                 <div className="input">
                 <input type="password" placeholder="Create Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
@@ -58,7 +58,6 @@ const Signup = () => {
                 <span>Login</span>
                 </Link>
                 </div>
-
 
                 <div className = "divide">        
                 <Image
