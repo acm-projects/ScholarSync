@@ -1,0 +1,15 @@
+.body{
+    color: #397EF4;
+}
+.grid{
+    display:flex;
+    flex-wrap:wrap;
+    gap: 2rem;
+    padding: 2.5rem;
+    justify-content: center;
+    margin-left: 20px;
+    box-shadow: 2px 2px #3c3c3c;
+
+}
+
+

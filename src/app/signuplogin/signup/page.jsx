@@ -83,9 +83,7 @@ const Signup = () => {
                 <Link href="/signuplogin/login">
                 <span>Login</span>
                 </Link>
-               
                 </div>
-
 
                 <div className = "divide">        
                 <Image
