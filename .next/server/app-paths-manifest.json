@@ -1,4 +1,6 @@
 {
+  "/papers/[id]/page": "app/papers/[id]/page.js",
   "/page": "app/page.js",
+  "/LibrarySt/page": "app/LibrarySt/page.js",
   "/discovery/page": "app/discovery/page.js"
 }

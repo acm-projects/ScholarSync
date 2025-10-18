@@ -1,11 +1,14 @@
 .card {
-  width: 60rem;
-  height: 10rem;
-  border: 1px solid #959595;
-  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 14rem;
+  width: 80rem;
   padding: 1rem;
-  background-color: white;
-  box-shadow: 1px 1px #1b1b1b;
+  border: 1px solid #5A2B29;
+  border-radius: 25px;
+  background-color: #170F0E;
+  box-shadow: 1px 1px #df6c00b1;
 }
 
 .card:hover {
@@ -14,28 +17,35 @@
 
 .card-title {
   margin-bottom: 0.5rem;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 600;
-  color: rgb(2, 2, 164);
+  color: #EEEef0;
 }
 
 .card-author{
   margin-bottom: 0.5rem;
   font-size: 15px;
   font-weight: 550;
-  color: rgb(0, 0, 0);
+  color: #EEEef0;
 }
 
-.card-date{
-  font-size: 13px;
-  font-weight: 550;
-  color: rgb(0, 0, 0);
-  margin-right: 5px;
+.card-date-wrapper{
+  font-size: 15px;
+  margin-left: auto;
+  align-self: flex-end;
+  margin-bottom: 2px;
+  color: #E2E3E6;
 }
-
+.card-tag {
+  margin-bottom: 3;
+  gap:2;
+}
+.savStyle{
+  align-self: flex-end;
+}
 
 .card-description {
   margin-bottom: 0;
-  font-size: 15px;
-  color: #151515;
+  font-size: 18px;
+  color: #F4F4F5;
 }

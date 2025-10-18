@@ -1,0 +1,30 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 14rem;
+  width: 80rem;
+  padding: 1rem;
+  border: 1px solid #5A2B29;
+  border-radius: 25px;
+  background-color: #170F0E;
+  box-shadow: 1px 1px #df6c00b1;
+}
+
+
+.Main {
+  padding: 20px;
+
+}
+.Top{
+  display: flex;
+  align-items: center;       
+  justify-content: center;
+  margin-bottom: 20px;
+  text-align: center;
+ height: 50px;
+}
+h1{
+    font-size:2rem;
+    font-weight: bold;
+    text-align: center;
+}

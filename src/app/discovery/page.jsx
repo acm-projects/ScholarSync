@@ -6,116 +6,84 @@ import Navbar from "@/components/navbar";
 import PaperData from "@/data/papers.json" assert { type: "json" };
 import './page.css';
 
-
-
+function normalize(str){
+  // just in case the have accents in their name ? right I thoink it will be easier
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
 
 export default function DiscoverPaper() {
   const [query, setQuery] = useState("");
   const [visible, setVisible] = useState(9);
-  const [authorFilter, setAuthorFilter] = useState("");
-  const [selectedKeyword, setSelectedKeyword] = useState(null);
-  const [selectedYear, setSelectedYear] = useState("false");
+  const [selectedYear, setSelectedYear] = useState("");
 
   const filtered = useMemo(() => {
     let out = PaperData;
 
     if (query.trim()) {
-      const q = query.toLowerCase();
-      out = out.filter((paper) =>
-        paper.title.toLowerCase().includes(q)
+      const q = normalize(query.trim());
+      out = out.filter((paper) => {
+         const Names = normalize(paper.author || "");
+         const authors = Names.split(",").map(individual => individual.trim().toLowerCase());
+        return(
+        normalize(paper.title).includes(q) || authors.some(author => author.includes(q)) || paper.tags?.some(tag=>
+            normalize(tag).includes(q))
       );
+    });
     }
 
-    if (authorFilter) {
-      const a = authorFilter.toLowerCase();
-      out = out.filter((paper) =>
-        paper.author.toLowerCase().includes(a)
-      );
-    }
 
-    if (selectedKeyword) {
-      out = out.filter((paper) =>
-        paper.tags?.some(
-          (tag) =>
-            tag.toLowerCase() ===
-            selectedKeyword.value.toLowerCase()
-        )
-      );
-    }
 
-  if (selectedYear !== "false") {
+  if (selectedYear && selectedYear !== "all") {
   const yearNow = new Date().getFullYear();
   const goBack = parseInt(selectedYear);
   const disp = yearNow - goBack;
-
   out = out.filter((paper) => {
     const paperYear = new Date(paper.date).getFullYear();
-    return paperYear >= disp;
+    const isValid = paperYear >= disp;
+    return isValid;
   });
   }
-    return out;
-  }, [query, authorFilter, selectedKeyword, selectedYear]);
 
-  const toShow = filtered.slice(0, visible);
-  const canLoadMore = visible < filtered.length;
+
+  return out;
+}, [query, selectedYear]);
+
+
+
+const toShow = filtered.slice(0, visible);
+const canLoadMore = visible < filtered.length;
+
 
   return (
-    <div className="min-h-screen bg-blue-500">
+    <div className="min-h-screen" style={{ backgroundColor: '#3D110F' }}>
       <div className="relative z-10 bg-white rounded-b-2xl shadow">
       <Navbar />
     </div>
     <div className="relative z-0 -mt-2 w-full bg-white shadow-sm py-3">
       <div className="w-full px-6 py-3 flex items-center gap-6">
-        
-      
-        <input
-          type="text"
-          className="w-80 md:w-96 rounded-md border border-gray-500 px-3 py-2 text-m text-black placeholder-black"
-          placeholder="Search papers"
-          value={query}
-          onChange={e => {
-            setQuery(e.target.value);
-            setVisible(9);
-          }}
-        />
-        
-        
-        <Select
-          className="w-90"
-          options={[...new Set(PaperData.flatMap(p => p.author.split(',').map(a => a.trim())))].map(a => ({ label: a, value: a }))}
-          placeholder="Search author"
-          isClearable
-          onChange={option => {
-            setAuthorFilter(option?.value || "");
-            setVisible(9);
-          }}
-        />
+            <input
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setVisible(9);
+              }}
+              placeholder="Search papers, authors, or tags"
+              className="w-80 md:w-96 rounded-md border border-[#5A2B29] bg-[#201311] px-3 py-2 text-m text-[#EEEef0] placeholder-[#EEEef0]/60 hover:bg-[#3C1A19] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#BA3F3D]"
+            />
 
-        
-        <Select
-          className="w-48"
-          options={[...new Set(PaperData.flatMap(p => p.tags))].map(k => ({ label: k, value: k }))}
-          placeholder="Search keywords..."
-          isClearable
-          onChange={option => {
-            setSelectedKeyword(option || null);
+            <select
+            className="w-48 rounded-md border border-[#5A2B29] bg-[#201311] px-3 py-2 text-m text-[#EEEef0]/60 hover:bg-[#3C1A19] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#BA3F3D]"
+            placeholder = "Date Published"
+            value={selectedYear}
+            onChange={(e) => {
+            setSelectedYear(e.target.value);
             setVisible(9);
-          }}
-        />
-
-
-      <select
-      className="w-48 rounded-md border border-gray-500 bg-white px-3 py-2 text-base text-black"
-      value={selectedYear}
-      onChange={(e) => {
-      setSelectedYear(e.target.value);
-      setVisible(9);
-    }}
-  >
-    <option value="false">All years</option>
-    <option value="5">Last 5 years</option>
-    <option value="10">Last 10 years</option>
-  </select>
+          }}>
+    
+          <option value="all">Date Published: All</option>
+          <option value="5">Last 5 years</option>
+          <option value="10">Last 10 years</option>
+        </select>
 
 
       </div>
