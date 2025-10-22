@@ -82,7 +82,7 @@ export default function OpportunitiesPage() {
         return hay.some((s) => s.includes(f));
       });
     }
-
+  
     return sortByDate(out, sort);
   }, [dataset, sort, activeFilter, query]);
 
@@ -94,7 +94,7 @@ export default function OpportunitiesPage() {
       <div className="relative z-10 rounded-b-2xl shadow">
         <Navbar />
       </div>
-
+      
       <div className={`-mt-5 w-full bg-[#3D110F] border-b-2 border-[#5A2B29] shadow-sm pt-3 pb-2 ${open ? "blur-sm" : ""}`}>
         <div className="w-full px-6 pt-5 pb-4 flex items-center">
           <div className="flex items-center gap-6 overflow-x-auto flex-1 min-w-0">
