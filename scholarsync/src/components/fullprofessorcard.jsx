@@ -4,7 +4,6 @@ import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import TagChip from "@/components/tagchip";
 
-// small helpers
 const A = (v) => (Array.isArray(v) ? v : []);
 const uniqTags = (item) => {
   const add = (xs, c) => A(xs).map((t) => ({ text: String(t), color: c }));
@@ -22,10 +21,9 @@ const uniqTags = (item) => {
   });
 };
 
-export default function FullProfessorCard({ item }) {
+export default function FullProfessorCard({ item, onClose }) {
   const router = useRouter();
 
-  // core data
   const name    = item.full_name || item.name || "Unknown Faculty";
   const titles  = A(item.titles);
   const main    = titles[0] || item.department || item.field || "";
@@ -33,12 +31,12 @@ export default function FullProfessorCard({ item }) {
   const phone   = item.phone_number || "";
   const email   = item.email || "";
   const summary = item.summary || item.bio || "No summary available.";
-  const photo   = item.photo || item.image || null;
+  const custom  = "/AliAliev.jpg"
+  const photo   = custom || item.photo || item.image || null;
   const tags    = uniqTags(item);
   const pubs    = A(item.publications);
   const mailto  = email ? `mailto:${email}?subject=${encodeURIComponent(`Inquiry about your research (${name})`)}` : "";
 
-  // pub paging
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(1);
   const size = 5, total = Math.max(1, Math.ceil(pubs.length / size));
@@ -52,21 +50,28 @@ export default function FullProfessorCard({ item }) {
     return Array.from({ length: e - s + 1 }, (_, i) => s + i);
   }, [page, total]);
 
+  const [imgOk, setImgOk] = useState(true);
+  const initials =
+    (name || "").split(" ").filter(Boolean).map((w) => w[0]).join("").slice(0, 2).toUpperCase() || "NA";
+
   return (
     <article className="mx-auto w-full max-w-7xl min-h-[calc(100vh-160px)] rounded-2xl border border-[#5A2B29] bg-[#170F0E] p-4 md:p-8 lg:p-10 shadow flex flex-col text-[#EEEef0]">
-      {/* top bar */}
       <div className="mb-6 flex items-center justify-between">
-        <button onClick={() => router.back()} className="inline-flex items-center gap-2 rounded-lg border border-[#5A2B29] bg-[#201311] px-3 py-1.5 text-sm md:text-base font-medium hover:bg-[#3C1A19] hover:border-[#BA3F3D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BA3F3D]">← Back</button>
+        <button onClick={() => (onClose ? onClose() : router.back())} className="inline-flex items-center gap-2 rounded-lg border border-[#5A2B29] bg-[#201311] px-3 py-1.5 text-sm md:text-base font-medium hover:bg-[#3C1A19] hover:border-[#BA3F3D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BA3F3D]">← Back</button>
         <span />
       </div>
 
-      {/* header */}
       <header className="mb-5 flex items-start gap-5 flex-wrap">
-        {photo ? (
-          <img src={photo} alt={name} className="h-28 w-28 rounded-xl object-cover border border-[#5A2B29]" />
+        {photo && imgOk ? (
+          <img
+            src={photo}
+            alt={name}
+            className="h-28 w-28 rounded-xl object-cover border border-[#5A2B29]"
+            onError={() => setImgOk(false)}
+          />
         ) : (
           <div className="h-28 w-28 rounded-xl bg-[#983734] grid place-items-center text-2xl font-bold">
-            {(name || "NA").split(" ").filter(Boolean).map((w) => w[0]).join("").slice(0, 2).toUpperCase()}
+            {initials}
           </div>
         )}
 
@@ -77,7 +82,6 @@ export default function FullProfessorCard({ item }) {
               {main && <div className="text-lg md:text-xl text-[#E2E3E6] truncate">{main}</div>}
             </div>
 
-            {/* quick info */}
             <div className="text-right text-sm md:text-base text-[#E9EAED] space-y-0.5 max-w-[360px]">
               {office && <div>Office: {office}</div>}
               {phone  && <div>Phone: {phone}</div>}
@@ -89,7 +93,6 @@ export default function FullProfessorCard({ item }) {
 
       <div className="border-t border-[#5A2B29] my-5" />
 
-      {/* description + titles + publications */}
       <section className="flex-1">
         <h2 className="text-xl md:text-2xl font-semibold mb-2">Description:</h2>
         <div className="text-[#F4F4F5] text-lg md:text-xl leading-7 whitespace-pre-line">{summary}</div>
@@ -101,7 +104,6 @@ export default function FullProfessorCard({ item }) {
           </div>
         )}
 
-        {/* publications */}
         <div className="mt-6">
           <button onClick={() => setOpen((v) => !v)} className="w-full text-left rounded-xl border border-[#5A2B29] bg-[#201311] px-4 py-3 font-semibold hover:bg-[#3C1A19] hover:border-[#BA3F3D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BA3F3D]">
             Publications {pubs.length ? `(${pubs.length})` : ""} <span className="float-right">{open ? "▲" : "▼"}</span>
@@ -144,7 +146,6 @@ export default function FullProfessorCard({ item }) {
 
       <div className="border-t border-[#5A2B29] my-5" />
 
-      {/* footer */}
       <footer className="mt-auto pt-1 flex items-center justify-between gap-3 flex-wrap">
         <div className="flex items-center flex-wrap gap-2">
           <span className="text-sm font-semibold text-[#E9EAED]/90 mr-1">Related tags:</span>

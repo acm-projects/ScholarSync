@@ -171,7 +171,7 @@
       "id": "rec-15",
       "title": "Adversarial ML Defense",
       "author": "Dr. Carter",
-      "description": "Robustness evaluations of neural networks under adversarial attack.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+      "description": "Robustness evaluations of neural networks under adversarial attack.",
       "datePosted": "2025-09-07",
       "tags": {
         "green": ["PyTorch", "Security", "Full-time"],
@@ -183,7 +183,7 @@
       "id": "rec-16",
       "title": "Clinical Text De-identification",
       "author": "Dr. Kapoor",
-      "description": "PHI removal from EMR notes using transformer fine-tuning.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+      "description": "PHI removal from EMR notes using transformer fine-tuning.",
       "datePosted": "2025-09-16",
       "tags": {
         "green": ["Python", "NLP", "Remote"],
@@ -195,7 +195,7 @@
       "id": "rec-17",
       "title": "LLM-Powered Literature Triage",
       "author": "Prof. Alvarez",
-      "description": "Rank new papers with retrieval + LLM reranking.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+      "description": "Rank new papers with retrieval + LLM reranking.",
       "datePosted": "2025-09-13",
       "tags": {
         "green": [],
@@ -207,7 +207,7 @@
       "id": "rec-18",
       "title": "Graph ML for Fraud Rings",
       "author": "Dr. Gupta",
-      "description": "Detect collusive clusters in transactions.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+      "description": "Detect collusive clusters in transactions.",
       "datePosted": "2025-09-11",
       "tags": {
         "green": ["Python", "Remote"],
@@ -219,7 +219,7 @@
       "id": "rec-19",
       "title": "Vision QA for Medical Scans",
       "author": "Dr. Chen",
-      "description": "Detect low-quality frames and artifacts before diagnosis.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+      "description": "Detect low-quality frames and artifacts before diagnosis.",
       "datePosted": "2025-09-12",
       "tags": {
         "green": ["PyTorch"],
@@ -231,7 +231,7 @@
       "id": "rec-20",
       "title": "Code Assistant for Lab Reports",
       "author": "Safety Lab",
-      "description": "LLM tool to summarize and highlight risk statements.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+      "description": "LLM tool to summarize and highlight risk statements.",
       "datePosted": "2025-09-18",
       "tags": {
         "green": ["LLM"],
@@ -243,7 +243,7 @@
       "id": "rec-21",
       "title": "RAG for Policy Briefs",
       "author": "Dr. Patel",
-      "description": "Grounded answers over city energy ordinances.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+      "description": "Grounded answers over city energy ordinances.",
       "datePosted": "2025-09-09",
       "tags": {
         "green": ["Python"],
@@ -255,7 +255,7 @@
       "id": "rec-22",
       "title": "Human-in-the-Loop Dataset Curation",
       "author": "Dr. Nguyen",
-      "description": "UI to review and label edge cases for models.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+      "description": "UI to review and label edge cases for models.",
       "datePosted": "2025-09-08",
       "tags": {
         "green": ["PyTorch", "Part-time"],
@@ -267,7 +267,7 @@
       "id": "rec-23",
       "title": "Telehealth Conversation Summaries",
       "author": "Dr. Lee",
-      "description": "NLP pipeline for SOAP-style summarization.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+      "description": "NLP pipeline for SOAP-style summarization..",
       "datePosted": "2025-09-19",
       "tags": {
         "green": ["NLP", "Full-time"],
@@ -279,7 +279,7 @@
       "id": "rec-24",
       "title": "LLM Prompt Robustness Benchmarks",
       "author": "Prof. Kim",
-      "description": "Evaluate sensitivity across prompt templates.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+      "description": "Evaluate sensitivity across prompt templates",
       "datePosted": "2025-09-17",
       "tags": {
         "green": ["LLM", "PyTorch", "Remote"],
@@ -291,7 +291,7 @@
       "id": "rec-25",
       "title": "Time-Series Anomaly Dashboards",
       "author": "Dr. Romero",
-      "description": "Interactive UIs for real-time anomaly alerts.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+      "description": "Interactive UIs for real-time anomaly alerts.",
       "datePosted": "2025-09-10",
       "tags": {
         "green": ["Data Viz", "Python", "Full-time"],
@@ -303,7 +303,7 @@
       "id": "rec-26",
       "title": "ROS Perception Tools UX",
       "author": "Prof. Chen",
-      "description": "Design debugging panels for ROS camera pipelines.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+      "description": "Design debugging panels for ROS camera pipelines.",
       "datePosted": "2025-09-06",
       "tags": {
         "green": ["Python", "Remote"],
@@ -315,7 +315,7 @@
       "id": "rec-27",
       "title": "Adverse Event Detection in Forums",
       "author": "Dr. Singh",
-      "description": "Mine patient-reported outcomes with LLMs.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+      "description": "Mine patient-reported outcomes with LLMs.",
       "datePosted": "2025-09-07",
       "tags": {
         "green": ["NLP", "On-site"],
@@ -327,7 +327,7 @@
       "id": "rec-28",
       "title": "Multimodal Chart Reader",
       "author": "Dr. Zhao",
-      "description": "Parse plots and tables with CV + LLM.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+      "description": "Parse plots and tables with CV + LLM.",
       "datePosted": "2025-09-05",
       "tags": {
         "green": ["Python"],
@@ -339,7 +339,7 @@
       "id": "rec-29",
       "title": "RL Reward Visualization",
       "author": "Prof. Romero",
-      "description": "Tools to inspect reward shaping and stability.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+      "description": "Tools to inspect reward shaping and stability.",
       "datePosted": "2025-09-08",
       "tags": {
         "green": [],
@@ -351,7 +351,7 @@
       "id": "rec-30",
       "title": "Notebook-to-App Converter",
       "author": "Dr. Brooks",
-      "description": "Turn research notebooks into small web apps.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+      "description": "Turn research notebooks into small web apps.",
       "datePosted": "2025-09-04",
       "tags": {
         "green": ["Python", "Data Viz", "Remote"],

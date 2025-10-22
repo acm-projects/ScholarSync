@@ -1,0 +1,10 @@
+{
+  "tailwindCSS.experimental.configFile": "scholarsync/tailwind.config.js",
+  "editor.quickSuggestions": { "other": true, "comments": false, "strings": true },
+  "editor.suggestOnTriggerCharacters": true,
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.includeLanguages": {
+    "javascript": "javascriptreact",
+    "typescript": "typescriptreact"
+  }
+}

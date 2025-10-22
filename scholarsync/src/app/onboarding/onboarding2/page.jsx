@@ -4,35 +4,38 @@ import { useContext, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { OnboardingCtx } from "../layout";
 import ProgressBar from "@/components/progressbar";
-import MultiSelectDropdown from "@/components/multidropdown";
-import tags from "@/data/tags.json";
-
-const SKILLS        = tags.skills;
-const INTEREST      = tags.interests;
-const PROJECTTYPES  = tags.projectTypes;
-const FIELDS        = tags.fields;
-const RESEARCHTYPES = tags.researchTypes;
-const CAREERGOALS   = tags.careerGoals;
+import TagTextBox from "@/components/tagtextbox";
 
 export default function OnboardingStep2() {
   const router = useRouter();
   const { data, setData } = useContext(OnboardingCtx);
 
-  const handleMultiChange = (name, values) => {
-    setData((prev) => ({
-      ...prev,
-      [name]: values,
-    }));
+  const updateBucket = (name, values) => {
+    setData((prev) => {
+      const next = { ...prev, [name]: values };
+      const merged = Array.from(
+        new Set([
+          ...(next.skills || []),
+          ...(next.projectTypes || []),
+          ...(next.interests || []),
+          ...(next.fields || []),
+          ...(next.researchTypes || []),
+          ...(next.careerGoals || []),
+        ])
+      );
+      next.alltags = merged;
+      return next;
+    });
   };
 
   const canContinue = useMemo(
     () =>
-      data.skills?.length > 0 &&
-      data.interests?.length > 0 &&
-      data.projectTypes?.length > 0 &&
-      data.fields?.length > 0 &&
-      data.researchTypes?.length > 0 &&
-      data.careerGoals?.length > 0,
+      (data.skills?.length ?? 0) > 0 &&
+      (data.interests?.length ?? 0) > 0 &&
+      (data.projectTypes?.length ?? 0) > 0 &&
+      (data.fields?.length ?? 0) > 0 &&
+      (data.researchTypes?.length ?? 0) > 0 &&
+      (data.careerGoals?.length ?? 0) > 0,
     [data]
   );
 
@@ -56,64 +59,52 @@ export default function OnboardingStep2() {
                 Research & Skills
               </h3>
               <p className="mb-4 text-sm text-[#E2E3E6]">
-                Tell us about your interests and skills
+                Type a tag and press Enter to add it. Click a tag to remove.
               </p>
 
               <div className="grid gap-8 md:grid-cols-2">
-                <MultiSelectDropdown
+                <TagTextBox
                   label="Skills"
                   name="skills"
-                  options={SKILLS}
                   values={data.skills || []}
-                  onChange={(vals) => handleMultiChange("skills", vals)}
-                  placeholder="Select skills"
+                  onChange={(vals) => updateBucket("skills", vals)}
                 />
-                <MultiSelectDropdown
+                <TagTextBox
                   label="Preferred Project Types"
                   name="projectTypes"
-                  options={PROJECTTYPES}
                   values={data.projectTypes || []}
-                  onChange={(vals) => handleMultiChange("projectTypes", vals)}
-                  placeholder="Select project types"
+                  onChange={(vals) => updateBucket("projectTypes", vals)}
                 />
-                <MultiSelectDropdown
+                <TagTextBox
                   label="Research Interests / Topics"
                   name="interests"
-                  options={INTEREST}
                   values={data.interests || []}
-                  onChange={(vals) => handleMultiChange("interests", vals)}
-                  placeholder="Select interests"
+                  onChange={(vals) => updateBucket("interests", vals)}
                 />
-                <MultiSelectDropdown
+                <TagTextBox
                   label="Preferred Research Fields / Departments"
                   name="fields"
-                  options={FIELDS}
                   values={data.fields || []}
-                  onChange={(vals) => handleMultiChange("fields", vals)}
-                  placeholder="Select fields"
+                  onChange={(vals) => updateBucket("fields", vals)}
                 />
-                <MultiSelectDropdown
+                <TagTextBox
                   label="Type of Research"
                   name="researchTypes"
-                  options={RESEARCHTYPES}
                   values={data.researchTypes || []}
-                  onChange={(vals) => handleMultiChange("researchTypes", vals)}
-                  placeholder="Select research types"
+                  onChange={(vals) => updateBucket("researchTypes", vals)}
                 />
-                <MultiSelectDropdown
+                <TagTextBox
                   label="Career Goals / Applications"
                   name="careerGoals"
-                  options={CAREERGOALS}
                   values={data.careerGoals || []}
-                  onChange={(vals) => handleMultiChange("careerGoals", vals)}
-                  placeholder="Select goals"
+                  onChange={(vals) => updateBucket("careerGoals", vals)}
                 />
               </div>
             </div>
 
             {!canContinue && (
               <p className="text-sm text-[#E2E3E6]/80">
-                * Please select at least one option in each category to continue.
+                * Please add at least one tag in each category to continue.
               </p>
             )}
 
