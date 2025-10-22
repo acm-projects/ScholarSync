@@ -18,18 +18,41 @@ export default function Layout({ children }) {
     researchTypes: [],
     careerGoals: [],
     resumeFile: null,
-    extraQ1: [],
-    extraQ2: [],
-    extraQ3: [],
-    extraQ4: [],
-    extraQ5: [],
-    extraQ6: [],
+    allTags: []
   });
 
   const handleChange = (eOrObj) => {
     const { name, value } = eOrObj.target ? eOrObj.target : eOrObj;
     setData((prev) => ({ ...prev, [name]: value }));
   };
+
+  // Tokenizes tags (list of strings) into list of lists of tokens
+  function tokenize(tags) {
+    const stopWords = new Set([
+      "the", "is", "a", "and", "with", "this", "of", "for", "in", "on", "to", "by"
+    ]);
+
+    // Tokenizes input
+    function extractKeywords(text) {
+      // Match words including accented letters
+      const words = text.match(/\b\p{L}+\b/gu); 
+      return words 
+        ? words
+          .map(word => word.toLowerCase())
+          .filter(word => !stopWords.has(word))
+        : [];
+    }
+
+    // Tokenizes multiple strings into a list of lists of tokens
+    function tokenizeTexts(texts) {
+      return texts.map(text => extractKeywords(text));
+    }
+
+    return tokenizeTexts(tags);
+  }
+
+  // Tokenize all tags
+  setData(data.map(item.allTags, tokenize(item.allTags)));
 
   const submitData = async () => {
     console.log("Onboarding data ready to submit:", data);
@@ -43,7 +66,7 @@ export default function Layout({ children }) {
       }
     }
 
-    await fetch("api.com", {
+    await fetch("/api/user", {
       method: "POST",
       body: formData,
     });

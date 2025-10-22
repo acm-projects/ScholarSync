@@ -1,18 +1,32 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Navbar from "@/components/navbar";
 import ToggleTabs from "@/components/toggletabsprofessor";
 import ProfessorCard from "@/components/professorcard";
 import { normalizeAllItems } from "@/components/pagesort";
 import profRecommended from "@/data/professors_recommended.json" assert { type: "json" };
-import profAll from "@/data/professors_all.json" assert { type: "json" };
 import userTags from "@/data/user_tags.json" assert { type: "json" };
 
 export default function ProfessorsPage() {
   const [tab, setTab] = useState("recommended");
   const [query, setQuery] = useState("");
   const [visible, setVisible] = useState(6);
+  const [profAll, setProfAll] = useState(null);
+
+  const profUrl = "arn:aws:apigateway:us-east-2::/apis/tzupgr575f/routes/1ojgh6l/professors"
+  useEffect(() => {
+    // Function to make GET request
+    const fetchProfs = async () => {
+      const response = await fetch(profUrl);
+      const result = await response.json();
+
+      // Set profAll to a list of professor JSON entries
+      setProfAll(result);
+    };
+
+    fetchProfs();
+  }, []);
 
   const dataset = useMemo(() => {
     return tab === "recommended"
@@ -22,6 +36,8 @@ export default function ProfessorsPage() {
 
   const filtered = useMemo(() => {
     let out = dataset;
+
+    // if query exists, filter existing cards by user inputted query
     if (query.trim()) {
       const q = query.toLowerCase();
       out = out.filter((it) => {

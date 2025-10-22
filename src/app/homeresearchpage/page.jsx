@@ -21,8 +21,8 @@ export default function OpportunitiesPage() {
   // compare and pass in data and user tags
   const dataset = useMemo(() => {
     return tab === "recommended" // by defualt it is recommened so it compares user data and card data and sets the original to the compared but we have to pass in these arguments here
-      ? normalizeAllItems(recommendedData, userTags)
-      : normalizeAllItems(allData, userTags);
+      ? normalizeAllItems(recommendedData, userTags) // If AI Recommended -> use opportunities_recommended.json
+      : normalizeAllItems(allData, userTags); // Else, use opportunities_all.json
   }, [tab]);
 
   // Usememo: only recomputes filterd/sorted list if anything change,

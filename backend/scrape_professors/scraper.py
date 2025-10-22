@@ -11,7 +11,7 @@ BASE_URL = 'https://profiles.utdallas.edu/browse'
 dynamodb = boto3.resource('dynamodb')
 professor_table = dynamodb.Table('UTD_Professor')
 
-def lambda_handler(page):
+def scrape_utd_profs(page):
     response = requests.get(f"{BASE_URL}?page={str(page)}") # Make a GET request to the url using the page number, receiving the HTML
     soup = BeautifulSoup(response.text, "html.parser") # Create soup by parsing HTML using the lxml parser (faster than built-in "html.parser")
 
@@ -260,4 +260,4 @@ def scrape_interests(profile_soup):
 
     return interests
         
-lambda_handler(1)
+scrape_utd_profs(1)

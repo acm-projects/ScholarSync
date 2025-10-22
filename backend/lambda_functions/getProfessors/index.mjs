@@ -13,6 +13,7 @@ export const handler = async (event) => {
             body: JSON.stringify(response.Items), // Return a list of each item JSON
         };
     }
+    
     catch (err) {
         console.error(err); // Print error for debugging
 
