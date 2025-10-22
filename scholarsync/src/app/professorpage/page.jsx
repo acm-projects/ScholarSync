@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Navbar from "@/components/navbar";
 import ToggleTabs from "@/components/toggletabsprofessor";
 import ProfessorCard from "@/components/professorcard";
+import FullProfessorCard from "@/components/fullprofessorcard";
 import { normalizeAllItems } from "@/components/pagesort";
 import profRecommended from "@/data/professors_recommended.json" assert { type: "json" };
 import profAll from "@/data/professors_all.json" assert { type: "json" };
@@ -55,6 +56,9 @@ export default function ProfessorsPage() {
   const emailToPhotoPath = (email) =>
     email ? `/images/picure/${String(email).toLowerCase()}.jpg` : null;
 
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState(null);
+
   return (
     <div className="min-h-screen bg-[#3D110F] text-[#EEEef0]">
       {/* top nav */}
@@ -63,7 +67,7 @@ export default function ProfessorsPage() {
       </div>
 
       {/* controls */}
-      <div className="-mt-5 w-full bg-[#3D110F] border-b-2 border-[#5A2B29] shadow-sm pt-3 pb-2">
+      <div className={`-mt-5 w-full bg-[#3D110F] border-b-2 border-[#5A2B29] shadow-sm pt-3 pb-2 ${open ? "blur-[2px]" : ""}`}>
         <div className="w-full px-6 pt-5 pb-4 flex items-center">
           <div className="flex items-center gap-6 overflow-x-auto flex-1 min-w-0">
             <ToggleTabs
@@ -83,14 +87,15 @@ export default function ProfessorsPage() {
                 setVisible(6);
               }}
               placeholder="Search professors, fields, or tags…"
-              className="w-80 md:w-96 rounded-md border border-[#5A2B29] bg-[#201311] px-3 py-2 text-m text-[#EEEef0] placeholder-[#EEEef0]/60 hover:bg-[#3C1A19] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#BA3F3D]"
+              className="w-80 md:w-96 rounded-md border border-[#5A2B29] bg-[#201311] px-3 py-2 text-m text-[#EEEef0] placeholder-[#EEEef0]/60 
+                         hover:bg-[#3C1A19] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#BA3F3D]"
             />
           </div>
         </div>
       </div>
 
-      {/* Professor card & link */}
-      <main className="mx-auto px-20 py-15">
+      {/* Professor card takes from toshow */}
+      <main className={`mx-auto px-20 py-15 ${open ? "blur-[2px]" : ""}`}>
         <div className="grid gap-8 sm:grid-cols-2 items-stretch">
           {toShow.map((item) => {
             const pid = String(item.id || item.email || item.full_name);
@@ -102,6 +107,7 @@ export default function ProfessorsPage() {
                 showPct={tab === "recommended"}
                 userTags={userTags}
                 href={href}
+                onOpen={(it) => { setSelected(it); setOpen(true); }}
               />
             );
           })}
@@ -122,6 +128,17 @@ export default function ProfessorsPage() {
           )}
         </div>
       </main>
+
+      {open && selected && (
+        <div className="fixed inset-0 z-50 flex items-start md:items-center justify-center">
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px]" onClick={() => { setOpen(false); setSelected(null); }} />
+          <div className="relative z-10 w-full max-w-6xl mx-4 my-6">
+            <div className="rounded-2xl overflow-hidden">
+              <FullProfessorCard item={selected} onClose={() => { setOpen(false); setSelected(null); }} />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

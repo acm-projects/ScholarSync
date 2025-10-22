@@ -28,7 +28,7 @@ const getAllTags = (item) => {
   });
 };
 
-export default function FullPageCard({ item }) {
+export default function FullPageCard({ item, onClose }) {
   const router = useRouter();
 
   // data we show
@@ -47,7 +47,11 @@ export default function FullPageCard({ item }) {
       <div className="mb-6 flex items-center justify-between">
         <button
           type="button"
-          onClick={() => router.back()}
+          onClick={() => {
+            if (typeof onClose === "function") onClose();
+            else if (typeof window !== "undefined" && window.history.length > 1) router.back();
+            else router.push("/homeresearchpage");
+          }}
           className="inline-flex items-center gap-2 rounded-lg border border-[#5A2B29] bg-[#201311] px-3 py-1.5 text-sm md:text-base font-medium hover:bg-[#3C1A19] hover:border-[#BA3F3D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BA3F3D]"
         >
           ← Back
@@ -67,8 +71,13 @@ export default function FullPageCard({ item }) {
         ) : (
           <div className="col-start-1 row-start-2" />
         )}
-        <div className="col-start-2 row-start-2 mt-1 text-sm md:text-base font-semibold text-[#E9EAED] whitespace-nowrap">
-          {posted ? `Posted: ${posted}` : null}
+        <div className="col-start-2 row-span-2 flex flex-col items-end justify-center gap-1 text-right">
+          <div className="text-sm md:text-base font-semibold text-[#E9EAED] whitespace-nowrap">
+            {email ? <>Email: <a href={mailto} className="underline hover:no-underline">{email}</a></> : "Email: N/A"}
+          </div>
+          <div className="text-sm md:text-base font-semibold text-[#E9EAED] whitespace-nowrap">
+            {posted ? `Posted: ${posted}` : null}
+          </div>
         </div>
       </header>
 
@@ -94,17 +103,6 @@ export default function FullPageCard({ item }) {
             <TagChip key={`full-${item.id}-${i}`} text={t.text} color={t.color} />
           ))}
         </div>
-
-        <a
-          href={mailto}
-          target="_blank"
-          rel="noopener noreferrer"
-          title={email || "opens your email app"}
-          onClick={(e) => e.stopPropagation()}
-          className="ml-auto inline-flex items-center gap-2 rounded-lg border border-[#5A2B29] bg-[#983734] px-3 py-1.5 text-sm md:text-base font-semibold text-[#FFEAE7] hover:bg-[#3C1A19] hover:border-[#BA3F3D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BA3F3D]"
-        >
-          Email
-        </a>
       </footer>
     </article>
   );
