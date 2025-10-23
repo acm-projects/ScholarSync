@@ -313,11 +313,11 @@
   .top-0 {
     top: calc(var(--spacing) * 0);
   }
+  .right-5 {
+    right: calc(var(--spacing) * 5);
+  }
   .left-0 {
     left: calc(var(--spacing) * 0);
-  }
-  .z-0 {
-    z-index: 0;
   }
   .z-10 {
     z-index: 10;
@@ -352,11 +352,11 @@
   .my-12 {
     margin-block: calc(var(--spacing) * 12);
   }
-  .-mt-2 {
-    margin-top: calc(var(--spacing) * -2);
-  }
   .-mt-5 {
     margin-top: calc(var(--spacing) * -5);
+  }
+  .-mt-44 {
+    margin-top: calc(var(--spacing) * -44);
   }
   .mt-1 {
     margin-top: calc(var(--spacing) * 1);
@@ -370,6 +370,9 @@
   .mt-4 {
     margin-top: calc(var(--spacing) * 4);
   }
+  .mt-5 {
+    margin-top: calc(var(--spacing) * 5);
+  }
   .mt-6 {
     margin-top: calc(var(--spacing) * 6);
   }
@@ -378,6 +381,12 @@
   }
   .mt-auto {
     margin-top: auto;
+  }
+  .mr-2 {
+    margin-right: calc(var(--spacing) * 2);
+  }
+  .mr-5 {
+    margin-right: calc(var(--spacing) * 5);
   }
   .mb-1 {
     margin-bottom: calc(var(--spacing) * 1);
@@ -391,8 +400,23 @@
   .mb-6 {
     margin-bottom: calc(var(--spacing) * 6);
   }
+  .mb-9 {
+    margin-bottom: calc(var(--spacing) * 9);
+  }
+  .mb-15 {
+    margin-bottom: calc(var(--spacing) * 15);
+  }
+  .mb-18 {
+    margin-bottom: calc(var(--spacing) * 18);
+  }
   .ml-2 {
     margin-left: calc(var(--spacing) * 2);
+  }
+  .ml-3 {
+    margin-left: calc(var(--spacing) * 3);
+  }
+  .ml-45 {
+    margin-left: calc(var(--spacing) * 45);
   }
   .ml-auto {
     margin-left: auto;
@@ -420,6 +444,9 @@
   }
   .hidden {
     display: none;
+  }
+  .inline-block {
+    display: inline-block;
   }
   .inline-flex {
     display: inline-flex;
@@ -465,6 +492,12 @@
   }
   .w-12 {
     width: calc(var(--spacing) * 12);
+  }
+  .w-24 {
+    width: calc(var(--spacing) * 24);
+  }
+  .w-36 {
+    width: calc(var(--spacing) * 36);
   }
   .w-48 {
     width: calc(var(--spacing) * 48);
@@ -700,6 +733,9 @@
       border-color: color-mix(in oklab, var(--color-rose-600) 40%, transparent);
     }
   }
+  .border-white {
+    border-color: var(--color-white);
+  }
   .bg-\[\#3D110F\] {
     background-color: #3D110F;
   }
@@ -810,6 +846,9 @@
   }
   .px-6 {
     padding-inline: calc(var(--spacing) * 6);
+  }
+  .px-10 {
+    padding-inline: calc(var(--spacing) * 10);
   }
   .px-20 {
     padding-inline: calc(var(--spacing) * 20);
@@ -1104,6 +1143,10 @@
   .ease-in {
     --tw-ease: var(--ease-in);
     transition-timing-function: var(--ease-in);
+  }
+  .outline-none {
+    --tw-outline-style: none;
+    outline-style: none;
   }
   .select-none {
     -webkit-user-select: none;

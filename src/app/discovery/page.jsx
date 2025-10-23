@@ -30,9 +30,7 @@ export default function DiscoverPaper() {
       );
     });
     }
-
-
-
+    
   if (selectedYear && selectedYear !== "all") {
   const yearNow = new Date().getFullYear();
   const goBack = parseInt(selectedYear);
@@ -56,10 +54,10 @@ const canLoadMore = visible < filtered.length;
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#3D110F' }}>
-      <div className="relative z-10 bg-white rounded-b-2xl shadow">
+      <div className="relative z-10 bg-white border-white rounded-b-2xl shadow">
       <Navbar />
     </div>
-    <div className="relative z-0 -mt-2 w-full bg-white shadow-sm py-3">
+    <div className="-mt-5 w-full bg-[#3D110F] border-b-2 border-[#5A2B29] shadow-sm pt-3 pb-2">
       <div className="w-full px-6 py-3 flex items-center gap-6">
             <input
               value={query}

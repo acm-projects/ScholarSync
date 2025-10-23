@@ -1,12 +1,13 @@
 'use client';
 import { useState } from 'react';
-import Link from 'next/Link';
+import Link from 'next/link';
 import './login.css';
 import Image from 'next/image';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setusername] = useState('');
 
   const handle = (e) =>{
     e.preventDefault();
@@ -26,7 +27,7 @@ const Login = () => {
             
             <div className="inputs">
                 <div className="input">
-                    <input type="email" placeholder="Email"  value={email} onChange={(e) => setEmail(e.target.value)}/>
+                    <input type="email" placeholder="Email or Username"  value={email||username} onChange={(e) => {setEmail(e.target.value);setusername(e.target.value)}}/>
                 </div>
                 
                 <div className="input">

@@ -3,22 +3,41 @@ import papers from '@/data/papers.json';
 import '@/app/papers/[id]/markdown.css';
 
 export default function PAPERdet({ paper }) {
- if (!paper) {
+  if (!paper) {
     return <div style={{ padding: '2rem' }}>Not Found!</div>;
   }
 
   return (
-    <div style={{ backgroundColor: '#3D110F', minHeight: '100vh', padding: '2rem' }}>
-      <div className="container" style={{ marginTop: '5rem' }}>
+    <div
+      style={{
+        width: '1000px',
+        height: '1300px', 
+        backgroundColor: '#ffffffff',
+        color: 'black',
+        padding: '2.5rem',
+        boxSizing: 'border-box',
+        overflow: 'hidden', 
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+      }}
+    >
+      <div>
         <h1>{paper.title}</h1>
         <p>Author: {paper.author}</p>
         <p>Date: {paper.date}</p>
 
-        <div className="markdown">
+        
+        <div
+          className="markdown"
+          style={{
+            height: '1000px', 
+            overflow: 'hidden',
+          }}
+        >
           <ReactMarkdown>{paper.content}</ReactMarkdown>
         </div>
       </div>
     </div>
   );
-
 }

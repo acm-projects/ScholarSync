@@ -1,5 +1,6 @@
 "use client";
 import './card.css'
+import PAPERdet from "@/components/paperDetail";
 import {useRouter} from 'next/navigation';
 import { BookmarkIcon, BookmarkFilledIcon } from '@radix-ui/react-icons';
 import TagChip from "@/components/tagchip";
@@ -9,7 +10,7 @@ import { useEffect, useState } from 'react';
   function BookmarkButton({onClick, bookmarked}){
     return(
     <button onClick = {onClick} style={{color: "red"}}> 
-     {bookmarked ? <BookmarkFilledIcon/>  :  <BookmarkIcon/>}
+     {bookmarked ? <BookmarkFilledIcon style = {{ width: '28px', height: '28px'}}/>  :  <BookmarkIcon style = {{ width: '28px', height: '28px'}}/>}
     </button>
     );
   }
@@ -60,21 +61,44 @@ useEffect(() => {
   
   return(
      <div className="card" >
-      <div className = "mt-auto flex justify-end size 25">
+       <div style={{height: '200px',width: '200px',  overflow: 'hidden',position: 'relative', flexShrink: 0,}} >
+                        <div
+                        style={{
+                          transform: 'scale(0.14)',
+                          transformOrigin: 'top left',
+                          width: '50px',
+                          height: '150px', 
+                          position: 'absolute',
+                          marginLeft: "1rem",
+                          marginTop: "1rem",
+                          top: 0,
+                          left: 0,
+
+                        }}
+                      >
+                        <PAPERdet paper = {paper} />
+                      </div>
+                      </div>
+      
+      <div className = "Main -mt-44 mr-2 ml-3">
+      <div className = "mb-9 flex justify-end">
         <BookmarkButton bookmarked = {bookmarked} onClick = {handleBookmark}/>
       </div>
       <h3 className="card-title" onClick={titleClicked}>{paper.title} </h3>
       <p className="card-author">{paper.author} </p>
       <p className="card-description">{paper.description}</p>
-       <div className="mt-auto flex justify-end">
-    <p className="text-xs text-[#D1D2D6] shrink-0">Date Published: {paper.date}</p>
-  </div>
-      <div className="card-tag gap 2" >
+      </div>
+      
+      <div className="mt-auto pt-3 flex items-end justify-between">
+      <div className="card-tag flex gap-2 ml-45 mb-18" >
                {paper.tags.slice(0,3).map((tag,index) => {
                   const color = index === 0 ? "green" : index ===1 ? "yellow" : "red";
                   return <TagChip key={index} text={tag} color={color} />;
                 })}
             </div>
+        <div className="mt-auto mb-15 mr-5 flex items-end justify-between text-xs"> Date Published: {paper.date} </div>
+        </div>
+
     </div>
   );
 }

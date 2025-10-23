@@ -1,6 +1,7 @@
 
 body {
-        background-color: #397EF4;
+        background-color:#3D110F;
+  
 
   }
   
@@ -23,7 +24,7 @@ body {
   }
   
   .account span {
-    color: #397EF4;
+    color: #3D110F;
     cursor: pointer;
     margin-left: 4px;
   }

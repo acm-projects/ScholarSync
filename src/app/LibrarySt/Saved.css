@@ -7,12 +7,12 @@
   border: 1px solid #5A2B29;
   border-radius: 25px;
   background-color: #170F0E;
-  box-shadow: 1px 1px #df6c00b1;
 }
 
 
 .Main {
   padding: 20px;
+
 
 }
 .Top{
@@ -28,3 +28,10 @@ h1{
     font-weight: bold;
     text-align: center;
 }
+
+.paper-wrapper {
+  transform: scale(0.3);
+  transform-origin: top left;
+}
+
+

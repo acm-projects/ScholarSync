@@ -2,7 +2,7 @@
   {
   "id": 1,
   "title": "Interpretable Neural Architectures",
-  "tags": ["Neural Translation", "Transformer", "Low-resource Languages"],
+  "tags": ["Machine Learning", "Transformer", "Low-resource Languages"],
   "author": "Dr. Aisha Khan, Prof. Tomás Varela, Mei Lin",
   "description": "This paper proposes a modular transformer model optimized for low-resource language pairs...",
   "date": "1996-03-21",
@@ -12,7 +12,7 @@
   {
   "id": 2,
   "title": "Biochar Applications in Agroecosystems",
-  "tags": ["Biochar Yields", "Soil Health", "Carbon Sequestration"],
+  "tags": ["Machine Learning", "Soil Health", "Carbon Sequestration"],
   "author": "Priya Deshmukh, Dr. Nathaniel Moore, Isabel Rocha",
   "description": "A systematic review and meta-analysis of biochar use across 42 crop systems globally, analyzing its effects on yield, soil health, and carbon sequestration.",
   "date": "2008-11-12",
@@ -40,7 +40,7 @@
   {
     "id": 5,
     "title": "The Sociolinguistics of AI-Generated Text",
-    "tags": ["Computational Linguistics", "AI Text", "Multilingual Corpora"],
+    "tags": ["Machine Learning", "AI Text", "Multilingual Corpora"],
     "author": "Luis Fernandez, Dr. Rebecca Chong, Simona Volkov",
     "description": "An analysis of dialect drift in large language models trained on multilingual corpora, and its implications for cross-cultural communication.",
     "date": "2013-04-22",
@@ -109,7 +109,7 @@
   {
     "id": 12,
     "title": "Acoustic Monitoring of Pollinator Populations",
-    "tags": ["Ecoacoustics", "Deep Learning", "Agricultural Zones"],
+    "tags": ["Machine Learning", "Deep Learning", "Agricultural Zones"],
     "author": "Dr. Jonas Eriksson, Alice M. Wong, Thando Khumalo",
     "description": "Uses acoustic signatures and deep learning to monitor bee and insect activity across 12 agricultural zones during peak flowering seasons.",
     "date": "1990-06-30",
@@ -139,7 +139,7 @@
   {
     "id": 15,
     "title": "Behavioral Economics in Pandemic Policy Compliance",
-    "tags": ["Behavioral Economics", "Public Health", "Pandemic Compliance"],
+    "tags": ["Machine Learning", "Public Health", "Pandemic Compliance"],
     "author": "Dr. Nadia Bellucci, Faisal Rahman, Yuki Nakamura",
     "description": "A cross-national survey and simulation of behavioral incentives used to increase public compliance with emergency health measures.",
     "date": "1981-03-28",
@@ -153,8 +153,7 @@
     "author": "Mohammed Idris, Dr. Clara Neves, Seung-Ho Park",
     "description": "Demonstrates sensor-driven autonomous irrigation and drone planting methods to optimize crop yield in desertified farmland.",
     "date": "2005-10-21",
-     "content": "# Abstract\n\nThis study investigates digital burnout by analyzing EEG data alongside self-reported stress levels in knowledge workers. The findings reveal significant cognitive fatigue linked to continuous digital interruptions.\n\n**Keywords:** digital fatigue, EEG, stress, knowledge workers, cognitive health\n\n# Introduction\n\nWith increasing reliance on digital devices, knowledge workers are exposed to frequent notifications leading to cognitive overload. This research explores the neurological and psychological impacts of this phenomenon."
-
+    "content": "# Abstract\n\nThis study investigates digital burnout by analyzing EEG data alongside self-reported stress levels in knowledge workers. The findings reveal significant cognitive fatigue linked to continuous digital interruptions.\n\n**Keywords:** digital fatigue, EEG, stress, knowledge workers, cognitive health\n\n# Introduction\n\nWith increasing reliance on digital devices, knowledge workers are exposed to frequent notifications leading to cognitive overload. This research explores the neurological and psychological impacts of this phenomenon."
   },
   {
     "id": 17,
@@ -169,7 +168,7 @@
   {
     "id": 18,
     "title": "Smart Grids and Decentralized Energy Governance",
-    "tags": ["Energy Systems", "Decentralized Governance", "Local Energy Markets"],
+    "tags": ["Machine Learning", "Decentralized Governance", "Local Energy Markets"],
     "author": "Dr. Viktoria Petrov, Samuel Achebe, Reema Kapoor",
     "description": "Explores governance models for smart microgrids using local energy markets and peer-to-peer trading in semi-urban communities.",
     "date": "1999-01-04",
@@ -177,3 +176,4 @@
 
   }
 ]
+

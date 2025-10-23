@@ -11,6 +11,11 @@
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
     ],
+    "/homeresearchpage/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/homeresearchpage/page.js"
+    ],
     "/discovery/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -29,10 +34,15 @@
       "static/css/app/papers/[id]/page.css",
       "static/chunks/app/papers/[id]/page.js"
     ],
-    "/homeresearchpage/page": [
+    "/onboarding/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/homeresearchpage/page.js"
+      "static/chunks/app/onboarding/layout.js"
+    ],
+    "/onboarding/onboarding1/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/onboarding/onboarding1/page.js"
     ]
   }
 }
