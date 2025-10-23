@@ -30,7 +30,7 @@ export default function TagTextBox({
       addTag(text.replace(",", ""));
     }
   };
-
+  // git add .
   const removeTag = (idx) => {
     const next = (values || []).filter((_, i) => i !== idx);
     onChange(next);
