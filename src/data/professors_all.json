@@ -395,7 +395,30 @@
     ],
     "tags": [
       "Cognition and Neuroscience",
+<<<<<<< HEAD
       "Psychology-Faculty"
+=======
+      "Psychology-Faculty",
+      "Bioinformatics",
+        "Biology",
+        "Clinical",
+        "Cognitive Science",
+        "Computational",
+        "Data Analysis",
+        "Economics",
+        "Education",
+        "Experimental",
+        "Genomics",
+        "Interdisciplinary",
+        "Linguistics",
+        "Longitudinal",
+        "Neuroscience",
+        "Psychology",
+        "Psychology of Learning",
+        "Qualitative",
+        "Quantitative",
+        "Statistics"
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
     ]
   },
   {

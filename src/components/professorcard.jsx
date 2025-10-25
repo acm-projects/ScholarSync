@@ -1,6 +1,10 @@
 "use client";
 
 import { useState } from "react";
+<<<<<<< HEAD
+=======
+import { useRouter } from "next/navigation";
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
 import TagChip from "@/components/tagchip";
 
 const asArray = (v) => (Array.isArray(v) ? v : []);
@@ -35,7 +39,12 @@ function computeThreeTagPctAndColor(topTags) {
   return { pct, color };
 }
 
+<<<<<<< HEAD
 export default function ProfessorCard({ item, userTags, showPct = true , theme = "base" }) {
+=======
+export default function ProfessorCard({ item, userTags, showPct = true , theme = "base", href, onOpen }) {
+  const router = useRouter();
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
   const name = item?.full_name || "Unknown Faculty";
   const room = item?.office_room?.trim() ? item.office_room : "N/A";
   const summary = item?.summary?.trim() ? item.summary : "N/A";
@@ -48,11 +57,16 @@ export default function ProfessorCard({ item, userTags, showPct = true , theme =
     ? computeThreeTagPctAndColor(topTags)
     : { pct: null, color: "gray" };
 
+<<<<<<< HEAD
     const cardStyle =
+=======
+  const cardStyle =
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
     theme === "base"
       ? "border border-[#5A2B29] bg-[#170F0E] hover:bg-[#241312] hover:border-[#BA3F3D]"
       : "border border-[#FFD1CC] bg-[#983734] hover:bg-[#a9443f] hover:border-[#ffb3a7]";
 
+<<<<<<< HEAD
   const badgeClass =
     badgeColor === "green"
       ? "bg-green-700/15 text-green-300 border border-green-600/40"
@@ -64,6 +78,13 @@ export default function ProfessorCard({ item, userTags, showPct = true , theme =
 
   const photo = item?.photo || item?.image || null;
   const [imgOk, setImgOk] = useState(true);
+=======
+  const custom = "/AliAliev.jpg";
+  const photo = custom || item?.photo || item?.image || null;
+
+  const [errored, setErrored] = useState(false);
+
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
   const initials =
     (name || "")
       .split(" ")
@@ -73,6 +94,7 @@ export default function ProfessorCard({ item, userTags, showPct = true , theme =
       .slice(0, 2)
       .toUpperCase() || "NA";
 
+<<<<<<< HEAD
   return (
     <div className={`h-64 min-w-[380px] w-full overflow-hidden rounded-2xl p-7 shadow-md flex ${cardStyle}`}>
       <div className="w-[30%] p-3">
@@ -104,10 +126,67 @@ export default function ProfessorCard({ item, userTags, showPct = true , theme =
         </div>
         <p
           className="mt-3 text-m font-medium leading-6 text-[#F4F4F5] line-clamp-3"
+=======
+  const go = () => {
+    if (onOpen) onOpen(item);
+    else if (href) router.push(href);
+  };
+
+  const stroke =
+    badgeColor === "green"
+      ? "#34d399"
+      : badgeColor === "yellow"
+      ? "#fbbf24"
+      : badgeColor === "red"
+      ? "#f87171"
+      : "#9ca3af";
+
+  const size = 128;
+  const r = 60;
+  const C = 2 * Math.PI * r;
+  const dash = showPct && pct != null ? (pct / 100) * C : 0;
+
+  return (
+    <div
+      role="button"
+      tabIndex={0}
+      onClick={go}
+      onKeyDown={(e) => (e.key === "Enter" ? go() : null)}
+      className={`h-64 min-w-[380px] w-full overflow-hidden rounded-2xl p-7 shadow-md flex ${cardStyle} focus:outline-none focus:ring-2 focus:ring-[#BA3F3D]`}
+      aria-label={`Open ${name}`}
+    >
+      <div className="w-[30%] p-3">
+        <div className="h-full w-full">
+          {photo && !errored ? (
+            <img
+              src={photo}
+              alt={name}
+              className="h-full w-full object-cover rounded-xl border border-[#5A2B29]"
+              onError={() => setErrored(true)}
+            />
+          ) : (
+            <div className="h-full w-full rounded-xl bg-[#983734] grid place-items-center text-3xl font-bold text-[#EEEef0]">
+              {initials}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="flex-1 min-w-0 pl-4 pr-0 flex flex-col">
+        <div className="min-w-0">
+          <div className="text-2xl font-bold text-[#EEEef0] truncate">{name}</div>
+        </div>
+
+        <div className="text-m text-[#E2E3E6] truncate">Room: {room}</div>
+
+        <p
+          className="mt-2 text-m font-medium leading-6 text-[#F4F4F5] line-clamp-3"
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
           style={{ hyphens: "auto", overflowWrap: "anywhere" }}
         >
           {summary}
         </p>
+<<<<<<< HEAD
         <div className="mt-auto pt-6 flex items-end justify-between">
           <div className="flex flex-wrap items-end gap-2">
             {topTags.length ? (
@@ -132,9 +211,60 @@ export default function ProfessorCard({ item, userTags, showPct = true , theme =
           ) : (
             <div className="text-sm text-gray-500 italic">N/A</div>
           )}
+=======
+
+        <div className="mt-auto pt-6">
+          <div
+            className=" my-[-10px]
+              whitespace-nowrap overflow-x-auto
+              [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden
+              -mr-[184px] pr-[184px]
+            "
+          >
+            {topTags.length ? (
+              topTags.map((t, i) => (
+                <span
+                  key={`${item.id || item.email || item.full_name || "x"}-t-${i}`}
+                  className="inline-block mr-2 align-middle"
+                >
+                  <TagChip text={t.text} color={t.color} />
+                </span>
+              ))
+            ) : (
+              <span className="text-sm text-gray-500">No tags available</span>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="pl-2 pr-0 my-[10px] flex-[0_0_170px] flex flex-col items-end justify-between shrink-0">
+        <div className="mt-2 self-end mr-0">
+          <div className="relative" style={{ width: size, height: size }}>
+            <svg width={size} height={size} viewBox="0 0 160 160">
+              <circle cx="80" cy="80" r={r} fill="none" stroke="#302525" strokeWidth="12" />
+              <circle
+                cx="80" cy="80" r={r}
+                fill="none"
+                stroke={stroke}
+                strokeWidth="12"
+                strokeLinecap="round"
+                strokeDasharray={`${dash} ${C - dash}`}
+                transform="rotate(-90 80 80)"
+              />
+            </svg>
+            <div className="absolute inset-0 grid place-items-center text-[#EEEef0] font-bold text-xl">
+              {showPct && pct != null ? `${pct}%` : "N/A"}
+            </div>
+            <div className="mt-1 text-center text-xs text-[#E2E3E6]">match</div>
+          </div>
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
         </div>
       </div>
     </div>
   );
+<<<<<<< HEAD
 }
 
+=======
+};
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d

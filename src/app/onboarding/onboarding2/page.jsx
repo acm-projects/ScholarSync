@@ -4,6 +4,7 @@ import { useContext, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { OnboardingCtx } from "../layout";
 import ProgressBar from "@/components/progressbar";
+<<<<<<< HEAD
 import MultiSelectDropdown from "@/components/multidropdown";
 import tags from "@/data/tags.json";
 
@@ -13,26 +14,57 @@ const PROJECTTYPES  = tags.projectTypes;
 const FIELDS        = tags.fields;
 const RESEARCHTYPES = tags.researchTypes;
 const CAREERGOALS   = tags.careerGoals;
+=======
+import TagTextBox from "@/components/tagtextbox";
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
 
 export default function OnboardingStep2() {
   const router = useRouter();
   const { data, setData } = useContext(OnboardingCtx);
 
+<<<<<<< HEAD
   const handleMultiChange = (name, values) => {
     setData((prev) => ({
       ...prev,
       [name]: values,
     }));
+=======
+  const updateBucket = (name, values) => {
+    setData((prev) => {
+      const next = { ...prev, [name]: values };
+      const merged = Array.from(
+        new Set([
+          ...(next.skills || []),
+          ...(next.projectTypes || []),
+          ...(next.interests || []),
+          ...(next.fields || []),
+          ...(next.researchTypes || []),
+          ...(next.careerGoals || []),
+        ])
+      );
+      next.alltags = merged;
+      return next;
+    });
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
   };
 
   const canContinue = useMemo(
     () =>
+<<<<<<< HEAD
       data.skills?.length > 0 &&
       data.interests?.length > 0 &&
       data.projectTypes?.length > 0 &&
       data.fields?.length > 0 &&
       data.researchTypes?.length > 0 &&
       data.careerGoals?.length > 0,
+=======
+      (data.skills?.length ?? 0) > 0 &&
+      (data.interests?.length ?? 0) > 0 &&
+      (data.projectTypes?.length ?? 0) > 0 &&
+      (data.fields?.length ?? 0) > 0 &&
+      (data.researchTypes?.length ?? 0) > 0 &&
+      (data.careerGoals?.length ?? 0) > 0,
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
     [data]
   );
 
@@ -56,6 +88,7 @@ export default function OnboardingStep2() {
                 Research & Skills
               </h3>
               <p className="mb-4 text-sm text-[#E2E3E6]">
+<<<<<<< HEAD
                 Tell us about your interests and skills
               </p>
 
@@ -107,13 +140,58 @@ export default function OnboardingStep2() {
                   values={data.careerGoals || []}
                   onChange={(vals) => handleMultiChange("careerGoals", vals)}
                   placeholder="Select goals"
+=======
+                Type a tag and press Enter to add it. Click a tag to remove.
+              </p>
+
+              <div className="grid gap-8 md:grid-cols-2">
+                <TagTextBox
+                  label="Skills"
+                  name="skills"
+                  values={data.skills || []}
+                  onChange={(vals) => updateBucket("skills", vals)}
+                />
+                <TagTextBox
+                  label="Preferred Project Types"
+                  name="projectTypes"
+                  values={data.projectTypes || []}
+                  onChange={(vals) => updateBucket("projectTypes", vals)}
+                />
+                <TagTextBox
+                  label="Research Interests / Topics"
+                  name="interests"
+                  values={data.interests || []}
+                  onChange={(vals) => updateBucket("interests", vals)}
+                />
+                <TagTextBox
+                  label="Preferred Research Fields / Departments"
+                  name="fields"
+                  values={data.fields || []}
+                  onChange={(vals) => updateBucket("fields", vals)}
+                />
+                <TagTextBox
+                  label="Type of Research"
+                  name="researchTypes"
+                  values={data.researchTypes || []}
+                  onChange={(vals) => updateBucket("researchTypes", vals)}
+                />
+                <TagTextBox
+                  label="Career Goals / Applications"
+                  name="careerGoals"
+                  values={data.careerGoals || []}
+                  onChange={(vals) => updateBucket("careerGoals", vals)}
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
                 />
               </div>
             </div>
 
             {!canContinue && (
               <p className="text-sm text-[#E2E3E6]/80">
+<<<<<<< HEAD
                 * Please select at least one option in each category to continue.
+=======
+                * Please add at least one tag in each category to continue.
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
               </p>
             )}
 

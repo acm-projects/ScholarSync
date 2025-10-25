@@ -3,8 +3,13 @@
       "id": "rec-1",
       "title": "NLP for Clinical Notes",
       "author": "Dr. Lee",
+<<<<<<< HEAD
       "description": "Extract clinical entities from notes; weekly paper club and model prototyping.",
       "datePosted": "2025-09-15",
+=======
+      "description": "Extract clinical entities from notes; weekly paper club and model prototyping.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+      "datePosted": "2025-09-15", 
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
       "tags": {
         "green": ["NLP", "Full-time", "On-site"],
         "yellow": [],
@@ -15,7 +20,11 @@
       "id": "rec-2",
       "title": "Robotics Perception Stack",
       "author": "Prof. Chen",
+<<<<<<< HEAD
       "description": "Camera/LiDAR fusion and SLAM for mobile robots; ROS stack.",
+=======
+      "description": "Camera/LiDAR fusion and SLAM for mobile robots; ROS stack. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
       "datePosted": "2025-09-05",
       "tags": {
         "green": ["Robotics", "C++", "Remote"],
@@ -27,7 +36,11 @@
       "id": "rec-3",
       "title": "Sustainability Forecasting",
       "author": "Dr. Patel",
+<<<<<<< HEAD
       "description": "Time-series energy forecasting for city dashboards.",
+=======
+      "description": "Time-series energy forecasting for city dashboards. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
       "datePosted": "2025-09-10",
       "tags": {
         "green": ["Python", "On-site"],
@@ -39,7 +52,11 @@
       "id": "rec-4",
       "title": "HCI + Education Study",
       "author": "Dr. Nguyen",
+<<<<<<< HEAD
       "description": "Run user studies on classroom tools; qualitative + quantitative analysis.",
+=======
+      "description": "Run user studies on classroom tools; qualitative + quantitative analysis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
       "datePosted": "2025-08-31",
       "tags": {
         "green": ["Part-time", "Remote", "HCI"],
@@ -51,7 +68,11 @@
       "id": "rec-5",
       "title": "BioNLP for Genomics",
       "author": "Dr. Singh",
+<<<<<<< HEAD
       "description": "LLMs over gene/protein corpora; retrieval and grounding.",
+=======
+      "description": "LLMs over gene/protein corpora; retrieval and grounding. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
       "datePosted": "2025-09-12",
       "tags": {
         "green": ["NLP", "Remote"],
@@ -63,7 +84,11 @@
       "id": "rec-6",
       "title": "Computer Vision for Wildlife",
       "author": "Dr. Alvarez",
+<<<<<<< HEAD
       "description": "Detect/track animals in camera traps; conservation analytics.",
+=======
+      "description": "Detect/track animals in camera traps; conservation analytics.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
       "datePosted": "2025-08-28",
       "tags": {
         "green": ["PyTorch", "Remote"],
@@ -75,7 +100,11 @@
       "id": "rec-7",
       "title": "Finance Anomaly Detection",
       "author": "Prof. Kim",
+<<<<<<< HEAD
       "description": "Detect anomalies in transactions using graph learning.",
+=======
+      "description": "Detect anomalies in transactions using graph learning.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
       "datePosted": "2025-09-02",
       "tags": {
         "green": ["Graph ML", "Python", "On-site"],
@@ -87,7 +116,11 @@
       "id": "rec-8",
       "title": "Neuroimaging Pipelines",
       "author": "Dr. Romero",
+<<<<<<< HEAD
       "description": "fMRI preprocessing and GLM analysis for cognition studies.",
+=======
+      "description": "fMRI preprocessing and GLM analysis for cognition studies. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
       "datePosted": "2025-09-01",
       "tags": {
         "green": ["Python", "Neuroscience", "Part-time"],
@@ -99,7 +132,11 @@
       "id": "rec-9",
       "title": "LLM Safety Evaluations",
       "author": "Safety Lab",
+<<<<<<< HEAD
       "description": "Red teaming + automated evals for safety benchmarks.",
+=======
+      "description": "Red teaming + automated evals for safety benchmarks. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
       "datePosted": "2025-09-18",
       "tags": {
         "green": ["LLM", "Python", "Full-time"],
@@ -111,7 +148,11 @@
       "id": "rec-10",
       "title": "Secure Systems Research",
       "author": "Dr. Zhao",
+<<<<<<< HEAD
       "description": "Program analysis and fuzzing for low-level systems.",
+=======
+      "description": "Program analysis and fuzzing for low-level systems.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
       "datePosted": "2025-09-06",
       "tags": {
         "green": ["Security", "Remote"],
@@ -123,7 +164,11 @@
       "id": "rec-11",
       "title": "Reinforcement Learning for Control",
       "author": "Prof. Romero",
+<<<<<<< HEAD
       "description": "Continuous control with simulation to real transfer.",
+=======
+      "description": "Continuous control with simulation to real transfer.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
       "datePosted": "2025-09-08",
       "tags": {
         "green": ["RL", "PyTorch", "On-site"],
@@ -135,7 +180,11 @@
       "id": "rec-12",
       "title": "Medical Imaging QA",
       "author": "Dr. O'Neill",
+<<<<<<< HEAD
       "description": "Quality assurance models for radiology image pipelines.",
+=======
+      "description": "Quality assurance models for radiology image pipelines.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
       "datePosted": "2025-09-14",
       "tags": {
         "green": ["Python", "Part-time"],
@@ -147,7 +196,11 @@
       "id": "rec-13",
       "title": "Quantum Algorithms Simulation",
       "author": "Dr. Rao",
+<<<<<<< HEAD
       "description": "Quantum-inspired algorithms for optimization problems.",
+=======
+      "description": "Quantum-inspired algorithms for optimization problems.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
       "datePosted": "2025-09-03",
       "tags": {
         "green": ["On-site", "MATLAB"],
@@ -159,7 +212,11 @@
       "id": "rec-14",
       "title": "Augmented Reality Prototyping",
       "author": "Prof. Park",
+<<<<<<< HEAD
       "description": "Design AR educational experiences with Unity + user studies.",
+=======
+      "description": "Design AR educational experiences with Unity + user studies.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Morbi sed placerat mi. Mauris euismod, nunc vel tincidunt luctus, nunc massa tincidunt nisi, eu sagittis justo erat non elit. Suspendisse potenti. Etiam faucibus, magna a sagittis blandit, turpis sapien faucibus metus, vel aliquam magna risus at lorem. Integer ut massa a arcu efficitur venenatis.",
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
       "datePosted": "2025-09-09",
       "tags": {
         "green": ["HCI", "Prototyping", "Remote"],
@@ -267,7 +324,11 @@
       "id": "rec-23",
       "title": "Telehealth Conversation Summaries",
       "author": "Dr. Lee",
+<<<<<<< HEAD
       "description": "NLP pipeline for SOAP-style summarization.",
+=======
+      "description": "NLP pipeline for SOAP-style summarization..",
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
       "datePosted": "2025-09-19",
       "tags": {
         "green": ["NLP", "Full-time"],
@@ -279,7 +340,11 @@
       "id": "rec-24",
       "title": "LLM Prompt Robustness Benchmarks",
       "author": "Prof. Kim",
+<<<<<<< HEAD
       "description": "Evaluate sensitivity across prompt templates.",
+=======
+      "description": "Evaluate sensitivity across prompt templates",
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
       "datePosted": "2025-09-17",
       "tags": {
         "green": ["LLM", "PyTorch", "Remote"],
