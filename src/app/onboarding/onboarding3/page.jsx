@@ -11,11 +11,11 @@ export default function OnboardingStep3() {
 
   const onContinue = (e) => {
     e.preventDefault();
-    /*
+    
     if (!data.resumeFile) {
       alert("Please upload a resume before continuing.");
       return;
-    } */
+    } 
 
     console.log("Uploaded file:", data.resumeFile);
 

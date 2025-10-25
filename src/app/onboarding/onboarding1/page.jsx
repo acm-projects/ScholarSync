@@ -106,7 +106,7 @@ export default function OnboardingStep1() {
                 disabled={!canContinue}
                 className={[
                   "rounded-md px-5 py-2 text-sm font-semibold",
-                  canContinue
+                  !canContinue
                     ? "bg-[#983734] text-white hover:bg-[#983734]/70"
                     : "bg-[#983734] text-[#EEEef0] cursor-not-allowed",
                 ].join(" ")}
