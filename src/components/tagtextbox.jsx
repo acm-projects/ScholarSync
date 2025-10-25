@@ -30,7 +30,7 @@ export default function TagTextBox({
       addTag(text.replace(",", ""));
     }
   };
-  // 
+  // git add .
   const removeTag = (idx) => {
     const next = (values || []).filter((_, i) => i !== idx);
     onChange(next);
@@ -46,7 +46,7 @@ export default function TagTextBox({
         onChange={(e) => setText(e.target.value)}
         onKeyDown={onKeyDown}
         placeholder={placeholder}
-        className="inline-flex items-center rounded-full border border-[#5A2B29] bg-[#201311] px-3.5 py-1.5 text-[0.95rem] font-semibold text-[#EEEef0]"
+        className="w-full rounded-md border border-[#5A2B29] bg-[#201311] px-3.5 py-1.5 text-[0.95rem] font-semibold text-[#EEEef0]"
       />
 
       <div className="flex flex-wrap gap-1">

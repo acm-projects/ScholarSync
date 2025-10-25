@@ -4,7 +4,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 left-0 w-full z-50 bg-[#170F0E] text-[#EEEef0] rounded-b-2xl shadow-2xl">
       <div className="flex items-center justify-between px-6 py-6">
-        <Link href="/homeresearchpage" className="font-extrabold text-3xl tracking-tight hover:text-[#ffb3a7] transition-colors">
+        <Link href="/" className="font-extrabold text-3xl tracking-tight hover:text-[#ffb3a7] transition-colors">
           ScholarSync
         </Link>
 

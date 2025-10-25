@@ -45,7 +45,7 @@ export default function OnboardingStep2() {
   };
 
   return (
-    <div className="min-h-screen bg-[#3D110F] py-32 px-6">
+    <div className="min-h-screen bg-[#3D110F]  py-32 px-6">
       <div className="mx-auto max-w-6xl rounded-3xl bg-[#170F0E] p-8 shadow-xl border border-[#5A2B29] ">
         <h1 className="mb-1 text-center text-3xl font-semibold text-[#EEEef0]">
           Let’s set up your profile
@@ -101,7 +101,7 @@ export default function OnboardingStep2() {
                 />
               </div>
             </div>
-
+            
             {!canContinue && (
               <p className="text-sm text-[#E2E3E6]/80">
                 * Please add at least one tag in each category to continue.
@@ -118,11 +118,11 @@ export default function OnboardingStep2() {
               </button>
               <button
                 type="submit"
-                disabled={!canContinue}
+                disabled={canContinue}
                 className={[
                   "rounded-md px-5 py-2 text-sm font-semibold",
                   canContinue
-                    ? "bg-[#983734] text-white hover:bg-[#983734]/70"
+                    ? "bg-[#573c3b] text-white hover:bg-[#983734]/70"
                     : "bg-[#983734] text-[#EEEef0] cursor-not-allowed",
                 ].join(" ")}
               >

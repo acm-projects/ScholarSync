@@ -5,7 +5,7 @@ export default function ProfileCard({ className = "", children }) {
   return (
     <article
       className={[
-        "w-full rounded-2xlp border border-[#5A2B29] bg-[#170F0E] p-7 md:p-9 lg:p-12 shadow",
+        "w-full rounded-2xl border border-[#5A2B29] bg-[#170F0E] p-7 md:p-9 lg:p-12 shadow",
         className,
       ].join(" ")}>
       {children}

@@ -153,7 +153,7 @@ export default function ProfilePage() {
           </div>
 
           {/* name */}
-          <div className="mt-6 grid gap-6 md:grid-cols-2">
+          <div className="mt-6 grid gap-6 md:grid-cols-2 ">
             <Field label="First name" locked={!edit}>
               {!edit ? (
                 <div className="text-base">{form.firstname || <span className="text-[#E2E3E6]/70">Not set</span>}</div>
