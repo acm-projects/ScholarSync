@@ -1,0 +1,22 @@
+node_modules/
+
+# Python virtual environment
+venv/
+__pycache__/
+*.pyc
+
+# Environment & secret files
+.env
+.env.*
+*.pem
+*.key
+
+# Mac system files
+.DS_Store
+
+# IDE/editor configs
+.vscode/
+.idea/
+
+
+

@@ -1,0 +1,30 @@
+.body{
+    color: #3D110F;
+
+}
+.grid{
+    display:flex;
+    flex-wrap:wrap;
+    gap: 2rem;
+    padding: 2.5rem;
+    justify-content: center;
+    margin-left: 20px;
+}
+
+.custom__control {
+  background-color: #3D110F;
+  border-color: #5A2B29;
+  color: #EEEef0;
+}
+
+.custom__placeholder {
+  color: rgb(0, 0, 0)!important;
+}
+
+.custom2__placeholder {
+  color: rgb(0, 0, 0)!important;
+}
+
+.custom3__placeholder {
+  color: rgb(0, 0, 0)!important;
+}

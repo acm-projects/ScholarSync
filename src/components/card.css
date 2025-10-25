@@ -1,0 +1,51 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 80rem;
+  height: 14rem;
+  border: 1px solid #5A2B29;
+  border-radius: 25px;
+  background-color: #170F0E;
+}
+
+.card:hover {
+  transform: translateY(-15px);
+}
+.card-title {
+  margin-bottom: 0rem;
+  margin-top: -3rem;
+ margin-left: 10rem;
+  font-size: 22px;
+  font-weight: 600;
+  color: #EEEef0;
+}
+
+.card-date {
+  margin-bottom: 1;
+  margin-right: 80px;
+  padding-right: 25px;
+  font-size: 13px;
+  color: #EEEef0;
+}
+
+
+
+.card-author{
+  margin-bottom: 1rem;
+   margin-left: 10rem;
+  font-size: 15px;
+  font-weight: 550;
+  color: #EEEef0;
+}
+
+.savStyle{
+  align-self: flex-end;
+}
+
+.card-description {
+  margin-bottom: 1;
+  margin-left: 10rem;
+  font-size: 14px;
+
+  color: #F4F4F5;
+}
