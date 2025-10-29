@@ -1,11 +1,12 @@
 "use client";
 
 import TagChip from "@/components/tagchip";
+import { useRouter } from "next/navigation";
 
-// checks if v is aray if so return v not return empty
+// checks if v is array if so return v not return empty
 const asArray = (v) => (Array.isArray(v) ? v : []);
 
-// picks up top 3 tags from g > y > r
+// picks top 3 tags from g > y > r
 function pickTopTagsColored(colored) {
   const out = [];
   const pushSome = (arr, color) => {
@@ -20,7 +21,7 @@ function pickTopTagsColored(colored) {
   return out;
 }
 
-// get 3 top tags and avg them to find user match %
+// get 3 top tags and avg for user match %
 function computeThreeTagPctAndColor(topTags) {
   const W = { green: 33.3333, yellow: 22.2222, red: 11.1111 };
   let g = 0, y = 0, r = 0;
@@ -37,8 +38,9 @@ function computeThreeTagPctAndColor(topTags) {
   return { pct, color };
 }
 
-// more simple way of declaring variables now
-export default function OpportunityCard({ item, userTags, showPct = true, theme = "base" }) {
+// card: image left, content middle, circle right
+export default function OpportunityCard({ item, userTags, showPct = true, theme = "base", href, onOpen }) {
+  const router = useRouter();
   const colored = item.tags;
   const topTags = pickTopTagsColored(colored);
 
@@ -46,49 +48,120 @@ export default function OpportunityCard({ item, userTags, showPct = true, theme 
     ? computeThreeTagPctAndColor(topTags)
     : { pct: null, color: "gray" };
 
-  const badgeClass =
-    badgeColor === "green"
-      ? "bg-green-700/15 text-green-300 border border-green-600/40"
-      : badgeColor === "yellow"
-      ? "bg-amber-600/15 text-amber-200 border border-amber-500/40"
-      : badgeColor === "red"
-      ? "bg-rose-700/15 text-rose-300 border border-rose-600/40"
-      : "bg-gray-500/10 text-gray-300 border border-gray-500/30";
-
-
   const cardStyle =
     theme === "base"
       ? "border border-[#5A2B29] bg-[#170F0E] hover:bg-[#241312] hover:border-[#BA3F3D]"
       : "border border-[#FFD1CC] bg-[#983734] hover:bg-[#a9443f] hover:border-[#ffb3a7]";
 
+  const go = () => {
+    if (onOpen) onOpen(item);
+    else if (href) router.push(href);
+  };
+
+  const custom = "/research.webp";
+  const img = custom || item.image || item.photo || null;
+
+  const stroke =
+    badgeColor === "green"
+      ? "#34d399"
+      : badgeColor === "yellow"
+      ? "#fbbf24"
+      : badgeColor === "red"
+      ? "#f87171"
+      : "#9ca3af";
+
+  const size = 128;
+  const r = 60;
+  const C = 2 * Math.PI * r;
+  const dash = showPct && pct != null ? (pct / 100) * C : 0;
+
   return (
     <div
-      className={`h-48 w-full overflow-hidden rounded-2xl p-5 shadow-md flex flex-col transition-all duration-200 ${cardStyle}`}
+      role="button"
+      tabIndex={0}
+      onClick={go}
+      onKeyDown={(e) => (e.key === "Enter" ? go() : null)}
+      className={`relative h-64 min-w-[380px] w-full overflow-hidden rounded-2xl p-7 shadow-md flex ${cardStyle} focus:outline-none focus:ring-2 focus:ring-[#BA3F3D]`}
+      aria-label={`Open ${item.title}`}
     >
-      <div className="flex items-start justify-between gap-4">
-        <div className="min-w-0">
-          <div className="text-xl font-bold text-[#EEEef0] truncate">{item.title}</div>
-          <div className="text-sm text-[#E2E3E6] truncate">By {item.author}</div>
+      <div className="w-[30%] p-3">
+        <div className="relative h-full w-full">
+          {img ? (
+            <img
+              src={img}
+              alt={item.title || "image"}
+              className="h-full w-full object-cover rounded-xl border border-[#5A2B29]"
+            />
+          ) : (
+            <div className="absolute inset-0 rounded-xl bg-[#983734] grid place-items-center text-3xl font-bold text-[#EEEef0]">
+              Image
+            </div>
+          )}
         </div>
-        {showPct && pct != null && (
-          <div className={`rounded-md px-2.5 py-0.5 text-sm font-semibold shrink-0 ${badgeClass}`}>
-            {pct}% match
-          </div>
-        )}
       </div>
 
-      <p className="mt-2 text-m font-medium leading-5 text-[#F4F4F5] line-clamp-2">
-        {item.description}
-      </p>
-
-      <div className="mt-auto pt-3 flex items-end justify-between">
-        <div className="flex flex-wrap items-end gap-2">
-          {topTags.map((t, i) => (
-            <TagChip key={`${item.id}-t-${i}`} text={t.text} color={t.color} />
-          ))}
+      <div className="flex-1 min-w-0 pl-4 pr-0 flex flex-col">
+        <div className="min-w-0">
+          <div className="text-2xl font-bold text-[#EEEef0] truncate">
+            {item.title}
+          </div>
         </div>
-        <div className="text-xs text-[#D1D2D6] shrink-0">Posted: {item.datePosted}</div>
+
+        {/* Posted + author inline under title */}
+        <div className="text-m text-[#E2E3E6] truncate">
+          Posted: {item.datePosted} By {item.author}
+        </div>
+
+        <p
+          className="mt-2 text-m font-medium leading-6 text-[#F4F4F5] line-clamp-3"
+          style={{ hyphens: "auto", overflowWrap: "anywhere" }}
+        >
+          {item.description}
+        </p>
+
+        <div className="mt-auto pt-6">
+          <div
+            className="
+              whitespace-nowrap overflow-x-auto
+              [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden
+              -mr-[184px] pr-[184px]
+            "
+          >
+            {topTags.map((t, i) => (
+              <span key={`${item.id}-t-${i}`} className="inline-block mr-2 align-middle">
+                <TagChip text={t.text} color={t.color} />
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="pl-2 my-[10px] pr-0 flex-[0_0_170px] flex flex-col items-end justify-between shrink-0">
+        <div className="mt-2 self-end mr-0">
+          <div className="relative" style={{ width: size, height: size }}>
+            <svg width={size} height={size} viewBox="0 0 160 160">
+              <circle cx="80" cy="80" r={r} fill="none" stroke="#302525" strokeWidth="12" />
+              <circle
+                cx="80"
+                cy="80"
+                r={r}
+                fill="none"
+                stroke={stroke}
+                strokeWidth="12"
+                strokeLinecap="round"
+                strokeDasharray={`${dash} ${C - dash}`}
+                transform="rotate(-90 80 80)"
+              />
+            </svg>
+            <div className="absolute inset-0 grid place-items-center text-[#EEEef0] font-bold text-xl">
+              {showPct && pct != null ? `${pct}%` : "N/A"}
+            </div>
+            <div className="mt-1 text-center text-xs text-[#E2E3E6]">match</div>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
+
+

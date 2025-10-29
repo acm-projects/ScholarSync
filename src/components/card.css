@@ -14,11 +14,20 @@
 .card-title {
   margin-bottom: 0rem;
   margin-top: -3rem;
- margin-left: 10rem;
+  margin-left: 10rem;
   font-size: 22px;
   font-weight: 600;
   color: #EEEef0;
+  cursor: pointer;         
+  text-decoration: none;   
+  transition: text-decoration 0.2s ease, color 0.2s ease;
 }
+
+.card-title:hover {
+  text-decoration: underline; 
+  color: #0096C7;             
+}
+
 
 .card-date {
   margin-bottom: 1;

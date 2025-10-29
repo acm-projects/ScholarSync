@@ -1,0 +1,10 @@
+{
+  "tailwindCSS.experimental.configFile": "tailwind.config.mjs",
+  "editor.quickSuggestions": { "other": true, "comments": false, "strings": true },
+  "editor.suggestOnTriggerCharacters": true,
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.includeLanguages": {
+    "javascript": "javascriptreact",
+    "typescript": "typescriptreact"
+  }
+}

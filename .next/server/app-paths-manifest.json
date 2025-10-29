@@ -1,5 +1,7 @@
 {
   "/api/paper/route": "app/api/paper/route.js",
+  "/api/summary/route": "app/api/summary/route.js",
   "/discovery/page": "app/discovery/page.js",
+  "/page": "app/page.js",
   "/papers/[id]/page": "app/papers/[id]/page.js"
 }

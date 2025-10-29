@@ -124,7 +124,7 @@ const SavedComp = () => {
           paddingTop: '2.5rem',
           position: 'relative',
           overflowX:'auto',
-          background: 'rgba(255, 255, 255, 0.1)',
+          background: 'rgba(0, 183, 255, 0.1)',
           borderRadius: '16px',
           whiteSpace: 'nowrap',
           boxShadow: '0 4px 30px rgba(50, 50, 50, 0.3)',

@@ -1,7 +1,13 @@
 'use client';
 
+<<<<<<< HEAD
 //import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+=======
+<<<<<<< HEAD
+//import { useRouter } from 'next/navigation';
+import Link from 'next/Link';
+>>>>>>> 1cd7fe76016a2301cd57cc1a21df77c0ba9d3ebb
 import { useState } from 'react';
 
 import './signup.css';
@@ -11,6 +17,7 @@ const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setusername] = useState('');
+<<<<<<< HEAD
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handle = async (e) => {
@@ -46,6 +53,17 @@ const Signup = () => {
       console.error('Error connecting to backend:', err);
       alert('Error connecting to backend');
     }
+=======
+  const [confirmPassword, setConfirmPassword] = useState();
+
+  const handle = (e) =>{
+    e.preventDefault();
+
+    const Using = {
+      email, username, password,
+    };
+
+>>>>>>> 1cd7fe76016a2301cd57cc1a21df77c0ba9d3ebb
   };
 
     return (
@@ -60,7 +78,11 @@ const Signup = () => {
                     <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
                 </div>
                 <div className="input">
+<<<<<<< HEAD
                     <input type="Username" placeholder="Username" value={username} onChange={(e) => setusername(e.target.value)}/>
+=======
+                    <input type="text" placeholder="Username" value={username} onChange={(e) => setusername(e.target.value)}/>
+>>>>>>> 1cd7fe76016a2301cd57cc1a21df77c0ba9d3ebb
                 </div>
                 <div className="input">
                 <input type="password" placeholder="Create Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
@@ -126,3 +148,58 @@ const Signup = () => {
   export default Signup;
   
 
+<<<<<<< HEAD
+=======
+=======
+import styles from './signup.module.css';
+// import Image from '@/app/signuplogin/';
+
+const Signup = () => {
+  return (
+    <div className={styles.wrapper}>
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <div className={styles.text}>Signup</div>
+        </div>
+
+        <div className={styles.inputs}>
+          <div className={styles.input}>
+            <input type="email" placeholder="Email" />
+          </div>
+          <div className={styles.input}>
+            <input type="password" placeholder="Create Password" />
+          </div>
+          <div className={styles.input}>
+            <input type="password" placeholder="Confirm Password" />
+          </div>
+
+          <div className={styles['Sign-submit-container']}>
+            <div className={styles.submit}>Sign up</div>
+          </div>
+
+          <div className={styles.account}>
+            Already have an account? <span>Login</span>
+          </div>
+
+           <div className={styles.divide}>
+            
+          </div>
+
+          <div className={styles['CG-submit-container']}>
+            
+            <div className={styles.submit}>Continue with Google</div>
+          </div>
+
+          <div className={styles['CL-submit-container']}>
+            
+            <div className={styles.submit}>Continue with LinkedIn</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Signup;
+>>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
+>>>>>>> 1cd7fe76016a2301cd57cc1a21df77c0ba9d3ebb

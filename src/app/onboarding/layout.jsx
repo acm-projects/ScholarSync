@@ -24,6 +24,7 @@ export default function Layout({ children }) {
     extraQ4: [],
     extraQ5: [],
     extraQ6: [],
+    alltags: [],
   });
 
   const handleChange = (eOrObj) => {
