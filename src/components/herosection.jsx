@@ -4,7 +4,7 @@ export default function HeroSection() {
   return (
     <section className="bg-[#3D110F] text-[#EEEef0] pt-25 pb-30">
       <div className="mx-auto flex max-w-6xl flex-col items-center px-5 py-20 text-center">
-        <h1 className="text-4xl font-extrabold sm:text-5xl">
+        <h1 className="text-4x font-extrabold sm:text-5xl">
           Welcome to ScholarSync
         </h1>
 

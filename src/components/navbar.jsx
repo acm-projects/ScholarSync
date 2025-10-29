@@ -11,7 +11,7 @@ export default function Navbar() {
         <nav className="hidden md:flex items-center gap-6">
           <Link href="/onboarding/onboarding1" className="hover:text-[#ffb3a7] font-medium transition-colors">create</Link>
           <Link href="/professorpage" className="hover:text-[#ffb3a7] font-medium transition-colors">professors</Link>
-          <Link href="/homeresearchpage" className="hover:text-[#ffb3a7] font-medium transition-colors">opportunities</Link>
+          <Link href="/homeresearchpage" className="hover:text-[#ffb3a7] font-medium  transition-colors">opportunities</Link>
           <Link href="/" className="hover:text-[#ffb3a7] font-medium transition-colors">papers</Link>
           <Link href="/" className="hover:text-[#ffb3a7] font-medium transition-colors">library</Link>
           <Link href="/profile" className="rounded-md bg-[#983734] px-3 py-1.5 text-[#EEEef0] font-medium hover:bg-[#a9443f] transition">Profile</Link>
