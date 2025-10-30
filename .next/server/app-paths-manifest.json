@@ -1,4 +1,7 @@
 {
+  "/LibrarySt/page": "app/LibrarySt/page.js",
   "/discovery/page": "app/discovery/page.js",
-  "/page": "app/page.js"
+  "/landingpage/page": "app/landingpage/page.js",
+  "/page": "app/page.js",
+  "/papers/[id]/page": "app/papers/[id]/page.js"
 }

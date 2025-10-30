@@ -53,11 +53,11 @@ const canLoadMore = visible < filtered.length;
 
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#3D110F' }}>
+    <div className="min-h-screen" style={{ backgroundColor: '#F9FAFB' }}>
       <div className="relative z-10 bg-white border-white rounded-b-2xl shadow">
       <Navbar />
     </div>
-    <div className="-mt-5 w-full bg-[#3D110F] border-b-2 border-[#5A2B29] shadow-sm pt-3 pb-2">
+    <div className="-mt-5 w-full bg-[#F9FAFB] border-b-2 border-[#E0E0E0] shadow-sm pt-3 pb-2">
       <div className="w-full px-6 py-3 flex items-center gap-6">
             <input
               value={query}
@@ -66,11 +66,12 @@ const canLoadMore = visible < filtered.length;
                 setVisible(9);
               }}
               placeholder="Search papers, authors, or tags"
-              className="w-80 md:w-96 rounded-md border border-[#5A2B29] bg-[#201311] px-3 py-2 text-m text-[#EEEef0] placeholder-[#EEEef0]/60 hover:bg-[#3C1A19] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#BA3F3D]"
+              className="w-76 md:w-96 mt-3 rounded-md border border-[#983734]/50 bg-[#F9EAEA] text-[#111111] placeholder-black px-3 py-2 text-m hover:bg-[#A9443F]/20 focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#983734]"
             />
 
             <select
-            className="w-48 rounded-md border border-[#5A2B29] bg-[#201311] px-3 py-2 text-m text-[#EEEef0]/60 hover:bg-[#3C1A19] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#BA3F3D]"
+        className="w-48 rounded-md mt-3 border border-[#B33A3A] bg-[#F9EAEA] px-3 py-2 text-m text-[#111111] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#B33A3A]"
+
             placeholder = "Date Published"
             value={selectedYear}
             onChange={(e) => {
