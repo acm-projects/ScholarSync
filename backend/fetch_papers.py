@@ -78,7 +78,7 @@ def fetch_papers(topic, desired_count=7):
                     "Year": str(paper.get("year", "N/A")),
                     "SourceURL": paper.get("url", ""),
                     "PDFLink": s3_url,  # Already includes paperID in path
-                    "Tags": generate_tags(paper.get("title", ""), paper.get("abstract", "")) or []
+                    "Tags": generate_tags(paper.get("title", ""), paper.get("abstract", ""), topic) or []
             })
                 valid_count += 1
             except ClientError:
@@ -118,31 +118,47 @@ def download_pdf_to_s3(pdf_url, title, paper_id):
         return None
 
 
-def generate_tags(title, abstract):
+def generate_tags(title, abstract, query_topic):
+    """
+    Generate exactly 3 tags for the paper.
+    One tag is guaranteed to be the query_topic.
+    """
     try:
-        prompt = f"Generate 3-5 tech tags for: {title}. Abstract: {abstract}. Respond with JSON only: ['tag1','tag2']"
+        # Prompt Bedrock to suggest 3-5 tags
+        prompt = f"Generate 3-5 tech tags for: {title}. Abstract: {abstract}. Respond with JSON array only: ['tag1','tag2']"
         
         body = json.dumps({
             "anthropic_version": "bedrock-2023-05-31",
             "max_tokens": 100,
             "messages": [{"role": "user", "content": prompt}]
         })
-        
+
         response = bedrock.invoke_model(modelId=MODEL_ID, body=body)
         response_body = json.loads(response['body'].read())
         text_output = response_body['content'][0]['text'].strip()
-        
+
+        # Parse JSON output from Bedrock
+        tags = []
         if text_output.startswith('['):
             tags = json.loads(text_output)
-            return tags
-        else:
-            return ["ai", "technology", "research"]
-            
-    except Exception:
-        return ["machine learning", "data science", "ai"]
+        if not isinstance(tags, list):
+            tags = []
+
+        # Ensure the query_topic is included as one tag
+        query_topic_norm = query_topic.lower().strip()
+        tags_norm = [t.lower().strip() for t in tags]
+        if query_topic_norm not in tags_norm:
+            tags = [query_topic] + tags  # prepend query_topic
+
+        # Keep only 3 tags max
+        return tags[:3]
+
+    except Exception as e:
+        # fallback
+        return [query_topic, "ai", "research"]
 
 if __name__ == "__main__":
-    topics = ["machine learning", "deep learning", "computer science", "data science"]
+    topics = ["machine learning", "natural language processing", "computer science", "cybersecurity"]
     
     for topic in topics:
-        fetch_papers(topic, desired_count=7)
+        fetch_papers(topic, desired_count=8)
