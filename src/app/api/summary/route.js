@@ -58,7 +58,7 @@ export async function POST(req) {
       });
     }
 
-    console.log("📄 Processing paperID:", paperID);
+    console.log("Processing paperID:", paperID);
 
     // Check DynamoDB
     const existingSummary = await getSummaryFromTable(paperID);
@@ -122,7 +122,7 @@ ${truncatedText}
 
     // Store summary
     await storeSummaryInTable(paperID, summary);
-    console.log("✅ Summary stored in DynamoDB");
+    console.log("Summary stored in DynamoDB");
 
     return new Response(JSON.stringify({ summary }), { status: 200 });
   } catch (err) {

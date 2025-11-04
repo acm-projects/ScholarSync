@@ -5,7 +5,7 @@
   height: 14rem;
   border: 1px solid #5A2B29;
   border-radius: 25px;
-  background-color: #170F0E;
+  background-color: #EFEFEF ;
 }
 
 .card:hover {
@@ -17,7 +17,7 @@
   margin-left: 10rem;
   font-size: 22px;
   font-weight: 600;
-  color: #EEEef0;
+  color: #111111;
   cursor: pointer;         
   text-decoration: none;   
   transition: text-decoration 0.2s ease, color 0.2s ease;
@@ -34,7 +34,7 @@
   margin-right: 80px;
   padding-right: 25px;
   font-size: 13px;
-  color: #EEEef0;
+  color: #111111;
 }
 
 
@@ -44,7 +44,8 @@
    margin-left: 10rem;
   font-size: 15px;
   font-weight: 550;
-  color: #EEEef0;
+  
+  color: #111111;
 }
 
 .savStyle{
@@ -56,5 +57,5 @@
   margin-left: 10rem;
   font-size: 14px;
 
-  color: #F4F4F5;
+  color: #111111;
 }

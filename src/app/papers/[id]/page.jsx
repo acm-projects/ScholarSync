@@ -2,12 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/navbar';
 import { useRouter } from 'next/navigation';
-
+import ReactMarkdown from 'react-markdown';
 import './markdown.css';
 
 export default function PaperZoom({ params }) {
   const router = useRouter();
-  const paperId = params.id;
+
+  const { id: paperId } = React.use(params);
 
   const [paper, setPaper] = useState(null);
   const [loadingPaper, setLoadingPaper] = useState(true);
@@ -77,13 +78,13 @@ export default function PaperZoom({ params }) {
           left: '2rem',
           padding: '0.5rem 1rem',
           borderRadius: '20px',
-          backgroundColor: '#2563EB',
+          backgroundColor: '#6B2737',
           color: '#fff',
           border: 'none',
           cursor: 'pointer',
           fontWeight: 'bold',
           boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
-          transform: 'scale(0.80)',
+          transform: 'scale(0.80)'
         }}
       >
         ← Back
@@ -96,13 +97,13 @@ export default function PaperZoom({ params }) {
           right: '2rem',
           padding: '0.5rem 1rem',
           borderRadius: '20px',
-          backgroundColor: '#2563EB',
+          backgroundColor: '#6B2737',
           color: '#fff',
           border: 'none',
           cursor: 'pointer',
           fontWeight: 'bold',
           boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
-          transform: 'scale(0.80)',
+          transform: 'scale(0.80)'
         }}
         onClick={generateSummary}
         disabled={generatingSummary}
@@ -118,7 +119,7 @@ export default function PaperZoom({ params }) {
             right: 0,
             width: '300px',
             height: '100vh',
-            backgroundColor: '#FAFAFA',
+            backgroundColor: 'hsl(0, 0%, 94%)',
             color: '#111',
             borderLeft: '1px solid #E0E0E0',
             padding: '2rem 1.5rem 1.5rem 1.5rem',
@@ -180,16 +181,15 @@ export default function PaperZoom({ params }) {
           <p style={{ color: '#555555' }}>Author: {paper.author}</p>
           <p style={{ color: '#555555' }}>Date: {paper.date}</p>
 
-          {/* Embed PDF */}
-          <div style={{ margin: '2rem 0' }}>
+          <div style={{ marginTop: '2rem' }}>
             <iframe
               src={paper.pdfLink}
               width="100%"
-              height="600px"
-              style={{ border: '1px solid #ccc', borderRadius: '8px' }}
-              title={paper.title}
-            ></iframe>
+              height="800px"
+              style={{ border: 'none', borderRadius: '8px' }}
+            />
           </div>
+
         </div>
       </div>
     </>

@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 
   function BookmarkButton({onClick, bookmarked}){
     return(
-    <button onClick = {onClick} style={{color: "red"}}> 
+    <button onClick = {onClick} style={{color: "#6B2737"}}> 
      {bookmarked ? <BookmarkFilledIcon style = {{ width: '28px', height: '28px'}}/>  :  <BookmarkIcon style = {{ width: '28px', height: '28px'}}/>}
     </button>
     );
@@ -26,7 +26,6 @@ const CardPage = ({ paper }) => {
   const isBookmarked = bookmarkedStuff.some(p => p.id === paper.id);
   setBookmarked(isBookmarked);
 }, [paper]);
-
 
 useEffect(() => {
   if (!paper || !paper.id) return;
@@ -92,8 +91,9 @@ useEffect(() => {
       <div className="mt-auto pt-3 flex items-end justify-between">
       <div className="card-tag flex gap-2 ml-45 mb-18" >
                {paper.tags.slice(0,3).map((tag,index) => {
-                  const color = index === 0 ? "green" : index ===1 ? "yellow" : "red";
-                  return <TagChip key={index} text={tag} color={color} />;
+                  const color = "#9B2335";
+                  const textColor = "#111111";
+                  return <TagChip key={index} text={tag} color={color} textColor={textColor}/>;
                 })}
             </div>
         <div className="mt-auto mb-15 mr-5 flex items-end justify-between text-xs"> Date Published: {paper.date} </div>

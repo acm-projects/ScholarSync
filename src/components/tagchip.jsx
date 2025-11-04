@@ -1,4 +1,4 @@
-export default function TagChip({ text, color = "gray" }) {
+export default function TagChip({ text, color = "black" }) {
     let styles = "bg-[#983734]/25 text-[#EEEef0] border-[#FFD1CC]/90";
     switch (color) {
       case "green":

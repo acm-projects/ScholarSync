@@ -1,8 +1,10 @@
+
+
 import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <header className="top-0 left-0 w-full z-50 bg-[#170F0E] text-[#EEEef0] rounded-b-2xl shadow-2xl">
+    <header className="top-0 left-0 w-full z-50 bg-[#6B2737] text-[#11111] rounded-b-2xl shadow-2xl">
       <div className="flex items-center justify-between px-6 py-6">
         <Link
           href="../homeresearchpage"
@@ -12,6 +14,7 @@ export default function Navbar() {
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex">
+
           <Link
             href="/onboarding/onboarding1"
             className="hover:text-[#ffb3a7] font-medium transition-colors"

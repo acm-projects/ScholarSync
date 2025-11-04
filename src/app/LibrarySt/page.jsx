@@ -71,18 +71,17 @@ const SavedComp = () => {
 
 
   return (
-     <div className="min-h-screen" style={{ backgroundColor: '#3D110F' }}>
+     <div className="min-h-screen" style={{ backgroundColor: "#F7F7F7" }}>
           <div className="relative z-10 bg-white border-white rounded-b-2xl shadow">
           <Navbar />
         </div>
-          <div className="-mt-5 w-full bg-[#3D110F] border-b-2 border-[#5A2B29] shadow-sm pt-3 pb-2">
+          <div className="-mt-5 w-full bg-[#F9FAFB)] border-b-2 border-[#E0E0E0] shadow-sm pt-3 pb-2">
 
 
       <div className="w-full px-6 py-3 flex items-center gap-6">
           <div className = "Top">
-        <h3 className= "mt-5 font-size"> My Library: </h3>
+        <h3 className= "mt-6 font-size text-black font-semibold"> My Library: </h3>
         </div>
-
             <input
               value={query}
               onChange={(e) => {
@@ -90,11 +89,12 @@ const SavedComp = () => {
                 setVisible(9);
               }}
               placeholder="Search papers, authors, or tags"
-              className="w-80 md:w-96 rounded-md border border-[#5A2B29] bg-[#201311] px-3 py-2 text-m text-[#EEEef0] placeholder-[#EEEef0]/60 hover:bg-[#3C1A19] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#BA3F3D]"
+              className="w-76 md:w-96 mt-3 rounded-md border border-[#983734]/50 bg-[#F9EAEA] text-[#111111] placeholder-black px-3 py-2 text-m hover:bg-[#A9443F]/20 focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#983734]"
+
             />
 
             <select
-            className="w-48 rounded-md border border-[#5A2B29] bg-[#201311] px-3 py-2 text-m text-[#EEEef0]/60 hover:bg-[#3C1A19] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#BA3F3D]"
+            className="w-48 mt-3 rounded-md border border-[#B33A3A] bg-[#F9EAEA] px-3 py-2 text-m text-[#111111] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#B33A3A]"
             placeholder = "Date Published"
             value={selectedYear}
             onChange={(e) => {
@@ -112,44 +112,36 @@ const SavedComp = () => {
 
 
     <div className = "Main">
+    
     {savedPaper.length === 0 ? (
       <p>NOPE!</p>
     ) : (
-        <div className="card-grid" style={{display:'flex', flexDirection: 'column', gap: '1rem',paddingBottom: '1rem' ,position: "relative"}}>
-        {paperShowTag.map((grp) =>(
-            <div key = {grp.tag} style={{marginBottom: '2rem',  display: 'flex',
-          flexDirection: 'column',
-          gap: '1rem',
-          paddingBottom: '1rem',
-          paddingTop: '2.5rem',
-          position: 'relative',
-          overflowX:'auto',
-          background: 'rgba(0, 183, 255, 0.1)',
-          borderRadius: '16px',
-          whiteSpace: 'nowrap',
-          boxShadow: '0 4px 30px rgba(50, 50, 50, 0.3)',
-          backdropFilter: 'blur(9px)',
-          WebkitBackdropFilter: 'blur(10px)',
-          border: '1px solid rgba(255, 255, 255, 0.3)',
-          color: 'black'}}>
 
+      <div>
+  
+           {paperShowTag.map((grp) =>(
+          
+          <div key = {grp.tag}>
             <h3
-  style={{
-    color: 'white',
-    marginLeft: '3.5rem',
-    marginBottom: '2rem',
-    cursor: 'pointer',
-    padding: '0.3rem 0.8rem',
-    borderRadius: '6px',
-    backgroundColor: '#444',
-    display: 'inline-block',
-     width: '150px',          
-    textAlign: 'center',
-    userSelect: 'none',
-  }}
->
-  {grp.tag}
-</h3>
+        style={{
+        color: '#000000ff',
+        marginLeft: '3.5rem',
+        marginBottom: '1.5rem',
+        padding: '0.25rem 0.5rem',
+        display: 'inline-block',
+        width: '25%',
+        fontSize: 19, 
+        textAlign: 'left',
+        fontWeight: '600',
+      }}
+    >
+      {grp.tag}
+
+      </h3>
+            
+          
+        <div className="card-grid" style={{display:'flex', flexDirection: 'column', gap: '1rem',paddingBottom: '1rem' ,position: "relative"}}>
+      
             <div className="cards" style={{     
                     display: "flex",
                     flexDirection: "row",
@@ -163,12 +155,12 @@ const SavedComp = () => {
 
 
       {grp.papersUse.map((paper) => (
-      <Card key = {paper.id}  style={{
-                width: '28rem',
+      <Card onClick={() => titleClicked(paper)} key = {paper.id}  style={{
+                width: '20rem',
                 position: "relative", 
                 height: '410px',
-                backgroundColor: '#000000ff',
-                color: 'white',
+                backgroundColor: '#FFFFFF'
+              ,
                 marginBottom: '5.5rem',
                 padding: "1rem",
                 display: "flex",
@@ -192,23 +184,9 @@ const SavedComp = () => {
                   <PAPERdet paper = {paper} />
                 </div>
                 </div>
-    
-               
-               
-                <div className = " absolute mt-5 inline-flex items-center bg-[#201311] border border-[#5A2B29] rounded-md px-10 py-2 w-36 top-0 right-5">
-                 <Loader style={{position: 'absolute', width:24, height:24, top:0, right:105, marginTop:5 }}/>
-                <select
-                className="bg-transparent text-sm outline-none w-24 text-[#EEEef0]/80 "
-                value={selectStatus}
-                onChange={(e) => setSelectStatus(e.target.value)}>
-                    <option value=""> Status</option>
-                    <option value="reading">📖 Reading</option>
-                     <option value="finished">✅ Finished</option>
-                    <option value="want-to-read">🕒 Want to Read</option>
-               </select>
-                </div>
 
               <Card.Body
+              onClick={() => titleClicked(paper)} 
                 style={{
             flexGrow: 1,            
             display: 'flex',          
@@ -217,19 +195,32 @@ const SavedComp = () => {
             minHeight: '80px',       
   }}
 >
-                <Card.Title onClick={() => titleClicked(paper)} style= {{fontWeight: 'bolder', fontSize: 16, marginBottom : '1rem', marginRight : '1rem', marginTop : '1rem', flexShrink: 0,
-                whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Title: {paper.title}
+              <div className = "group">
+                <div style={{ height: '1px', backgroundColor: '#E0E0E0', width: '100%' }}> </div>
+                 <div className='Hover'>
+                 <Card.Title 
+  
+                 onClick={() => titleClicked(paper)} style= {{fontWeight: 'bolder', fontSize: 16, marginBottom : '1rem', marginRight : '1rem', marginTop : '1rem', flexShrink: 0,
+                whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: '#111111' }}>{paper.title}
                 </Card.Title>
 
-                <Card.Text style= {{fontWeight: 'bolder', fontSize: 14, marginBottom : '1rem'}}>
+              </div>
+                <Card.Text style= {{fontWeight: 'bolder', fontSize: 14, marginBottom : '1rem', color: '#555555'}}>
                     Authors: {paper.author}
                 </Card.Text>
+
+              </div>
                   </Card.Body>
             </Card>
           ))}
         </div>
+
+      <div className="w-full h-[1px] bg-[#E0E0E0] mt-0.5 mb-3"></div>
+    </div>
+
     </div>
 ))}
+
 
 </div> 
 )}
