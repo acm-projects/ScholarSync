@@ -59,7 +59,7 @@ useEffect(() => {
 
   
   return(
-     <div className="card" >
+     <div className="card hover:bg-[#A9443F]/20" >
        <div style={{height: '200px',width: '200px',  overflow: 'hidden',position: 'relative', flexShrink: 0,}} >
                         <div
                         style={{
@@ -72,7 +72,6 @@ useEffect(() => {
                           marginTop: "1rem",
                           top: 0,
                           left: 0,
-
                         }}
                       >
                         <PAPERdet paper = {paper} />
