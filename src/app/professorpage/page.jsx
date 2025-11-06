@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Navbar from "@/components/navbar";
 import ToggleTabs from "@/components/toggletabsprofessor";
 import ProfessorCard from "@/components/professorcard";
@@ -9,6 +9,7 @@ import { normalizeAllItems } from "@/components/pagesort";
 import profRecommended from "@/data/professors_recommended.json" assert { type: "json" };
 import profAll from "@/data/professors_all.json" assert { type: "json" };
 import userTags from "@/data/user_tags.json" assert { type: "json" };
+import Loading from "@/components/loading";
 
 export default function ProfessorsPage() {
   const [tab, setTab] = useState("recommended");
@@ -22,6 +23,13 @@ export default function ProfessorsPage() {
       : normalizeAllItems(profAll, userTags);
   }, [tab]);
 
+
+
+   // show loading if profAll is empty
+   if (tab === "all" && profAll === null) {
+    return <Loading />;
+  }
+  
   // filter + simple relevance sort
   const filtered = useMemo(() => {
     let out = dataset;
@@ -95,8 +103,8 @@ export default function ProfessorsPage() {
       </div>
 
       {/* Professor card takes from toshow */}
-      <main className={`mx-auto px-20 py-15 ${open ? "blur-[2px]" : ""}`}>
-        <div className="grid gap-8 sm:grid-cols-2 items-stretch">
+      <main className={`mx-auto px-20 mt-10 ${open ? "blur-[2px]" : ""}`}>
+        <div className="grid gap-8 sm:grid-cols-2 items-stretch ">
           {toShow.map((item) => {
             const pid = String(item.id || item.email || item.full_name);
             const href = `/professorpage/fullcardpage?id=${encodeURIComponent(pid)}`;

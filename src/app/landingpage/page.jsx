@@ -2,6 +2,7 @@ import Navbar from "@/components/navbar";
 import HeroSection from "@/components/herosection";
 import Features from "@/components/features";
 import HowItWorks from "@/components/steps";
+import Loading from "@/components/loading";
 
 export default function LandingPage() {
   return (
@@ -10,7 +11,6 @@ export default function LandingPage() {
       <div className="relative z-10 rounded-b-2xl shadow">
         <Navbar />
       </div>
-    
       <HeroSection />
       <Features />
       <HowItWorks />

@@ -50,7 +50,7 @@ export default function OpportunityCard({ item, userTags, showPct = true, theme 
 
   const cardStyle =
     theme === "base"
-      ? "border border-[#5A2B29] bg-[#170F0E] hover:bg-[#241312] hover:border-[#BA3F3D]"
+      ? "border border-[#5A2B29] bg-[#FOFOFO] hover:bg-[#241312] hover:border-[#BA3F3D]"
       : "border border-[#FFD1CC] bg-[#983734] hover:bg-[#a9443f] hover:border-[#ffb3a7]";
 
   const go = () => {
@@ -102,18 +102,18 @@ export default function OpportunityCard({ item, userTags, showPct = true, theme 
 
       <div className="flex-1 min-w-0 pl-4 pr-0 flex flex-col">
         <div className="min-w-0">
-          <div className="text-2xl font-bold text-[#EEEef0] truncate">
+          <div className="text-2xl font-bold text-[#111111] truncate">
             {item.title}
           </div>
         </div>
 
         {/* Posted + author inline under title */}
-        <div className="text-m text-[#E2E3E6] truncate">
+        <div className="text-m text-[#111111] truncate">
           Posted: {item.datePosted} By {item.author}
         </div>
 
         <p
-          className="mt-2 text-m font-medium leading-6 text-[#F4F4F5] line-clamp-3"
+          className="mt-2 text-m font-medium leading-6 text-[#111111] line-clamp-3"
           style={{ hyphens: "auto", overflowWrap: "anywhere" }}
         >
           {item.description}
@@ -153,10 +153,10 @@ export default function OpportunityCard({ item, userTags, showPct = true, theme 
                 transform="rotate(-90 80 80)"
               />
             </svg>
-            <div className="absolute inset-0 grid place-items-center text-[#EEEef0] font-bold text-xl">
+            <div className="absolute inset-0 grid place-items-center text-[#111111] font-bold text-xl">
               {showPct && pct != null ? `${pct}%` : "N/A"}
             </div>
-            <div className="mt-1 text-center text-xs text-[#E2E3E6]">match</div>
+            <div className="mt-1 text-center text-xs text-[#111111]">match</div>
           </div>
         </div>
       </div>

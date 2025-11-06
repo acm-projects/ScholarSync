@@ -10,6 +10,7 @@ import FullPageCard from "@/components/fullpagecard";
 import recommendedData from "@/data/opportunities_recommended.json" assert { type: "json" };
 import allData from "@/data/opportunities_all.json" assert { type: "json" };
 import userTags from "@/data/user_tags.json" assert { type: "json" };
+import Loading from "@/components/loading";
 
 export default function OpportunitiesPage() {
   const [tab, setTab] = useState("recommended");
@@ -19,6 +20,11 @@ export default function OpportunitiesPage() {
   const [activeFilter, setActiveFilter] = useState("");
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
+
+  // show loading if profAll is empty
+   if (tab === "all" && profAll === null) {
+    return <Loading />;
+  }
 
   // usememo here to keep cards from stopping to rerender after every user actoin
   // compare and pass in data and user tags
@@ -90,12 +96,12 @@ export default function OpportunitiesPage() {
   const canLoadMore = visible < filtered.length;
 
   return (
-    <div className="min-h-screen bg-[#3D110F] text-[#EEEef0]">
+    <div className="min-h-screen bg-[#F9FAFB] text-[#EEEef0]">
       <div className="relative z-10 rounded-b-2xl shadow">
         <Navbar />
       </div>
       
-      <div className={`-mt-5 w-full bg-[#3D110F] border-b-2 border-[#5A2B29] shadow-sm pt-3 pb-2 ${open ? "blur-sm" : ""}`}>
+      <div className={`-mt-5 w-full bg-[#F9FAFB] border-b-2 border-[#5A2B29] shadow-sm pt-3 pb-2 ${open ? "blur-sm" : ""}`}>
         <div className="w-full px-6 pt-5 pb-4 flex items-center">
           <div className="flex items-center gap-6 overflow-x-auto flex-1 min-w-0">
             <ToggleTabs
@@ -157,7 +163,7 @@ export default function OpportunitiesPage() {
         </div>
       </div>
 
-      <main className={`mx-auto px-20 py-15 ${open ? "blur-sm" : ""}`}>
+      <main className={`mx-auto px-20 mt-10 ${open ? "blur-sm" : ""}`}>
         <div className="grid gap-8 sm:grid-cols-2 items-stretch">
           {toShow.map((item) => (
             <OpportunityCard
