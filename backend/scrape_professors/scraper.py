@@ -5,11 +5,21 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
+import numpy as np
+from sentence_transformers import SentenceTransformer
+from decimal import Decimal
+import os
 
+# UTD Professor information
 BASE_URL = 'https://profiles.utdallas.edu/browse'
 
+# Initialize DynamoDB
 dynamodb = boto3.resource('dynamodb')
 professor_table = dynamodb.Table('UTD_Professor')
+
+# Load embedding model
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+model = SentenceTransformer("all-MiniLM-L6-v2")
 
 def scrape_utd_profs(page):
     response = requests.get(f"{BASE_URL}?page={str(page)}") # Make a GET request to the url using the page number, receiving the HTML
@@ -30,6 +40,7 @@ def scrape_utd_profs(page):
             education = None
             publications = None
             tags = None
+            tag_embeddings = None
 
             profile_url = profile_tag['href']
             if not profile_url.startswith('http'):
@@ -118,13 +129,14 @@ def scrape_utd_profs(page):
                 "education": education,
                 "publications": publications,
                 "tags": tags,
+                "tag_embeddings": vectorize_tags(tags),
                 "profile_url": profile_url
             }
 
             # Skip empty strings, None, and empty lists
             item = {
                 k: v for k, v in item.items()
-                if v not in (None, '') and not (isinstance(v, list) and len(v) == 0)
+                if v is not None and v != '' and not (isinstance(v, (list, np.ndarray)) and len(v) == 0)
             }
 
             # If professor_id is missing, skip this record
@@ -135,8 +147,10 @@ def scrape_utd_profs(page):
             professor_table.put_item(Item=item)
 
 def scrape_name(contact_info_tag):
+    # Find professor's name in website
     h1_name_tag = contact_info_tag.find('h1')
     
+    # Parse professor's name from website
     full_name = ''
     if h1_name_tag:
         full_name = h1_name_tag.text.strip()
@@ -144,8 +158,10 @@ def scrape_name(contact_info_tag):
     return full_name
 
 def scrape_titles(contact_info_tag):
+    # Find titles in website
     div_titles = contact_info_tag.find('div', class_='profile-titles')
 
+    # Parse titles from website
     titles = []
     if div_titles:
         div_title_tags = div_titles.find_all('div', class_='profile-title')
@@ -156,8 +172,10 @@ def scrape_titles(contact_info_tag):
     return titles
 
 def scrape_summary(contact_info_tag):
+    # Find summary in website
     p_summary_tag = contact_info_tag.find('p', class_='profile_summary')
     
+    # Parse email from website
     summary = ''
     if p_summary_tag:
         summary = p_summary_tag.text.strip()
@@ -165,10 +183,12 @@ def scrape_summary(contact_info_tag):
     return summary
 
 def scrape_email(driver):
-    time.sleep(0.5) # wait 0.5 seconds
+    time.sleep(0.5) # wait 0.5 seconds for the email to load
 
+    # Find email in website
     email_tag = driver.find_element(By.CSS_SELECTOR, 'a[data-evaluate="profile-eml"]')
 
+    # Parse email from website
     email = ''
     if email_tag:
         email = email_tag.text.strip()
@@ -176,23 +196,42 @@ def scrape_email(driver):
     return email
 
 def scrape_tags(contact_info_tag):
+    # Find tags in website
     research_tags_tag = contact_info_tag.find("span", class_="tags")
     
+    # Parse tags from website
     tags = []
     if research_tags_tag:
         linked_tags = research_tags_tag.find_all("a")
 
         for link in linked_tags:
             tags.append(link.text.strip())
-    
+
     return tags
+
+def vectorize_tags(tags):
+    # Return an empty list if tags is empty
+    if not tags:
+        return []
+
+    # Create vector
+    vec = np.mean(model.encode(tags, convert_to_numpy=True), axis=0)
+
+    # Normalize vector
+    vec /= np.linalg.norm(vec)
+
+    vec_list = [Decimal(str(x)) for x in vec.tolist()]
+
+    return vec_list
 
 def scrape_education(profile_soup):
     education = [] # Stores strings of format:
     # Degree,Major,University,GraduationYear
     
+    # Find education in website
     section_tag = profile_soup.find(id="preparation")
 
+    # Parse education in website
     if section_tag:
         entries = section_tag.select(".entry")
 
@@ -250,12 +289,15 @@ def scrape_publications(driver):
             return publications
 
 def scrape_interests(profile_soup):
+    # Find interests in website
     section_tag = profile_soup.find(id="areas")
 
+    # Parse interests from website
     for tag_name in ['strong', 'h1', 'h3']:
         for tag in section_tag.find_all(tag_name):
             tag.decompose() # Remove text in <strong>, <h1>, <h3>
 
+    # Reformat interests
     interests = re.sub(r'\s+', ' ', section_tag.text.strip().replace('Research Interests\n', ' ').replace('\t', ' ').replace('\n', ' ')).strip()
 
     return interests
