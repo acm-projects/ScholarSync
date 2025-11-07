@@ -1,0 +1,15 @@
+{
+    "firstname": "Tony",
+    "lastname": "Vu",
+    "major": "Computer Science",
+    "minor": "",
+    "year": "Freshman",
+    "skills": ["Python"],
+    "projectTypes": ["On-Campus"],
+    "interests": ["AI"],
+    "fields": [],
+    "researchTypes": [],
+    "careerGoals": [],
+    "resumeFile": null
+  }
+  

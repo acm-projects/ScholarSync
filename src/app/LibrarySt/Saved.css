@@ -1,0 +1,27 @@
+.Main {
+  padding: 20px;
+
+
+}
+.Top{
+  display: flex;
+  align-items: center;       
+  justify-content: center;
+  margin-bottom: 20px;
+  text-align: center;
+ height: 50px;
+}
+h1{
+    font-size:2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.paper-wrapper {
+  transform: scale(0.3);
+  transform-origin: top left;
+}
+
+.Hover:hover * {
+  color: #2563EB !important;
+}

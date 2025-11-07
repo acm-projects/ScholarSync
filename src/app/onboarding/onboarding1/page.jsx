@@ -24,18 +24,18 @@ export default function OnboardingStep1() {
   };
 
   return (
-    <div className="min-h-screen bg-blue-500 py-32 px-6">
-      <div className="mx-auto max-w-6xl rounded-3xl bg-white p-8 shadow-xl">
-        <h1 className="mb-1 text-center text-3xl font-semibold text-black">
+    <div className="min-h-screen bg-[#3D110F] py-32 px-6">
+      <div className="mx-auto max-w-6xl rounded-3xl bg-[#170F0E] p-8 shadow-xl border border-[#5A2B29] ">
+        <h1 className="mb-1 text-center text-3xl font-semibold text-[#EEEef0]">
           Let’s set up your profile
         </h1>
         <ProgressBar step={1} total={4} />
 
-        <div className="mx-auto mt-6 max-w-4xl rounded-2xl border border-gray-200 p-6">
+        <div className="mx-auto mt-6 max-w-4xl rounded-2xl bg-[#201311] border border-[#5A2B29] p-6">
           <form onSubmit={onContinue} className="grid gap-8 md:grid-cols-2">
             <div>
-              <h3 className="text-base font-semibold text-black">Basic Information</h3>
-              <p className="mb-4 text-sm text-gray-500">Tell us your name</p>
+              <h3 className="text-base font-semibold text-[#EEEef0]">Basic Information</h3>
+              <p className="mb-4 text-sm text-[#E2E3E6]">Tell us your name</p>
 
               <div className="space-y-4">
                 <LabeledInput
@@ -44,7 +44,7 @@ export default function OnboardingStep1() {
                   value={data.firstname}
                   onChange={handleChange}
                   placeholder="Enter your first name"
-                  className="text-gray-900 placeholder-gray-400"
+                  className="text-[#E2E3E6] placeholder-[#EEEef0]/50"
                   required
                 />
                 <LabeledInput
@@ -53,15 +53,15 @@ export default function OnboardingStep1() {
                   value={data.lastname}
                   onChange={handleChange}
                   placeholder="Enter your last name"
-                  className="text-gray-900 placeholder-gray-400"
+                  className="text-[#E2E3E6] placeholder-[#EEEef0]/50"
                   required
                 />
               </div>
             </div>
 
             <div>
-              <h3 className="text-base font-semibold text-black">Academics</h3>
-              <p className="mb-4 text-sm text-gray-500">Tell us about your studies</p>
+              <h3 className="text-base font-semibold text-[#EEEef0]">Academics</h3>
+              <p className="mb-4 text-sm text-[#E2E3E6]">Tell us about your studies</p>
 
               <div className="space-y-4">
                 <Dropdown
@@ -97,7 +97,7 @@ export default function OnboardingStep1() {
               <button
                 type="button"
                 onClick={() => router.back()}
-                className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200"
+                className="rounded-md bg-[#983734] px-4 py-2 text-sm font-medium text-[#EEEef0] hover:bg-[#983734]/70"
               >
                 Back
               </button>
@@ -107,8 +107,8 @@ export default function OnboardingStep1() {
                 className={[
                   "rounded-md px-5 py-2 text-sm font-semibold",
                   canContinue
-                    ? "bg-black text-white hover:bg-gray-800"
-                    : "bg-gray-200 text-gray-500 cursor-not-allowed",
+                    ? "bg-[#983734] text-white hover:bg-[#983734]/70"
+                    : "bg-[#983734] text-[#EEEef0] cursor-not-allowed",
                 ].join(" ")}
               >
                 Continue

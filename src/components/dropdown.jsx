@@ -23,7 +23,7 @@ export default function Dropdown({
 }) {
   const [query, setQuery] = useState("");
 
-  // only rerender if oprtions, query, or serachable changes
+  // rerenders only when options or query changes
   const filtered = useMemo(() => {
     if (!searchable || !query.trim()) return options;
     const q = query.toLowerCase();
@@ -38,7 +38,7 @@ export default function Dropdown({
   return (
     <div className={containerClass}>
       {label && (
-        <label className="mb-1 block text-sm font-medium text-gray-700">
+        <label className="mb-1 block text-sm font-medium text-[#EEEef0]">
           {label}
         </label>
       )}
@@ -53,10 +53,10 @@ export default function Dropdown({
         <div className="relative">
           <Listbox.Button
             className={[
-              "w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-left text-sm",
-              "focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
+              "w-full rounded-md border border-[#5A2B29] bg-[#201311] px-3 py-2 text-left text-sm",
+              "focus:outline-none focus-visible:ring-2 focus-visible:ring-[#BA3F3D]",
               "flex items-center justify-between",
-              value ? "text-gray-900" : "text-gray-400",
+              value ? "text-[#EEEef0]" : "text-[#EEEef0]/60",
               buttonClass,
             ].join(" ")}
           >
@@ -67,7 +67,7 @@ export default function Dropdown({
                   role="button"
                   aria-label="Clear selection"
                   tabIndex={0}
-                  className="rounded p-1 hover:bg-gray-100"
+                  className="rounded p-1 hover:bg-[#3C1A19]"
                   onMouseDown={(e) => e.preventDefault()}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -80,10 +80,10 @@ export default function Dropdown({
                     }
                   }}
                 >
-                  <XMarkIcon className="h-4 w-4 opacity-60" />
+                  <XMarkIcon className="h-4 w-4 text-[#EEEef0]/70" />
                 </span>
               )}
-              <ChevronUpDownIcon className="h-5 w-5 opacity-60" />
+              <ChevronUpDownIcon className="h-5 w-5 text-[#EEEef0]/70" />
             </div>
           </Listbox.Button>
 
@@ -93,30 +93,30 @@ export default function Dropdown({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute z-50 mt-1 w-full overflow-hidden rounded-md border border-gray-200 bg-white text-sm shadow-lg focus:outline-none">
+            <Listbox.Options className="absolute z-50 mt-1 w-full overflow-hidden rounded-md border border-[#5A2B29] bg-[#170F0E] text-sm text-[#EEEef0] shadow-lg focus:outline-none">
               {searchable && (
-                <div className="sticky top-0 z-10 flex items-center gap-2 border-b border-gray-200 bg-white px-3 py-2">
-                  <MagnifyingGlassIcon className="h-4 w-4 text-gray-400" />
+                <div className="sticky top-0 z-10 flex items-center gap-2 border-b border-[#5A2B29] bg-[#201311] px-3 py-2">
+                  <MagnifyingGlassIcon className="h-4 w-4 text-[#EEEef0]/60" />
                   <input
                     autoFocus
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder={searchPlaceholder}
-                    className="w-full rounded-md border border-gray-300 px-2 py-1 text-sm text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none"
+                    className="w-full rounded-md border border-[#5A2B29] bg-[#170F0E] px-2 py-1 text-sm text-[#EEEef0] placeholder-[#EEEef0]/50 focus:border-[#BA3F3D] focus:outline-none"
                   />
                   {query && (
                     <span
                       role="button"
                       tabIndex={0}
                       aria-label="Clear search"
-                      className="rounded p-1 hover:bg-gray-100"
+                      className="rounded p-1 hover:bg-[#3C1A19]"
                       onMouseDown={(e) => e.preventDefault()}
                       onClick={() => setQuery("")}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") setQuery("");
                       }}
                     >
-                      <XMarkIcon className="h-4 w-4 text-gray-400" />
+                      <XMarkIcon className="h-4 w-4 text-[#EEEef0]/60" />
                     </span>
                   )}
                 </div>
@@ -124,7 +124,7 @@ export default function Dropdown({
 
               <div className="max-h-60 overflow-auto py-1">
                 {filtered.length === 0 && (
-                  <div className="px-3 py-2 text-gray-400">No matches</div>
+                  <div className="px-3 py-2 text-[#EEEef0]/60">No matches</div>
                 )}
 
                 {filtered.map((opt) => (
@@ -134,14 +134,18 @@ export default function Dropdown({
                     className={({ active }) =>
                       [
                         "flex cursor-pointer select-none items-center justify-between px-3 py-2",
-                        active ? "bg-blue-50 text-blue-700" : "text-gray-800",
+                        active
+                          ? "bg-[#983734] text-[#EEEef0]"
+                          : "text-[#EEEef0]",
                       ].join(" ")
                     }
                   >
                     {({ selected }) => (
                       <>
                         <span
-                          className={`truncate ${selected ? "font-medium" : ""}`}
+                          className={`truncate ${
+                            selected ? "font-semibold" : "font-normal"
+                          }`}
                         >
                           {opt}
                         </span>

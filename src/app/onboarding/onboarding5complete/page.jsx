@@ -11,7 +11,7 @@ export default function OnboardingComplete() {
 
   const handleFinish = async () => {
     try {
-      await submitData(); 
+      await submitData();
       router.push("/homeresearchpage");
     } catch (err) {
       console.error("Failed to submit onboarding data:", err);
@@ -19,13 +19,12 @@ export default function OnboardingComplete() {
   };
 
   return (
-    <div className="min-h-screen bg-blue-500 px-6 py-32">
-      <div className="mx-auto max-w-4xl rounded-3xl bg-white p-10 shadow-xl text-center">
-
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-black">
+    <div className="min-h-screen bg-[#3D110F] px-6 py-32">
+      <div className="mx-auto max-w-4xl rounded-3xl bg-[#170F0E] p-10 shadow-xl border border-[#5A2B29] text-center">
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-[#EEEef0]">
           Profile done!
         </h1>
-        <p className="mt-1 text-gray-500 text-sm">Complete</p>
+        <p className="mt-1 text-sm text-[#E2E3E6]">Complete</p>
 
         <div className="mx-auto mt-3 w-full max-w-xl">
           <ProgressBar step={5} total={5} />
@@ -41,7 +40,7 @@ export default function OnboardingComplete() {
 
         <button
           onClick={handleFinish}
-          className="rounded-md bg-black px-6 py-3 text-white font-semibold hover:bg-gray-800"
+          className="rounded-md bg-[#983734] px-6 py-3 text-sm font-semibold text-[#EEEef0] hover:bg-[#983734]/70"
         >
           Continue to Home
         </button>
