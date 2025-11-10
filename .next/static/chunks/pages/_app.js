@@ -1,14 +1,14 @@
 __turbopack_load_page_chunks__("/_app", [
-  "static/chunks/node_modules_next_dist_compiled_next-devtools_index_5277ebc8.js",
-  "static/chunks/node_modules_next_dist_compiled_166120c5._.js",
-  "static/chunks/node_modules_next_dist_shared_lib_2c2ec201._.js",
-  "static/chunks/node_modules_next_dist_client_d0aa886c._.js",
-  "static/chunks/node_modules_next_dist_5b402162._.js",
-  "static/chunks/node_modules_next_app_72f3d36f.js",
-  "static/chunks/[next]_entry_page-loader_ts_742e4b53._.js",
-  "static/chunks/node_modules_react-dom_4411d9bd._.js",
-  "static/chunks/node_modules_4fefc1c0._.js",
-  "static/chunks/[root-of-the-server]__45f039c3._.js",
-  "static/chunks/pages__app_2da965e7._.js",
-  "static/chunks/turbopack-pages__app_59e8a929._.js"
+  "static/chunks/3de13_next_dist_compiled_next-devtools_index_dfee35ca.js",
+  "static/chunks/3de13_next_dist_compiled_009bdd4e._.js",
+  "static/chunks/3de13_next_dist_shared_lib_fa36e5db._.js",
+  "static/chunks/3de13_next_dist_client_49503abe._.js",
+  "static/chunks/3de13_next_dist_4090283a._.js",
+  "static/chunks/3de13_next_app_9b21c34b.js",
+  "static/chunks/[next]_entry_page-loader_ts_4950c85b._.js",
+  "static/chunks/3de13_react-dom_4876ca58._.js",
+  "static/chunks/3de13_df4dc4b8._.js",
+  "static/chunks/[root-of-the-server]__7f965764._.js",
+  "static/chunks/Documents_ACMProjects_ScholarSync_pages__app_2da965e7._.js",
+  "static/chunks/turbopack-Documents_ACMProjects_ScholarSync_pages__app_e7c9d53c._.js"
 ])

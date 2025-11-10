@@ -1,11 +1,12 @@
 "use client";
 
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
 export const OnboardingCtx = createContext(null);
 
 export default function Layout({ children }) {
   const [data, setData] = useState({
+    username: window.localStorage.getItem("username"),
     firstname: "",
     lastname: "",
     major: "",
@@ -52,7 +53,12 @@ export default function Layout({ children }) {
   }
 
   // Tokenize all tags
-  setData(data.map(item.allTags, tokenize(item.allTags)));
+  useEffect(() => {
+    setData(prev => ({
+      ...prev,
+      allTags: tokenize(prev.allTags)
+    }));
+  }, []);
 
   const submitData = async () => {
     console.log("Onboarding data ready to submit:", data);
