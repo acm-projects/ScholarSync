@@ -30,7 +30,7 @@ export default function TagTextBox({
       addTag(text.replace(",", ""));
     }
   };
-  // git add .
+
   const removeTag = (idx) => {
     const next = (values || []).filter((_, i) => i !== idx);
     onChange(next);
@@ -38,7 +38,9 @@ export default function TagTextBox({
 
   return (
     <div className="space-y-2">
-      {label && <div className="text-sm font-semibold text-[#EEEef0]">{label}</div>}
+      {label && (
+        <div className="text-sm font-semibold text-[#111827]">{label}</div>
+      )}
 
       <input
         name={name}
@@ -46,7 +48,7 @@ export default function TagTextBox({
         onChange={(e) => setText(e.target.value)}
         onKeyDown={onKeyDown}
         placeholder={placeholder}
-        className="w-full rounded-md border border-[#5A2B29] bg-[#201311] px-3.5 py-1.5 text-[0.95rem] font-semibold text-[#EEEef0]"
+        className="w-full rounded-md border border-[#d1d5db] bg-[#ffffff] px-3.5 py-1.5 text-[0.95rem] font-semibold text-[#111827] placeholder-[#9ca3af] focus:border-[#ef4444] focus:outline-none focus:ring-1 focus:ring-[#ef4444]"
       />
 
       <div className="flex flex-wrap gap-1">
@@ -58,10 +60,9 @@ export default function TagTextBox({
             className="group"
             title="Remove"
           >
-           
             <span className="inline-flex items-center scale-90 origin-left">
               <TagChip text={t} />
-              <span className="ml-1 text-[10px] text-[#D1D2D6] opacity-70 group-hover:opacity-100">
+              <span className="ml-1 text-[10px] text-[#6b7280] opacity-70 group-hover:opacity-100">
                 ×
               </span>
             </span>

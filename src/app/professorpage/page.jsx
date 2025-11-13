@@ -68,14 +68,14 @@ export default function ProfessorsPage() {
   const [selected, setSelected] = useState(null);
 
   return (
-    <div className="min-h-screen bg-[#3D110F] text-[#EEEef0]">
+    <div className="min-h-screen bg-[#f5f5f5] text-[#111827]">
       {/* top nav */}
       <div className="relative z-10 rounded-b-2xl shadow">
         <Navbar />
       </div>
 
       {/* controls */}
-      <div className={`-mt-5 w-full bg-[#3D110F] border-b-2 border-[#5A2B29] shadow-sm pt-3 pb-2 ${open ? "blur-[2px]" : ""}`}>
+      <div className={`-mt-5 w-full bg-[#ffffff] border-b border-[#e5e7eb] shadow-sm pt-3 pb-2 ${open ? "blur-[2px]" : ""}`}>
         <div className="w-full px-6 pt-5 pb-4 flex items-center">
           <div className="flex items-center gap-6 overflow-x-auto flex-1 min-w-0">
             <ToggleTabs
@@ -95,8 +95,8 @@ export default function ProfessorsPage() {
                 setVisible(6);
               }}
               placeholder="Search professors, fields, or tags…"
-              className="w-80 md:w-96 rounded-md border border-[#5A2B29] bg-[#201311] px-3 py-2 text-m text-[#EEEef0] placeholder-[#EEEef0]/60 
-                         hover:bg-[#3C1A19] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#BA3F3D]"
+              className="w-80 md:w-96 rounded-md border border-[#d1d5db] bg-[#ffffff] px-3 py-2 text-m text-[#111827] placeholder-[#9ca3af] 
+                         hover:border-[#ef4444] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#ef4444]"
             />
           </div>
         </div>
@@ -127,12 +127,12 @@ export default function ProfessorsPage() {
             <button
               type="button"
               onClick={() => setVisible((v) => v + 6)}
-              className="rounded-md border border-[#5A2B29] bg-[#983734] px-5 py-2 text-sm font-medium text-[#EEEef0] shadow-sm hover:bg-[#3C1A19] hover:border-[#BA3F3D] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#BA3F3D] transition"
+              className="rounded-md border border-[#d1d5db] bg-[#ef4444] px-5 py-2 text-sm font-medium text-white shadow-sm hover:bg-[#dc2626] hover:border-[#dc2626] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#b91c1c] transition"
             >
               Load more professors
             </button>
           ) : (
-            <div className="text-sm text-white/80">No more results</div>
+            <div className="text-sm text-[#6b7280]">No more results</div>
           )}
         </div>
       </main>

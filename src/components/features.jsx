@@ -1,21 +1,21 @@
 function Card({ icon, title, desc }) {
   return (
-    <div className="flex h-full flex-col items-center rounded-xl border border-[#5A2B29] bg-[#201311] p-6 text-center shadow-sm hover:bg-[#3C1A19] hover:border-[#BA3F3D] transition">
-      <div className="mb-3 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#983734]">
-        <span className="ttext-xl leading-none text-[#EEEef0]">{icon}</span>
+    <div className="flex h-full flex-col items-center rounded-xl border border-[#e5e7eb] bg-[#ffffff] p-6 text-center shadow-sm hover:bg-[#f9fafb] hover:border-[#9ca3af] transition">
+      <div className="mb-3 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#fee2e2]">
+        <span className="ttext-xl leading-none text-[#b91c1c]">{icon}</span>
       </div>
 
-      <h3 className="font-semibold text-[#EEEef0]">{title}</h3>
-      <p className="mt-1 text-sm text-[#E2E3E6]">{desc}</p>
+      <h3 className="font-semibold text-[#111827]">{title}</h3>
+      <p className="mt-1 text-sm text-[#4b5563]">{desc}</p>
     </div>
   );
 }
 
 export default function Features() {
   return (
-    <section className="bg-[#3D110F] border-t-2 border-[#5A2B29]">
+    <section className="bg-[#f9fafb] border-t-2 border-[#e5e7eb]">
       <div className="mx-auto max-w-6xl px-5 py-16">
-        <h2 className="mb-6 text-center text-2xl font-extrabold text-[#EEEef0]">
+        <h2 className="mb-6 text-center text-2xl font-extrabold text-[#111827]">
           Everything you need for research success
         </h2>
 

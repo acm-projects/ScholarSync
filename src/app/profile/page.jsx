@@ -94,18 +94,18 @@ export default function ProfilePage() {
         {items.map((t, i) => (
           <span
             key={`${t}-${i}`}
-            className="inline-flex items-center rounded-full border border-[#5A2B29] bg-[#201311] px-2.5 py-1 text-s font-semibold text-[#EEEef0]"
+            className="inline-flex items-center rounded-full border border-[#e5e7eb] bg-[#f9fafb] px-2.5 py-1 text-s font-semibold text-[#1f2937]"
           >
             {t}
           </span>
         ))}
       </div>
     ) : (
-      <span className="text-sm text-[#E2E3E6]/70">None</span>
+      <span className="text-sm text-[#6b7280]/80">None</span>
     );
 
   return (
-    <div className="min-h-screen bg-[#3D110F] text-[#EEEef0]">
+    <div className="min-h-screen bg-[#f5f5f5] text-[#111827]">
       <div className="relative z-10 rounded-b-2xl shadow">
         <Navbar />
       </div>
@@ -114,7 +114,7 @@ export default function ProfilePage() {
         <ProfileCard>
           {/* header */}
           <div className="flex items-end gap-6">
-            <div className="h-28 w-28 rounded-xl bg-[#983734] grid place-items-center text-3xl font-bold border border-[#5A2B29] shrink-0">
+            <div className="h-28 w-28 rounded-xl bg-[#fee2e2] grid place-items-center text-3xl font-bold border border-[#fca5a5] text-[#b91c1c] shrink-0">
               {initials}
             </div>
 
@@ -126,7 +126,7 @@ export default function ProfilePage() {
               {!edit ? (
                 <button
                   onClick={() => setEdit(true)}
-                  className="rounded-lg border border-[#5A2B29] bg-[#201311] px-4 py-2 font-semibold hover:bg-[#3C1A19] hover:border-[#BA3F3D]"
+                  className="rounded-lg border border-[#e5e7eb] bg-[#ffffff] px-4 py-2 font-semibold hover:bg-[#f3f4f6] hover:border-[#ef4444]"
                 >
                   Edit Profile
                 </button>
@@ -134,16 +134,14 @@ export default function ProfilePage() {
                 <div className="flex gap-3">
                   <button
                     onClick={onCancel}
-                    className="rounded-lg border border-[#5A2B29] bg-[#201311] px-4 py-2 font-semibold hover:bg-[#3C1A19]"
+                    className="rounded-lg border border-[#e5e7eb] bg-[#ffffff] px-4 py-2 font-semibold hover:bg-[#f3f4f6]"
                   >
                     Cancel
                   </button>
                   <button
                     onClick={onSave}
                     disabled={saving}
-                    className={`rounded-lg bg-[#983734] px-4 py-2 font-semibold text-white border border-[#5A2B29] ${
-                      saving ? "opacity-70 cursor-not-allowed" : "hover:bg-[#983734]/80"
-                    }`}
+                    className={`rounded-lg bg-[#ef4444] px-4 py-2 font-semibold text-white border border-transparent ${saving ? "opacity-70 cursor-not-allowed" : "hover:bg-[#dc2626]"}`}
                   >
                     {saving ? "Saving..." : "Save"}
                   </button>
@@ -156,42 +154,42 @@ export default function ProfilePage() {
           <div className="mt-6 grid gap-6 md:grid-cols-2 ">
             <Field label="First name" locked={!edit}>
               {!edit ? (
-                <div className="text-base">{form.firstname || <span className="text-[#E2E3E6]/70">Not set</span>}</div>
+                <div className="text-base font-medium text-[#111827]">{form.firstname || <span className="text-[#6b7280]/80">Not set</span>}</div>
               ) : (
                 <LabeledInput name="firstname" value={form.firstname} onChange={onChange} />
               )}
             </Field>
             <Field label="Last name" locked={!edit}>
               {!edit ? (
-                <div className="text-base">{form.lastname || <span className="text-[#E2E3E6]/70">Not set</span>}</div>
+                <div className="text-base font-medium text-[#111827]">{form.lastname || <span className="text-[#6b7280]/80">Not set</span>}</div>
               ) : (
                 <LabeledInput name="lastname" value={form.lastname} onChange={onChange} />
               )}
             </Field>
           </div>
 
-          <div className="border-t border-[#5A2B29] my-6" />
+          <div className="border-t border-[#e5e7eb] my-6" />
 
           {/* academics */}
-          <section className="rounded-2xl border border-[#5A2B29] bg-[#201311] p-5 mb-6">
+          <section className="rounded-2xl border border-[#e5e7eb] bg-[#ffffff] p-5 mb-6">
             <div className="grid gap-6 md:grid-cols-3">
               <Field label="Major" locked={!edit}>
                 {!edit ? (
-                  <div className="text-base">{form.major || <span className="text-[#E2E3E6]/70">Not set</span>}</div>
+                  <div className="text-base font-medium text-[#111827]">{form.major || <span className="text-[#6b7280]/80">Not set</span>}</div>
                 ) : (
                   <Dropdown name="major" options={MAJORS} value={form.major} onChange={onChange} />
                 )}
               </Field>
               <Field label="Minor (optional)" locked={!edit}>
                 {!edit ? (
-                  <div className="text-base">{form.minor || <span className="text-[#E2E3E6]/70">Not set</span>}</div>
+                  <div className="text-base font-medium text-[#111827]">{form.minor || <span className="text-[#6b7280]/80">Not set</span>}</div>
                 ) : (
                   <Dropdown name="minor" options={MINORS} value={form.minor} onChange={onChange} />
                 )}
               </Field>
               <Field label="Academic Year" locked={!edit}>
                 {!edit ? (
-                  <div className="text-base">{form.year || <span className="text-[#E2E3E6]/70">Not set</span>}</div>
+                  <div className="text-base font-medium text-[#111827]">{form.year || <span className="text-[#6b7280]/80">Not set</span>}</div>
                 ) : (
                   <Dropdown name="year" options={YEARS} value={form.year} onChange={onChange} />
                 )}
@@ -200,7 +198,7 @@ export default function ProfilePage() {
           </section>
 
           {/* preferences */}
-          <section className="rounded-2xl border border-[#5A2B29] bg-[#201311] p-5 mb-6">
+          <section className="rounded-2xl border border-[#e5e7eb] bg-[#ffffff] p-5 mb-6">
             <div className="grid gap-6 md:grid-cols-3">
               <Field label="Skills" locked={!edit}>
                 {!edit ? (
@@ -278,13 +276,13 @@ export default function ProfilePage() {
           </section>
 
           {/* resume */}
-          <section className="rounded-2xl border border-[#5A2B29] bg-[#201311] p-5">
+          <section className="rounded-2xl border border-[#e5e7eb] bg-[#ffffff] p-5">
             <Field label="Resume" locked={!edit}>
               {!edit ? (
-                <div className="text-base">
+                <div className="text-base font-medium text-[#111827]">
                   {form.resumeFile
                     ? (typeof form.resumeFile === "string" ? form.resumeFile : form.resumeFile.name)
-                    : <span className="text-[#E2E3E6]/70">No file uploaded</span>}
+                    : <span className="text-[#6b7280]/80">No file uploaded</span>}
                 </div>
               ) : (
                 <>
@@ -293,12 +291,12 @@ export default function ProfilePage() {
                     type="file"
                     accept=".pdf,.doc,.docx"
                     onChange={onFile}
-                    className="block w-full text-base text-[#EEEef0]
-                      file:mr-4 file:rounded-md file:border file:border-[#5A2B29]
-                      file:bg-[#983734] file:px-5 file:py-3 file:font-medium file:text-[#EEEef0]
-                      hover:file:bg-[#983734]/80 focus:outline-none"
+                    className="block w-full text-base text-[#111827]
+                      file:mr-4 file:rounded-md file:border file:border-[#e5e7eb]
+                      file:bg-[#ef4444] file:px-5 file:py-3 file:font-medium file:text-white
+                      hover:file:bg-[#dc2626] focus:outline-none"
                   />
-                  <div className="mt-2 text-sm text-[#E2E3E6] break-words">
+                  <div className="mt-2 text-sm text-[#6b7280] break-words">
                     {form.resumeFile
                       ? (typeof form.resumeFile === "string" ? form.resumeFile : form.resumeFile.name)
                       : "No file uploaded"}

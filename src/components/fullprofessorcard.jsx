@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import TagChip from "@/components/tagchip";
 
@@ -31,8 +31,6 @@ export default function FullProfessorCard({ item, onClose }) {
   const phone   = item.phone_number || "";
   const email   = item.email || "";
   const summary = item.summary || item.bio || "No summary available.";
-  const custom  = "/AliAliev.jpg"
-  const photo   = custom || item.photo || item.image || null;
   const tags    = uniqTags(item);
   const pubs    = A(item.publications);
   const mailto  = email ? `mailto:${email}?subject=${encodeURIComponent(`Inquiry about your research (${name})`)}` : "";
@@ -54,23 +52,60 @@ export default function FullProfessorCard({ item, onClose }) {
   const initials =
     (name || "").split(" ").filter(Boolean).map((w) => w[0]).join("").slice(0, 2).toUpperCase() || "NA";
 
+  const provided = item?.photo || item?.image || null;
+  const candidates = useMemo(() => {
+    const raw = name;
+    const enc = encodeURIComponent(name);
+    return [
+      provided,
+      `/${raw}.jpg`,
+      `/${enc}.jpg`,
+      `/${raw}.jpeg`,
+      `/${enc}.jpeg`,
+      `/${raw}.png`,
+      `/${enc}.png`,
+      `/${raw}.webp`,
+      `/${enc}.webp`,
+    ].filter(Boolean);
+  }, [name, provided]);
+
+  const [resolvedPhoto, setResolvedPhoto] = useState(null);
+
+  useEffect(() => {
+    let alive = true;
+    setResolvedPhoto(null);
+    setImgOk(true);
+    (async () => {
+      for (const url of candidates) {
+        const ok = await new Promise((resolve) => {
+          const img = new Image();
+          img.onload = () => resolve(true);
+          img.onerror = () => resolve(false);
+          img.src = url;
+        });
+        if (ok && alive) { setResolvedPhoto(url); return; }
+      }
+      if (alive) setImgOk(false);
+    })();
+    return () => { alive = false; };
+  }, [candidates]);
+
   return (
-    <article className="mx-auto w-full max-w-7xl min-h-[calc(100vh-160px)] rounded-2xl border border-[#5A2B29] bg-[#170F0E] p-4 md:p-8 lg:p-10 shadow flex flex-col text-[#EEEef0]">
+    <article className="mx-auto w-full max-w-7xl min-h-[calc(100vh-160px)] rounded-2xl border border-[#e5e7eb] bg-[#ffffff] p-4 md:p-8 lg:p-10 shadow flex flex-col text-[#111827]">
       <div className="mb-6 flex items-center justify-between">
-        <button onClick={() => (onClose ? onClose() : router.back())} className="inline-flex items-center gap-2 rounded-lg border border-[#5A2B29] bg-[#201311] px-3 py-1.5 text-sm md:text-base font-medium hover:bg-[#3C1A19] hover:border-[#BA3F3D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BA3F3D]">← Back</button>
+        <button onClick={() => (onClose ? onClose() : router.back())} className="inline-flex items-center gap-2 rounded-lg border border-[#d1d5db] bg-[#ffffff] px-3 py-1.5 text-sm md:text-base font-medium text-[#374151] hover:bg-[#f3f4f6] hover:border-[#ef4444] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ef4444]">← Back</button>
         <span />
       </div>
 
       <header className="mb-5 flex items-start gap-5 flex-wrap">
-        {photo && imgOk ? (
+        {resolvedPhoto && imgOk ? (
           <img
-            src={photo}
+            src={resolvedPhoto}
             alt={name}
-            className="h-28 w-28 rounded-xl object-cover border border-[#5A2B29]"
-            onError={() => setImgOk(false)}
+            className="h-28 w-28 rounded-xl object-cover border border-[#e5e7eb]"
           />
         ) : (
-          <div className="h-28 w-28 rounded-xl bg-[#983734] grid place-items-center text-2xl font-bold">
+          <div className="h-28 w-28 rounded-xl bg-[#e5e7eb] grid place-items-center text-2xl font-bold text-[#6b7280]">
             {initials}
           </div>
         )}
@@ -79,10 +114,10 @@ export default function FullProfessorCard({ item, onClose }) {
           <div className="flex items-baseline justify-between gap-4">
             <div className="min-w-0">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight truncate">{name}</h1>
-              {main && <div className="text-lg md:text-xl text-[#E2E3E6] truncate">{main}</div>}
+              {main && <div className="text-lg md:text-xl text-[#4b5563] truncate">{main}</div>}
             </div>
 
-            <div className="text-right text-sm md:text-base text-[#E9EAED] space-y-0.5 max-w-[360px]">
+            <div className="text-right text-sm md:text-base text-[#4b5563] space-y-0.5 max-w-[360px]">
               {office && <div>Office: {office}</div>}
               {phone  && <div>Phone: {phone}</div>}
               {email  && <div className="truncate">Email: <a href={mailto} className="underline hover:no-underline">{email}</a></div>}
@@ -91,28 +126,28 @@ export default function FullProfessorCard({ item, onClose }) {
         </div>
       </header>
 
-      <div className="border-t border-[#5A2B29] my-5" />
+      <div className="border-t border-[#e5e7eb] my-5" />
 
       <section className="flex-1">
         <h2 className="text-xl md:text-2xl font-semibold mb-2">Description:</h2>
-        <div className="text-[#F4F4F5] text-lg md:text-xl leading-7 whitespace-pre-line">{summary}</div>
+        <div className="text-[#374151] text-lg md:text-xl leading-7 whitespace-pre-line">{summary}</div>
 
         {titles.length > 1 && (
-          <div className="mt-5 text-[#E2E3E6]">
+          <div className="mt-5 text-[#4b5563]">
             <div className="font-semibold mb-1">Titles:</div>
             <ul className="list-disc pl-6 space-y-1">{titles.slice(1).map((t, i) => <li key={i}>{t}</li>)}</ul>
           </div>
         )}
 
         <div className="mt-6">
-          <button onClick={() => setOpen((v) => !v)} className="w-full text-left rounded-xl border border-[#5A2B29] bg-[#201311] px-4 py-3 font-semibold hover:bg-[#3C1A19] hover:border-[#BA3F3D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BA3F3D]">
+          <button onClick={() => setOpen((v) => !v)} className="w-full text-left rounded-xl border border-[#e5e7eb] bg-[#f9fafb] px-4 py-3 font-semibold text-[#111827] hover:bg-[#fef2f2] hover:border-[#ef4444] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ef4444]">
             Publications {pubs.length ? `(${pubs.length})` : ""} <span className="float-right">{open ? "▲" : "▼"}</span>
           </button>
 
           {open && (
-            <div className="mt-3 rounded-xl border border-[#5A2B29] bg-[#120B0B] p-4">
+            <div className="mt-3 rounded-xl border border-[#e5e7eb] bg-[#ffffff] p-4">
               {slice.length === 0 ? (
-                <div className="text-[#E2E3E6]">No publications found.</div>
+                <div className="text-[#4b5563]">No publications found.</div>
               ) : (
                 <ul className="space-y-3">
                   {slice.map((p, i) => {
@@ -120,9 +155,9 @@ export default function FullProfessorCard({ item, onClose }) {
                     const pdf  = typeof p === "object" ? p?.pdf : "";
                     return (
                       <li key={i} className="leading-6">
-                        <span className="text-[#F4F4F5] break-words">{text}</span>
+                        <span className="text-[#111827] break-words">{text}</span>
                         {pdf && <> {" "}
-                          <a href={pdf} target="_blank" rel="noopener noreferrer" className="underline text-[#FFEAE7] hover:no-underline" title={pdf}>PDF</a>
+                          <a href={pdf} target="_blank" rel="noopener noreferrer" className="underline text-[#b91c1c] hover:no-underline" title={pdf}>PDF</a>
                         </>}
                       </li>
                     );
@@ -132,11 +167,21 @@ export default function FullProfessorCard({ item, onClose }) {
 
               {total > 1 && (
                 <div className="mt-4 flex items-center gap-2 flex-wrap">
-                  <button onClick={() => setPage((p) => Math.max(1, p - 1))} className="px-3 py-1 rounded-lg border border-[#5A2B29] bg-[#201311] hover:bg-[#3C1A19]">Prev</button>
+                  <button onClick={() => setPage((p) => Math.max(1, p - 1))} className="px-3 py-1 rounded-lg border border-[#e5e7eb] bg-[#ffffff] text-sm text-[#374151] hover:bg-[#f3f4f6] hover:border-[#ef4444]">Prev</button>
                   {pageNums.map((n) => (
-                    <button key={n} onClick={() => setPage(n)} className={`px-3 py-1 rounded-lg border ${n === page ? "border-[#BA3F3D] bg-[#983734] text-[#FFEAE7]" : "border-[#5A2B29] bg-[#201311] hover:bg-[#3C1A19]"}`}>{n}</button>
+                    <button
+                      key={n}
+                      onClick={() => setPage(n)}
+                      className={`px-3 py-1 rounded-lg border text-sm ${
+                        n === page
+                          ? "border-[#ef4444] bg-[#ef4444] text-white"
+                          : "border-[#e5e7eb] bg-[#ffffff] text-[#374151] hover:bg-[#f3f4f6] hover:border-[#ef4444]"
+                      }`}
+                    >
+                      {n}
+                    </button>
                   ))}
-                  <button onClick={() => setPage((p) => Math.min(total, p + 1))} className="px-3 py-1 rounded-lg border border-[#5A2B29] bg-[#201311] hover:bg-[#3C1A19]">Next</button>
+                  <button onClick={() => setPage((p) => Math.min(total, p + 1))} className="px-3 py-1 rounded-lg border border-[#e5e7eb] bg-[#ffffff] text-sm text-[#374151] hover:bg-[#f3f4f6] hover:border-[#ef4444]">Next</button>
                 </div>
               )}
             </div>
@@ -144,11 +189,11 @@ export default function FullProfessorCard({ item, onClose }) {
         </div>
       </section>
 
-      <div className="border-t border-[#5A2B29] my-5" />
+      <div className="border-t border-[#e5e7eb] my-5" />
 
       <footer className="mt-auto pt-1 flex items-center justify-between gap-3 flex-wrap">
         <div className="flex items-center flex-wrap gap-2">
-          <span className="text-sm font-semibold text-[#E9EAED]/90 mr-1">Related tags:</span>
+          <span className="text-sm font-semibold text-[#6b7280] mr-1">Related tags:</span>
           {tags.map((t, i) => <TagChip key={`prof-${item.email || item.id || name}-${i}`} text={t.text} color={t.color} />)}
         </div>
       </footer>

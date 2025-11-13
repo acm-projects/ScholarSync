@@ -22,9 +22,10 @@ export default function OpportunitiesPage() {
   const [selected, setSelected] = useState(null);
 
   // show loading if profAll is empty
-   if (tab === "all" && profAll === null) {
-    return <Loading />;
-  }
+  // if (tab === "all" && profAll === null) {
+  //  return <Loading />;
+  // }
+  
 
   // usememo here to keep cards from stopping to rerender after every user actoin
   // compare and pass in data and user tags
@@ -96,12 +97,12 @@ export default function OpportunitiesPage() {
   const canLoadMore = visible < filtered.length;
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] text-[#EEEef0]">
+    <div className="min-h-screen bg-[#f5f5f5] text-[#111827]">
       <div className="relative z-10 rounded-b-2xl shadow">
         <Navbar />
       </div>
       
-      <div className={`-mt-5 w-full bg-[#F9FAFB] border-b-2 border-[#5A2B29] shadow-sm pt-3 pb-2 ${open ? "blur-sm" : ""}`}>
+      <div className={`-mt-5 w-full bg-[#ffffff] border-b border-[#e5e7eb] shadow-sm pt-3 pb-2 ${open ? "blur-sm" : ""}`}>
         <div className="w-full px-6 pt-5 pb-4 flex items-center">
           <div className="flex items-center gap-6 overflow-x-auto flex-1 min-w-0">
             <ToggleTabs
@@ -112,7 +113,7 @@ export default function OpportunitiesPage() {
               }}
             />
             <div className="flex items-center gap-2">
-              <span className="whitespace-nowrap text-m font-medium text-[#EEEef0]">
+              <span className="whitespace-nowrap text-m font-medium text-[#4b5563]">
                 Filters:
               </span>
               {["Full-time", "Part-time", "On-site", "Remote"].map((p) => (
@@ -123,8 +124,8 @@ export default function OpportunitiesPage() {
                   className={[
                     "whitespace-nowrap rounded-full border px-3 py-1 text-m transition font-medium focus-visible:outline-none",
                     activeFilter === p
-                      ? "bg-[#BA3F3D] text-white border border-[#FFD1CC]"
-                      : "bg-[#201311] text-[#EEEef0]/90 border border-[#5A2B29] hover:bg-[#3C1A19] hover:border-[#BA3F3D]",
+                      ? "bg-[#ef4444] text-white border border-transparent"
+                      : "bg-[#ffffff] text-[#374151] border border-[#d1d5db] hover:border-[#ef4444] hover:text-[#111827]",
                   ].join(" ")}
                 >
                   {p}
@@ -140,12 +141,12 @@ export default function OpportunitiesPage() {
                 setSort(e.target.value);
                 setVisible(12);
               }}
-              className="rounded-md border border-[#5A2B29] bg-[#201311] px-3 py-2 text-m text-[#EEEef0] font-medium hover:bg-[#3C1A19] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#BA3F3D]"
+              className="rounded-md border border-[#d1d5db] bg-[#ffffff] px-3 py-2 text-m text-[#111827] font-medium hover:border-[#ef4444] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#ef4444]"
             >
-              <option className="bg-[#201311]" value="recent">
+              <option className="bg-[#ffffff] text-[#111827]" value="recent">
                 Date posted: Recent
               </option>
-              <option className="bg-[#201311]" value="oldest">
+              <option className="bg-[#ffffff] text-[#111827]" value="oldest">
                 Date posted: Oldest
               </option>
             </select>
@@ -157,7 +158,7 @@ export default function OpportunitiesPage() {
                 setVisible(12);
               }}
               placeholder="Search opportunities, tags, or description…"
-              className="w-80 md:w-96 rounded-md border border-[#5A2B29] bg-[#201311] px-3 py-2 text-m text-[#EEEef0] placeholder-[#EEEef0]/60 hover:bg-[#3C1A19] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#BA3F3D]"
+              className="w-80 md:w-96 rounded-md border border-[#d1d5db] bg-[#ffffff] px-3 py-2 text-m text-[#111827] placeholder-[#9ca3af] hover:border-[#ef4444] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#ef4444]"
             />
           </div>
         </div>
@@ -181,12 +182,12 @@ export default function OpportunitiesPage() {
             <button
               type="button"
               onClick={() => setVisible((v) => v + 6)}
-              className="rounded-md border border-[#5A2B29] bg-[#983734] px-6 py-2.5 text-sm font-medium text-[#EEEef0] shadow-sm hover:bg-[#3C1A19] hover:border-[#BA3F3D] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#BA3F3D] transition"
+              className="rounded-md border border-[#d1d5db] bg-[#ef4444] px-6 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-[#dc2626] hover:border-[#dc2626] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#b91c1c] transition"
             >
               Load more opportunities
             </button>
           ) : (
-            <div className="text-sm text-[#EEEef0]/80">No more results</div>
+            <div className="text-sm text-[#6b7280]">No more results</div>
           )}
         </div>
       </main>
