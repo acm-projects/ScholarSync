@@ -4,8 +4,8 @@
   width: 80rem;
   height: 14rem;
   border-radius: 25px;
-  border-color:#A9443F;
-  background-color: hsl(0, 0%, 94%) ;
+  background-color:#ffffff;
+  border: #111111;
 }
 
 .card:hover {

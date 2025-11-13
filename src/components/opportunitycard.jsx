@@ -163,5 +163,3 @@ export default function OpportunityCard({ item, userTags, showPct = true, theme 
     </div>
   );
 }
-
-

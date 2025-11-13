@@ -1,18 +1,18 @@
 {
   "app": {
-    "[project]/src/app/LibrarySt/page": [
+    "[project]/ScholarSync/src/app/LibrarySt/page": [
       "static/media/caa3a2e1cccd8315-s.p.853070df.woff2",
       "static/media/797e433ab948586e-s.p.dbea232f.woff2"
     ],
-    "[project]/src/app/discovery/page": [
+    "[project]/ScholarSync/src/app/discovery/page": [
       "static/media/caa3a2e1cccd8315-s.p.853070df.woff2",
       "static/media/797e433ab948586e-s.p.dbea232f.woff2"
     ],
-    "[project]/src/app/page": [
+    "[project]/ScholarSync/src/app/page": [
       "static/media/caa3a2e1cccd8315-s.p.853070df.woff2",
       "static/media/797e433ab948586e-s.p.dbea232f.woff2"
     ],
-    "[project]/src/app/papers/[id]/page": [
+    "[project]/ScholarSync/src/app/signuplogin/signup/page": [
       "static/media/caa3a2e1cccd8315-s.p.853070df.woff2",
       "static/media/797e433ab948586e-s.p.dbea232f.woff2"
     ]
