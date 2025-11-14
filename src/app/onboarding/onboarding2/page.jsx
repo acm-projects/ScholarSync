@@ -4,31 +4,12 @@ import { useContext, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { OnboardingCtx } from "../layout";
 import ProgressBar from "@/components/progressbar";
-<<<<<<< HEAD
-import MultiSelectDropdown from "@/components/multidropdown";
-import tags from "@/data/tags.json";
-
-const SKILLS        = tags.skills;
-const INTEREST      = tags.interests;
-const PROJECTTYPES  = tags.projectTypes;
-const FIELDS        = tags.fields;
-const RESEARCHTYPES = tags.researchTypes;
-const CAREERGOALS   = tags.careerGoals;
-=======
 import TagTextBox from "@/components/tagtextbox";
->>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
 
 export default function OnboardingStep2() {
   const router = useRouter();
   const { data, setData } = useContext(OnboardingCtx);
 
-<<<<<<< HEAD
-  const handleMultiChange = (name, values) => {
-    setData((prev) => ({
-      ...prev,
-      [name]: values,
-    }));
-=======
   const updateBucket = (name, values) => {
     setData((prev) => {
       const next = { ...prev, [name]: values };
@@ -45,102 +26,40 @@ export default function OnboardingStep2() {
       next.alltags = merged;
       return next;
     });
->>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
   };
 
   const canContinue = useMemo(
     () =>
-<<<<<<< HEAD
-      data.skills?.length > 0 &&
-      data.interests?.length > 0 &&
-      data.projectTypes?.length > 0 &&
-      data.fields?.length > 0 &&
-      data.researchTypes?.length > 0 &&
-      data.careerGoals?.length > 0,
-=======
       (data.skills?.length ?? 0) > 0 &&
       (data.interests?.length ?? 0) > 0 &&
       (data.projectTypes?.length ?? 0) > 0 &&
       (data.fields?.length ?? 0) > 0 &&
       (data.researchTypes?.length ?? 0) > 0 &&
       (data.careerGoals?.length ?? 0) > 0,
->>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
     [data]
   );
 
   const onContinue = (e) => {
     e.preventDefault();
+    if (!canContinue) return;
     router.push("/onboarding/onboarding3");
   };
 
   return (
-    <div className="min-h-screen bg-[#3D110F] py-32 px-6">
-      <div className="mx-auto max-w-6xl rounded-3xl bg-[#170F0E] p-8 shadow-xl border border-[#5A2B29] ">
-        <h1 className="mb-1 text-center text-3xl font-semibold text-[#EEEef0]">
+    <div className="min-h-screen bg-[#f5f5f5] py-32 px-6">
+      <div className="mx-auto max-w-6xl rounded-3xl bg-[#ffffff] p-8 shadow-xl border border-[#e5e7eb]">
+        <h1 className="mb-1 text-center text-3xl font-semibold text-[#111827]">
           Let’s set up your profile
         </h1>
         <ProgressBar step={2} total={4} />
 
-        <div className="mx-auto mt-6 max-w-4xl rounded-2xl border bg-[#201311] border-[#5A2B29] p-6">
+        <div className="mx-auto mt-6 max-w-4xl rounded-2xl bg-[#ffffff] border border-[#e5e7eb] p-6">
           <form onSubmit={onContinue} className="grid gap-8">
             <div>
-              <h3 className="text-base font-semibold text-[#EEEef0]">
+              <h3 className="text-base font-semibold text-[#111827]">
                 Research & Skills
               </h3>
-              <p className="mb-4 text-sm text-[#E2E3E6]">
-<<<<<<< HEAD
-                Tell us about your interests and skills
-              </p>
-
-              <div className="grid gap-8 md:grid-cols-2">
-                <MultiSelectDropdown
-                  label="Skills"
-                  name="skills"
-                  options={SKILLS}
-                  values={data.skills || []}
-                  onChange={(vals) => handleMultiChange("skills", vals)}
-                  placeholder="Select skills"
-                />
-                <MultiSelectDropdown
-                  label="Preferred Project Types"
-                  name="projectTypes"
-                  options={PROJECTTYPES}
-                  values={data.projectTypes || []}
-                  onChange={(vals) => handleMultiChange("projectTypes", vals)}
-                  placeholder="Select project types"
-                />
-                <MultiSelectDropdown
-                  label="Research Interests / Topics"
-                  name="interests"
-                  options={INTEREST}
-                  values={data.interests || []}
-                  onChange={(vals) => handleMultiChange("interests", vals)}
-                  placeholder="Select interests"
-                />
-                <MultiSelectDropdown
-                  label="Preferred Research Fields / Departments"
-                  name="fields"
-                  options={FIELDS}
-                  values={data.fields || []}
-                  onChange={(vals) => handleMultiChange("fields", vals)}
-                  placeholder="Select fields"
-                />
-                <MultiSelectDropdown
-                  label="Type of Research"
-                  name="researchTypes"
-                  options={RESEARCHTYPES}
-                  values={data.researchTypes || []}
-                  onChange={(vals) => handleMultiChange("researchTypes", vals)}
-                  placeholder="Select research types"
-                />
-                <MultiSelectDropdown
-                  label="Career Goals / Applications"
-                  name="careerGoals"
-                  options={CAREERGOALS}
-                  values={data.careerGoals || []}
-                  onChange={(vals) => handleMultiChange("careerGoals", vals)}
-                  placeholder="Select goals"
-=======
+              <p className="mb-4 text-sm text-[#6b7280]">
                 Type a tag and press Enter to add it. Click a tag to remove.
               </p>
 
@@ -180,18 +99,15 @@ export default function OnboardingStep2() {
                   name="careerGoals"
                   values={data.careerGoals || []}
                   onChange={(vals) => updateBucket("careerGoals", vals)}
->>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
+
                 />
               </div>
             </div>
 
             {!canContinue && (
-              <p className="text-sm text-[#E2E3E6]/80">
-<<<<<<< HEAD
-                * Please select at least one option in each category to continue.
-=======
+              <p className="text-sm text-[#6b7280]">
                 * Please add at least one tag in each category to continue.
->>>>>>> 5fa800b18367dea18c6121b4de3a0f5e06bce03d
+
               </p>
             )}
 
@@ -199,7 +115,7 @@ export default function OnboardingStep2() {
               <button
                 type="button"
                 onClick={() => router.back()}
-                className="rounded-md bg-[#983734] px-4 py-2 text-sm font-medium text-[#EEEef0] hover:bg-[#983734]/70"
+                className="rounded-md bg-white px-4 py-2 text-sm font-medium text-[#374151] border border-[#d1d5db] hover:border-[#ef4444] hover:text-[#111827]"
               >
                 Back
               </button>
@@ -209,8 +125,8 @@ export default function OnboardingStep2() {
                 className={[
                   "rounded-md px-5 py-2 text-sm font-semibold",
                   canContinue
-                    ? "bg-[#983734] text-white hover:bg-[#983734]/70"
-                    : "bg-[#983734] text-[#EEEef0] cursor-not-allowed",
+                    ? "bg-[#ef4444] text-white shadow-sm hover:bg-[#dc2626] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b91c1c]"
+                    : "bg-[#e5e7eb] text-[#9ca3af] cursor-not-allowed",
                 ].join(" ")}
               >
                 Continue

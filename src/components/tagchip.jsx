@@ -1,21 +1,23 @@
-export default function TagChip({ text, color = "black" }) {
-    let styles = "bg-[#983734]/25 text-[#EEEef0] border-[#FFD1CC]/90";
-    switch (color) {
-      case "green":
-        styles = "bg-emerald-600/20 text-emerald-400 border-emerald-300/80";
-        break;
-      case "yellow":
-        styles = "bg-amber-500/25 text-amber-400 border-amber-300/80";
-        break;
-      case "red":
-        styles = "bg-rose-600/20 text-rose-400 border-rose-400/80";
-        break;
-    }
-  
-    return (
-      <span className={`inline-flex items-center rounded-full border px-3 py-0.75 text-s font-bold ${styles}`}>
-        {text}
-      </span>
-    );
+export default function TagChip({ text, color = "gray" }) {
+  let styles = "bg-[#f3f4f6] text-[#4b5563] border-[#e5e7eb]";
+
+  switch (color) {
+    case "green":
+      styles = "bg-emerald-100 text-emerald-700 border-emerald-200";
+      break;
+    case "yellow":
+      styles = "bg-amber-100 text-amber-700 border-amber-200";
+      break;
+    case "red":
+      styles = "bg-rose-100 text-rose-700 border-rose-200";
+      break;
   }
-  
+
+  return (
+    <span
+      className={`inline-flex items-center rounded-full border px-3 py-0.75 text-s font-bold ${styles}`}
+    >
+      {text}
+    </span>
+  );
+}

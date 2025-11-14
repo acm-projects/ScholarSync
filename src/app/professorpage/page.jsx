@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Navbar from "@/components/navbar";
 import ToggleTabs from "@/components/toggletabsprofessor";
 import ProfessorCard from "@/components/professorcard";
@@ -9,6 +9,7 @@ import { normalizeAllItems } from "@/components/pagesort";
 import profRecommended from "@/data/professors_recommended.json" assert { type: "json" };
 import profAll from "@/data/professors_all.json" assert { type: "json" };
 import userTags from "@/data/user_tags.json" assert { type: "json" };
+import Loading from "@/components/loading";
 
 export default function ProfessorsPage() {
   const [tab, setTab] = useState("recommended");
@@ -22,6 +23,13 @@ export default function ProfessorsPage() {
       : normalizeAllItems(profAll, userTags);
   }, [tab]);
 
+
+
+   // show loading if profAll is empty
+   if (tab === "all" && profAll === null) {
+    return <Loading />;
+  }
+  
   // filter + simple relevance sort
   const filtered = useMemo(() => {
     let out = dataset;
@@ -60,14 +68,14 @@ export default function ProfessorsPage() {
   const [selected, setSelected] = useState(null);
 
   return (
-    <div className="min-h-screen bg-[#3D110F] text-[#EEEef0]">
+    <div className="min-h-screen bg-[#f5f5f5] text-[#111827]">
       {/* top nav */}
       <div className="relative z-10 rounded-b-2xl shadow">
         <Navbar />
       </div>
 
       {/* controls */}
-      <div className={`-mt-5 w-full bg-[#3D110F] border-b-2 border-[#5A2B29] shadow-sm pt-3 pb-2 ${open ? "blur-[2px]" : ""}`}>
+      <div className={`-mt-5 w-full bg-[#ffffff] border-b border-[#e5e7eb] shadow-sm pt-3 pb-2 ${open ? "blur-[2px]" : ""}`}>
         <div className="w-full px-6 pt-5 pb-4 flex items-center">
           <div className="flex items-center gap-6 overflow-x-auto flex-1 min-w-0">
             <ToggleTabs
@@ -87,16 +95,16 @@ export default function ProfessorsPage() {
                 setVisible(6);
               }}
               placeholder="Search professors, fields, or tags…"
-              className="w-80 md:w-96 rounded-md border border-[#5A2B29] bg-[#201311] px-3 py-2 text-m text-[#EEEef0] placeholder-[#EEEef0]/60 
-                         hover:bg-[#3C1A19] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#BA3F3D]"
+              className="w-80 md:w-96 rounded-md border border-[#d1d5db] bg-[#ffffff] px-3 py-2 text-m text-[#111827] placeholder-[#9ca3af] 
+                         hover:border-[#ef4444] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#ef4444]"
             />
           </div>
         </div>
       </div>
 
       {/* Professor card takes from toshow */}
-      <main className={`mx-auto px-20 py-15 ${open ? "blur-[2px]" : ""}`}>
-        <div className="grid gap-8 sm:grid-cols-2 items-stretch">
+      <main className={`mx-auto px-20 mt-10 ${open ? "blur-[2px]" : ""}`}>
+        <div className="grid gap-8 sm:grid-cols-2 items-stretch ">
           {toShow.map((item) => {
             const pid = String(item.id || item.email || item.full_name);
             const href = `/professorpage/fullcardpage?id=${encodeURIComponent(pid)}`;
@@ -119,12 +127,12 @@ export default function ProfessorsPage() {
             <button
               type="button"
               onClick={() => setVisible((v) => v + 6)}
-              className="rounded-md border border-[#5A2B29] bg-[#983734] px-5 py-2 text-sm font-medium text-[#EEEef0] shadow-sm hover:bg-[#3C1A19] hover:border-[#BA3F3D] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#BA3F3D] transition"
+              className="rounded-md border border-[#d1d5db] bg-[#ef4444] px-5 py-2 text-sm font-medium text-white shadow-sm hover:bg-[#dc2626] hover:border-[#dc2626] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#b91c1c] transition"
             >
               Load more professors
             </button>
           ) : (
-            <div className="text-sm text-white/80">No more results</div>
+            <div className="text-sm text-[#6b7280]">No more results</div>
           )}
         </div>
       </main>

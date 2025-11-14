@@ -6,6 +6,7 @@ export const OnboardingCtx = createContext(null);
 
 export default function Layout({ children }) {
   const [data, setData] = useState({
+    username: "",
     firstname: "",
     lastname: "",
     major: "",
