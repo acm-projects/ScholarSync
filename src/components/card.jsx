@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 
   function BookmarkButton({onClick, bookmarked}){
     return(
-    <button onClick = {onClick} style={{color: "#6B2737"}}> 
+    <button onClick = {onClick} style={{color: "#ef4444"}}> 
      {bookmarked ? <BookmarkFilledIcon style = {{ width: '28px', height: '28px'}}/>  :  <BookmarkIcon style = {{ width: '28px', height: '28px'}}/>}
     </button>
     );
@@ -59,7 +59,7 @@ useEffect(() => {
 
   
   return(
-     <div className="card hover:bg-[#A9443F]/20" >
+     <div className="card hover:bg-[#ffffff] shadow-sm" >
        <div style={{height: '200px',width: '200px',  overflow: 'hidden',position: 'relative', flexShrink: 0,}} >
                         <div
                         style={{
@@ -90,12 +90,14 @@ useEffect(() => {
       <div className="mt-auto pt-3 flex items-end justify-between">
       <div className="card-tag flex gap-2 ml-45 mb-18" >
                {paper.tags.slice(0,3).map((tag,index) => {
-                  const color = "#9B2335";
                   const textColor = "#111111";
-                  return <TagChip key={index} text={tag} color={color} textColor={textColor}/>;
+                  const color = {0: 'green',1: 'yellow' , 2: 'red'};
+                  console.log('Tag:', tag, 'Color:', color[index])
+  
+                  return <TagChip key={index} text={tag} color={color[index]} textColor={textColor}/>;
                 })}
             </div>
-        <div className="mt-auto mb-15 mr-5 flex items-end justify-between text-xs"> Date Published: {paper.date} </div>
+        <div className="mt-auto mb-15 mr-5 flex items-end justify-between text-xs text-black"> Date Published: {paper.date} </div>
         </div>
 
     </div>

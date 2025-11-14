@@ -99,6 +99,7 @@ export default function OnboardingStep2() {
                   name="careerGoals"
                   values={data.careerGoals || []}
                   onChange={(vals) => updateBucket("careerGoals", vals)}
+
                 />
               </div>
             </div>
@@ -106,6 +107,7 @@ export default function OnboardingStep2() {
             {!canContinue && (
               <p className="text-sm text-[#6b7280]">
                 * Please add at least one tag in each category to continue.
+
               </p>
             )}
 

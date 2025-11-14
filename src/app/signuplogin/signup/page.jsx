@@ -47,7 +47,8 @@ const Signup = () => {
                 <div className= "Sign-submit-container">
                 <button className = "submit" type = "submit">
                     Sign up
-                  </button>
+                </button>
+
                 </div>
                 </div>
                 </form>
@@ -55,26 +56,12 @@ const Signup = () => {
                 <div className = "account">
                 Already have an account? 
                 <Link href="/signuplogin/login">
-                <span>Login</span>
+                <span className="login-link">Login</span>
                 </Link>
                 </div>
 
                 <div className = "divide">        
             
-                </div>
-                
-                <div className= "CG-submit-container">
-
-                <div className = "submit">
-                Continue with Google
-                </div>
-                </div>
-
-                <div className= "CL-submit-container">
-      
-                <div className = "submit">
-                Continue with LinkedIn
-                </div>
                 </div>
 
           </div>
@@ -85,3 +72,5 @@ const Signup = () => {
     }
   
   export default Signup;
+  
+

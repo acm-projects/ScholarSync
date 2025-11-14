@@ -51,28 +51,13 @@ const Login = () => {
                 <div className = "account">
                 Don't have an account? 
                 <Link href = "/signuplogin/signup">
-                <span>Signup</span>
+                <span className="signup-link">Signup</span>
                 </Link>
                 </div>
         
 
                 <div className = "divide">        
           
-                </div>
-                
-                <div className= "CG-submit-container">
-            
-                <div className = "submit">
-                Login with Google
-                </div>
-                </div>
-
-                <div className= "CL-submit-container">
-      
-
-                <div className = "submit">
-                Login with LinkedIn
-                </div>
                 </div>
 
           </div>
@@ -83,3 +68,4 @@ const Login = () => {
     }
   
   export default Login;
+  

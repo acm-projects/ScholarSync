@@ -1,0 +1,6 @@
+{
+  "/LibrarySt/page": "app/LibrarySt/page.js",
+  "/discovery/page": "app/discovery/page.js",
+  "/page": "app/page.js",
+  "/signuplogin/signup/page": "app/signuplogin/signup/page.js"
+}

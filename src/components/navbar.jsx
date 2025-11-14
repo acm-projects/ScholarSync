@@ -1,4 +1,7 @@
+
+
 import Link from "next/link";
+import logo from "./logo.png";
 
 export default function Navbar() {
   return (
