@@ -18,7 +18,7 @@ export default function HeroSection() {
 
         <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
           <Link
-            href="/onboarding/onboarding1" 
+            href="/signuplogin/signup" 
             className="rounded-md border border-[#ef4444] bg-[#ef4444] px-5 py-2.5 font-semibold text-[#ffffff] hover:bg-[#dc2626] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#b91c1c] transition"
           >
             Get Started

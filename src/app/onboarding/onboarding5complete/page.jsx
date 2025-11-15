@@ -19,7 +19,7 @@ export default function OnboardingComplete() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f3f4f6] px-6 py-32">
+    <div className="min-h-screen bg-gradient-to-tr from-white to-[#fdf1f1] px-6 py-32">
       <div className="mx-auto max-w-4xl rounded-3xl bg-[#ffffff] p-10 shadow-xl border border-[#e5e7eb] text-center">
         <h1 className="text-3xl sm:text-4xl font-extrabold text-[#111827]">
           Profile done!

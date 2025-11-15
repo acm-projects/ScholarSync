@@ -2,7 +2,6 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { useRouter } from "next/navigation";
-
 import TagChip from "@/components/tagchip";
 
 const asArray = (v) => (Array.isArray(v) ? v : []);
@@ -38,14 +37,6 @@ function computeThreeTagPctAndColor(topTags) {
 }
 
 export default function ProfessorCard({ item, userTags, showPct = true , theme = "base", href, onOpen }) {
-export default function ProfessorCard({
-  item,
-  userTags,
-  showPct = true,
-  theme = "base",
-  href,
-  onOpen,
-}) {
   const router = useRouter();
 
   const name = item?.full_name || "Unknown Faculty";
@@ -62,12 +53,6 @@ export default function ProfessorCard({
 
   const cardStyle =
     theme === "base"
-  const custom = "/AliAliev.jpg";
-  const photo = custom || item?.photo || item?.image || null;
-
-  const [errored, setErrored] = useState(false);
-
-
       ? "border border-[#e5e7eb] bg-[#ffffff] hover:bg-[#f9fafb] hover:border-[#d1d5db]"
       : "border border-[#fecaca] bg-[#fee2e2] hover:bg-[#fecaca] hover:border-[#fca5a5]";
 
@@ -180,9 +165,7 @@ export default function ProfessorCard({
         <div className="text-m text-[#4b5563] truncate">Room: {room}</div>
 
         <p
-
           className="mt-2 text-m font-medium leading-6 text-[#374151] line-clamp-3"
-
           style={{ hyphens: "auto", overflowWrap: "anywhere" }}
         >
           {summary}
@@ -230,7 +213,7 @@ export default function ProfessorCard({
               />
             </svg>
             <div className="absolute inset-0 grid place-items-center text-[#111827] font-bold text-xl">
-              {showPct && pct != null ? `${pct}%` : "Summary not available"}
+              {showPct && pct != null ? `${pct}%` : "N/A"}
             </div>
             <div className="mt-1 text-center text-xs text-[#6b7280]">match</div>
           </div>
@@ -238,7 +221,4 @@ export default function ProfessorCard({
       </div>
     </div>
   );
-};
-
 }
-

@@ -46,8 +46,9 @@ export default function OnboardingStep2() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f5f5f5] py-32 px-6">
-      <div className="mx-auto max-w-6xl rounded-3xl bg-[#ffffff] p-8 shadow-xl border border-[#e5e7eb]">
+    <div className="min-h-screen bg-gradient-to-tr from-white to-[#fdf1f1] py-32 px-6">
+      <div className="mx-auto max-w-6xl rounded-
+      3xl bg-[#ffffff] p-8 shadow-xl border border-[#e5e7eb]">
         <h1 className="mb-1 text-center text-3xl font-semibold text-[#111827]">
           Let’s set up your profile
         </h1>

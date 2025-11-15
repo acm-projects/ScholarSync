@@ -24,7 +24,7 @@ export default function OnboardingStep4() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f5f5f5] px-6 py-32 text-[#111827]">
+    <div className="min-h-screen bg-gradient-to-tr from-white to-[#fdf1f1] px-6 py-32 text-[#111827]">
       <div className="mx-auto max-w-6xl rounded-3xl bg-[#ffffff] p-10 shadow-xl border border-[#e5e7eb]">
         <h1 className="text-center text-3xl sm:text-4xl font-extrabold tracking-tight text-[#111827]">
           Extra Questions
