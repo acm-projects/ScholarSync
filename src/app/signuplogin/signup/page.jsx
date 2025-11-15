@@ -45,9 +45,11 @@ const Signup = () => {
                 
                 
                 <div className= "Sign-submit-container">
-                <button className = "submit" type = "submit">
-                    Sign up
-                </button>
+                  <Link href="/onboarding/onboarding1">
+                    <button className = "submit" type = "submit" href="/onboarding/onboarding1">
+                      Sign up
+                    </button>
+                  </Link>
 
                 </div>
                 </div>
