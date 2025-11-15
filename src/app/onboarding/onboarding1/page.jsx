@@ -24,18 +24,18 @@ export default function OnboardingStep1() {
   };
 
   return (
-    <div className="min-h-screen bg-[#3D110F] py-32 px-6">
-      <div className="mx-auto max-w-6xl rounded-3xl bg-[#170F0E] p-8 shadow-xl border border-[#5A2B29] ">
-        <h1 className="mb-1 text-center text-3xl font-semibold text-[#EEEef0]">
+    <div className="min-h-screen bg-gradient-to-tr from-white to-[#fdf1f1] py-32 px-6 text-[#111827]">
+      <div className="mx-auto max-w-6xl rounded-3xl bg-[#ffffff] p-8 shadow-xl border border-[#e5e7eb]">
+        <h1 className="mb-1 text-center text-3xl font-semibold text-[#111827]">
           Let’s set up your profile
         </h1>
         <ProgressBar step={1} total={4} />
 
-        <div className="mx-auto mt-6 max-w-4xl rounded-2xl bg-[#201311] border border-[#5A2B29] p-6">
+        <div className="mx-auto mt-6 max-w-4xl rounded-2xl bg-[#ffffff] border border-[#e5e7eb] p-6">
           <form onSubmit={onContinue} className="grid gap-8 md:grid-cols-2">
             <div>
-              <h3 className="text-base font-semibold text-[#EEEef0]">Basic Information</h3>
-              <p className="mb-4 text-sm text-[#E2E3E6]">Tell us your name</p>
+              <h3 className="text-base font-semibold text-[#111827]">Basic Information</h3>
+              <p className="mb-4 text-sm text-[#6b7280]">Tell us your name</p>
 
               <div className="space-y-4">
                 <LabeledInput
@@ -44,7 +44,7 @@ export default function OnboardingStep1() {
                   value={data.firstname}
                   onChange={handleChange}
                   placeholder="Enter your first name"
-                  className="text-[#E2E3E6] placeholder-[#EEEef0]/50"
+                  className="text-[#111827] placeholder-[#9ca3af]"
                   required
                 />
                 <LabeledInput
@@ -53,15 +53,15 @@ export default function OnboardingStep1() {
                   value={data.lastname}
                   onChange={handleChange}
                   placeholder="Enter your last name"
-                  className="text-[#E2E3E6] placeholder-[#EEEef0]/50"
+                  className="text-[#111827] placeholder-[#9ca3af]"
                   required
                 />
               </div>
             </div>
 
             <div>
-              <h3 className="text-base font-semibold text-[#EEEef0]">Academics</h3>
-              <p className="mb-4 text-sm text-[#E2E3E6]">Tell us about your studies</p>
+              <h3 className="text-base font-semibold text-[#111827]">Academics</h3>
+              <p className="mb-4 text-sm text-[#6b7280]">Tell us about your studies</p>
 
               <div className="space-y-4">
                 <Dropdown
@@ -97,7 +97,7 @@ export default function OnboardingStep1() {
               <button
                 type="button"
                 onClick={() => router.back()}
-                className="rounded-md bg-[#983734] px-4 py-2 text-sm font-medium text-[#EEEef0] hover:bg-[#983734]/70"
+                className="rounded-md border border-[#d1d5db] bg-[#ffffff] px-4 py-2 text-sm font-medium text-[#374151] hover:bg-[#f3f4f6] hover:border-[#ef4444] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ef4444]"
               >
                 Back
               </button>
@@ -106,9 +106,9 @@ export default function OnboardingStep1() {
                 disabled={!canContinue}
                 className={[
                   "rounded-md px-5 py-2 text-sm font-semibold",
-                  canContinue
-                    ? "bg-[#983734] text-white hover:bg-[#983734]/70"
-                    : "bg-[#983734] text-[#EEEef0] cursor-not-allowed",
+                  !canContinue
+                    ? "bg-[#e5e7eb] text-[#9ca3af] cursor-not-allowed"
+                    : "bg-[#ef4444] text-white hover:bg-[#dc2626] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b91c1c]",
                 ].join(" ")}
               >
                 Continue

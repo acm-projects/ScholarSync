@@ -12,10 +12,12 @@ export default function OnboardingStep3() {
   const onContinue = (e) => {
     e.preventDefault();
 
+    {/* 
     if (!data.resumeFile) {
       alert("Please upload a resume before continuing.");
       return;
     }
+    */}
 
     console.log("Uploaded file:", data.resumeFile);
 
@@ -23,9 +25,9 @@ export default function OnboardingStep3() {
   };
 
   return (
-    <div className="min-h-screen bg-[#3D110F] px-6 py-42">
-      <div className="mx-auto max-w-6xl rounded-3xl bg-[#170F0E] p-8 shadow-xl border border-[#5A2B29]">
-        <h1 className="mb-1 text-center text-3xl font-semibold text-[#EEEef0]">
+    <div className="min-h-screen bg-gradient-to-tr from-white to-[#fdf1f1]] px-6 py-32">
+      <div className="mx-auto max-w-6xl rounded-3xl bg-[#ffffff] p-8 shadow-xl border border-[#e5e7eb]">
+        <h1 className="mb-1 text-center text-3xl font-semibold text-[#111827]">
           Let’s set up your profile
         </h1>
 
@@ -34,10 +36,10 @@ export default function OnboardingStep3() {
         </div>
 
         <form onSubmit={onContinue} className="mx-auto mt-8 max-w-4xl space-y-6">
-          <div className="rounded-2xl border-2 border-dashed border-[#5A2B29] h-80 flex flex-col items-center bg-[#201311] justify-center text-center p-14 ">
+          <div className="rounded-2xl border-2 border-dashed border-[#e5e7eb] h-80 flex flex-col items-center bg-[#f9fafb] justify-center text-center p-14">
             <div className="text-7xl mb-6">⬆️</div>
-            <p className="text-2xl font-bold text-[#EEEef0]">Upload your resume</p>
-            <p className="mt-2 text-base text-[#EEEef0]/70">
+            <p className="text-2xl font-bold text-[#111827]">Upload your resume</p>
+            <p className="mt-2 text-base text-[#6b7280]">
               PDF, DOC, or DOCX (Max 5MB)
             </p>
 
@@ -47,10 +49,10 @@ export default function OnboardingStep3() {
               onChange={(e) =>
                 handleChange({ name: "resumeFile", value: e.target.files?.[0] || null })
               }
-              className="mt-6 block w-full text-base text-[#EEEef0]
-                         file:mr-4 file:rounded-md file:border file:border-[#5A2B29]
-                         file:bg-[#983734] file:px-5 file:py-3 file:text-base file:font-medium file:text-[#EEEef0]
-                         hover:file:bg-[#983734]/80 focus:outline-none"
+              className="mt-6 block w-full text-base text-[#111827]
+                         file:mr-4 file:rounded-md file:border file:border-[#d1d5db]
+                         file:bg-[#ef4444] file:px-5 file:py-3 file:text-base file:font-medium file:text-white
+                         hover:file:bg-[#dc2626] focus:outline-none"
             />
           </div>
 
@@ -58,13 +60,13 @@ export default function OnboardingStep3() {
             <button
               type="button"
               onClick={() => router.back()}
-              className="rounded-md bg-[#983734] px-4 py-2 text-sm font-medium text-[#EEEef0] hover:bg-[#983734]/70"
+              className="rounded-md bg-white px-4 py-2 text-sm font-medium text-[#374151] border border-[#d1d5db] hover:border-[#ef4444] hover:text-[#111827]"
             >
               Back
             </button>
             <button
               type="submit"
-              className="rounded-md bg-[#983734] px-5 py-2 text-sm font-semibold text-white hover:bg-[#983734]/70"
+              className="rounded-md bg-[#ef4444] px-5 py-2 text-sm font-semibold text-white hover:bg-[#dc2626] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b91c1c]"
             >
               Continue
             </button>

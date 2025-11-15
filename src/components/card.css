@@ -3,14 +3,17 @@
   flex-direction: column;
   width: 80rem;
   height: 14rem;
-  border: 1px solid #5A2B29;
   border-radius: 25px;
-  background-color: #EFEFEF ;
+  background-color:#ffffff;
+  border: #111111;
 }
 
 .card:hover {
-  transform: translateY(-15px);
+  transform: translateY(-5px);
+  border-color:#A9443F;
 }
+
+
 .card-title {
   margin-bottom: 0rem;
   margin-top: -3rem;
@@ -27,6 +30,8 @@
   text-decoration: underline; 
   color: #0096C7;             
 }
+
+
 
 
 .card-date {

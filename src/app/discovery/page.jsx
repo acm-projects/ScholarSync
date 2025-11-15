@@ -86,47 +86,50 @@ export default function DiscoverPaper() {
                 setVisible(9);
               }}
               placeholder="Search papers, authors, or tags"
-              className="w-76 md:w-96 mt-3 rounded-md border border-[#983734]/50 bg-[#F9EAEA] text-[#111111] placeholder-black px-3 py-2 text-m hover:bg-[#A9443F]/20 focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#983734]"
+              className="w-76 md:w-96 mt-3 rounded-md border border-[#E0E0E0] bg-[#ffffff] ] text-[#111111] placeholder-black px-3 py-2 text-m focus-visible:outline-none "
             />
 
             <select
-        className="w-48 rounded-md mt-3 border border-[#B33A3A] bg-[#F9EAEA] px-3 py-2 text-m text-[#111111] focus-visible:outline-none focus-visible:border-2 focus-visible:border-[#B33A3A]"
+        className="w-48 rounded-md mt-3 border border-[#E0E0E0] bg-[#ffffff]  px-3 py-2 text-m text-[#111111] focus-visible:outline-none"
 
             placeholder = "Date Published"
             value={selectedYear}
             onChange={(e) => {
-              setSelectedYear(e.target.value);
-              setVisible(9);
-            }}
-          >
-            <option value="all">Date Published: All</option>
-            <option value="5">Last 5 years</option>
-            <option value="10">Last 10 years</option>
-          </select>
-        </div>
+            setSelectedYear(e.target.value);
+            setVisible(9);
+          }}>
+    
+          <option value="all">Date Published: All</option>
+          <option value="5">Last 5 years</option>
+          <option value="10">Last 10 years</option>
+        </select>
+
+
+      </div>
+    </div>
+
+    <main className="mx-auto px-20 py-15">
+      <div className="papers-grid gap-8 sm:grid-cols-2 items-stretch ">
+        {toShow.map(paper => (
+          <CardPage key={paper.id} paper={paper} />
+        ))}
       </div>
 
-      <main className="mx-auto px-20 py-15">
-        <div className="grid gap-8 sm:grid-cols-2 items-stretch">
-          {toShow.map((paper) => (
-            <CardPage key={paper.id} paper={paper} />
-          ))}
-        </div>
+      <div className="mt-8 flex justify-center">
+        {canLoadMore ? (
+          <button
+            type="button"
+            onClick={() => setVisible(v => v + 6)}
+            className="rounded-md border border-gray-300 bg-[#ef4444] px-5 py-2 text-sm font-medium text-white"
+          >
+            Load more Papers
+          </button>
+        ) : (
+          <div className="text-sm text-white/80">No more results</div>
+        )}
 
-        <div className="mt-8 flex justify-center">
-          {canLoadMore ? (
-            <button
-              type="button"
-              onClick={() => setVisible((v) => v + 6)}
-              className="rounded-md border border-gray-300 bg-white px-5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
-            >
-              Load more Papers
-            </button>
-          ) : (
-            <div className="text-sm text-white/80">No more results</div>
-          )}
-        </div>
-      </main>
-    </div>
+      </div>
+    </main>
+  </div>
   );
 }

@@ -1,7 +1,11 @@
 'use client';
 
 //import { useRouter } from 'next/navigation';
+<<<<<<< HEAD
 import Link from 'next/link';
+=======
+import Link from "next/link";
+>>>>>>> 6ea6310fb0c022e45ba34049e048431cd74fea46
 import { useState } from 'react';
 
 import './signup.css';
@@ -71,9 +75,12 @@ const Signup = () => {
                 
                 
                 <div className= "Sign-submit-container">
-                <button className = "submit" type = "submit">
-                    Sign up
-                  </button>
+                  <Link href="/onboarding/onboarding1">
+                    <button className = "submit" type = "submit" href="/onboarding/onboarding1">
+                      Sign up
+                    </button>
+                  </Link>
+
                 </div>
                 </div>
                 </form>
@@ -81,39 +88,12 @@ const Signup = () => {
                 <div className = "account">
                 Already have an account? 
                 <Link href="/signuplogin/login">
-                <span>Login</span>
+                <span className="login-link">Login</span>
                 </Link>
                 </div>
 
                 <div className = "divide">        
-                <Image
-                src="/Separator.png"
-                alt="or"
-                width={280}
-                height={20}/>
-                </div>
-                
-                <div className= "CG-submit-container">
-                <Image
-                src="/google.png"
-                alt="icon"
-                width={21}
-                height={21}/>
-                <div className = "submit">
-                Continue with Google
-                </div>
-                </div>
-
-                <div className= "CL-submit-container">
-                <Image
-                src="/LinkedIn.png"
-                alt="icon"
-                width={21}
-                height={21}/>
-
-                <div className = "submit">
-                Continue with LinkedIn
-                </div>
+            
                 </div>
 
           </div>
@@ -123,4 +103,10 @@ const Signup = () => {
       );
     }
   
+<<<<<<< HEAD
 export default Signup;
+=======
+  export default Signup;
+  
+
+>>>>>>> 6ea6310fb0c022e45ba34049e048431cd74fea46

@@ -41,24 +41,30 @@ export default function OnboardingStep2() {
 
   const onContinue = (e) => {
     e.preventDefault();
+    if (!canContinue) return;
     router.push("/onboarding/onboarding3");
   };
 
   return (
-    <div className="min-h-screen bg-[#3D110F] py-32 px-6">
-      <div className="mx-auto max-w-6xl rounded-3xl bg-[#170F0E] p-8 shadow-xl border border-[#5A2B29] ">
-        <h1 className="mb-1 text-center text-3xl font-semibold text-[#EEEef0]">
+    <div className="min-h-screen bg-gradient-to-tr from-white to-[#fdf1f1] py-32 px-6">
+      <div className="mx-auto max-w-6xl rounded-
+      3xl bg-[#ffffff] p-8 shadow-xl border border-[#e5e7eb]">
+        <h1 className="mb-1 text-center text-3xl font-semibold text-[#111827]">
           Let’s set up your profile
         </h1>
         <ProgressBar step={2} total={4} />
 
-        <div className="mx-auto mt-6 max-w-4xl rounded-2xl border bg-[#201311] border-[#5A2B29] p-6">
+        <div className="mx-auto mt-6 max-w-4xl rounded-2xl bg-[#ffffff] border border-[#e5e7eb] p-6">
           <form onSubmit={onContinue} className="grid gap-8">
             <div>
-              <h3 className="text-base font-semibold text-[#EEEef0]">
+              <h3 className="text-base font-semibold text-[#111827]">
                 Research & Skills
               </h3>
+<<<<<<< HEAD
               <p className="mb-4 text-sm text-[#E2E3E6]">
+=======
+              <p className="mb-4 text-sm text-[#6b7280]">
+>>>>>>> 6ea6310fb0c022e45ba34049e048431cd74fea46
                 Type a tag and press Enter to add it. Click a tag to remove.
               </p>
 
@@ -98,13 +104,23 @@ export default function OnboardingStep2() {
                   name="careerGoals"
                   values={data.careerGoals || []}
                   onChange={(vals) => updateBucket("careerGoals", vals)}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6ea6310fb0c022e45ba34049e048431cd74fea46
                 />
               </div>
             </div>
 
             {!canContinue && (
+<<<<<<< HEAD
               <p className="text-sm text-[#E2E3E6]/80">
                 * Please add at least one tag in each category to continue.
+=======
+              <p className="text-sm text-[#6b7280]">
+                * Please add at least one tag in each category to continue.
+
+>>>>>>> 6ea6310fb0c022e45ba34049e048431cd74fea46
               </p>
             )}
 
@@ -112,7 +128,7 @@ export default function OnboardingStep2() {
               <button
                 type="button"
                 onClick={() => router.back()}
-                className="rounded-md bg-[#983734] px-4 py-2 text-sm font-medium text-[#EEEef0] hover:bg-[#983734]/70"
+                className="rounded-md bg-white px-4 py-2 text-sm font-medium text-[#374151] border border-[#d1d5db] hover:border-[#ef4444] hover:text-[#111827]"
               >
                 Back
               </button>
@@ -122,8 +138,8 @@ export default function OnboardingStep2() {
                 className={[
                   "rounded-md px-5 py-2 text-sm font-semibold",
                   canContinue
-                    ? "bg-[#983734] text-white hover:bg-[#983734]/70"
-                    : "bg-[#983734] text-[#EEEef0] cursor-not-allowed",
+                    ? "bg-[#ef4444] text-white shadow-sm hover:bg-[#dc2626] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b91c1c]"
+                    : "bg-[#e5e7eb] text-[#9ca3af] cursor-not-allowed",
                 ].join(" ")}
               >
                 Continue

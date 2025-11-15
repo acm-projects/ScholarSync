@@ -61,9 +61,11 @@ const Login = () => {
                 </div>
                       
                 <div className= "Login-submit-container">
-                <button className = "submit" type = "submit">
-                    Login
-                </button>
+                  <Link href="/homeresearchpage">
+                    <button className = "submit" type = "submit">
+                      Login
+                    </button>
+                </Link>
                 </div>
 
                 </div>
@@ -73,40 +75,13 @@ const Login = () => {
                 <div className = "account">
                 Don't have an account? 
                 <Link href = "/signuplogin/signup">
-                <span>Signup</span>
+                <span className="signup-link">Signup</span>
                 </Link>
                 </div>
         
 
                 <div className = "divide">        
-                <Image
-                src="/Separator.png"
-                alt="or"
-                width={280}
-                height={20}/>
-                </div>
-                
-                <div className= "CG-submit-container">
-                <Image
-                src="/google.png"
-                alt="icon"
-                width={21}
-                height={21}/>
-                <div className = "submit">
-                Login with Google
-                </div>
-                </div>
-
-                <div className= "CL-submit-container">
-                <Image
-                src="/LinkedIn.png"
-                alt="icon"
-                width={21}
-                height={21}/>
-
-                <div className = "submit">
-                Login with LinkedIn
-                </div>
+          
                 </div>
 
           </div>
@@ -114,4 +89,9 @@ const Login = () => {
       );
     }
   
+<<<<<<< HEAD
 export default Login;
+=======
+  export default Login;
+  
+>>>>>>> 6ea6310fb0c022e45ba34049e048431cd74fea46

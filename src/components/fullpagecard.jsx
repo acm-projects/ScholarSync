@@ -42,7 +42,7 @@ export default function FullPageCard({ item, onClose }) {
 
   // big full card
   return (
-    <article className="mx-auto w-full max-w-7xl min-h-[calc(100vh-160px)] rounded-2xl border border-[#5A2B29] bg-[#170F0E] p-4 md:p-8 lg:p-10 shadow flex flex-col text-[#EEEef0]">
+    <article className="mx-auto w-full max-w-7xl min-h-[calc(100vh-160px)] rounded-2xl border border-[#e5e7eb] bg-[#ffffff] p-4 md:p-8 lg:p-10 shadow flex flex-col text-[#111827]">
       {/* top bar */}
       <div className="mb-6 flex items-center justify-between">
         <button
@@ -52,7 +52,7 @@ export default function FullPageCard({ item, onClose }) {
             else if (typeof window !== "undefined" && window.history.length > 1) router.back();
             else router.push("/homeresearchpage");
           }}
-          className="inline-flex items-center gap-2 rounded-lg border border-[#5A2B29] bg-[#201311] px-3 py-1.5 text-sm md:text-base font-medium hover:bg-[#3C1A19] hover:border-[#BA3F3D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BA3F3D]"
+          className="inline-flex items-center gap-2 rounded-lg border border-[#d1d5db] bg-[#ffffff] px-3 py-1.5 text-sm md:text-base font-medium text-[#374151] hover:bg-[#f3f4f6] hover:border-[#ef4444] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ef4444]"
         >
           ← Back
         </button>
@@ -65,40 +65,40 @@ export default function FullPageCard({ item, onClose }) {
           {item.title}
         </h1>
         {author ? (
-          <div className="col-start-1 row-start-2 mt-1 text-base md:text-lg font-medium text-[#E2E3E6] truncate">
+          <div className="col-start-1 row-start-2 mt-1 text-base md:text-lg font-medium text-[#4b5563] truncate">
             By {author}
           </div>
         ) : (
           <div className="col-start-1 row-start-2" />
         )}
         <div className="col-start-2 row-span-2 flex flex-col items-end justify-center gap-1 text-right">
-          <div className="text-sm md:text-base font-semibold text-[#E9EAED] whitespace-nowrap">
+          <div className="text-sm md:text-base font-semibold text-[#4b5563] whitespace-nowrap">
             {email ? <>Email: <a href={mailto} className="underline hover:no-underline">{email}</a></> : "Email: N/A"}
           </div>
-          <div className="text-sm md:text-base font-semibold text-[#E9EAED] whitespace-nowrap">
+          <div className="text-sm md:text-base font-semibold text-[#4b5563] whitespace-nowrap">
             {posted ? `Posted: ${posted}` : null}
           </div>
         </div>
       </header>
 
       {/* line break */}
-      <div className="border-t border-[#5A2B29] mb-5" />
+      <div className="border-t border-[#e5e7eb] mb-5" />
 
       {/* description */}
       <section className="flex-1">
         <h2 className="text-2xl md:text-2xl font-semibold mb-2">Description:</h2>
-        <div className="text-[#F4F4F5] text-2xl md:text-xl leading-7 whitespace-pre-line">
+        <div className="text-[#374151] text-2xl md:text-xl leading-7 whitespace-pre-line">
           {item.description}
         </div>
       </section>
 
       {/* line break */}
-      <div className="border-t border-[#5A2B29] my-5" />
+      <div className="border-t border-[#e5e7eb] my-5" />
 
       {/* tags + email */}
       <footer className="mt-auto pt-1 flex items-center justify-between gap-3 flex-wrap">
         <div className="flex items-center flex-wrap gap-2">
-          <span className="text-sm font-semibold text-[#E9EAED]/90 mr-1">Related tags:</span>
+          <span className="text-sm font-semibold text-[#6b7280] mr-1">Related tags:</span>
           {tags.map((t, i) => (
             <TagChip key={`full-${item.id}-${i}`} text={t.text} color={t.color} />
           ))}

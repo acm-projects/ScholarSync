@@ -24,9 +24,9 @@ export default function OnboardingStep4() {
   };
 
   return (
-    <div className="min-h-screen bg-[#3D110F] px-6 py-32">
-      <div className="mx-auto max-w-6xl rounded-3xl bg-[#170F0E] p-10 shadow-xl border border-[#5A2B29]">
-        <h1 className="text-center text-3xl sm:text-4xl font-extrabold tracking-tight text-[#EEEef0]">
+    <div className="min-h-screen bg-gradient-to-tr from-white to-[#fdf1f1] px-6 py-32 text-[#111827]">
+      <div className="mx-auto max-w-6xl rounded-3xl bg-[#ffffff] p-10 shadow-xl border border-[#e5e7eb]">
+        <h1 className="text-center text-3xl sm:text-4xl font-extrabold tracking-tight text-[#111827]">
           Extra Questions
         </h1>
 
@@ -35,12 +35,12 @@ export default function OnboardingStep4() {
         </div>
 
         <form onSubmit={onContinue} className="mx-auto mt-8 max-w-4xl">
-          <fieldset className="rounded-2xl border border-[#5A2B29] bg-[#201311] p-6 sm:p-8 shadow-sm">
+          <fieldset className="rounded-2xl border border-[#e5e7eb] bg-[#ffffff] p-6 sm:p-8 shadow-sm">
             <div className="mb-6">
-              <h2 className="text-lg font-semibold text-[#EEEef0]">
+              <h2 className="text-lg font-semibold text-[#111827]">
                 Tell us a bit more
               </h2>
-              <p className="mt-1 text-sm text-[#E2E3E6]">
+              <p className="mt-1 text-sm text-[#6b7280]">
                 These questions are optional — you can skip if you like.
               </p>
             </div>
@@ -96,17 +96,17 @@ export default function OnboardingStep4() {
               />
             </div>
 
-            <div className="mt-6 flex items-center justify-between border-t border-[#5A2B29] pt-6">
+            <div className="mt-6 flex items-center justify-between border-t border-[#e5e7eb] pt-6">
               <button
                 type="button"
                 onClick={() => router.back()}
-                className="rounded-md bg-[#983734] px-4 py-2 text-sm font-medium text-[#EEEef0] hover:bg-[#983734]/70"
+                className="rounded-md border border-[#d1d5db] bg-[#ffffff] px-4 py-2 text-sm font-medium text-[#374151] hover:bg-[#f3f4f6] hover:border-[#ef4444] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ef4444]"
               >
                 Back
               </button>
               <button
                 type="submit"
-                className="rounded-md bg-[#983734] px-5 py-2 text-sm font-semibold text-white hover:bg-[#983734]/70"
+                className="rounded-md bg-[#ef4444] px-5 py-2 text-sm font-semibold text-white hover:bg-[#dc2626] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b91c1c]"
               >
                 Continue
               </button>

@@ -2,13 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/navbar';
 import { useRouter } from 'next/navigation';
-import ReactMarkdown from 'react-markdown';
 import './markdown.css';
 
 export default function PaperZoom({ params }) {
   const router = useRouter();
 
-  const { id: paperId } = React.use(params);
+  const paperId = params.id;
 
   const [paper, setPaper] = useState(null);
   const [loadingPaper, setLoadingPaper] = useState(true);
@@ -16,7 +15,7 @@ export default function PaperZoom({ params }) {
   const [summary, setSummary] = useState('');
   const [generatingSummary, setGeneratingSummary] = useState(false);
 
-  // Fetch paper metadata from API
+  // Fetch paper metadata
   useEffect(() => {
     setLoadingPaper(true);
     fetch(`/api/paper`)
@@ -32,37 +31,34 @@ export default function PaperZoom({ params }) {
       });
   }, [paperId]);
 
-  if (loadingPaper) {
-    return <div style={{ padding: '2rem' }}>Loading paper...</div>;
-  }
-
-  if (!paper) {
-    return <div style={{ padding: '2rem' }}>Not Found!</div>;
-  }
+  if (loadingPaper) return <div style={{ padding: '2rem' }}>Loading paper...</div>;
+  if (!paper) return <div style={{ padding: '2rem' }}>Not Found!</div>;
 
   async function generateSummary() {
     if (showSidebar) {
+      // Close sidebar
       setShowSidebar(false);
       setSummary('');
-    } else {
-      setGeneratingSummary(true);
+      return;
+    }
 
-      try {
-        const res = await fetch(`/api/summary`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ pdfLink: paper.pdfLink, paperID: paper.id }),
-        });
+    setGeneratingSummary(true);
 
-        const data = await res.json();
-        setSummary(data.summary || 'No summary available.');
-      } catch (err) {
-        console.error('Error generating summary:', err);
-        setSummary('Failed to generate summary.');
-      } finally {
-        setGeneratingSummary(false);
-        setShowSidebar(true);
-      }
+    try {
+      const res = await fetch(`/api/summary`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pdfLink: paper.pdfLink, paperID: paper.id }),
+      });
+
+      const data = await res.json();
+      setSummary(data.summary || 'No summary available.');
+    } catch (err) {
+      console.error('Error generating summary:', err);
+      setSummary('Failed to generate summary.');
+    } finally {
+      setGeneratingSummary(false);
+      setShowSidebar(true);
     }
   }
 
@@ -78,13 +74,13 @@ export default function PaperZoom({ params }) {
           left: '2rem',
           padding: '0.5rem 1rem',
           borderRadius: '20px',
-          backgroundColor: '#6B2737',
+          backgroundColor: '#ef4444',
           color: '#fff',
           border: 'none',
           cursor: 'pointer',
           fontWeight: 'bold',
           boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
-          transform: 'scale(0.80)'
+          transform: 'scale(0.80)',
         }}
       >
         ← Back
@@ -97,13 +93,13 @@ export default function PaperZoom({ params }) {
           right: '2rem',
           padding: '0.5rem 1rem',
           borderRadius: '20px',
-          backgroundColor: '#6B2737',
+          backgroundColor: '#ef4444',
           color: '#fff',
           border: 'none',
           cursor: 'pointer',
           fontWeight: 'bold',
           boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
-          transform: 'scale(0.80)'
+          transform: 'scale(0.80)',
         }}
         onClick={generateSummary}
         disabled={generatingSummary}
@@ -136,7 +132,6 @@ export default function PaperZoom({ params }) {
               position: 'absolute',
               top: '0.3rem',
               left: '1rem',
-              right: '33rem',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
@@ -146,13 +141,17 @@ export default function PaperZoom({ params }) {
               color: '#555',
               backgroundColor: '#f5f5f5',
               borderRadius: '50%',
+              width: '28px',
+              height: '28px',
               boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
             }}
           >
-            {'>'}
+            x
           </div>
 
-          <h3 style={{ fontWeight: 700, marginBottom: '1rem' }}>Summary</h3>
+          <h3 style={{ fontWeight: 700, marginBottom: '1rem', marginTop: '1.5rem' }}>
+            Summary
+          </h3>
           <p style={{ fontSize: '0.95rem' }}>{summary}</p>
         </div>
       )}
@@ -189,7 +188,6 @@ export default function PaperZoom({ params }) {
               style={{ border: 'none', borderRadius: '8px' }}
             />
           </div>
-
         </div>
       </div>
     </>

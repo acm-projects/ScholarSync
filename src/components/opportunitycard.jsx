@@ -2,11 +2,10 @@
 
 import TagChip from "@/components/tagchip";
 import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 
-// checks if v is array if so return v not return empty
 const asArray = (v) => (Array.isArray(v) ? v : []);
 
-// picks top 3 tags from g > y > r
 function pickTopTagsColored(colored) {
   const out = [];
   const pushSome = (arr, color) => {
@@ -21,7 +20,6 @@ function pickTopTagsColored(colored) {
   return out;
 }
 
-// get 3 top tags and avg for user match %
 function computeThreeTagPctAndColor(topTags) {
   const W = { green: 33.3333, yellow: 22.2222, red: 11.1111 };
   let g = 0, y = 0, r = 0;
@@ -38,7 +36,6 @@ function computeThreeTagPctAndColor(topTags) {
   return { pct, color };
 }
 
-// card: image left, content middle, circle right
 export default function OpportunityCard({ item, userTags, showPct = true, theme = "base", href, onOpen }) {
   const router = useRouter();
   const colored = item.tags;
@@ -50,24 +47,55 @@ export default function OpportunityCard({ item, userTags, showPct = true, theme 
 
   const cardStyle =
     theme === "base"
-      ? "border border-[#5A2B29] bg-[#170F0E] hover:bg-[#241312] hover:border-[#BA3F3D]"
-      : "border border-[#FFD1CC] bg-[#983734] hover:bg-[#a9443f] hover:border-[#ffb3a7]";
+      ? "border border-[#e5e7eb] bg-[#ffffff] hover:bg-[#f9fafb] hover:border-[#d1d5db]"
+      : "border border-[#fecaca] bg-[#fee2e2] hover:bg-[#fecaca] hover:border-[#fca5a5]";
 
   const go = () => {
     if (onOpen) onOpen(item);
     else if (href) router.push(href);
   };
 
-  const custom = "/research.webp";
-  const img = custom || item.image || item.photo || null;
+  const keySeed = String(item.id ?? item.title ?? "");
+  let hash = 0;
+  for (let i = 0; i < keySeed.length; i++) hash = (hash * 31 + keySeed.charCodeAt(i)) | 0;
+  const n = ((Math.abs(hash) % 6) + 1); // 1..6
+
+  const candidates = [
+    `/research${n}.jpg`,
+    `/research${n}.jpeg`,
+    `/research${n}.png`,
+    `/research${n}.webp`,
+  ];
+
+  const [resolvedImg, setResolvedImg] = useState(null);
+
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      for (const url of candidates) {
+        const ok = await new Promise((resolve) => {
+          const img = new Image();
+          img.onload = () => resolve(true);
+          img.onerror = () => resolve(false);
+          img.src = url;
+        });
+        if (ok && alive) { setResolvedImg(url); return; }
+      }
+      if (alive) setResolvedImg("/research.webp");
+    })();
+    return () => { alive = false; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [keySeed]);
+
+  const img = resolvedImg;
 
   const stroke =
     badgeColor === "green"
-      ? "#34d399"
+      ? "#22c55e"
       : badgeColor === "yellow"
-      ? "#fbbf24"
+      ? "#eab308"
       : badgeColor === "red"
-      ? "#f87171"
+      ? "#f97316"
       : "#9ca3af";
 
   const size = 128;
@@ -81,7 +109,7 @@ export default function OpportunityCard({ item, userTags, showPct = true, theme 
       tabIndex={0}
       onClick={go}
       onKeyDown={(e) => (e.key === "Enter" ? go() : null)}
-      className={`relative h-64 min-w-[380px] w-full overflow-hidden rounded-2xl p-7 shadow-md flex ${cardStyle} focus:outline-none focus:ring-2 focus:ring-[#BA3F3D]`}
+      className={`relative h-64 min-w-[380px] w-full overflow-hidden rounded-2xl p-7 shadow-md hover:shadow-[0_0_30px_rgba(0,0,0,0.2)] hover:shadow-[#ef4444] flex ${cardStyle} focus:outline-none focus:ring-2 focus:ring-[#ef4444]`}
       aria-label={`Open ${item.title}`}
     >
       <div className="w-[30%] p-3">
@@ -90,10 +118,10 @@ export default function OpportunityCard({ item, userTags, showPct = true, theme 
             <img
               src={img}
               alt={item.title || "image"}
-              className="h-full w-full object-cover rounded-xl border border-[#5A2B29]"
+              className="h-full w-full object-cover rounded-xl border border-[#e5e7eb]"
             />
           ) : (
-            <div className="absolute inset-0 rounded-xl bg-[#983734] grid place-items-center text-3xl font-bold text-[#EEEef0]">
+            <div className="absolute inset-0 rounded-xl bg-[#e5e7eb] grid place-items-center text-3xl font-bold text-[#6b7280]">
               Image
             </div>
           )}
@@ -102,18 +130,18 @@ export default function OpportunityCard({ item, userTags, showPct = true, theme 
 
       <div className="flex-1 min-w-0 pl-4 pr-0 flex flex-col">
         <div className="min-w-0">
-          <div className="text-2xl font-bold text-[#EEEef0] truncate">
+          <div className="text-2xl font-bold text-[#111827] truncate">
             {item.title}
           </div>
         </div>
 
         {/* Posted + author inline under title */}
-        <div className="text-m text-[#E2E3E6] truncate">
+        <div className="text-m text-[#4b5563] truncate">
           Posted: {item.datePosted} By {item.author}
         </div>
 
         <p
-          className="mt-2 text-m font-medium leading-6 text-[#F4F4F5] line-clamp-3"
+          className="mt-2 text-m font-medium leading-6 text-[#374151] line-clamp-3"
           style={{ hyphens: "auto", overflowWrap: "anywhere" }}
         >
           {item.description}
@@ -140,7 +168,7 @@ export default function OpportunityCard({ item, userTags, showPct = true, theme 
         <div className="mt-2 self-end mr-0">
           <div className="relative" style={{ width: size, height: size }}>
             <svg width={size} height={size} viewBox="0 0 160 160">
-              <circle cx="80" cy="80" r={r} fill="none" stroke="#302525" strokeWidth="12" />
+              <circle cx="80" cy="80" r={r} fill="none" stroke="#e5e7eb" strokeWidth="12" />
               <circle
                 cx="80"
                 cy="80"
@@ -153,15 +181,13 @@ export default function OpportunityCard({ item, userTags, showPct = true, theme 
                 transform="rotate(-90 80 80)"
               />
             </svg>
-            <div className="absolute inset-0 grid place-items-center text-[#EEEef0] font-bold text-xl">
+            <div className="absolute inset-0 grid place-items-center text-[#111827] font-bold text-xl">
               {showPct && pct != null ? `${pct}%` : "N/A"}
             </div>
-            <div className="mt-1 text-center text-xs text-[#E2E3E6]">match</div>
+            <div className="mt-1 text-center text-xs text-[#6b7280]">match</div>
           </div>
         </div>
       </div>
     </div>
   );
 }
-
-

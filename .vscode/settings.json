@@ -6,5 +6,6 @@
   "tailwindCSS.includeLanguages": {
     "javascript": "javascriptreact",
     "typescript": "typescriptreact"
+  
   }
 }
