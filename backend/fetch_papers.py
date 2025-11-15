@@ -6,7 +6,6 @@ import time
 import json
 from botocore.exceptions import ClientError
 
-# Load environment
 load_dotenv()
 API_KEY = os.getenv("S2_API_KEY")
 S3_BUCKET = os.getenv("BUCKET_NAME")
@@ -16,12 +15,10 @@ REGION = os.getenv("AWS_DEFAULT_REGION", "us-east-2")
 if not all([API_KEY, S3_BUCKET, TABLE_NAME, REGION]):
     raise ValueError("Missing required environment variables")
 
-# AWS clients
 s3 = boto3.client("s3", region_name=REGION)
 table = boto3.resource("dynamodb", region_name=REGION).Table(TABLE_NAME)
 bedrock = boto3.client("bedrock-runtime", region_name=REGION)
 
-# Constants
 BASE_URL = "https://api.semanticscholar.org/graph/v1/paper/search"
 MODEL_ID = "us.anthropic.claude-3-5-sonnet-20240620-v1:0"
 
@@ -77,7 +74,7 @@ def fetch_papers(topic, desired_count=7):
                     "Abstract": paper.get("abstract", ""),
                     "Year": str(paper.get("year", "N/A")),
                     "SourceURL": paper.get("url", ""),
-                    "PDFLink": s3_url,  # Already includes paperID in path
+                    "PDFLink": s3_url, 
                     "Tags": generate_tags(paper.get("title", ""), paper.get("abstract", ""), topic) or []
             })
                 valid_count += 1
@@ -110,7 +107,7 @@ def download_pdf_to_s3(pdf_url, title, paper_id):
         if resp.status_code != 200 or (b'%PDF' not in resp.content[:4] and "application/pdf" not in resp.headers.get("Content-Type", "")):
             return None
 
-        key = f"papers/{paper_id}.pdf"  # use consistent paperID
+        key = f"papers/{paper_id}.pdf" 
         s3.put_object(Bucket=S3_BUCKET, Key=key, Body=resp.content, ContentType="application/pdf")
 
         return f"https://{S3_BUCKET}.s3.{REGION}.amazonaws.com/{key}"
@@ -124,7 +121,6 @@ def generate_tags(title, abstract, query_topic):
     One tag is guaranteed to be the query_topic.
     """
     try:
-        # Prompt Bedrock to suggest 3-5 tags
         prompt = f"Generate 3-5 tech tags for: {title}. Abstract: {abstract}. Respond with JSON array only: ['tag1','tag2']"
         
         body = json.dumps({
@@ -137,24 +133,21 @@ def generate_tags(title, abstract, query_topic):
         response_body = json.loads(response['body'].read())
         text_output = response_body['content'][0]['text'].strip()
 
-        # Parse JSON output from Bedrock
         tags = []
         if text_output.startswith('['):
             tags = json.loads(text_output)
         if not isinstance(tags, list):
             tags = []
 
-        # Ensure the query_topic is included as one tag
         query_topic_norm = query_topic.lower().strip()
         tags_norm = [t.lower().strip() for t in tags]
         if query_topic_norm not in tags_norm:
-            tags = [query_topic] + tags  # prepend query_topic
+            tags = [query_topic] + tags  
 
         # Keep only 3 tags max
         return tags[:3]
 
     except Exception as e:
-        # fallback
         return [query_topic, "ai", "research"]
 
 if __name__ == "__main__":

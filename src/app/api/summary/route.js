@@ -2,18 +2,14 @@ import { BedrockRuntimeClient, InvokeModelCommand } from "@aws-sdk/client-bedroc
 import { DynamoDBClient, GetItemCommand, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
 import pdf from "pdf-parse";
 
-// Force Node.js runtime
 export const runtime = "nodejs";
 
-// AWS clients
 const bedrock = new BedrockRuntimeClient({ region: process.env.AWS_REGION || "us-east-2" });
 const dynamo = new DynamoDBClient({ region: process.env.AWS_REGION || "us-east-2" });
 
-// DynamoDB table
 const TABLE_NAME = process.env.DYNAMO_TABLE_NAME || "ScholarPapers";
 const MODEL_ID = "us.anthropic.claude-3-5-sonnet-20240620-v1:0";
 
-// Helper: Extract text from PDF
 async function extractTextFromPdf(pdfUrl) {
   const res = await fetch(pdfUrl);
   if (!res.ok) throw new Error("Failed to fetch PDF from S3 URL");
@@ -23,7 +19,6 @@ async function extractTextFromPdf(pdfUrl) {
   return data.text;
 }
 
-// Helper: Get summary from DynamoDB
 async function getSummaryFromTable(paperID) {
   const command = new GetItemCommand({
     TableName: TABLE_NAME,
@@ -34,7 +29,6 @@ async function getSummaryFromTable(paperID) {
   return result.Item?.Summary?.S || null;
 }
 
-// Helper: Store summary in DynamoDB
 async function storeSummaryInTable(paperID, summary) {
   const command = new UpdateItemCommand({
     TableName: TABLE_NAME,
@@ -60,14 +54,12 @@ export async function POST(req) {
 
     console.log("Processing paperID:", paperID);
 
-    // Check DynamoDB
     const existingSummary = await getSummaryFromTable(paperID);
     if (existingSummary && existingSummary.trim().length > 0) {
       console.log("✅ Returning existing summary from DynamoDB");
       return new Response(JSON.stringify({ summary: existingSummary }), { status: 200 });
     }
 
-    // Extract text
     const extractedText = await extractTextFromPdf(pdfLink);
     if (!extractedText || extractedText.length < 100) {
       throw new Error("PDF has no readable text or is image-only");
@@ -77,7 +69,6 @@ export async function POST(req) {
     const truncatedText =
       extractedText.length > maxLength ? extractedText.slice(0, maxLength) : extractedText;
 
-    // Prepare prompt
     const prompt = `
 Summarize the following academic paper in 5-6 sentences as a cohesive paragraph. 
 Be detailed and specific, focusing on:
@@ -90,7 +81,6 @@ Paper content:
 ${truncatedText}
 `;
 
-    // Call Bedrock Claude
     const body = JSON.stringify({
       anthropic_version: "bedrock-2023-05-31",
       max_tokens: 500,
@@ -126,7 +116,7 @@ ${truncatedText}
 
     return new Response(JSON.stringify({ summary }), { status: 200 });
   } catch (err) {
-    console.error("❌ Error generating summary:", err);
+    console.error("Error generating summary:", err);
     return new Response(JSON.stringify({ error: err.message }), { status: 500 });
   }
 }

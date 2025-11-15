@@ -8,7 +8,6 @@ const dynamo = new DynamoDBClient({ region: process.env.AWS_DEFAULT_REGION });
 
 export async function GET() {
   try {
-    // List all PDF files from the S3 bucket
     const listCommand = new ListObjectsV2Command({
       Bucket: "scholarsync-papers",
       Prefix: "papers/",
@@ -23,14 +22,12 @@ export async function GET() {
       });
     }
 
-    // Extract paperIDs from S3 keys
     const paperIDs = s3Data.Contents.map((obj) => {
       const key = obj.Key;
       const match = key.match(/papers\/(.*?)\.pdf$/);
       return match ? match[1] : null;
     }).filter(Boolean);
 
-    // Fetch metadata from DynamoDB for each paperID
     const papers = await Promise.all(
       paperIDs.map(async (paperID) => {
         try {
@@ -60,7 +57,6 @@ export async function GET() {
       })
     );
 
-    // Filter out any null entries (if an ID didn’t exist in Dynamo)
     const validPapers = papers.filter(Boolean);
 
     return new Response(JSON.stringify(validPapers), {
