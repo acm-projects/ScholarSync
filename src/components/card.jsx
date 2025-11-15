@@ -6,6 +6,21 @@ import { BookmarkIcon, BookmarkFilledIcon } from '@radix-ui/react-icons';
 import TagChip from "@/components/tagchip";
 import { useEffect, useState } from 'react';
 
+function Pop({ onEnd, children }) {
+  return (
+    <div
+      className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-25 p-16"
+      onClick={onEnd}
+    >
+      <div
+        className="bg-pink p-8 rounded max-w-[1100px] w-[95%] max-h-[90vh] overflow-y-auto shadow-lg"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
 
   function BookmarkButton({onClick, bookmarked}){
     return(
@@ -18,6 +33,8 @@ import { useEffect, useState } from 'react';
 const CardPage = ({ paper }) => {
   const router = useRouter();
   const [bookmarked, setBookmarked] = useState(false);
+  const [open, setOpen] = useState(false);
+
   useEffect(() => {
   if (!paper || !paper.id) return;
 
@@ -53,14 +70,17 @@ useEffect(() => {
     router.push(`/papers/${paper.id}`); 
   }
   function handleBookmark(){
-    setBookmarked((used) =>  !used);
+    setBookmarked((used) => !used);
 
   }
 
   
   return(
+    <>
      <div className="card hover:bg-[#ffffff] shadow-sm" >
-       <div style={{height: '200px',width: '200px',  overflow: 'hidden',position: 'relative', flexShrink: 0,}} >
+       <div style={{height: '200px',width: '200px',  overflow: 'hidden',position: 'relative', flexShrink: 0, cursor: "pointer"}}
+       onClick={() => setOpen(true)}
+       >
                         <div
                         style={{
                           transform: 'scale(0.14)',
@@ -74,6 +94,7 @@ useEffect(() => {
                           left: 0,
                         }}
                       >
+
                         <PAPERdet paper = {paper} />
                       </div>
                       </div>
@@ -84,7 +105,7 @@ useEffect(() => {
       </div>
       <h3 className="card-title" onClick={titleClicked}>{paper.title} </h3>
       <p className="card-author">{paper.author} </p>
-      <p className="card-description">{paper.description}</p>
+      <p className="card-description">{paper.description} </p>
       </div>
       
       <div className="mt-auto pt-3 flex items-end justify-between">
@@ -97,10 +118,22 @@ useEffect(() => {
                   return <TagChip key={index} text={tag} color={color[index]} textColor={textColor}/>;
                 })}
             </div>
-        <div className="mt-auto mb-15 mr-5 flex items-end justify-between text-xs text-black"> Date Published: {paper.date} </div>
-        </div>
+        <div className="mt-auto mb-27 mr-5 flex items-end text-xs text-black "> Date Published: {paper.date} 
 
+        </div>
+        </div>
     </div>
+    
+{open && (
+  <Pop onEnd={() => setOpen(false)}>
+    <div className="w-full max-w-4xl">
+      <PAPERdet paper={paper} full />
+    </div>
+  </Pop>
+)}
+
+    </>
+
   );
 }
 export default CardPage;

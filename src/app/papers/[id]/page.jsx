@@ -44,7 +44,7 @@ export default function PaperZoom({ params }) {
           left: '2rem',
           padding: '0.5rem 1rem',
           borderRadius: '20px',
-          backgroundColor: '#6B2737',
+          backgroundColor: '#ef4444',
           color: '#fff',
           border: 'none',
           cursor: 'pointer',
@@ -62,7 +62,7 @@ export default function PaperZoom({ params }) {
     right: '2rem', 
     padding: '0.5rem 1rem',
     borderRadius: '20px',
-    backgroundColor: '#6B2737',
+    backgroundColor: '#ef4444',
     color: '#fff',
     border: 'none',
     cursor: 'pointer',
@@ -112,7 +112,7 @@ export default function PaperZoom({ params }) {
     boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
   }}
 >
-  
+  x
 </div>
 
     <h3 style={{ fontWeight: 700, marginBottom: '1rem' }}>Summary</h3>
