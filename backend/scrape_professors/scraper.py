@@ -1,4 +1,5 @@
 import boto3
+import json
 import re
 import requests
 from bs4 import BeautifulSoup
@@ -6,9 +7,9 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
 import numpy as np
-from sentence_transformers import SentenceTransformer
 from decimal import Decimal
-import os
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from typing import List, Optional
 
 # UTD Professor information
 BASE_URL = 'https://profiles.utdallas.edu/browse'
@@ -17,9 +18,9 @@ BASE_URL = 'https://profiles.utdallas.edu/browse'
 dynamodb = boto3.resource('dynamodb')
 professor_table = dynamodb.Table('UTD_Professor')
 
-# Load embedding model
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
-model = SentenceTransformer("all-MiniLM-L6-v2")
+# Load embeddings model
+bedrock_client = boto3.client("bedrock-runtime", region_name="us-east-2")
+model_id = "amazon.titan-embed-text-v2:0"
 
 def scrape_utd_profs(page):
     response = requests.get(f"{BASE_URL}?page={str(page)}") # Make a GET request to the url using the page number, receiving the HTML
@@ -213,9 +214,15 @@ def vectorize_tags(tags):
     # Return an empty list if tags is empty
     if not tags:
         return []
-
+    
     # Create vector
-    vec = np.mean(model.encode(tags, convert_to_numpy=True), axis=0)
+    embeddings = create_embeddings_batch(tags, max_workers=10)
+    successful = [e for e in embeddings if e is not None]
+    
+    if not successful:
+        return []
+    
+    vec = np.mean(np.array(embeddings), axis=0)
 
     # Normalize vector
     vec /= np.linalg.norm(vec)
@@ -301,5 +308,47 @@ def scrape_interests(profile_soup):
     interests = re.sub(r'\s+', ' ', section_tag.text.strip().replace('Research Interests\n', ' ').replace('\t', ' ').replace('\n', ' ')).strip()
 
     return interests
+
+def create_embedding(text: str) -> Optional[List[float]]:
+    """Create embedding for a single text string."""
+    try:
+        response = bedrock_client.invoke_model(
+            modelId=model_id,
+            contentType='application/json',
+            accept='application/json',
+            body=json.dumps({
+                'inputText': text
+            })
+        )
+        
+        response_body = json.loads(response['body'].read())
+        return response_body['embedding']
+    
+    except Exception as e:
+        print(f"Error embedding text: {text[:50]}... - {e}")
+        return None
+
+def create_embeddings_batch(texts: List[str], max_workers: int = 10) -> List[Optional[List[float]]]:
+    """Create embeddings for multiple texts concurrently."""
+    embeddings = [None] * len(texts)
+    
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        # Submit all tasks
+        future_to_index = {
+            executor.submit(create_embedding, text): i 
+            for i, text in enumerate(texts)
+        }
+        
+        # Collect results as they complete
+        completed = 0
+        for future in as_completed(future_to_index):
+            index = future_to_index[future]
+            embeddings[index] = future.result()
+            completed += 1
+            
+            if completed % 10 == 0 or completed == len(texts):
+                print(f"Processed {completed}/{len(texts)} texts")
+    
+    return embeddings
         
 scrape_utd_profs(1)
