@@ -27,7 +27,7 @@ export default function OnboardingComplete() {
         <p className="mt-1 text-sm text-[#6b7280]">Complete</p>
 
         <div className="mx-auto mt-3 w-full max-w-xl">
-          <ProgressBar step={5} total={5} />
+          <ProgressBar step={3} total={3} />
         </div>
 
         <div className="my-12 flex justify-center">
