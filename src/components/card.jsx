@@ -109,7 +109,7 @@ useEffect(() => {
       </div>
       
       <div className="mt-auto pt-3 flex items-end justify-between">
-      <div className="card-tag flex gap-2 ml-45 mb-18" >
+      <div className="flex gap-2 ml-45 mb-18" >
                {paper.tags.slice(0,3).map((tag,index) => {
                   const textColor = "#111111";
                   const color = {0: 'green',1: 'yellow' , 2: 'red'};

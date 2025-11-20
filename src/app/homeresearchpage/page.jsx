@@ -7,10 +7,9 @@ import { sortByDate } from "@/components/datesort";
 import ToggleTabs from "@/components/toggletabs";
 import OpportunityCard from "@/components/opportunitycard";
 import FullPageCard from "@/components/fullpagecard";
-import recommendedData from "@/data/opportunities_recommended.json" assert { type: "json" };
-import allData from "@/data/opportunities_all.json" assert { type: "json" };
-import userTags from "@/data/user_tags.json" assert { type: "json" };
-import Loading from "@/components/loading";
+import recommendedData from "@/data/opportunities_recommended.json";
+import allData from "@/data/opportunities_all.json";
+import userTags from "@/data/user_tags.json";
 
 export default function OpportunitiesPage() {
   const [tab, setTab] = useState("recommended");
@@ -21,24 +20,12 @@ export default function OpportunitiesPage() {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
 
-  // show loading if profAll is empty
-  // if (tab === "all" && profAll === null) {
-  //  return <Loading />;
-  // }
-  
-
-  // usememo here to keep cards from stopping to rerender after every user actoin
-  // compare and pass in data and user tags
   const dataset = useMemo(() => {
     return tab === "recommended"
       ? normalizeAllItems(recommendedData, userTags)
       : normalizeAllItems(allData, userTags);
   }, [tab]);
 
-  // Usememo: only recomputes filterd/sorted list if anything change,
-  // sets query object/list and filters it
-  // also gets filter if changed and find post only with that filter
-  // return sortBydate Becaues we want to filter first then Sort by date after
   const filtered = useMemo(() => {
     let out = dataset;
     if (query.trim()) {
@@ -63,7 +50,6 @@ export default function OpportunitiesPage() {
       const f = activeFilter.toLowerCase();
       const EMPLOY = new Set(["full-time", "part-time", "on-site", "remote"]);
       out = out.filter((it) => {
-        // forum for filter
         const buckets =
           it.originalTags && typeof it.originalTags === "object" && !Array.isArray(it.originalTags)
             ? it.originalTags
@@ -89,7 +75,6 @@ export default function OpportunitiesPage() {
         return hay.some((s) => s.includes(f));
       });
     }
-  
     return sortByDate(out, sort);
   }, [dataset, sort, activeFilter, query]);
 
@@ -101,7 +86,7 @@ export default function OpportunitiesPage() {
       <div className="relative z-10 rounded-b-2xl shadow">
         <Navbar />
       </div>
-      
+
       <div className={`-mt-5 w-full bg-[#ffffff] border-b border-[#e5e7eb] shadow-sm pt-3 pb-2 ${open ? "blur-sm" : ""}`}>
         <div className="w-full px-6 pt-5 pb-4 flex items-center">
           <div className="flex items-center gap-6 overflow-x-auto flex-1 min-w-0">
@@ -170,8 +155,8 @@ export default function OpportunitiesPage() {
             <OpportunityCard
               key={item.id}
               item={item}
-              showPct={tab === "recommended"}
-              userTags={userTags}
+              showPct
+              useProvidedPct={tab === "all"}
               onOpen={(it) => { setSelected(it); setOpen(true); }}
             />
           ))}

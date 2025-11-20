@@ -2,7 +2,7 @@
 
 import TagChip from "@/components/tagchip";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 const asArray = (v) => (Array.isArray(v) ? v : []);
 
@@ -11,7 +11,7 @@ function pickTopTagsColored(colored) {
   const pushSome = (arr, color) => {
     for (const t of asArray(arr)) {
       if (out.length >= 3) break;
-      out.push({ text: t, color });
+      out.push({ text: String(t), color });
     }
   };
   pushSome(colored?.green, "green");
@@ -36,36 +36,43 @@ function computeThreeTagPctAndColor(topTags) {
   return { pct, color };
 }
 
-export default function OpportunityCard({ item, userTags, showPct = true, theme = "base", href, onOpen }) {
-  const router = useRouter();
-  const colored = item.tags;
-  const topTags = pickTopTagsColored(colored);
+const rangeColor = (p) => {
+  if (p == null || Number.isNaN(p)) return "gray";
+  if (p <= 20) return "red";
+  if (p <= 35) return "orange";
+  if (p <= 50) return "yellow";
+  return "green";
+};
 
-  const { pct, color: badgeColor } = showPct
-    ? computeThreeTagPctAndColor(topTags)
-    : { pct: null, color: "gray" };
+export default function OpportunityCard({ item, showPct = true, theme = "base", href, onOpen, useProvidedPct = false }) {
+  const router = useRouter();
+
+  const topTags = useMemo(() => {
+    if (Array.isArray(item?.tags)) {
+      return item.tags.slice(0, 3).map((t) => ({ text: String(t), color: "gray" }));
+    }
+    return pickTopTagsColored(item?.tags);
+  }, [item?.tags]);
+
+  const providedPctRaw = item?.match_percentage;
+  const hasProvidedPct = providedPctRaw !== undefined && providedPctRaw !== null && String(providedPctRaw).trim() !== "";
+  const providedPct = hasProvidedPct ? Math.max(0, Math.min(100, parseFloat(String(providedPctRaw)))) : null;
+
+  const computed = !useProvidedPct && showPct ? computeThreeTagPctAndColor(topTags) : { pct: null, color: "gray" };
+  const pct = useProvidedPct ? providedPct : computed.pct;
+  const badgeColor = useProvidedPct ? rangeColor(providedPct) : computed.color;
 
   const cardStyle =
     theme === "base"
       ? "border border-[#e5e7eb] bg-[#ffffff] hover:bg-[#f9fafb] hover:border-[#d1d5db]"
       : "border border-[#fecaca] bg-[#fee2e2] hover:bg-[#fecaca] hover:border-[#fca5a5]";
 
-  const go = () => {
-    if (onOpen) onOpen(item);
-    else if (href) router.push(href);
-  };
-
   const keySeed = String(item.id ?? item.title ?? "");
   let hash = 0;
   for (let i = 0; i < keySeed.length; i++) hash = (hash * 31 + keySeed.charCodeAt(i)) | 0;
-  const n = ((Math.abs(hash) % 6) + 1); // 1..6
+  const n = ((Math.abs(hash) % 6) + 1);
 
-  const candidates = [
-    `/research${n}.jpg`,
-    `/research${n}.jpeg`,
-    `/research${n}.png`,
-    `/research${n}.webp`,
-  ];
+  const candidates = [`/research${n}.jpg`, `/research${n}.jpeg`, `/research${n}.png`, `/research${n}.webp`];
 
   const [resolvedImg, setResolvedImg] = useState(null);
 
@@ -79,12 +86,14 @@ export default function OpportunityCard({ item, userTags, showPct = true, theme 
           img.onerror = () => resolve(false);
           img.src = url;
         });
-        if (ok && alive) { setResolvedImg(url); return; }
+        if (ok && alive) {
+          setResolvedImg(url);
+          return;
+        }
       }
       if (alive) setResolvedImg("/research.webp");
     })();
     return () => { alive = false; };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keySeed]);
 
   const img = resolvedImg;
@@ -94,14 +103,21 @@ export default function OpportunityCard({ item, userTags, showPct = true, theme 
       ? "#22c55e"
       : badgeColor === "yellow"
       ? "#eab308"
-      : badgeColor === "red"
+      : badgeColor === "orange"
       ? "#f97316"
+      : badgeColor === "red"
+      ? "#ef4444"
       : "#9ca3af";
 
   const size = 128;
   const r = 60;
   const C = 2 * Math.PI * r;
   const dash = showPct && pct != null ? (pct / 100) * C : 0;
+
+  const go = () => {
+    if (onOpen) onOpen(item);
+    else if (href) router.push(href);
+  };
 
   return (
     <div
@@ -130,31 +146,17 @@ export default function OpportunityCard({ item, userTags, showPct = true, theme 
 
       <div className="flex-1 min-w-0 pl-4 pr-0 flex flex-col">
         <div className="min-w-0">
-          <div className="text-2xl font-bold text-[#111827] truncate">
-            {item.title}
-          </div>
+          <div className="text-2xl font-bold text-[#111827] truncate">{item.title}</div>
         </div>
 
-        {/* Posted + author inline under title */}
-        <div className="text-m text-[#4b5563] truncate">
-          Posted: {item.datePosted} By {item.author}
-        </div>
+        <div className="text-m text-[#4b5563] truncate">Posted: {item.datePosted} By {item.author}</div>
 
-        <p
-          className="mt-2 text-m font-medium leading-6 text-[#374151] line-clamp-3"
-          style={{ hyphens: "auto", overflowWrap: "anywhere" }}
-        >
+        <p className="mt-2 text-m font-medium leading-6 text-[#374151] line-clamp-3" style={{ hyphens: "auto", overflowWrap: "anywhere" }}>
           {item.description}
         </p>
 
         <div className="mt-auto pt-6">
-          <div
-            className="
-              whitespace-nowrap overflow-x-auto
-              [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden
-              -mr-[184px] pr-[184px]
-            "
-          >
+          <div className="whitespace-nowrap overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden -mr-[184px] pr-[184px]">
             {topTags.map((t, i) => (
               <span key={`${item.id}-t-${i}`} className="inline-block mr-2 align-middle">
                 <TagChip text={t.text} color={t.color} />
@@ -170,9 +172,7 @@ export default function OpportunityCard({ item, userTags, showPct = true, theme 
             <svg width={size} height={size} viewBox="0 0 160 160">
               <circle cx="80" cy="80" r={r} fill="none" stroke="#e5e7eb" strokeWidth="12" />
               <circle
-                cx="80"
-                cy="80"
-                r={r}
+                cx="80" cy="80" r={r}
                 fill="none"
                 stroke={stroke}
                 strokeWidth="12"
