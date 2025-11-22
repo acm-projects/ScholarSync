@@ -19,7 +19,7 @@ function shuffle(arr) {
   }
   return a;
 }
-
+//
 function computePctFromTags(tags) {
   if (!tags || Array.isArray(tags)) return 0;
 
@@ -152,14 +152,18 @@ export default function ProfessorsPage() {
         <div className="grid gap-8 sm:grid-cols-2 items-stretch ">
           {toShow.map((item) => {
             const pid = String(item.id || item.email || item.full_name);
-            const href = `/professorpage/fullcardpage?id=${encodeURIComponent(
-              pid
-            )}`;
+            const href = `/professorpage/fullcardpage?id=${encodeURIComponent(pid)}`;
+
+            const cardItem =
+              tab === "all"
+                ? item
+                : { ...item, match_percentage: null };
+
             return (
               <ProfessorCard
                 key={pid}
-                item={{ ...item, photo: item.photo || emailToPhotoPath(item.email) }}
-                showPct={tab === "recommended"}
+                item={{ ...cardItem, photo: cardItem.photo || emailToPhotoPath(cardItem.email) }}
+                showPct={true}
                 userTags={userTags}
                 href={href}
                 onOpen={(it) => {
