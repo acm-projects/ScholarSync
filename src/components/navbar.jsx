@@ -21,7 +21,7 @@ export default function Navbar() {
             href="/profile"
             className="rounded-md bg-[#ef4444] px-3 py-1.5 text-[#ffffff] font-medium hover:bg-[#dc2626] transition"
           >
-            Profile
+            Sign Up
           </Link>
         </nav>
       </div>

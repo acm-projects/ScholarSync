@@ -112,7 +112,7 @@ export default function PaperZoom({ params }) {
     boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
   }}
 >
-  x
+  
 </div>
 
     <h3 style={{ fontWeight: 700, marginBottom: '1rem' }}>Summary</h3>

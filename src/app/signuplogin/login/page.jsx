@@ -79,40 +79,13 @@ const Login = () => {
                 <div className = "account">
                 Don't have an account? 
                 <Link href = "/signuplogin/signup">
-                <span>Signup</span>
+                <span className="signup-link">Signup</span>
                 </Link>
                 </div>
         
 
                 <div className = "divide">        
-                <Image
-                src="/Separator.png"
-                alt="or"
-                width={280}
-                height={20}/>
-                </div>
-                
-                <div className= "CG-submit-container">
-                <Image
-                src="/google.png"
-                alt="icon"
-                width={21}
-                height={21}/>
-                <div className = "submit">
-                Login with Google
-                </div>
-                </div>
-
-                <div className= "CL-submit-container">
-                <Image
-                src="/LinkedIn.png"
-                alt="icon"
-                width={21}
-                height={21}/>
-
-                <div className = "submit">
-                Login with LinkedIn
-                </div>
+          
                 </div>
 
           </div>
