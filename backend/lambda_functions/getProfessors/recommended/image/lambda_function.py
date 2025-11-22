@@ -24,13 +24,17 @@ def decimal_default(obj):
 def lambda_handler(event, context):
     try:
         # Extract parameters
-        params = event.get('queryStringParameters')
+        # params = event.get('queryStringParameters')
 
         # Access user tags
+        """
         username = params.get('username') # Get the username from the event
         response = user_table.get_item(Key={'username': username})
         user = response.get('Item') # Get the item from the response in the form of a dictionary
         user_tags = user.get('tags')
+        """
+        body = json.loads(event["body"])
+        user_tags = body.get("tags")
 
         # Access professor tags
         response = prof_table.scan() # Get all prof entries
@@ -70,7 +74,6 @@ def lambda_handler(event, context):
 
         user_vector = np.mean(np.array(user_embeddings), axis=0)
         user_vector /= np.linalg.norm(user_vector)
-        print(user_vector)
 
         # Make prof_vectors into a 2D array
         prof_vectors_array = np.vstack(prof_vectors)
@@ -94,7 +97,7 @@ def lambda_handler(event, context):
             prof = prof_entries[idx]
             ranked_professors.append({
                 'email': prof.get('email'),
-                'score': float(similarity)
+                'score': min(float(similarity) / 0.7, 1)
             })
 
         # Collect professors without embeddings
@@ -158,8 +161,5 @@ def create_embeddings_batch(texts: List[str], max_workers: int = 10) -> List[Opt
             index = future_to_index[future]
             embeddings[index] = future.result()
             completed += 1
-            
-            if completed % 10 == 0 or completed == len(texts):
-                print(f"Processed {completed}/{len(texts)} texts")
     
     return embeddings
