@@ -1,4 +1,5 @@
 'use client';
+
 import { useState } from 'react';
 import Link from 'next/link';
 import './login.css';
@@ -9,12 +10,39 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [username, setusername] = useState('');
 
-  const handle = (e) =>{
+  const handle = async (e) => {
     e.preventDefault();
 
-    const UsingL = {
-      email, password,
-    };
+    if (!email || !password) {
+      alert('Please fill in all fields');
+      return;
+    }
+
+    try {
+      const response = await fetch('https://eckapa4iqi.execute-api.us-east-2.amazonaws.com/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(data.message || data.error || 'Login failed');
+        return;
+      }
+
+      alert('Login successful!');
+
+      // Add username to memory
+      window.localStorage.setItem("username", username);
+
+      // Optionally redirect after login
+      window.location.href = '/dashboard'; // replace with your logged-in route
+    } catch (err) {
+      console.error('Error connecting to backend:', err);
+      alert('Error connecting to backend');
+    }
   };
     return (
         <div>
@@ -39,11 +67,9 @@ const Login = () => {
                 </div>
                       
                 <div className= "Login-submit-container">
-                  <Link href="/homeresearchpage">
-                    <button className = "submit" type = "submit">
-                      Login
-                    </button>
-                </Link>
+                <button className = "submit" type = "submit">
+                    Login
+                </button>
                 </div>
 
                 </div>
@@ -53,21 +79,45 @@ const Login = () => {
                 <div className = "account">
                 Don't have an account? 
                 <Link href = "/signuplogin/signup">
-                <span className="signup-link">Signup</span>
+                <span>Signup</span>
                 </Link>
                 </div>
         
 
                 <div className = "divide">        
-          
+                <Image
+                src="/Separator.png"
+                alt="or"
+                width={280}
+                height={20}/>
+                </div>
+                
+                <div className= "CG-submit-container">
+                <Image
+                src="/google.png"
+                alt="icon"
+                width={21}
+                height={21}/>
+                <div className = "submit">
+                Login with Google
+                </div>
+                </div>
+
+                <div className= "CL-submit-container">
+                <Image
+                src="/LinkedIn.png"
+                alt="icon"
+                width={21}
+                height={21}/>
+
+                <div className = "submit">
+                Login with LinkedIn
+                </div>
                 </div>
 
           </div>
         </div>
-
-
       );
     }
   
-  export default Login;
-  
+export default Login;

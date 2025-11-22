@@ -4,5 +4,8 @@
   "/discovery/page": "app/discovery/page.js",
   "/homeresearchpage/page": "app/homeresearchpage/page.js",
   "/page": "app/page.js",
-  "/professorpage/page": "app/professorpage/page.js"
+  "/professorpage/page": "app/professorpage/page.js",
+  "/profile/page": "app/profile/page.js",
+  "/signuplogin/login/page": "app/signuplogin/login/page.js",
+  "/signuplogin/signup/page": "app/signuplogin/signup/page.js"
 }

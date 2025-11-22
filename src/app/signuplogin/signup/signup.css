@@ -1,23 +1,21 @@
 
 body {
-    background: linear-gradient(to top right, #ffffff,#fdf1f1 );
-    background-color: #ffffff;
-    min-height: 100vh;
-    margin: 0;
+        background-color:#3D110F;
+  
+
   }
   
 .container {
+    border: 1px solid rgb(0, 0, 0);
     padding: 20px;
     border-radius: 14px;
-    width: 400px; 
+    width: 360px; 
     height: 600px; 
     box-sizing: border-box;
     overflow: hidden;
     margin: 40px auto;
     background-color: #ffffff;
-    box-shadow: 0 1px 5px rgba(0,0,0,0.1); 
-    transition: box-shadow 0.3s ease;
-}
+  }
   .account {
     margin-top: 15px;
     font-size: 12px;
@@ -43,7 +41,7 @@ body {
   .input {
     display: flex;
     align-items: center;
-    border: 1px solid rgb(201, 201, 201);
+    border: 1px solid gray;
     padding: 8px;
     margin-bottom: 15px;
     border-radius: 4px;
@@ -74,7 +72,7 @@ body {
     color: gray; 
   }
   .Sign-submit-container {
-    background-color:#ef4444;
+    background-color: #000000;
     color: white;
     padding: 10px;
     text-align: center;
@@ -121,16 +119,6 @@ body {
     padding: 15px;
 }
 
-.account .login-link {
-    color: #007bff;      
-    text-decoration: none; 
-    cursor: pointer;       
-}
-
-.account .login-link:hover {
-    color: #0056b3;        
-    text-decoration: underline; 
-}
 
 .text{
     color:black;
