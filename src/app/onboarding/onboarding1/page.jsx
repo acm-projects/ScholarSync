@@ -29,7 +29,7 @@ export default function OnboardingStep1() {
         <h1 className="mb-1 text-center text-3xl font-semibold text-[#111827]">
           Let’s set up your profile
         </h1>
-        <ProgressBar step={1} total={4} />
+        <ProgressBar step={1} total={3} />
 
         <div className="mx-auto mt-6 max-w-4xl rounded-2xl bg-[#ffffff] border border-[#e5e7eb] p-6">
           <form onSubmit={onContinue} className="grid gap-8 md:grid-cols-2">

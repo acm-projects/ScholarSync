@@ -28,16 +28,12 @@ export default function OnboardingStep2() {
     });
   };
 
-  const canContinue = useMemo(
-    () =>
-      (data.skills?.length ?? 0) > 0 &&
-      (data.interests?.length ?? 0) > 0 &&
-      (data.projectTypes?.length ?? 0) > 0 &&
-      (data.fields?.length ?? 0) > 0 &&
-      (data.researchTypes?.length ?? 0) > 0 &&
-      (data.careerGoals?.length ?? 0) > 0,
-    [data]
-  );
+  const filledCount = useMemo(() => {
+    const keys = ["skills", "projectTypes", "interests", "fields", "researchTypes", "careerGoals"];
+    return keys.reduce((n, k) => n + ((data[k]?.length ?? 0) > 0 ? 1 : 0), 0);
+  }, [data]);
+
+  const canContinue = filledCount >= 3;
 
   const onContinue = (e) => {
     e.preventDefault();
@@ -47,12 +43,11 @@ export default function OnboardingStep2() {
 
   return (
     <div className="min-h-screen bg-gradient-to-tr from-white to-[#fdf1f1] py-32 px-6">
-      <div className="mx-auto max-w-6xl rounded-
-      3xl bg-[#ffffff] p-8 shadow-xl border border-[#e5e7eb]">
+      <div className="mx-auto max-w-6xl rounded-3xl bg-[#ffffff] p-8 shadow-xl border border-[#e5e7eb]">
         <h1 className="mb-1 text-center text-3xl font-semibold text-[#111827]">
           Let’s set up your profile
         </h1>
-        <ProgressBar step={2} total={4} />
+        <ProgressBar step={2} total={3} />
 
         <div className="mx-auto mt-6 max-w-4xl rounded-2xl bg-[#ffffff] border border-[#e5e7eb] p-6">
           <form onSubmit={onContinue} className="grid gap-8">
@@ -60,11 +55,7 @@ export default function OnboardingStep2() {
               <h3 className="text-base font-semibold text-[#111827]">
                 Research & Skills
               </h3>
-<<<<<<< HEAD
-              <p className="mb-4 text-sm text-[#E2E3E6]">
-=======
               <p className="mb-4 text-sm text-[#6b7280]">
->>>>>>> 6ea6310fb0c022e45ba34049e048431cd74fea46
                 Type a tag and press Enter to add it. Click a tag to remove.
               </p>
 
@@ -104,23 +95,13 @@ export default function OnboardingStep2() {
                   name="careerGoals"
                   values={data.careerGoals || []}
                   onChange={(vals) => updateBucket("careerGoals", vals)}
-<<<<<<< HEAD
-=======
-
->>>>>>> 6ea6310fb0c022e45ba34049e048431cd74fea46
                 />
               </div>
             </div>
 
             {!canContinue && (
-<<<<<<< HEAD
-              <p className="text-sm text-[#E2E3E6]/80">
-                * Please add at least one tag in each category to continue.
-=======
               <p className="text-sm text-[#6b7280]">
-                * Please add at least one tag in each category to continue.
-
->>>>>>> 6ea6310fb0c022e45ba34049e048431cd74fea46
+                * Please add tags in <span className="font-semibold text-[#111827]">at least 3 of the 6 sections</span> to continue.
               </p>
             )}
 

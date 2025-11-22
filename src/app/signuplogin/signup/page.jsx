@@ -1,20 +1,14 @@
 'use client';
 
-//import { useRouter } from 'next/navigation';
-<<<<<<< HEAD
-import Link from 'next/link';
-=======
 import Link from "next/link";
->>>>>>> 6ea6310fb0c022e45ba34049e048431cd74fea46
 import { useState } from 'react';
-
 import './signup.css';
 import Image from 'next/image';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [username, setusername] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handle = async (e) => {
@@ -31,11 +25,14 @@ const Signup = () => {
     }
 
     try {
-      const response = await fetch('https://eckapa4iqi.execute-api.us-east-2.amazonaws.com/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, username }),
-      });
+      const response = await fetch(
+        'https://eckapa4iqi.execute-api.us-east-2.amazonaws.com/signup',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password, username }),
+        }
+      );
 
       const data = await response.json();
 
@@ -44,69 +41,78 @@ const Signup = () => {
         return;
       }
 
-      alert('Signup successful! Please check your email to confirm.');
-      window.location.href = '/signuplogin/login';
+      alert('Signup successful!');
+
+      localStorage.setItem("username", username);
+
+      // Navigate to next onboarding page only AFTER Lambda succeeds
+      window.location.href = '/onboarding/onboarding1';
     } catch (err) {
       console.error('Error connecting to backend:', err);
       alert('Error connecting to backend');
     }
   };
 
-    return (
-        <div>
-          <div className="container">
-          <div className="Header">
-              <div className="text">Signup</div>
+  return (
+    <div>
+      <div className="container">
+        <div className="Header">
+          <div className="text">Signup</div>
+        </div>
+        <form onSubmit={handle}>
+          <div className="inputs">
+            <div className="input">
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
-            <form onSubmit = {handle}>
-            <div className="inputs">
-                <div className="input">
-                    <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-                </div>
-                <div className="input">
-                    <input type="Username" placeholder="Username" value={username} onChange={(e) => setusername(e.target.value)}/>
-                </div>
-                <div className="input">
-                <input type="password" placeholder="Create Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                </div>
-                <div className="input">
-                    <input type= "password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-                </div>
-                
-                
-                <div className= "Sign-submit-container">
-                  <Link href="/onboarding/onboarding1">
-                    <button className = "submit" type = "submit" href="/onboarding/onboarding1">
-                      Sign up
-                    </button>
-                  </Link>
+            <div className="input">
+              <input
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+            <div className="input">
+              <input
+                type="password"
+                placeholder="Create Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className="input">
+              <input
+                type="password"
+                placeholder="Confirm Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </div>
 
-                </div>
-                </div>
-                </form>
-
-                <div className = "account">
-                Already have an account? 
-                <Link href="/signuplogin/login">
-                <span className="login-link">Login</span>
-                </Link>
-                </div>
-
-                <div className = "divide">        
-            
-                </div>
-
+            <div className="Sign-submit-container">
+              <button className="submit" type="submit">
+                Sign up
+              </button>
+            </div>
           </div>
+        </form>
+
+        <div className="account">
+          Already have an account?
+          <Link href="/signuplogin/login">
+            <span className="login-link">Login</span>
+          </Link>
         </div>
 
+        <div className="divide"></div>
+      </div>
+    </div>
+  );
+};
 
-      );
-    }
-  
-<<<<<<< HEAD
 export default Signup;
-=======
-  export default Signup;
-  
-
->>>>>>> 6ea6310fb0c022e45ba34049e048431cd74fea46

@@ -11,28 +11,19 @@ export default function OnboardingStep3() {
 
   const onContinue = (e) => {
     e.preventDefault();
-
-    {/* 
-    if (!data.resumeFile) {
-      alert("Please upload a resume before continuing.");
-      return;
-    }
-    */}
-
     console.log("Uploaded file:", data.resumeFile);
-
-    router.push("/onboarding/onboarding4");
+    router.push("/onboarding/onboarding5complete");
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-tr from-white to-[#fdf1f1]] px-6 py-32">
+    <div className="min-h-screen bg-gradient-to-tr from-white to-[#fdf1f1] px-6 py-32">
       <div className="mx-auto max-w-6xl rounded-3xl bg-[#ffffff] p-8 shadow-xl border border-[#e5e7eb]">
         <h1 className="mb-1 text-center text-3xl font-semibold text-[#111827]">
           Let’s set up your profile
         </h1>
 
         <div className="mx-auto mt-3 w-full max-w-xl">
-          <ProgressBar step={3} total={4} />
+          <ProgressBar step={3} total={3} />
         </div>
 
         <form onSubmit={onContinue} className="mx-auto mt-8 max-w-4xl space-y-6">
