@@ -1,14 +1,14 @@
 {
-    "firstname": "John",
-    "lastname": "Doe",
+    "firstname": "Tony",
+    "lastname": "Vu",
     "major": "Computer Science",
     "minor": "",
     "year": "Freshman",
-    "skills": ["Python"],
+    "skills": ["Python", "NLP", "PyTorch", "Data Viz"],
     "projectTypes": ["On-Campus"],
-    "interests": ["AI"],
-    "fields": [],
-    "researchTypes": [],
+    "interests": ["AI", "LLM", "Computer Vision", "ROS"],
+    "fields": ["Simulation", "Bioinformatics", "Quantitative", "AI"],
+    "researchTypes": ["Project Management", "Neuroscience", "Technical Writing"],
     "careerGoals": [],
     "resumeFile": null
   }

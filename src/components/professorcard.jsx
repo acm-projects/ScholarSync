@@ -152,7 +152,7 @@ export default function ProfessorCard({ item, userTags, showPct = true , theme =
       </div>
 
       <div className="flex-1 min-w-0 pl-4 pr-0 flex flex-col">
-        <div className="min-w-0">
+        <div className="left min-w-0">
           <div className="text-2xl font-bold text-[#111827] truncate">{name}</div>
         </div>
 
