@@ -1,25 +1,14 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Navbar from "@/components/navbar";
 import ToggleTabs from "@/components/toggletabsprofessor";
 import ProfessorCard from "@/components/professorcard";
 import FullProfessorCard from "@/components/fullprofessorcard";
 import { normalizeAllItems } from "@/components/pagesort";
-import profRecommended from "@/data/professors_recommended.json" assert { type: "json" };
-import profAll from "@/data/professors_all.json" assert { type: "json" };
 import userTags from "@/data/user_tags.json" assert { type: "json" };
 import Loading from "@/components/loading";
 
-function shuffle(arr) {
-  const a = arr.slice();
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-//
 function computePctFromTags(tags) {
   if (!tags || Array.isArray(tags)) return 0;
 
@@ -55,17 +44,119 @@ export default function ProfessorsPage() {
   const [tab, setTab] = useState("recommended");
   const [query, setQuery] = useState("");
   const [visible, setVisible] = useState(6);
+  const [profAll, setProfAll] = useState(null);
+  const [loadingProfAll, setLoadingProfAll] = useState(true);
+  const [profRecommended, setProfRecommended] = useState(null);
+  const [loadingProfRecommended, setLoadingProfRecommended] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState(null);
+
+  // Fetch profAll from API on component mount
+  useEffect(() => {
+    const username = window.localStorage.getItem("username");
+    if (!username) {
+      setLoadingProfAll(false);
+      console.log("No username found");
+      return;
+    }
+
+    console.log("Username found:", username);
+    const url = `https://tzupgr575f.execute-api.us-east-2.amazonaws.com/dev/professorAllImage?username=${encodeURIComponent(username)}`;
+    console.log("Fetching profAll from:", url);
+
+    fetch(url)
+      .then(async (response) => {
+        console.log("API response status:", response.status);
+        if (!response.ok) {
+          // Try to get error message from response body
+          let errorMessage = `HTTP error! status: ${response.status}`;
+          try {
+            const errorData = await response.json();
+            errorMessage = errorData.message || errorData.error || JSON.stringify(errorData);
+            console.error("API error response:", errorData);
+          } catch (e) {
+            // If response body isn't JSON, try to get text
+            try {
+              const errorText = await response.text();
+              errorMessage = errorText || errorMessage;
+              console.error("API error response (text):", errorText);
+            } catch (e2) {
+              console.error("Could not parse error response");
+            }
+          }
+          throw new Error(errorMessage);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const processedData = Array.isArray(data) ? data : [];
+        console.log("API returned:", processedData.length, "professors");
+        setProfAll(processedData);
+        setLoadingProfAll(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching professor data:", error);
+        setProfAll([]);
+        setLoadingProfAll(false);
+      });
+  }, []);
+
+  // Fetch profRecommended from API on component mount
+  useEffect(() => {
+    const username = window.localStorage.getItem("username");
+    if (!username) {
+      setLoadingProfRecommended(false);
+      console.log("No username found for recommended professors");
+      return;
+    }
+
+    console.log("Username found for recommended:", username);
+    const url = `https://tzupgr575f.execute-api.us-east-2.amazonaws.com/dev/professorRecImage?username=${encodeURIComponent(username)}`;
+    console.log("Fetching profRecommended from:", url);
+
+    fetch(url)
+      .then(async (response) => {
+        console.log("API response status:", response.status);
+        if (!response.ok) {
+          // Try to get error message from response body
+          let errorMessage = `HTTP error! status: ${response.status}`;
+          try {
+            const errorData = await response.json();
+            errorMessage = errorData.message || errorData.error || JSON.stringify(errorData);
+            console.error("API error response:", errorData);
+          } catch (e) {
+            // If response body isn't JSON, try to get text
+            try {
+              const errorText = await response.text();
+              errorMessage = errorText || errorMessage;
+              console.error("API error response (text):", errorText);
+            } catch (e2) {
+              console.error("Could not parse error response");
+            }
+          }
+          throw new Error(errorMessage);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const processedData = Array.isArray(data) ? data : [];
+        console.log("API returned:", processedData.length, "recommended professors");
+        setProfRecommended(processedData);
+        setLoadingProfRecommended(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching recommended professor data:", error);
+        setProfRecommended([]);
+        setLoadingProfRecommended(false);
+      });
+  }, []);
 
   // dataset pick based on tab
   const dataset = useMemo(() => {
     return tab === "recommended"
-      ? normalizeAllItems(profRecommended, userTags)
-      : normalizeAllItems(profAll, userTags);
-  }, [tab]);
-
-  if (tab === "all" && profAll === null) {
-    return <Loading />;
-  }
+      ? profRecommended ? normalizeAllItems(profRecommended, userTags) : []
+      : profAll ? normalizeAllItems(profAll, userTags) : [];
+  }, [tab, profAll, profRecommended]);
 
   const filtered = useMemo(() => {
     let out = dataset;
@@ -89,17 +180,6 @@ export default function ProfessorsPage() {
       });
     }
 
-    if (tab === "recommended") {
-      out = out.filter((it) => computePctFromTags(it.tags) > 0);
-      return [...out].sort(
-        (a, b) => computePctFromTags(b.tags) - computePctFromTags(a.tags)
-      );
-    }
-
-    if (tab === "all") {
-      return shuffle(out);
-    }
-
     return out;
   }, [dataset, query, tab]);
 
@@ -109,8 +189,9 @@ export default function ProfessorsPage() {
   const emailToPhotoPath = (email) =>
     email ? `/images/picure/${String(email).toLowerCase()}.jpg` : null;
 
-  const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState(null);
+  if ((tab === "all" && loadingProfAll) || (tab === "recommended" && loadingProfRecommended)) {
+    return <Loading />;
+  }
 
   return (
     <div className="min-h-screen bg-[#f5f5f5] text-[#111827]">
@@ -155,15 +236,10 @@ export default function ProfessorsPage() {
             const pid = String(item.id || item.email || item.full_name);
             const href = `/professorpage/fullcardpage?id=${encodeURIComponent(pid)}`;
 
-            const cardItem =
-              tab === "all"
-                ? item
-                : { ...item, match_percentage: null };
-
             return (
               <ProfessorCard
                 key={pid}
-                item={{ ...cardItem, photo: cardItem.photo || emailToPhotoPath(cardItem.email) }}
+                item={{ ...item, photo: item.photo || emailToPhotoPath(item.email) }}
                 showPct={true}
                 userTags={userTags}
                 href={href}

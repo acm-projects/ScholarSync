@@ -8,12 +8,12 @@ import Image from 'next/image';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [username, setusername] = useState('');
+  const [username, setUsername] = useState('');
 
   const handle = async (e) => {
     e.preventDefault();
 
-    if (!email || !password) {
+    if (!username || !password) {
       alert('Please fill in all fields');
       return;
     }
@@ -22,7 +22,7 @@ const Login = () => {
       const response = await fetch('https://eckapa4iqi.execute-api.us-east-2.amazonaws.com/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ username, password }),
       });
 
       const data = await response.json();
@@ -32,10 +32,11 @@ const Login = () => {
         return;
       }
 
-      alert('Login successful!');
-
       // Add username to memory
       window.localStorage.setItem("username", username);
+      console.log("Username:", username);
+
+      alert('Login successful!');
 
       // Optionally redirect after login
       window.location.href = '/dashboard'; // replace with your logged-in route
@@ -55,7 +56,7 @@ const Login = () => {
             
             <div className="inputs">
                 <div className="input">
-                    <input type="email" placeholder="Email or Username"  value={email||username} onChange={(e) => {setEmail(e.target.value);setusername(e.target.value)}}/>
+                    <input type="username" placeholder="Username"  value={username} onChange={(e) => {setUsername(e.target.value)}}/>
                 </div>
                 
                 <div className="input">

@@ -53,9 +53,11 @@ export default function ProfessorCard({ item, userTags, showPct = true , theme =
     return pickTopTagsColored(item?.tags);
   }, [item?.tags]);
 
-  const providedPctRaw = item?.match_percentage;
+  const providedPctRaw = item?.score;
   const hasProvidedPct = providedPctRaw !== undefined && providedPctRaw !== null && String(providedPctRaw).trim() !== "";
-  const providedPct = hasProvidedPct ? Math.max(0, Math.min(100, parseFloat(String(providedPctRaw)))) : null;
+  // Convert score (0-1) to percentage (0-100) if needed
+  const rawValue = hasProvidedPct ? parseFloat(String(providedPctRaw)) : null;
+  const providedPct = rawValue !== null ? Math.round(rawValue <= 1 ? rawValue * 100 : Math.max(0, Math.min(100, rawValue))) : null;
 
   const computed = showPct && !hasProvidedPct ? computeThreeTagPctAndColor(topTags) : { pct: null, color: "gray" };
   const pct = hasProvidedPct ? providedPct : computed.pct;
@@ -151,20 +153,20 @@ export default function ProfessorCard({ item, userTags, showPct = true , theme =
         </div>
       </div>
 
-      <div className="flex-1 min-w-0 pl-4 pr-0 flex flex-col">
+      <div className="flex-1 min-w-0 pl-4 pr-0 flex flex-col min-h-0">
         <div className="left min-w-0">
           <div className="text-2xl font-bold text-[#111827] truncate">{name}</div>
         </div>
 
         <div className="text-m text-[#4b5563] truncate">Room: {room}</div>
 
-        <div className="mt-2 text-m font-medium leading-6 text-[#374151]">
+        <div className="mt-2 text-m font-medium leading-6 text-[#374151] flex-1 min-h-0 overflow-hidden">
           {Array.isArray(item?.titles) && item.titles.length > 0 ? (
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 h-full overflow-hidden">
               {item.titles.map((t, i) => (
                 <div
                   key={`title-${i}`}
-                  className="overflow-hidden whitespace-normal break-words"
+                  className="whitespace-normal break-words flex-shrink-0"
                   style={{ hyphens: "auto", overflowWrap: "anywhere" }}
                   title={String(t)}
                 >
@@ -174,7 +176,7 @@ export default function ProfessorCard({ item, userTags, showPct = true , theme =
             </div>
           ) : item?.titles ? (
             <div
-              className="overflow-hidden whitespace-normal break-words"
+              className="whitespace-normal break-words h-full"
               style={{ hyphens: "auto", overflowWrap: "anywhere" }}
               title={String(item.titles)}
             >
@@ -185,7 +187,7 @@ export default function ProfessorCard({ item, userTags, showPct = true , theme =
           )}
         </div>
 
-        <div className="mt-auto pt-6">
+        <div className="mt-auto pt-6 flex-shrink-0">
           <div
             className=" my-[-10px]
               whitespace-nowrap overflow-x-auto

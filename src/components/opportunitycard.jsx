@@ -54,9 +54,11 @@ export default function OpportunityCard({ item, showPct = true, theme = "base", 
     return pickTopTagsColored(item?.tags);
   }, [item?.tags]);
 
-  const providedPctRaw = item?.match_percentage;
+  const providedPctRaw = item?.score;
   const hasProvidedPct = providedPctRaw !== undefined && providedPctRaw !== null && String(providedPctRaw).trim() !== "";
-  const providedPct = hasProvidedPct ? Math.max(0, Math.min(100, parseFloat(String(providedPctRaw)))) : null;
+  // Convert score (0-1) to percentage (0-100) if needed
+  const rawValue = hasProvidedPct ? parseFloat(String(providedPctRaw)) : null;
+  const providedPct = rawValue !== null ? (rawValue <= 1 ? rawValue * 100 : Math.max(0, Math.min(100, rawValue))) : null;
 
   const computed = !useProvidedPct && showPct ? computeThreeTagPctAndColor(topTags) : { pct: null, color: "gray" };
   const pct = useProvidedPct ? providedPct : computed.pct;

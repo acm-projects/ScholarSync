@@ -20,15 +20,30 @@ export function categorizeFromUser(flatTags = [], profile) {
 
   // replaces the original tags in each card with the user-matched buckets from categorizefromuser
   export function normalizeAllItems(items, profile) {
-    const flatUser =
-      Array.isArray(profile) ? profile : Object.values(profile || {}).flat();
-    return items.map((it) => ({
-      ...it,
-      originalTags: it.tags || { green: [], yellow: [], red: [] },
-      tags: categorizeFromUser(
-        flatUser,
-        it.tags || { green: [], yellow: [], red: [] }
-      ),
-    }));
+    return items.map((it) => {
+      // Handle different tag formats from API
+      let profTags = it.tags;
+      
+      // If tags come as an array, use them directly
+      if (Array.isArray(profTags)) {
+        // Tags are already an array, keep them as is
+      } else if (profTags && typeof profTags === 'object') {
+        // If tags are in colored format, combine all into a single array
+        profTags = [
+          ...(Array.isArray(profTags.green) ? profTags.green : []),
+          ...(Array.isArray(profTags.yellow) ? profTags.yellow : []),
+          ...(Array.isArray(profTags.red) ? profTags.red : []),
+        ];
+      } else {
+        // If tags are missing or in unexpected format, default to empty array
+        profTags = [];
+      }
+      
+      return {
+        ...it,
+        originalTags: it.tags || [],
+        tags: profTags,
+      };
+    });
   }
   

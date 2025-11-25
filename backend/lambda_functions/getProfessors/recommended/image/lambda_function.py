@@ -24,17 +24,29 @@ def decimal_default(obj):
 def lambda_handler(event, context):
     try:
         # Extract parameters
-        # params = event.get('queryStringParameters')
+        params = event.get('queryStringParameters') or {}
 
         # Access user tags
-        """
         username = params.get('username') # Get the username from the event
+        if not username:
+            return {
+                'statusCode': 400,
+                'body': json.dumps({
+                    'error': 'Missing username parameter'
+                })
+            }
+        
         response = user_table.get_item(Key={'username': username})
         user = response.get('Item') # Get the item from the response in the form of a dictionary
+        if not user:
+            return {
+                'statusCode': 400,
+                'body': json.dumps({
+                    'error': f'User not found: {username}'
+                })
+            }
+        
         user_tags = user.get('tags')
-        """
-        body = json.loads(event["body"])
-        user_tags = body.get("tags")
 
         # Access professor tags
         response = prof_table.scan() # Get all prof entries
@@ -91,29 +103,28 @@ def lambda_handler(event, context):
         sorted_similarities = similarities[0][ranking_indices]
 
         # Build ranked list for professors that had embeddings
-        # Return only email (primary key) and similarity score
+        # Return full professor object with similarity score added
         ranked_professors = []
         for idx, similarity in zip(ranking_indices, sorted_similarities):
             prof = prof_entries[idx]
-            ranked_professors.append({
-                'email': prof.get('email'),
-                'score': min(float(similarity) / 0.7, 1)
-            })
+            prof_copy = prof.copy()
+            prof_copy['score'] = min(float(similarity) / 0.7, 1)
+            ranked_professors.append(prof_copy)
 
         # Collect professors without embeddings
-        # Return only email (primary key) with score set to None
+        # Return full professor object with score set to None
         excluded_professors = []
         for entry in profs:
             if not entry.get('tag_embeddings'):
-                excluded_professors.append({
-                    'email': entry.get('email'),
-                    'score': None
-                })
+                prof_copy = entry.copy()
+                prof_copy['score'] = None
+                excluded_professors.append(prof_copy)
 
         # Return successfully
         return {
             'statusCode': 200,
-            'body': json.dumps(ranked_professors + excluded_professors)
+            # Convert Decimal values to floats for JSON formatting
+            'body': json.dumps(ranked_professors + excluded_professors, default=decimal_default)
         }
 
     except Exception as e:

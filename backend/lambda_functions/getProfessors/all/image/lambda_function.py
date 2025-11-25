@@ -5,6 +5,7 @@ import numpy as np
 from decimal import Decimal
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import List, Optional
+import random
 
 # Load DynamoDB tables
 dynamodb = boto3.resource('dynamodb', region_name="us-east-2")
@@ -24,17 +25,29 @@ def decimal_default(obj):
 def lambda_handler(event, context):
     try:
         # Extract parameters
-        # params = event.get('queryStringParameters')
+        params = event.get('queryStringParameters') or {}
 
         # Access user tags
-        """
         username = params.get('username') # Get the username from the event
+        if not username:
+            return {
+                'statusCode': 400,
+                'body': json.dumps({
+                    'error': 'Missing username parameter'
+                })
+            }
+        
         response = user_table.get_item(Key={'username': username})
         user = response.get('Item') # Get the item from the response in the form of a dictionary
+        if not user:
+            return {
+                'statusCode': 400,
+                'body': json.dumps({
+                    'error': f'User not found: {username}'
+                })
+            }
+        
         user_tags = user.get('tags')
-        """
-        body = json.loads(event["body"])
-        user_tags = body.get("tags")
 
         # Access professor tags
         response = prof_table.scan() # Get all prof entries
@@ -85,28 +98,31 @@ def lambda_handler(event, context):
         similarities = cosine_similarity(user_vec_2d, prof_vectors_array)
 
         # Build list for professors that had embeddings (in original order)
-        # Return only email (primary key) and similarity score
+        # Return full professor object with similarity score added
         ranked_professors = []
         for idx, prof in enumerate(prof_entries):
-            ranked_professors.append({
-                'email': prof.get('email'),
-                'score': min(float(similarities[0][idx]) / 0.7, 1)
-            })
+            prof_copy = prof.copy()
+            prof_copy['score'] = min(float(similarities[0][idx]) / 0.7, 1)
+            ranked_professors.append(prof_copy)
 
         # Collect professors without embeddings
-        # Return only email (primary key) with score set to None
+        # Return full professor object with score set to None
         excluded_professors = []
         for entry in profs:
             if not entry.get('tag_embeddings'):
-                excluded_professors.append({
-                    'email': entry.get('email'),
-                    'score': None
-                })
+                prof_copy = entry.copy()
+                prof_copy['score'] = None
+                excluded_professors.append(prof_copy)
+
+        # Randomize the order of both lists
+        random.shuffle(ranked_professors)
+        random.shuffle(excluded_professors)
 
         # Return successfully
         return {
             'statusCode': 200,
-            'body': json.dumps(ranked_professors + excluded_professors)
+            # Convert Decimal values to floats for JSON formatting
+            'body': json.dumps(ranked_professors + excluded_professors, default=decimal_default)
         }
 
     except Exception as e:

@@ -2,7 +2,7 @@
   {
     "email": "herve@utdallas.edu",
     "full_name": "Hervé Abdi",
-    "match_percentage": "100",
+    "score": "100",
     "titles": [
       "Professor - Department of Psychology"
     ],
@@ -448,7 +448,7 @@
   {
     "email": "Nimali.Abeykoon@utdallas.edu",
     "full_name": "Nimali Abeykoon",
-    "match_percentage": "11",
+    "score": "11",
     "titles": [
       "Assistant Professor of Instruction - Chemistry"
     ],
@@ -494,7 +494,7 @@
   {
     "email": "robert.ackerman@utdallas.edu",
     "full_name": "Robert Ackerman",
-    "match_percentage": "78",
+    "score": "78",
     "titles": [
       "Associate Professor - Department of Psychology",
       "Program Head, Psychology MS"
@@ -569,7 +569,7 @@
   {
     "email": "AnaniKomla.Adabrah@utdallas.edu",
     "full_name": "Anani Komla Adabrah",
-    "match_percentage": "0",
+    "score": "0",
     "titles": [
       "Assistant Professor of Instruction - Mathematical Sciences"
     ],
@@ -580,7 +580,7 @@
   {
     "email": "Stephanie.Adams@UTDallas.edu",
     "full_name": "Stephanie Adams",
-    "match_percentage": "67",
+    "score": "67",
     "titles": [
       "Lars Magnus Ericsson Chair",
       "Dean – Erik Jonsson School of Engineering and Computer Science"
@@ -603,7 +603,7 @@
   {
     "email": "addou@utdallas.edu",
     "full_name": "Rafik Addou",
-    "match_percentage": "44",
+    "score": "44",
     "titles": [
       "Assistant Professor - Material Science Engineering"
     ],
@@ -950,7 +950,7 @@
   {
     "email": "Rosemary.Admiral@utdallas.edu",
     "full_name": "Rosemary Admiral",
-    "match_percentage": "11",
+    "score": "11",
     "titles": [
       "Assistant Professor"
     ],
@@ -980,7 +980,7 @@
   {
     "email": "KAhadi@utdallas.edu",
     "full_name": "Khatereh Ahadi",
-    "match_percentage": "0",
+    "score": "0",
     "titles": [
       "Assoc. Prof. of Instruction - Management"
     ],
@@ -990,7 +990,7 @@
   {
     "email": "Maryam.Ahmadi@UTDallas.edu",
     "full_name": "Maryam Ahmadi",
-    "match_percentage": "0",
+    "score": "0",
     "titles": [
       "Assist. Prof. of Instruction - Economic Political and Policy"
     ],
@@ -1004,7 +1004,7 @@
   {
     "email": "jungmo.ahn@utdallas.edu",
     "full_name": "Jung-Mo Ahn",
-    "match_percentage": "78",
+    "score": "78",
     "titles": [
       "Associate Professor - Chemistry and Biochemistry"
     ],
@@ -1280,7 +1280,7 @@
   {
     "email": "mkahsan@utdallas.edu",
     "full_name": "Mohammad Ahsan",
-    "match_percentage": "0",
+    "score": "0",
     "titles": [
       "Associate Professor of Instruction and Assistant Head - Mathematical Sciences"
     ],
@@ -1307,7 +1307,7 @@
   {
     "email": "bilal.akin@utdallas.edu",
     "full_name": "Bilal Akin",
-    "match_percentage": "67",
+    "score": "67",
     "titles": [
       "Professor - Electrical Engineering"
     ],
@@ -1577,7 +1577,7 @@
   {
     "email": "aldhahir@utdallas.edu",
     "full_name": "Naofal Al-Dhahir",
-    "match_percentage": "67",
+    "score": "67",
     "titles": [
       "Professor - Electrical Engineering",
       "Jonsson School Distinguished Professor"
@@ -1838,7 +1838,7 @@
   {
     "email": "Sridhar@utdallas.edu",
     "full_name": "Sridhar Alagar",
-    "match_percentage": "0",
+    "score": "0",
     "titles": [
       "Associate Professor of Instruction - Computer Science"
     ],
@@ -1851,7 +1851,7 @@
   {
     "email": "salborz@utdallas.edu",
     "full_name": "Shawn Alborz, PhD",
-    "match_percentage": "67",
+    "score": "67",
     "titles": [
       "Professor of Instruction- Management"
     ],
@@ -2030,7 +2030,7 @@
   {
     "email": "ashiq.ali@utdallas.edu",
     "full_name": "Ashiq Ali",
-    "match_percentage": "22",
+    "score": "22",
     "titles": [
       "Charles and Nancy Davidson Chair in Accounting",
       "Endowed Professorship - Management"
@@ -2159,7 +2159,7 @@
   {
     "email": "tma051000@utdallas.edu",
     "full_name": "Tariq Ali",
-    "match_percentage": "0",
+    "score": "0",
     "titles": [
       "Senior Lecturer I - Bioengineering"
     ],
@@ -2169,7 +2169,7 @@
   {
     "email": "AliAsgar.Alibhai@UTDallas.edu",
     "full_name": "Ali Asgar Alibhai",
-    "match_percentage": "67",
+    "score": "67",
     "titles": [
       "Assistant Professor — Art History"
     ],
@@ -2225,7 +2225,7 @@
   {
     "email": "Ali.Aliev@utdallas.edu",
     "full_name": "Ali Aliev",
-    "match_percentage": "44",
+    "score": "44",
     "titles": [
       "Research Professor - Nanotech Institute"
     ],
@@ -2906,7 +2906,7 @@
   {
     "email": "Diego.AlinsBreda@UTDallas.edu",
     "full_name": "Diego Alins Breda",
-    "match_percentage": "0",
+    "score": "0",
     "titles": [
       "Assistant Professor of Instruction"
     ],
@@ -2945,7 +2945,7 @@
   {
     "email": "Iris.Alvarado@UTDallas.edu",
     "full_name": "Iris Alvarado",
-    "match_percentage": "0",
+    "score": "0",
     "titles": [
       "Associate Professor of Instruction - Mathematical Sciences"
     ],

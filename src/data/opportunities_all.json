@@ -13,7 +13,7 @@
       "Semester-long",
       "Research Assistantship"
     ],
-    "match_percentage": "56"
+    "score": "56"
   },
   {
     "id": 2,
@@ -30,7 +30,7 @@
       "Flexible hours",
       "Semester-long"
     ],
-    "match_percentage": "56"
+    "score": "56"
   },
   {
     "id": 3,
@@ -47,7 +47,7 @@
       "Social Sciences",
       "Short-term (< 3 months)"
     ],
-    "match_percentage": "11"
+    "score": "11"
   },
   {
     "id": 4,
@@ -63,7 +63,7 @@
       "Prototype/Build",
       "Semester-long"
     ],
-    "match_percentage": "11"
+    "score": "11"
   },
   {
     "id": 5,
@@ -79,7 +79,7 @@
       "Part-time",
       "Semester-long"
     ],
-    "match_percentage": "56"
+    "score": "56"
   },
   {
     "id": 6,
@@ -95,7 +95,7 @@
       "Literature Review",
       "Short-term (< 3 months)"
     ],
-    "match_percentage": "11"
+    "score": "11"
   },
   {
     "id": 7,
@@ -111,7 +111,7 @@
       "Prototype/Build",
       "Part-time"
     ],
-    "match_percentage": "11"
+    "score": "11"
   },
   {
     "id": 8,
@@ -127,7 +127,7 @@
       "Semester-long",
       "Hybrid"
     ],
-    "match_percentage": "33"
+    "score": "33"
   },
   {
     "id": 9,
@@ -143,7 +143,7 @@
       "Lab Work",
       "Semester-long"
     ],
-    "match_percentage": "89"
+    "score": "89"
   },
   {
     "id": 10,
@@ -159,7 +159,7 @@
       "Undergraduate-friendly",
       "Short-term (< 3 months)"
     ],
-    "match_percentage": "33"
+    "score": "33"
   },
   {
     "id": 11,
@@ -175,7 +175,7 @@
       "Theoretical Work",
       "On-site"
     ],
-    "match_percentage": "11"
+    "score": "11"
   },
   {
     "id": 12,
@@ -191,7 +191,7 @@
       "UG-friendly",
       "Hybrid"
     ],
-    "match_percentage": "11"
+    "score": "11"
   },
   {
     "id": 13,
@@ -206,7 +206,7 @@
       "Wet Lab",
       "Animal Handling"
     ],
-    "match_percentage": "56"
+    "score": "56"
   },
   {
     "id": 14,
@@ -224,7 +224,7 @@
       "SLAM",
       "Wet Lab"
     ],
-    "match_percentage": "56"
+    "score": "56"
   },
   {
     "id": 15,
@@ -241,7 +241,7 @@
       "Field Sampling",
       "Organic Chemistry"
     ],
-    "match_percentage": "56"
+    "score": "56"
   },
   {
     "id": 16,
@@ -259,7 +259,7 @@
       "Benchwork",
       "SLAM"
     ],
-    "match_percentage": "67"
+    "score": "67"
   },
   {
     "id": 17,
@@ -276,7 +276,7 @@
       "Tissue Culture",
       "CRISPR"
     ],
-    "match_percentage": "56"
+    "score": "56"
   },
   {
     "id": 18,
@@ -294,7 +294,7 @@
       "Wet Lab",
       "Organic Chemistry"
     ],
-    "match_percentage": "67"
+    "score": "67"
   },
   {
     "id": 19,
@@ -313,7 +313,7 @@
       "IRB",
       "Clinical Trials"
     ],
-    "match_percentage": "33"
+    "score": "33"
   },
   {
     "id": 20,
@@ -331,7 +331,7 @@
       "Field Sampling",
       "CRISPR"
     ],
-    "match_percentage": "89"
+    "score": "89"
   },
   {
     "id": 21,
@@ -349,7 +349,7 @@
       "IRB",
       "Wet Lab"
     ],
-    "match_percentage": "78"
+    "score": "78"
   },
   {
     "id": 22,
@@ -366,7 +366,7 @@
       "Wet Lab",
       "EEG"
     ],
-    "match_percentage": "11"
+    "score": "11"
   },
   {
     "id": 23,
@@ -384,7 +384,7 @@
       "Benchwork",
       "CRISPR"
     ],
-    "match_percentage": "33"
+    "score": "33"
   },
   {
     "id": 24,
@@ -401,7 +401,7 @@
       "Organic Chemistry",
       "Animal Handling"
     ],
-    "match_percentage": "67"
+    "score": "67"
   },
   {
     "id": 25,
@@ -418,7 +418,7 @@
       "Organic Chemistry",
       "Field Sampling"
     ],
-    "match_percentage": "44"
+    "score": "44"
   },
   {
     "id": 26,
@@ -436,7 +436,7 @@
       "Benchwork",
       "Wet Lab"
     ],
-    "match_percentage": "67"
+    "score": "67"
   },
   {
     "id": 27,
@@ -454,7 +454,7 @@
       "Soldering",
       "Wet Lab"
     ],
-    "match_percentage": "67"
+    "score": "67"
   },
   {
     "id": 28,
@@ -471,7 +471,7 @@
       "Part-time",
       "Wet Lab"
     ],
-    "match_percentage": "89"
+    "score": "89"
   },
   {
     "id": 29,
@@ -485,7 +485,7 @@
       "Full-time",
       "Organic Chemistry"
     ],
-    "match_percentage": "56"
+    "score": "56"
   },
   {
     "id": 30,
@@ -498,7 +498,7 @@
       "Remote",
       "Field Sampling"
     ],
-    "match_percentage": "44"
+    "score": "44"
   },
   {
     "id": 31,
@@ -513,7 +513,7 @@
       "On-site",
       "Animal Handling"
     ],
-    "match_percentage": "78"
+    "score": "78"
   },
   {
     "id": 32,
@@ -526,7 +526,7 @@
       "Part-time",
       "Wet Lab"
     ],
-    "match_percentage": "44"
+    "score": "44"
   },
   {
     "id": 33,
@@ -539,7 +539,7 @@
       "Full-time",
       "Field Sampling"
     ],
-    "match_percentage": "44"
+    "score": "44"
   },
   {
     "id": 34,
@@ -555,7 +555,7 @@
       "Remote",
       "SLAM"
     ],
-    "match_percentage": "78"
+    "score": "78"
   },
   {
     "id": 35,
@@ -570,7 +570,7 @@
       "Remote",
       "Wet Lab"
     ],
-    "match_percentage": "67"
+    "score": "67"
   },
   {
     "id": 36,
@@ -587,7 +587,7 @@
       "Part-time",
       "Field Sampling"
     ],
-    "match_percentage": "89"
+    "score": "89"
   },
   {
     "id": 37,
@@ -603,7 +603,7 @@
       "On-site",
       "SLAM"
     ],
-    "match_percentage": "89"
+    "score": "89"
   },
   {
     "id": 38,
@@ -619,7 +619,7 @@
       "Part-time",
       "SLAM"
     ],
-    "match_percentage": "78"
+    "score": "78"
   },
   {
     "id": 39,
@@ -635,7 +635,7 @@
       "Full-time",
       "Animal Handling"
     ],
-    "match_percentage": "78"
+    "score": "78"
   },
   {
     "id": 40,
@@ -648,7 +648,7 @@
       "Computer Vision",
       "Organic Chemistry"
     ],
-    "match_percentage": "67"
+    "score": "67"
   },
   {
     "id": 41,
@@ -662,7 +662,7 @@
       "Full-time",
       "Field Sampling"
     ],
-    "match_percentage": "56"
+    "score": "56"
   },
   {
     "id": 42,
@@ -679,6 +679,6 @@
       "Part-time",
       "SLAM"
     ],
-    "match_percentage": "89"
+    "score": "89"
   }
 ]
