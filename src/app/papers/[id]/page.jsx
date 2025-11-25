@@ -6,7 +6,6 @@ import './markdown.css';
 
 export default function PaperZoom({ params }) {
   const router = useRouter();
-
   const paperId = params.id;
 
   const [paper, setPaper] = useState(null);
@@ -36,7 +35,6 @@ export default function PaperZoom({ params }) {
 
   async function generateSummary() {
     if (showSidebar) {
-      // Close sidebar
       setShowSidebar(false);
       setSummary('');
       return;
@@ -66,6 +64,7 @@ export default function PaperZoom({ params }) {
     <>
       <Navbar />
 
+      {/* Back Button */}
       <button
         onClick={() => router.back()}
         style={{
@@ -86,6 +85,7 @@ export default function PaperZoom({ params }) {
         ← Back
       </button>
 
+      {/* Generate Summary Button */}
       <button
         style={{
           position: 'fixed',
@@ -107,6 +107,7 @@ export default function PaperZoom({ params }) {
         {generatingSummary ? 'Generating...' : 'Generate Summary'}
       </button>
 
+      {/* Sidebar */}
       {showSidebar && (
         <div
           style={{
@@ -118,7 +119,7 @@ export default function PaperZoom({ params }) {
             backgroundColor: 'hsl(0, 0%, 94%)',
             color: '#111',
             borderLeft: '1px solid #E0E0E0',
-            padding: '2rem 1.5rem 1.5rem 1.5rem',
+            padding: '2rem 1.5rem',
             overflowY: 'auto',
             boxShadow: '-4px 0 12px rgba(0,0,0,0.05)',
             zIndex: 999,
@@ -126,6 +127,7 @@ export default function PaperZoom({ params }) {
             flexDirection: 'column',
           }}
         >
+          {/* Close button */}
           <div
             onClick={() => setShowSidebar(false)}
             style={{
@@ -156,6 +158,7 @@ export default function PaperZoom({ params }) {
         </div>
       )}
 
+      {/* Main PDF viewer container */}
       <div
         style={{
           backgroundColor: '#F8F8F8',

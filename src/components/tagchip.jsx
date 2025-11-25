@@ -11,11 +11,13 @@ export default function TagChip({ text, color = "gray" }) {
     case "red":
       styles = "bg-rose-100 text-rose-700 border-rose-200";
       break;
+    default:
+      break;
   }
 
   return (
     <span
-      className={`inline-flex items-center rounded-full border px-3 py-0.75 text-s font-bold ${styles}`}
+      className={`inline-flex items-center rounded-full border px-3 py-0.5 text-sm font-bold ${styles}`}
     >
       {text}
     </span>

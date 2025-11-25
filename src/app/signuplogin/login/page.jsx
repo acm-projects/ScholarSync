@@ -1,18 +1,18 @@
 'use client';
+
 import { useState } from 'react';
 import Link from 'next/link';
 import './login.css';
 import Image from 'next/image';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setusername] = useState('');
 
   const handle = async (e) => {
     e.preventDefault();
 
-    if (!email || !password) {
+    if (!username || !password) {
       alert('Please fill in all fields');
       return;
     }
@@ -32,7 +32,12 @@ const Login = () => {
       }
 
       alert('Login successful!');
-      window.location.href = '/dashboard'; 
+
+      // Add username to memory
+      window.localStorage.setItem("username", username);
+
+      // Optionally redirect after login
+      window.location.href = '/dashboard'; // replace with your logged-in route
     } catch (err) {
       console.error('Error connecting to backend:', err);
       alert('Error connecting to backend');
@@ -49,7 +54,7 @@ const Login = () => {
             
             <div className="inputs">
                 <div className="input">
-                    <input type="email" placeholder="Email or Username"  value={email||username} onChange={(e) => {setEmail(e.target.value);setusername(e.target.value)}}/>
+                    <input type="email" placeholder="Username"  value={username} onChange={(e) => setusername(e.target.value)}/>
                 </div>
                 
                 <div className="input">
@@ -89,5 +94,4 @@ const Login = () => {
       );
     }
   
-  export default Login;
-  
+export default Login;

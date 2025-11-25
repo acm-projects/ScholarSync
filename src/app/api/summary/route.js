@@ -8,7 +8,7 @@ const bedrock = new BedrockRuntimeClient({ region: process.env.AWS_REGION || "us
 const dynamo = new DynamoDBClient({ region: process.env.AWS_REGION || "us-east-2" });
 
 const TABLE_NAME = process.env.DYNAMO_TABLE_NAME || "ScholarPapers";
-const MODEL_ID = "us.anthropic.claude-3-5-sonnet-20240620-v1:0";
+const MODEL_ID = "arn:aws:bedrock:us-east-2:179388325443:inference-profile/us.anthropic.claude-3-5-sonnet-20241022-v2:0";
 
 async function extractTextFromPdf(pdfUrl) {
   const res = await fetch(pdfUrl);
@@ -82,10 +82,9 @@ ${truncatedText}
 `;
 
     const body = JSON.stringify({
-      anthropic_version: "bedrock-2023-05-31",
-      max_tokens: 500,
+      inputText: prompt,
+      maxTokens: 500,
       temperature: 0.1,
-      messages: [{ role: "user", content: prompt }],
     });
 
     const command = new InvokeModelCommand({

@@ -57,10 +57,15 @@
   align-self: flex-end;
 }
 
+
 .card-description {
   margin-bottom: 1;
   margin-left: 10rem;
   font-size: 14px;
-
   color: #111111;
+
+  max-height: 150px;
+  overflow-y: auto;
+  padding-right: 8px;
+
 }

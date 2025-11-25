@@ -10,6 +10,8 @@ import Navbar from "@/components/navbar";
 import Dropdown from 'react-bootstrap/Dropdown';
 import PAPERdet from "@/components/paperDetail";
 import { Pencil1Icon } from "@radix-ui/react-icons";
+import '@/app/papers/[id]/markdown.css';
+
 function normalize(str){
   // just in case the have accents in their name ? right I thoink it will be easier
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
@@ -29,13 +31,47 @@ const SavedComp = () => {
       const [openDropdowns, setOpenDropdowns] = useState({}); 
       const [savedPaper, setSavedPaper] = useState([]);
       const [workspace, setWorkspace] = useState({});
-    const [status, setStatus] = useState(() => {
-  if (typeof window !== "undefined") {
-    const saved = localStorage.getItem("readStatus");
-    return saved ? JSON.parse(saved) : {};
-  }
-  return {};
-});
+      const [mounted, setMounted] = useState(false);
+
+    const [status, setStatus] = useState({});
+    const [mode, setMode] = useState("tag");
+    const router = useRouter();
+
+     useEffect(() => {
+      setMounted(true);
+      
+      const savedBookmarks = localStorage.getItem("bookmarkedStuff");
+      if (savedBookmarks) {
+        setSavedPaper(JSON.parse(savedBookmarks));
+      }
+
+      const savedStatus = localStorage.getItem("readStatus");
+      if (savedStatus) {
+        setStatus(JSON.parse(savedStatus));
+      }
+
+      const savedWorkspaces = localStorage.getItem("workspaces");
+      if (savedWorkspaces) {
+        setWorkspace(JSON.parse(savedWorkspaces));
+      }
+    }, []);
+
+    useEffect(() => {
+      if (mounted) {
+        localStorage.setItem("readStatus", JSON.stringify(status));
+      }
+    }, [status, mounted]);
+
+    useEffect(() => {
+      if (mounted) {
+        localStorage.setItem("workspaces", JSON.stringify(workspace));
+      }
+    }, [workspace, mounted]);
+
+    function titleClicked(paper) {
+      router.push(`/papers/${paper.id}`);
+    }
+
 
 function handleDrop(e,groupName){
   e.preventDefault();
@@ -78,43 +114,6 @@ function handleFreshDrop(e) {
     };
   });
 }
-
-const [mode, setMode] = useState("tag");
-
-    const router = useRouter();
-    function titleClicked(paper) {
-    router.push(`/papers/${paper.id}`);
-    }
-
-    useEffect(() => {
-
-      localStorage.setItem("readStatus", JSON.stringify(status));
-
-    }, [status]);
-
-
-    useEffect(() => {
-        const saved = localStorage.getItem("bookmarkedStuff");
-        if (saved){
-            const parsed = JSON.parse(saved);
-            setSavedPaper(parsed);
-        }
-
-        const stoStatus = localStorage.getItem("readStatus");
-        if(stoStatus){
-            setStatus(JSON.parse(stoStatus));
-        }
-    }, []);
-
-
-  useEffect(() => {
-  const saved = localStorage.getItem("workspaces");
-  if (saved) setWorkspace(JSON.parse(saved));
-}, []);
-
-useEffect(() => {
-  localStorage.setItem("workspaces", JSON.stringify(workspace));
-}, [workspace]);
 
 
       const filtered = useMemo(() => {
@@ -176,6 +175,8 @@ useEffect(() => {
 
     const options = ["Reading", "Finished", "Want to Read"];
     
+  if (!mounted) return null;
+
   return (
      <div className="min-h-screen" style={{ backgroundColor: "#F5F5F5" }}>
           <div className="relative z-9 bg-white border-white rounded-b-2xl shadow">
@@ -389,7 +390,7 @@ useEffect(() => {
                     justifyContent: 'center',
                   }}
                 >
-                  <PAPERdet paper = {paper} />
+                {mounted && <PAPERdet paper={paper} />}
                 </div>
                 </div>
 
@@ -405,11 +406,22 @@ useEffect(() => {
               <div className = "group">
                 <div style={{ height: '1.4px', backgroundColor: '#E0E0E0', width: '100%' }}> </div>
                  <div className='Hover'>
-                 <Card.Title 
-  
-                 onClick={() => titleClicked(paper)} style= {{fontWeight: 'bolder', fontSize: 16, marginTop : '0.5rem', marginBottom : '1rem', marginRight : '1rem', flexShrink: 0,
-                whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: '#111111' }}>{paper.title}
-                </Card.Title>
+               <Card.Title
+  onClick={() => titleClicked(paper)}
+  style={{
+    fontWeight: "bolder",
+    fontSize: "12px",
+    left: '4rem', 
+    margin: "0.5rem 0 1rem 0", 
+    width: "100%",             
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    color: "#111111",
+  }}
+>
+  {paper.title}
+</Card.Title>
 
               </div>
                 <Card.Text style= {{fontWeight: 'bolder', fontSize: 12, marginTop : '-1.0rem', color: '#555555'}}>
@@ -429,7 +441,6 @@ useEffect(() => {
 
     </div>
 ))}
-
     <div
       style={{
         display: "flex", 
@@ -766,6 +777,7 @@ useEffect(() => {
                         fontSize: 16,
                         marginTop: "0.5rem",
                         marginBottom: "1rem",
+                        marginLeft: "0.2rem", 
                         marginRight: "1rem",
                         flexShrink: 0,
                         whiteSpace: "nowrap",
@@ -809,4 +821,3 @@ useEffect(() => {
 
 
 export default SavedComp;
-
