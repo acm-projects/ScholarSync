@@ -2,6 +2,7 @@
   {
     "email": "herve@utdallas.edu",
     "full_name": "Hervé Abdi",
+    "match_percentage": "100",
     "titles": [
       "Professor - Department of Psychology"
     ],
@@ -393,8 +394,7 @@
         "pdf": ""
       }
     ],
-    "tags": {
-      "green": [
+    "tags": [
         "Bioinformatics",
         "Biology",
         "Clinical",
@@ -413,9 +413,7 @@
         "Psychology of Learning",
         "Qualitative",
         "Quantitative",
-        "Statistics"
-      ],
-      "yellow": [
+        "Statistics",
         "AI",
         "AI Safety Research",
         "Archival Research",
@@ -445,13 +443,12 @@
         "Statistical Modeling",
         "Technical Writing",
         "Writing"
-      ],
-      "red": []
-    }
+      ]
   },
   {
     "email": "Nimali.Abeykoon@utdallas.edu",
     "full_name": "Nimali Abeykoon",
+    "match_percentage": "11",
     "titles": [
       "Assistant Professor of Instruction - Chemistry"
     ],
@@ -483,26 +480,21 @@
         "pdf": "https://pubs.rsc.org/en/content/articlelanding/2015/ra/c4ra16594b#!divAbstract"
       }
     ],
-    "tags": {
-      "green": [
+    "tags": [
         "Chemistry",
         "Experimental",
         "Materials Science",
-        "Nanotechnology"
-      ],
-      "yellow": [
-        "Experimental Economics"
-      ],
-      "red": [
+        "Nanotechnology",
+        "Experimental Economics",
         "Biotechnology",
         "Lab Techniques",
         "Statistics"
       ]
-    }
   },
   {
     "email": "robert.ackerman@utdallas.edu",
     "full_name": "Robert Ackerman",
+    "match_percentage": "78",
     "titles": [
       "Associate Professor - Department of Psychology",
       "Program Head, Psychology MS"
@@ -557,20 +549,15 @@
         "pdf": ""
       }
     ],
-    "tags": {
-      "green": [
+    "tags": [
         "Cross-Sectional",
         "Longitudinal",
         "Psychology",
-        "Quantitative"
-      ],
-      "yellow": [
+        "Quantitative",
         "Longitudinal Study",
         "Project Management",
         "Technical Writing",
-        "Writing"
-      ],
-      "red": [
+        "Writing",
         "Cognitive Science",
         "Data Analysis",
         "Linguistics",
@@ -578,52 +565,45 @@
         "Psychology of Learning",
         "Statistics"
       ]
-    }
   },
   {
     "email": "AnaniKomla.Adabrah@utdallas.edu",
     "full_name": "Anani Komla Adabrah",
+    "match_percentage": "0",
     "titles": [
       "Assistant Professor of Instruction - Mathematical Sciences"
     ],
     "phone_number": "972-883-3959",
     "office_room": "FN 3.118B",
-    "tags": {
-      "green": [],
-      "yellow": [],
-      "red": []
-    }
+    "tags": []
   },
   {
     "email": "Stephanie.Adams@UTDallas.edu",
     "full_name": "Stephanie Adams",
+    "match_percentage": "67",
     "titles": [
       "Lars Magnus Ericsson Chair",
       "Dean – Erik Jonsson School of Engineering and Computer Science"
     ],
     "phone_number": "+1 (972) 883-2974",
     "office_room": "ECW 4.110G",
-    "tags": {
-      "green": [
+    "tags": [
         "Electrical Engineering",
         "Signal Processing",
-        "NLP"
-      ],
-      "yellow": [
+        "NLP",
         "Coding",
         "Computer Science",
         "Pilot Studies",
         "Presentation",
         "Statistical Modeling",
         "Technical Writing",
-        "Theoretical"
-      ],
-      "red": ["Python"]
-    }
+        "Theoretical",
+        "Python"]
   },
   {
     "email": "addou@utdallas.edu",
     "full_name": "Rafik Addou",
+    "match_percentage": "44",
     "titles": [
       "Assistant Professor - Material Science Engineering"
     ],
@@ -951,31 +931,26 @@
         "pdf": "https://www.scopus.com/record/display.uri?origin=resultslist&eid=2-s2.0-69549107398"
       }
     ],
-    "tags": {
-      "green": [
+    "tags": [
         "Chemistry",
         "Electrical Engineering",
         "Experimental",
         "Lab Techniques",
-        "Materials Science"
-      ],
-      "yellow": [
+        "Materials Science",
         "Experimental Economics",
         "Nanotechnology",
         "Presentation",
-        "Technical Writing"
-      ],
-      "red": [
+        "Technical Writing",
         "Biotechnology",
         "Data Analysis",
         "Simulation",
         "Statistics"
       ]
-    }
   },
   {
     "email": "Rosemary.Admiral@utdallas.edu",
     "full_name": "Rosemary Admiral",
+    "match_percentage": "11",
     "titles": [
       "Assistant Professor"
     ],
@@ -991,58 +966,45 @@
         "pdf": "https://press.syr.edu/supressbooks/8442/living-law/"
       }
     ],
-    "tags": {
-      "green": [
+    "tags": [
         "Computer Science",
-        "History"
-      ],
-      "yellow": [
-        "Law"
-      ],
-      "red": [
+        "History",
+        "Law",
         "Archival Research",
         "Content Analysis",
         "Qualitative",
         "Technical Writing",
         "Writing"
       ]
-    }
   },
   {
     "email": "KAhadi@utdallas.edu",
     "full_name": "Khatereh Ahadi",
+    "match_percentage": "0",
     "titles": [
       "Assoc. Prof. of Instruction - Management"
     ],
     "phone_number": "+1 (972) 883-6719",
-    "tags": {
-      "green": [],
-      "yellow": [],
-      "red": []
-    }
+    "tags": []
   },
   {
     "email": "Maryam.Ahmadi@UTDallas.edu",
     "full_name": "Maryam Ahmadi",
+    "match_percentage": "0",
     "titles": [
       "Assist. Prof. of Instruction - Economic Political and Policy"
     ],
     "phone_number": "+1 (972) 883-6866",
     "office_room": "GR 3.812",
-    "tags": {
-      "green": [
-        "Economics"
-      ],
-      "yellow": [
+    "tags": [
+        "Economics",
         "Policy-Oriented",
-        "Political Science"
-      ],
-      "red": []
-    }
+        "Political Science"]
   },
   {
     "email": "jungmo.ahn@utdallas.edu",
     "full_name": "Jung-Mo Ahn",
+    "match_percentage": "78",
     "titles": [
       "Associate Professor - Chemistry and Biochemistry"
     ],
@@ -1296,16 +1258,13 @@
         "pdf": ""
       }
     ],
-    "tags": {
-      "green": [
+    "tags": [
         "Biology",
         "Biotechnology",
         "Chemistry",
         "Experimental",
         "Lab Techniques",
-        "Statistics"
-      ],
-      "yellow": [
+        "Statistics",
         "Data Analysis",
         "Experimental Economics",
         "Genomics",
@@ -1313,27 +1272,22 @@
         "Presentation",
         "Quantitative",
         "Statistical Modeling",
-        "Technical Writing"
-      ],
-      "red": [
+        "Technical Writing",
         "Materials Science",
         "Nanotechnology"
       ]
-    }
   },
   {
     "email": "mkahsan@utdallas.edu",
     "full_name": "Mohammad Ahsan",
+    "match_percentage": "0",
     "titles": [
       "Associate Professor of Instruction and Assistant Head - Mathematical Sciences"
     ],
     "phone_number": "972-883-6336",
     "office_room": "FO 2.410F",
-    "tags": {
-      "green": [],
-      "yellow": [],
-      "red": []
-    }
+    "tags": []
+  
   },
   {
     "email": "akbar@utdallas.edu",
@@ -1343,21 +1297,17 @@
     ],
     "phone_number": "972-883-6453",
     "office_room": "FO 2.602B",
-    "tags": {
-      "green": [
-        "Clinical"
-      ],
-      "yellow": [
+    "tags": [
+        "Clinical",
         "Clinical Practice",
         "Clinical Research Skills",
-        "Clinical Trial"
-      ],
-      "red": []
-    }
+        "Clinical Trial"]
+    
   },
   {
     "email": "bilal.akin@utdallas.edu",
     "full_name": "Bilal Akin",
+    "match_percentage": "67",
     "titles": [
       "Professor - Electrical Engineering"
     ],
@@ -1601,14 +1551,11 @@
         "pdf": ""
       }
     ],
-    "tags": {
-      "green": [
+    "tags": [
         "Computational",
         "Electrical Engineering",
         "Experimental",
-        "Signal Processing"
-      ],
-      "yellow": [
+        "Signal Processing",
         "Applied",
         "Clinical Research Skills",
         "Cognitive Science",
@@ -1624,13 +1571,13 @@
         "Statistical Modeling",
         "Statistics",
         "Technical Writing"
-      ],
-      "red": []
-    }
+      ]
+    
   },
   {
     "email": "aldhahir@utdallas.edu",
     "full_name": "Naofal Al-Dhahir",
+    "match_percentage": "67",
     "titles": [
       "Professor - Electrical Engineering",
       "Jonsson School Distinguished Professor"
@@ -1874,43 +1821,37 @@
         "pdf": ""
       }
     ],
-    "tags": {
-      "green": [
+    "tags":  [
         "Electrical Engineering",
         "Signal Processing",
-        "NLP"
-      ],
-      "yellow": [
+        "NLP",
         "Coding",
         "Computer Science",
         "Pilot Studies",
         "Presentation",
         "Statistical Modeling",
         "Technical Writing",
-        "Theoretical"
-      ],
-      "red": ["Python"]
-    }
+        "Theoretical",
+        "Python"]
+    
   },
   {
     "email": "Sridhar@utdallas.edu",
     "full_name": "Sridhar Alagar",
+    "match_percentage": "0",
     "titles": [
       "Associate Professor of Instruction - Computer Science"
     ],
     "phone_number": "+1 (972) 883-4161",
     "office_room": "ECS 3.210",
-    "tags": {
-      "green": [
+    "tags": [
         "Computer Science"
-      ],
-      "yellow": [],
-      "red": []
-    }
+      ]
   },
   {
     "email": "salborz@utdallas.edu",
     "full_name": "Shawn Alborz, PhD",
+    "match_percentage": "67",
     "titles": [
       "Professor of Instruction- Management"
     ],
@@ -1927,23 +1868,18 @@
         "pdf": ""
       }
     ],
-    "tags": {
-      "green": [
+    "tags": [
         "Electrical Engineering",
         "Signal Processing",
-        "NLP"
-      ],
-      "yellow": [
+        "NLP",
         "Coding",
         "Computer Science",
         "Pilot Studies",
         "Presentation",
         "Statistical Modeling",
         "Technical Writing",
-        "Theoretical"
-      ],
-      "red": ["Python"]
-    }
+        "Theoretical",
+        "Python"]
   },
   {
     "email": "michelle.aldridge@utdallas.edu",
@@ -2009,17 +1945,12 @@
         "pdf": ""
       }
     ],
-    "tags": {
-      "green": [
+    "tags": [
         "Linguistics",
-        "Psychology"
-      ],
-      "yellow": [
+        "Psychology",
         "Music Technology",
         "Presentation",
-        "Project Management"
-      ],
-      "red": [
+        "Project Management",
         "Cognitive Science",
         "Data Analysis",
         "Neuroscience",
@@ -2027,7 +1958,6 @@
         "Quantitative",
         "Statistics"
       ]
-    }
   },
   {
     "email": "rawan@utdallas.edu",
@@ -2084,27 +2014,23 @@
         "pdf": ""
       }
     ],
-    "tags": {
-      "green": [
+    "tags": [
         "Electrical Engineering",
         "Signal Processing",
-        "NLP"
-      ],
-      "yellow": [
+        "NLP",
         "Coding",
         "Computer Science",
         "Pilot Studies",
         "Presentation",
         "Statistical Modeling",
         "Technical Writing",
-        "Theoretical"
-      ],
-      "red": ["Python"]
-    }
+        "Theoretical",
+        "Python"]
   },
   {
     "email": "ashiq.ali@utdallas.edu",
     "full_name": "Ashiq Ali",
+    "match_percentage": "22",
     "titles": [
       "Charles and Nancy Davidson Chair in Accounting",
       "Endowed Professorship - Management"
@@ -2221,36 +2147,29 @@
         "pdf": ""
       }
     ],
-    "tags": {
-      "green": [
-        "Economics"
-      ],
-      "yellow": [
+    "tags": [
+        "Economics",
         "Business",
         "Finance",
         "Grant Writing",
         "Mechanical Engineering",
         "Technical Writing"
-      ],
-      "red": []
-    }
+      ]
   },
   {
     "email": "tma051000@utdallas.edu",
     "full_name": "Tariq Ali",
+    "match_percentage": "0",
     "titles": [
       "Senior Lecturer I - Bioengineering"
     ],
     "phone_number": "972-883-6841",
-    "tags": {
-      "green": [],
-      "yellow": [],
-      "red": []
-    }
+    "tags": []
   },
   {
     "email": "AliAsgar.Alibhai@UTDallas.edu",
     "full_name": "Ali Asgar Alibhai",
+    "match_percentage": "67",
     "titles": [
       "Assistant Professor — Art History"
     ],
@@ -2290,27 +2209,23 @@
         "pdf": "http://doi.org/10.1353/cor.2008.0011"
       }
     ],
-    "tags": {
-      "green": [
+    "tags": [
         "Electrical Engineering",
         "Signal Processing",
-        "NLP"
-      ],
-      "yellow": [
+        "NLP",
         "Coding",
         "Computer Science",
         "Pilot Studies",
         "Presentation",
         "Statistical Modeling",
         "Technical Writing",
-        "Theoretical"
-      ],
-      "red": ["Python"]
-    }
+        "Theoretical",
+        "Python" ]
   },
   {
     "email": "Ali.Aliev@utdallas.edu",
     "full_name": "Ali Aliev",
+    "match_percentage": "44",
     "titles": [
       "Research Professor - Nanotech Institute"
     ],
@@ -2970,33 +2885,28 @@
         "pdf": "https://www.scopus.com/record/display.uri?origin=resultslist&eid=2-s2.0-0024048502"
       }
     ],
-    "tags": {
-      "green": [
+    "tags": [
         "Chemistry",
         "Electrical Engineering",
         "Experimental",
         "Lab Techniques",
         "Materials Science",
         "Nanotechnology",
-        "Physics"
-      ],
-      "yellow": [
+        "Physics",
         "Applied",
         "Biotechnology",
         "Experimental Economics",
         "Presentation",
         "Public Speaking",
-        "Technical Writing"
-      ],
-      "red": [
+        "Technical Writing",
         "Data Analysis",
         "Simulation"
       ]
-    }
   },
   {
     "email": "Diego.AlinsBreda@UTDallas.edu",
     "full_name": "Diego Alins Breda",
+    "match_percentage": "0",
     "titles": [
       "Assistant Professor of Instruction"
     ],
@@ -3024,22 +2934,18 @@
         "pdf": ""
       }
     ],
-    "tags": {
-      "green": [
+    "tags":  [
         "Education",
-        "Linguistics"
-      ],
-      "yellow": [
+        "Linguistics",
         "Experimental",
         "Experimental Economics",
-        "Psychology of Learning"
-      ],
-      "red": []
-    }
+        "Psychology of Learning"]
+    
   },
   {
     "email": "Iris.Alvarado@UTDallas.edu",
     "full_name": "Iris Alvarado",
+    "match_percentage": "0",
     "titles": [
       "Associate Professor of Instruction - Mathematical Sciences"
     ],
@@ -3050,13 +2956,9 @@
       "MS,Mechanical Engineering,University of Texas Pan American,2012",
       "BS,Mechanical Engineering / Mathematics,University of Texas Pan American,2011"
     ],
-    "tags": {
-      "green": [],
-      "yellow": [
+    "tags": [
         "Math",
-        "Mechanical Engineering"
-      ],
-      "red": []
-    }
+        "Mechanical Engineering" ]
+    
   }
 ]

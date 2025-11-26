@@ -51,18 +51,31 @@ export default function OpportunitiesPage() {
       const EMPLOY = new Set(["full-time", "part-time", "on-site", "remote"]);
       out = out.filter((it) => {
         const buckets =
-          it.originalTags && typeof it.originalTags === "object" && !Array.isArray(it.originalTags)
+          it.originalTags &&
+          typeof it.originalTags === "object" &&
+          !Array.isArray(it.originalTags)
             ? it.originalTags
-            : it.tags && typeof it.tags === "object" && !Array.isArray(it.tags)
+            : it.tags &&
+              typeof it.tags === "object" &&
+              !Array.isArray(it.tags)
             ? it.tags
             : null;
         const allOrig = buckets
           ? [...(buckets.green || []), ...(buckets.yellow || []), ...(buckets.red || [])]
           : [];
+        const tagsArray = Array.isArray(it.tags) ? it.tags : [];
         if (EMPLOY.has(f)) {
-          return allOrig.map(String).map((s) => s.toLowerCase()).includes(f);
+          const src = [...allOrig, ...tagsArray];
+          return src
+            .map(String)
+            .map((s) => s.toLowerCase())
+            .includes(f);
         }
-        const tagArray = Array.isArray(it.tags) ? it.tags : Object.values(it.tags || {}).flat();
+        const tagArray =
+          tagsArray.length > 0
+            ? tagsArray
+            : Object.values(it.tags || {}).flat();
+
         const hay = [
           it.title,
           it.description,
@@ -87,7 +100,11 @@ export default function OpportunitiesPage() {
         <Navbar />
       </div>
 
-      <div className={`-mt-5 w-full bg-[#ffffff] border-b border-[#e5e7eb] shadow-sm pt-3 pb-2 ${open ? "blur-sm" : ""}`}>
+      <div
+        className={`-mt-5 w-full bg-[#ffffff] border-b border-[#e5e7eb] shadow-sm pt-3 pb-2 ${
+          open ? "blur-sm" : ""
+        }`}
+      >
         <div className="w-full px-6 pt-5 pb-4 flex items-center">
           <div className="flex items-center gap-6 overflow-x-auto flex-1 min-w-0">
             <ToggleTabs
@@ -105,7 +122,9 @@ export default function OpportunitiesPage() {
                 <button
                   key={p}
                   type="button"
-                  onClick={() => setActiveFilter((cur) => (cur === p ? "" : p))}
+                  onClick={() =>
+                    setActiveFilter((cur) => (cur === p ? "" : p))
+                  }
                   className={[
                     "whitespace-nowrap rounded-full border px-3 py-1 text-m transition font-medium focus-visible:outline-none",
                     activeFilter === p
@@ -151,15 +170,24 @@ export default function OpportunitiesPage() {
 
       <main className={`mx-auto px-20 mt-10 ${open ? "blur-sm" : ""}`}>
         <div className="grid gap-8 sm:grid-cols-2 items-stretch">
-          {toShow.map((item) => (
-            <OpportunityCard
-              key={item.id}
-              item={item}
-              showPct
-              useProvidedPct={tab === "all"}
-              onOpen={(it) => { setSelected(it); setOpen(true); }}
-            />
-          ))}
+          {toShow.map((item) => {
+            const tagsArray = Array.isArray(item.tags) ? item.tags : [];
+            const cardTags =
+              tagsArray.length > 0 ? { green: tagsArray } : item.tags;
+
+            return (
+              <OpportunityCard
+                key={item.id}
+                item={{ ...item, tags: cardTags }}
+                showPct
+                useProvidedPct={true}
+                onOpen={(it) => {
+                  setSelected(it);
+                  setOpen(true);
+                }}
+              />
+            );
+          })}
         </div>
 
         <div className="mt-10 flex justify-center">
@@ -181,13 +209,19 @@ export default function OpportunitiesPage() {
         <div className="fixed inset-0 z-50 flex items-start md:items-center justify-center">
           <div
             className="absolute inset-0 bg-black/50 backdrop-blur-[2px]"
-            onClick={() => { setOpen(false); setSelected(null); }}
+            onClick={() => {
+              setOpen(false);
+              setSelected(null);
+            }}
           />
           <div className="relative z-10 w-full max-w-6xl mx-4 my-6">
             <div className="rounded-2xl overflow-hidden">
               <FullPageCard
                 item={selected}
-                onClose={() => { setOpen(false); setSelected(null); }}
+                onClose={() => {
+                  setOpen(false);
+                  setSelected(null);
+                }}
               />
             </div>
           </div>

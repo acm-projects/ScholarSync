@@ -19,48 +19,19 @@ function shuffle(arr) {
   }
   return a;
 }
-//
-function computePctFromTags(tags) {
-  if (!tags || Array.isArray(tags)) return 0;
-
-  const green = Array.isArray(tags.green) ? tags.green.length : 0;
-  const yellow = Array.isArray(tags.yellow) ? tags.yellow.length : 0;
-  const red = Array.isArray(tags.red) ? tags.red.length : 0;
-
-  const W = { green: 33.3333, yellow: 22.2222, red: 11.1111 };
-
-  let remaining = 3;
-  let score = 0;
-
-  const takeGreen = Math.min(remaining, green);
-  score += takeGreen * W.green;
-  remaining -= takeGreen;
-
-  if (remaining > 0) {
-    const takeYellow = Math.min(remaining, yellow);
-    score += takeYellow * W.yellow;
-    remaining -= takeYellow;
-  }
-
-  if (remaining > 0) {
-    const takeRed = Math.min(remaining, red);
-    score += takeRed * W.red;
-    remaining -= takeRed;
-  }
-
-  return Math.min(100, Math.round(score));
-}
 
 export default function ProfessorsPage() {
   const [tab, setTab] = useState("recommended");
   const [query, setQuery] = useState("");
   const [visible, setVisible] = useState(6);
 
-  const dataset = useMemo(() => {
-    return tab === "recommended"
-      ? normalizeAllItems(profRecommended, userTags)
-      : normalizeAllItems(profAll, userTags);
-  }, [tab]);
+  const dataset = useMemo(
+    () =>
+      tab === "recommended"
+        ? normalizeAllItems(profRecommended, userTags)
+        : normalizeAllItems(profAll, userTags),
+    [tab]
+  );
 
   if (tab === "all" && profAll === null) {
     return <Loading />;
@@ -75,6 +46,7 @@ export default function ProfessorsPage() {
         const tagArray = Array.isArray(it.tags)
           ? it.tags
           : Object.values(it.tags || {}).flat();
+
         const hay = [
           it.name || it.full_name,
           it.field || it.department || it.subtitle,
@@ -89,10 +61,16 @@ export default function ProfessorsPage() {
     }
 
     if (tab === "recommended") {
-      out = out.filter((it) => computePctFromTags(it.tags) > 0);
-      return [...out].sort(
-        (a, b) => computePctFromTags(b.tags) - computePctFromTags(a.tags)
-      );
+      const getMatch = (it) => {
+        const raw = it?.match_percentage;
+        if (raw === undefined || raw === null || String(raw).trim() === "") return 0;
+        const n = parseFloat(String(raw));
+        if (Number.isNaN(n)) return 0;
+        return Math.max(0, Math.min(100, n));
+      };
+
+      out = out.filter((it) => getMatch(it) > 0);
+      return [...out].sort((a, b) => getMatch(b) - getMatch(a));
     }
 
     if (tab === "all") {
@@ -154,15 +132,15 @@ export default function ProfessorsPage() {
             const pid = String(item.id || item.email || item.full_name);
             const href = `/professorpage/fullcardpage?id=${encodeURIComponent(pid)}`;
 
-            const cardItem =
-              tab === "all"
-                ? item
-                : { ...item, match_percentage: null };
+            const cardItem = item;
 
             return (
               <ProfessorCard
                 key={pid}
-                item={{ ...cardItem, photo: cardItem.photo || emailToPhotoPath(cardItem.email) }}
+                item={{
+                  ...cardItem,
+                  photo: cardItem.photo || emailToPhotoPath(cardItem.email),
+                }}
                 showPct={true}
                 userTags={userTags}
                 href={href}
