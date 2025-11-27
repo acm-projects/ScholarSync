@@ -25,53 +25,98 @@ const handleDragStart = (e, paperId) => {
 };
 
 const SavedComp = () => {
-    const [query, setQuery] = useState("");
-      const [visible, setVisible] = useState(9);
-      const [selectedYear, setSelectedYear] = useState("");
-      const [openDropdowns, setOpenDropdowns] = useState({}); 
-      const [savedPaper, setSavedPaper] = useState([]);
-      const [workspace, setWorkspace] = useState({});
-      const [mounted, setMounted] = useState(false);
+  const [query, setQuery] = useState("");
+  const [visible, setVisible] = useState(9);
+  const [selectedYear, setSelectedYear] = useState("");
+  const [openDropdowns, setOpenDropdowns] = useState({});
+  const [savedPaper, setSavedPaper] = useState([]);
+  const [workspace, setWorkspace] = useState({});
+  const [mounted, setMounted] = useState(false);
+  const [status, setStatus] = useState({});
+  const [mode, setMode] = useState("tag");
 
-    const [status, setStatus] = useState({});
-    const [mode, setMode] = useState("tag");
-    const router = useRouter();
+  const router = useRouter();
 
-     useEffect(() => {
-      setMounted(true);
-      
-      const savedBookmarks = localStorage.getItem("bookmarkedStuff");
-      if (savedBookmarks) {
-        setSavedPaper(JSON.parse(savedBookmarks));
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Fetch saved papers from backend
+  useEffect(() => {
+    const fetchSaved = async () => {
+      const username = localStorage.getItem("username");
+      if (!username) return;
+
+      try {
+        const res = await fetch(`/api/save-paper?username=${username}`);
+        const data = await res.json();
+
+        if (!res.ok) throw new Error(data.error || "Fetch failed");
+
+        setSavedPaper(data);
+      } catch (error) {
+        console.error("Error loading saved papers:", error);
       }
+    };
 
-      const savedStatus = localStorage.getItem("readStatus");
-      if (savedStatus) {
-        setStatus(JSON.parse(savedStatus));
-      }
+    fetchSaved();
+  }, []);
 
-      const savedWorkspaces = localStorage.getItem("workspaces");
-      if (savedWorkspaces) {
-        setWorkspace(JSON.parse(savedWorkspaces));
-      }
-    }, []);
-
-    useEffect(() => {
-      if (mounted) {
-        localStorage.setItem("readStatus", JSON.stringify(status));
-      }
-    }, [status, mounted]);
-
-    useEffect(() => {
-      if (mounted) {
-        localStorage.setItem("workspaces", JSON.stringify(workspace));
-      }
-    }, [workspace, mounted]);
-
-    function titleClicked(paper) {
-      router.push(`/papers/${paper.id}`);
+  // Load read status from localStorage
+  useEffect(() => {
+    if (!mounted) return;
+    const savedStatus = localStorage.getItem("readStatus");
+    if (savedStatus) {
+      setStatus(JSON.parse(savedStatus));
     }
+  }, [mounted]);
 
+  // Load workspace data from localStorage
+  useEffect(() => {
+    if (!mounted) return;
+    const savedWorkspaces = localStorage.getItem("workspaces");
+    if (savedWorkspaces) {
+      setWorkspace(JSON.parse(savedWorkspaces));
+    }
+  }, [mounted]);
+
+  // Save read status when changed
+  useEffect(() => {
+    if (!mounted) return;
+
+    localStorage.setItem("readStatus", JSON.stringify(status));
+
+    const syncStatus = async () => {
+      const username = localStorage.getItem("username");
+      if (!username) return;
+
+        for (const paperID in status) {
+          await fetch("/api/update-status", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              username,
+              paperID,
+              status: status[paperID]
+            }),
+          });
+        }
+    };
+
+    syncStatus();
+  }, [status, mounted]);
+
+
+  // Save workspace when changed
+  useEffect(() => {
+    if (mounted) {
+      localStorage.setItem("workspaces", JSON.stringify(workspace));
+    }
+  }, [workspace, mounted]);
+
+  function titleClicked(paper) {
+    router.push(`/papers/${paper.paperID}`);
+  }
 
 function handleDrop(e,groupName){
   e.preventDefault();
@@ -86,14 +131,10 @@ function handleDrop(e,groupName){
         papers: [...group.papers, paperId],
       },
     };
-
     }
     return prev;
-
-   
   });
     }
-
 
 function handleFreshDrop(e) {
   e.preventDefault();
@@ -114,7 +155,6 @@ function handleFreshDrop(e) {
     };
   });
 }
-
 
       const filtered = useMemo(() => {
         let out = savedPaper;
@@ -154,12 +194,15 @@ function handleFreshDrop(e) {
         }));
       }
       else if (mode === "status") {
-        const allStatuses = ["Reading", "Finished", "Want to Read"];
+        const allStatuses = ["Reading", "Finished", "Want to Read", "Unchanged"]; // add default group
         return allStatuses.map(statusName => ({
-            groupName: statusName,
-            papers: filtered.filter(p => status[p.id] === statusName)
+          groupName: statusName,
+          papers: filtered.filter(p => {
+            const paperStatus = status[p.paperID] || "Unchanged"; // default if not set
+            return paperStatus === statusName;
+          })
         })).filter(group => group.papers.length > 0);
-      }   
+      }
       
       else if (mode === "workspace"){
           if (Object.keys(workspace).length === 0)
@@ -300,7 +343,7 @@ function handleFreshDrop(e) {
       {group.papers.map((paper) => {
 
         return (
-      <Card key = {paper.id} style={{
+      <Card key = {paper.paperID} style={{
                 width: '20rem',
                 position: "relative", 
                 height: '410px',
@@ -311,7 +354,7 @@ function handleFreshDrop(e) {
                 display: "flex",
                 flexDirection: 'column',
 
-              }} draggable onDragStart={(e) => handleDragStart(e, paper.id)}
+              }} draggable onDragStart={(e) => handleDragStart(e, paper.paperID)}
             >
                 <div className = "options" style = {{position: "relative", display: "flex",
                 alignItems: "center",
@@ -327,15 +370,15 @@ function handleFreshDrop(e) {
                ,}} onClick={() => 
     setOpenDropdowns(prev => ({
         ...prev,
-        [paper.id]: !prev[paper.id]
+        [paper.paperID]: !prev[paper.paperID]
     }))
 } onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#d6d3d3" )} onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#ebe7e7ff"  )}>
                 
                <Pencil1Icon style={{ color: "black",  width: "19px", height: "19px",}} />
                <span style = {{ color: "black", fontSize: 12}}>
-                {status[String(paper.id)] || "Status"}
+                {status[String(paper.paperID)] || "Status"}
                 </span>
-                {openDropdowns[paper.id] && (
+                {openDropdowns[paper.paperID] && (
     <div
       style={{
         position: "absolute",
@@ -356,18 +399,18 @@ function handleFreshDrop(e) {
             padding: "8px",
             cursor: "pointer",
             backgroundColor:
-              status[paper.id] === opt ? "#d6d3d3" : "white",
+              status[paper.paperID] === opt ? "#d6d3d3" : "white",
           }}
        onClick={() => {
-          setStatus(prev => ({ ...prev, [String(paper.id)]: opt }));
-          setOpenDropdowns(prev => ({ ...prev, [paper.id]: false }));
+          setStatus(prev => ({ ...prev, [String(paper.paperID)]: opt }));
+          setOpenDropdowns(prev => ({ ...prev, [paper.paperID]: false }));
         }}
           onMouseEnter={(e) => {
-            if (status[String(paper.id)] !== opt)
+            if (status[String(paper.paperID)] !== opt)
               e.currentTarget.style.backgroundColor = "#f0f0f0";
           }}
           onMouseLeave={(e) => {
-            if (status[paper.id] !== opt)
+            if (status[paper.paperID] !== opt)
               e.currentTarget.style.backgroundColor = "white";
           }}
         >
@@ -390,7 +433,7 @@ function handleFreshDrop(e) {
                     justifyContent: 'center',
                   }}
                 >
-                {mounted && <PAPERdet paper={paper} />}
+                <PAPERdet paper={paper} />
                 </div>
                 </div>
 
@@ -454,9 +497,9 @@ function handleFreshDrop(e) {
 
       {savedPaper.map((paper) => (
         <Card
-          key={paper.id}
+          key={paper.paperID}
           draggable
-          onDragStart={(e) => handleDragStart(e, paper.id)}
+          onDragStart={(e) => handleDragStart(e, paper.paperID)}
           style={{
             width: "20rem",
             backgroundColor: "#FFFFFF",
@@ -481,15 +524,15 @@ function handleFreshDrop(e) {
                ,}} onClick={() => 
     setOpenDropdowns(prev => ({
         ...prev,
-        [paper.id]: !prev[paper.id]
+        [paper.paperID]: !prev[paper.paperID]
     }))
 } onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#d6d3d3" )} onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#ebe7e7ff"  )}>
                 
                <Pencil1Icon style={{ color: "black",  width: "19px", height: "19px",}} />
                <span style = {{ color: "black", fontSize: 12}}>
-                {status[String(paper.id)] || "Status"}
+                {status[String(paper.paperID)] || "Status"}
                 </span>
-                {openDropdowns[paper.id] && (
+                {openDropdowns[paper.paperID] && (
     <div
       style={{
         position: "absolute",
@@ -510,18 +553,18 @@ function handleFreshDrop(e) {
             padding: "8px",
             cursor: "pointer",
             backgroundColor:
-              status[paper.id] === opt ? "#d6d3d3" : "white",
+              status[paper.paperID] === opt ? "#d6d3d3" : "white",
           }}
        onClick={() => {
-          setStatus(prev => ({ ...prev, [String(paper.id)]: opt }));
-          setOpenDropdowns(prev => ({ ...prev, [paper.id]: false }));
+          setStatus(prev => ({ ...prev, [String(paper.paperID)]: opt }));
+          setOpenDropdowns(prev => ({ ...prev, [paper.paperID]: false }));
         }}
           onMouseEnter={(e) => {
-            if (status[String(paper.id)] !== opt)
+            if (status[String(paper.paperID)] !== opt)
               e.currentTarget.style.backgroundColor = "#f0f0f0";
           }}
           onMouseLeave={(e) => {
-            if (status[paper.id] !== opt)
+            if (status[paper.paperID] !== opt)
               e.currentTarget.style.backgroundColor = "white";
           }}
         >
@@ -629,7 +672,7 @@ function handleFreshDrop(e) {
         >
           {group.papers.map((paper) => (
             <Card
-              key={paper.id}
+              key={paper.paperID}
               style={{
                 width: "20rem",
                 position: "relative",
@@ -641,7 +684,7 @@ function handleFreshDrop(e) {
                 flexDirection: "column",
               }}
               draggable
-              onDragStart={(e) => handleDragStart(e, paper.id)}
+              onDragStart={(e) => handleDragStart(e, paper.paperID)}
             >
               <div
                 className="options"
@@ -662,7 +705,7 @@ function handleFreshDrop(e) {
                 onClick={() =>
                   setOpenDropdowns((prev) => ({
                     ...prev,
-                    [paper.id]: !prev[paper.id],
+                    [paper.paperID]: !prev[paper.paperID],
                   }))
                 }
                 onMouseEnter={(e) =>
@@ -676,10 +719,10 @@ function handleFreshDrop(e) {
                   style={{ color: "black", width: "19px", height: "19px" }}
                 />
                 <span style={{ color: "black", fontSize: 12 }}>
-                  {status[String(paper.id)] || "Status"}
+                  {status[String(paper.paperID)] || "Status"}
                 </span>
 
-                {openDropdowns[paper.id] && (
+                {openDropdowns[paper.paperID] && (
                   <div
                     style={{
                       position: "absolute",
@@ -700,24 +743,24 @@ function handleFreshDrop(e) {
                           padding: "8px",
                           cursor: "pointer",
                           backgroundColor:
-                            status[paper.id] === opt ? "#d6d3d3" : "white",
+                            status[paper.paperID] === opt ? "#d6d3d3" : "white",
                         }}
                         onClick={() => {
                           setStatus((prev) => ({
                             ...prev,
-                            [String(paper.id)]: opt,
+                            [String(paper.paperID)]: opt,
                           }));
                           setOpenDropdowns((prev) => ({
                             ...prev,
-                            [paper.id]: false,
+                            [paper.paperID]: false,
                           }));
                         }}
                         onMouseEnter={(e) => {
-                          if (status[String(paper.id)] !== opt)
+                          if (status[String(paper.paperID)] !== opt)
                             e.currentTarget.style.backgroundColor = "#f0f0f0";
                         }}
                         onMouseLeave={(e) => {
-                          if (status[paper.id] !== opt)
+                          if (status[paper.paperID] !== opt)
                             e.currentTarget.style.backgroundColor = "white";
                         }}
                       >

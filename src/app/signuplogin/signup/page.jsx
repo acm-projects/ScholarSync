@@ -9,7 +9,6 @@ const Signup = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [username, setusername] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handle = async (e) => {

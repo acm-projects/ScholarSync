@@ -1,5 +1,7 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/homeresearchpage/page": "app/homeresearchpage/page.js",
-  "/signuplogin/login/page": "app/signuplogin/login/page.js"
+  "/LibrarySt/page": "app/LibrarySt/page.js",
+  "/api/paper/route": "app/api/paper/route.js",
+  "/api/save-paper/route": "app/api/save-paper/route.js",
+  "/api/update-status/route": "app/api/update-status/route.js",
+  "/discovery/page": "app/discovery/page.js"
 }
