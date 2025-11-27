@@ -10,6 +10,8 @@ import Navbar from "@/components/navbar";
 import Dropdown from 'react-bootstrap/Dropdown';
 import PAPERdet from "@/components/paperDetail";
 import { Pencil1Icon } from "@radix-ui/react-icons";
+import '@/app/papers/[id]/markdown.css';
+
 function normalize(str){
   // just in case the have accents in their name ? right I thoink it will be easier
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
@@ -29,13 +31,47 @@ const SavedComp = () => {
       const [openDropdowns, setOpenDropdowns] = useState({}); 
       const [savedPaper, setSavedPaper] = useState([]);
       const [workspace, setWorkspace] = useState({});
-    const [status, setStatus] = useState(() => {
-  if (typeof window !== "undefined") {
-    const saved = localStorage.getItem("readStatus");
-    return saved ? JSON.parse(saved) : {};
-  }
-  return {};
-});
+      const [mounted, setMounted] = useState(false);
+
+    const [status, setStatus] = useState({});
+    const [mode, setMode] = useState("tag");
+    const router = useRouter();
+
+     useEffect(() => {
+      setMounted(true);
+      
+      const savedBookmarks = localStorage.getItem("bookmarkedStuff");
+      if (savedBookmarks) {
+        setSavedPaper(JSON.parse(savedBookmarks));
+      }
+
+      const savedStatus = localStorage.getItem("readStatus");
+      if (savedStatus) {
+        setStatus(JSON.parse(savedStatus));
+      }
+
+      const savedWorkspaces = localStorage.getItem("workspaces");
+      if (savedWorkspaces) {
+        setWorkspace(JSON.parse(savedWorkspaces));
+      }
+    }, []);
+
+    useEffect(() => {
+      if (mounted) {
+        localStorage.setItem("readStatus", JSON.stringify(status));
+      }
+    }, [status, mounted]);
+
+    useEffect(() => {
+      if (mounted) {
+        localStorage.setItem("workspaces", JSON.stringify(workspace));
+      }
+    }, [workspace, mounted]);
+
+    function titleClicked(paper) {
+      router.push(`/papers/${paper.id}`);
+    }
+
 
 function handleDrop(e,groupName){
   e.preventDefault();
@@ -79,43 +115,6 @@ function handleFreshDrop(e) {
   });
 }
 
-const [mode, setMode] = useState("tag");
-
-    const router = useRouter();
-    function titleClicked(paper) {
-    router.push(`/papers/${paper.id}`);
-    }
-
-    useEffect(() => {
-
-      localStorage.setItem("readStatus", JSON.stringify(status));
-
-    }, [status]);
-
-
-    useEffect(() => {
-        const saved = localStorage.getItem("bookmarkedStuff");
-        if (saved){
-            const parsed = JSON.parse(saved);
-            setSavedPaper(parsed);
-        }
-
-        const stoStatus = localStorage.getItem("readStatus");
-        if(stoStatus){
-            setStatus(JSON.parse(stoStatus));
-        }
-    }, []);
-
-
-  useEffect(() => {
-  const saved = localStorage.getItem("workspaces");
-  if (saved) setWorkspace(JSON.parse(saved));
-}, []);
-
-useEffect(() => {
-  localStorage.setItem("workspaces", JSON.stringify(workspace));
-}, [workspace]);
-
 
       const filtered = useMemo(() => {
         let out = savedPaper;
@@ -154,7 +153,7 @@ useEffect(() => {
           papers: filtered.filter(p => p.tags?.[0] === tag)
         }));
       }
-      else if (mode === "status") {
+      if (mode === "status") {
         const allStatuses = ["Reading", "Finished", "Want to Read"];
         return allStatuses.map(statusName => ({
             groupName: statusName,
@@ -162,7 +161,7 @@ useEffect(() => {
         })).filter(group => group.papers.length > 0);
       }   
       
-      else if (mode === "workspace"){
+      if (mode === "workspace"){
           if (Object.keys(workspace).length === 0)
             return [];
           return Object.entries(workspace).reverse().map(([name, data]) => ({
@@ -176,6 +175,8 @@ useEffect(() => {
 
     const options = ["Reading", "Finished", "Want to Read"];
     
+  if (!mounted) return null;
+
   return (
      <div className="min-h-screen" style={{ backgroundColor: "#F5F5F5" }}>
           <div className="relative z-9 bg-white border-white rounded-b-2xl shadow">
@@ -224,8 +225,6 @@ useEffect(() => {
       </div>
     </div>
 
-
-
     <div className = "Main">
     
     {savedPaper.length === 0 ? (
@@ -262,7 +261,7 @@ useEffect(() => {
     </div>
       <hr style={{ margin: "2rem 3.5rem", borderColor: "#ccc" }} />
 
-           {paperSets.map((group) =>(
+          {mode === "workspace" &&paperSets.map((group) =>(
 
           <div key = {group.groupName} onDrop = {(e) => handleDrop(e,group.groupName)} onDragOver={allowDrop} className="Wbox">
 
@@ -272,18 +271,17 @@ useEffect(() => {
         marginLeft: '3.5rem',
         marginBottom: '0.5rem',
         display: 'inline-block',
-        width: '25%',
+        width: '25%', 
         fontSize: 19, 
         textAlign: 'left',
         fontWeight: '600',
       }}
     >
-      {group.groupName}
-
+      {group.groupName} 
       </h3>
             
           
-        <div className="card-grid" style={{display:'flex', flexDirection: 'column',paddingBottom: '0.5rem' ,position: "relative",}}>
+        <div className="card-grid" style={{display:'flex', flexDirection: 'column' ,position: "relative",}}>
       
             <div className="cards" style={{     
                     display: "flex",
@@ -291,7 +289,7 @@ useEffect(() => {
                     overflowX: 'auto',
                     gap: '0.5rem',
                     padding: "1rem 3.5rem",
-                    marginBottom: '1.0rem',
+                    marginBottom: '0.5rem',
                     width: '100%',
                 }}>
 
@@ -302,7 +300,7 @@ useEffect(() => {
       <Card key = {paper.id} style={{
                 width: '20rem',
                 position: "relative", 
-                height: '410px',
+                height: '400px',
                 backgroundColor: '#FFFFFF'
               ,
                 marginBottom: '5.5rem',
@@ -314,7 +312,7 @@ useEffect(() => {
             >
                 <div className = "options" style = {{position: "relative", display: "flex",
                 alignItems: "center",
-                backgroundColor: "#ebe7e7ff"  ,
+                backgroundColor: "#dbdbdbff"  ,
                 borderRadius: "5px",
                 gap: "6px",
                 color: "black",
@@ -381,7 +379,7 @@ useEffect(() => {
                   <div
                   style={{
                     display: "flex",
-                    transform: 'scale(0.20)',
+                    zoom: 0.2,
                     transformOrigin: 'top left',
                     width: '1000px',
                     height: '1300px', 
@@ -389,7 +387,7 @@ useEffect(() => {
                     justifyContent: 'center',
                   }}
                 >
-                  <PAPERdet paper = {paper} />
+                {mounted && <PAPERdet paper={paper} />}
                 </div>
                 </div>
 
@@ -399,23 +397,29 @@ useEffect(() => {
             display: 'flex',          
             flexDirection: 'column', 
             justifyContent: 'flex-start',
-            minHeight: '95px',      
+            minHeight: '90px',      
   }}
 >
               <div className = "group">
                 <div style={{ height: '1.4px', backgroundColor: '#E0E0E0', width: '100%' }}> </div>
                  <div className='Hover'>
-                 <Card.Title 
-  
-                 onClick={() => titleClicked(paper)} style= {{fontWeight: 'bolder', fontSize: 16, marginTop : '0.5rem', marginBottom : '1rem', marginRight : '1rem', flexShrink: 0,
-                whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: '#111111' }}>{paper.title}
-                </Card.Title>
-
+               <Card.Title
+  onClick={() => titleClicked(paper)}
+  style={{
+    fontWeight: "bolder",
+    fontSize: "15px",
+    left: '4rem', 
+    margin: "0.5rem 0 1rem 0", 
+    width: "100%",             
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    color: "#111111",
+  }}
+>
+  {paper.title}
+</Card.Title>
               </div>
-                <Card.Text style= {{fontWeight: 'bolder', fontSize: 12, marginTop : '-1.0rem', color: '#555555'}}>
-                    Authors: {paper.author}
-                </Card.Text>
-
               </div>
                   </Card.Body>
             </Card>
@@ -430,144 +434,196 @@ useEffect(() => {
     </div>
 ))}
 
-    <div
+<h3 style={{
+  color: "#000000ff",
+  marginLeft: "3.5rem",
+  marginTop: "2rem",
+  marginBottom: "1.5rem",
+  fontSize: 19,
+  fontWeight: "600",
+}}>
+  All Papers
+</h3>
+
+<div style={{
+  display: "flex", 
+  flexWrap: "wrap",
+  gap: "1rem",
+  padding: "1rem 3.5rem",
+  justifyContent: "flex-start",
+}}>
+  {savedPaper.map((paper) => (
+    <Card
+      key={paper.id}
+      draggable
+      onDragStart={(e) => handleDragStart(e, paper.id)}
       style={{
-        display: "flex", 
-        flexWrap: "wrap",
-        gap: "1rem",
-        padding: "2rem 3.5rem",
-        justifyContent: "flex-start",
+        width: "20rem",
+        height: "400px",
+        backgroundColor: "#FFFFFF",
+        padding: "1rem",
+        cursor: "grab",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
-    
-
-      {savedPaper.map((paper) => (
-        <Card
-          key={paper.id}
-          draggable
-          onDragStart={(e) => handleDragStart(e, paper.id)}
-          style={{
-            width: "20rem",
-            backgroundColor: "#FFFFFF",
-            padding: "1rem",
-            borderRadius: "8px",
-            cursor: "grab",
-            boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-          }}
-        >
-
-           <div className = "options" style = {{position: "relative", display: "flex",
-                alignItems: "center",
-                backgroundColor: "#ebe7e7ff"  ,
-                borderRadius: "5px",
-                gap: "6px",
-                color: "black",
-                padding: "2px 12px",
-                fontSize: 10,
-                marginTop: "15px",
-                width: "fit-content",
-                marginLeft: "12rem"
-               ,}} onClick={() => 
-    setOpenDropdowns(prev => ({
-        ...prev,
-        [paper.id]: !prev[paper.id]
-    }))
-} onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#d6d3d3" )} onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#ebe7e7ff"  )}>
-                
-               <Pencil1Icon style={{ color: "black",  width: "19px", height: "19px",}} />
-               <span style = {{ color: "black", fontSize: 12}}>
-                {status[String(paper.id)] || "Status"}
-                </span>
-                {openDropdowns[paper.id] && (
-    <div
-      style={{
-        position: "absolute",
-        top: "100%",
-        left: 10,
-        backgroundColor: "white",
-        border: "1px solid #ccc",
-        borderRadius: "5px",
-        marginTop: "4px",
-        width: "90%",
-        zIndex: 1000,
-      }}
-    >
-      {options.map((opt) => (
         <div
-          key={opt}
-          style={{
-            padding: "8px",
-            cursor: "pointer",
-            backgroundColor:
-              status[paper.id] === opt ? "#d6d3d3" : "white",
-          }}
-       onClick={() => {
-          setStatus(prev => ({ ...prev, [String(paper.id)]: opt }));
-          setOpenDropdowns(prev => ({ ...prev, [paper.id]: false }));
-        }}
-          onMouseEnter={(e) => {
-            if (status[String(paper.id)] !== opt)
-              e.currentTarget.style.backgroundColor = "#f0f0f0";
-          }}
-          onMouseLeave={(e) => {
-            if (status[paper.id] !== opt)
-              e.currentTarget.style.backgroundColor = "white";
-          }}
-        >
-          {opt}
-          </div>
-      ))}
-    </div>
-  )}
-                
+                className="options"
+                style={{
+                  position: "relative",
+                  display: "flex",
+                  alignItems: "center",
+                  backgroundColor: "#ebe7e7ff",
+                  borderRadius: "5px",
+                  gap: "6px",
+                  color: "black",
+                  padding: "2px 12px",
+                  fontSize: 10,
+                  marginTop: "15px",
+                  width: "fit-content",
+                  marginLeft: "12rem",
+                }}
+                onClick={() =>
+                  setOpenDropdowns((prev) => ({
+                    ...prev,
+                    [paper.id]: !prev[paper.id],
+                  }))
+                }
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.backgroundColor = "#d6d3d3")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.backgroundColor = "#ebe7e7ff")
+                }
+              >
+                <Pencil1Icon
+                  style={{ color: "black", width: "19px", height: "19px" }}
+                />
+                <span style={{ color: "black", fontSize: 12 }}>
+                  {status[String(paper.id)] || "Status"}
+                </span>
+
+                {openDropdowns[paper.id] && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "100%",
+                      left: 10,
+                      backgroundColor: "white",
+                      border: "1px solid #ccc",
+                      borderRadius: "5px",
+                      marginTop: "4px",
+                      width: "90%",
+                      zIndex: 1000,
+                    }}
+                  >
+                    {options.map((opt) => (
+                      <div
+                        key={opt}
+                        style={{
+                          padding: "8px",
+                          cursor: "pointer",
+                          backgroundColor:
+                            status[paper.id] === opt ? "#d6d3d3" : "white",
+                        }}
+                        onClick={() => {
+                          setStatus((prev) => ({
+                            ...prev,
+                            [String(paper.id)]: opt,
+                          }));
+                          setOpenDropdowns((prev) => ({
+                            ...prev,
+                            [paper.id]: false,
+                          }));
+                        }}
+                        onMouseEnter={(e) => {
+                          if (status[String(paper.id)] !== opt)
+                            e.currentTarget.style.backgroundColor = "#f0f0f0";
+                        }}
+                        onMouseLeave={(e) => {
+                          if (status[paper.id] !== opt)
+                            e.currentTarget.style.backgroundColor = "white";
+                        }}
+                      >
+                        {opt}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
-            <div style={{height: '286px',width: '100%',  overflow: 'hidden',position: 'relative', flexShrink: 0,}} >
-                  <div
+              <div
+                style={{
+                  height: "283px",
+                  width: "100%",
+                  overflow: "hidden",
+                  position: "relative",
+                  flexShrink: 0,
+                }}
+              >
+                <div
                   style={{
                     display: "flex",
-                    transform: 'scale(0.20)',
-                    transformOrigin: 'top left',
-                    width: '1000px',
-                    height: '1300px', 
-                     marginLeft: '2.4rem',
-                    justifyContent: 'center',
+                     zoom: 0.2,
+                    transformOrigin: "top left",
+                    width: "1000px",
+                    height: "1300px",
+                    marginLeft: "2.4rem",
+                    justifyContent: "center",
                   }}
                 >
-                  <PAPERdet paper = {paper} />
+                  <PAPERdet paper={paper} />
                 </div>
-                </div>
+              </div>
 
               <Card.Body
                 style={{
-            flexGrow: 1,            
-            display: 'flex',          
-            flexDirection: 'column', 
-            justifyContent: 'flex-start',
-            minHeight: '85px', }}
->
-              <div className = "group">
-                <div style={{ height: '1px', backgroundColor: '#E0E0E0', width: '100%' }}> </div>
-                 <div className='Hover'>
-                 <Card.Title 
-  
-                 onClick={() => titleClicked(paper)} style= {{fontWeight: 'bolder', fontSize: 16, marginRight : '1rem', marginTop : '1rem', flexShrink: 0,
-                whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: '#111111' }}>{paper.title}
-                </Card.Title>
+                  flexGrow: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "flex-start",
+                  minHeight: "95px",
+                }}
+              >
+                <div className="group">
+                  <div
+                    style={{
+                      height: "1.4px",
+                      backgroundColor: "#E0E0E0",
+                      width: "100%",
+                    }}
+                  ></div>
+                  <div className="Hover">
+                    <Card.Title
+                      onClick={() => titleClicked(paper)}
+                      style={{
+                        fontWeight: "bolder",
+                        fontSize: 16,
+                        marginTop: "0.5rem",
+                        marginBottom: "1rem",
+                        marginLeft: "0.2rem", 
+                        marginRight: "1rem",
+                        flexShrink: 0,
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        color: "#111111",
+                      }}
+                    >
+                      {paper.title}
+                    </Card.Title>
+                  </div>
+                </div>
+              </Card.Body>
+    </Card>
+  ))}
+</div>
 
-              </div>
-                <Card.Text style= {{fontWeight: 'bolder', fontSize: 12, marginBottom : '1rem', color: '#555555'}}>
-                    Authors: {paper.author}
-                </Card.Text>
 
-              </div>
-                  </Card.Body>
 
-        </Card>
-      ))}
-    </div>
   </>
 )}
+
 
 
 {(mode === "tag" || mode === "status") &&
@@ -581,7 +637,7 @@ useEffect(() => {
       <h3
         style={{
           color: "#000000ff",
-          marginLeft: "3.5rem",
+          marginLeft: "5.5rem",
           marginBottom: "1.5rem",
           padding: "0.25rem 0.5rem",
           display: "inline-block",
@@ -593,7 +649,6 @@ useEffect(() => {
       >
         {group.groupName}
       </h3>
-
       <div
         className="card-grid"
         style={{
@@ -612,7 +667,7 @@ useEffect(() => {
             overflowX: "auto",
             gap: "1rem",
             padding: "1rem 3.5rem",
-            marginBottom: "2.5rem",
+            marginBottom: '0.5rem',
             width: "100%",
           }}
         >
@@ -622,7 +677,7 @@ useEffect(() => {
               style={{
                 width: "20rem",
                 position: "relative",
-                height: "410px",
+                height: "400px",
                 backgroundColor: "#FFFFFF",
                 marginBottom: "5.5rem",
                 padding: "1rem",
@@ -729,7 +784,7 @@ useEffect(() => {
                 <div
                   style={{
                     display: "flex",
-                    transform: "scale(0.20)",
+                     zoom: 0.2,
                     transformOrigin: "top left",
                     width: "1000px",
                     height: "1300px",
@@ -766,6 +821,7 @@ useEffect(() => {
                         fontSize: 16,
                         marginTop: "0.5rem",
                         marginBottom: "1rem",
+                        marginLeft: "0.2rem", 
                         marginRight: "1rem",
                         flexShrink: 0,
                         whiteSpace: "nowrap",
@@ -777,16 +833,6 @@ useEffect(() => {
                       {paper.title}
                     </Card.Title>
                   </div>
-                  <Card.Text
-                    style={{
-                      fontWeight: "bolder",
-                      fontSize: 12,
-                      marginTop: "-1.0rem",
-                      color: "#555555",
-                    }}
-                  >
-                    Authors: {paper.author}
-                  </Card.Text>
                 </div>
               </Card.Body>
             </Card>
@@ -809,4 +855,3 @@ useEffect(() => {
 
 
 export default SavedComp;
-

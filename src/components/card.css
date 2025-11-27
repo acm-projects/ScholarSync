@@ -21,10 +21,12 @@
   font-size: 22px;
   font-weight: 600;
   color: #111111;
+  cursor: pointer;
   
 }
-
-
+.card-title:hover {
+  color: #2563EB !important;
+}
 
 
 .card-date {

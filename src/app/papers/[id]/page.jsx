@@ -4,14 +4,12 @@ import ReactMarkdown from 'react-markdown';
 import papers from '../../../data/papers.json';
 import Navbar from '@/components/navbar';
 import { useRouter } from 'next/navigation';
-
 import './markdown.css';
 
 export default function PaperZoom({ params }) {
   const router = useRouter();
   const paperId = parseInt(params.id, 10);
   const paper = papers.find((p) => p.id === paperId);
-
   const [showSidebar, setShowSidebar] = useState(false);
   const [summary, setSummary] = useState('');
 
@@ -45,12 +43,13 @@ export default function PaperZoom({ params }) {
           padding: '0.5rem 1rem',
           borderRadius: '20px',
           backgroundColor: '#ef4444',
+          fontSize: '13px',
           color: '#fff',
           border: 'none',
           cursor: 'pointer',
           fontWeight: 'bold',
           boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
-          transform: 'scale(0.80)'
+          transform: 'scale(0.50)'
         }}
       >
         ← Back
@@ -58,7 +57,7 @@ export default function PaperZoom({ params }) {
 <button
   style={{
     position: 'fixed',
-    top: '89px', 
+    top: '6rem', 
     right: '2rem', 
     padding: '0.5rem 1rem',
     borderRadius: '20px',
@@ -67,6 +66,7 @@ export default function PaperZoom({ params }) {
     border: 'none',
     cursor: 'pointer',
     fontWeight: 'bold',
+    fontSize: '13px',
     boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
     transform: 'scale(0.80)'
   }}
@@ -81,42 +81,58 @@ export default function PaperZoom({ params }) {
       top: '5.3rem',
       right: 0,
       width: '300px',
-      height: '100vh',
+      height:'calc(100vh - 5.3rem)',
       backgroundColor: 'hsl(0, 0%, 94%)',
       color: '#111',
       borderLeft: '1px solid #E0E0E0',
       padding: '2rem 1.5rem 1.5rem 1.5rem',
-      overflowY: 'auto',
       boxShadow: '-4px 0 12px rgba(0,0,0,0.05)',
       zIndex: 999,
       display: 'flex',
       flexDirection: 'column',
     }}
   >
-   <div
+   <div style={{ position: 'relative', paddingBottom: '1rem' }}>
+  <button
   onClick={() => setShowSidebar(false)}
   style={{
-    position: 'absolute',     
-    top: '0.3rem', 
-    left: '1rem' ,            
-    right: '33rem',           
+    position: 'fixed',           
+    top: '5.8rem',                   
+    right: '300px',         
+    transform: 'translateX(50%)',  
+    width: '28px',
+    height: '28px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     cursor: 'pointer',
-    fontWeight: 'bold',
-    fontSize: '1.2rem',
+    fontSize: '1.25rem',
     color: '#555',
     backgroundColor: '#f5f5f5',
-    borderRadius: '50%',
-    boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+    border: 'none',
+    borderRadius: '15%',
+    boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
+    transition: 'all 0.2s ease',
+    zIndex: 1001,
   }}
+  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#e0e0e0')}
+  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#f5f5f5')}
+  aria-label="Close sidebar"
 >
-  x
-</div>
+  &gt;
+</button>
 
     <h3 style={{ fontWeight: 700, marginBottom: '1rem' }}>Summary</h3>
-    <p style={{ fontSize: '0.95rem' }}>{summary}</p>
+    </div>
+     <div
+      style={{
+        overflowY: 'auto',
+        paddingRight: '0.5rem',
+        flexGrow: 1,
+      }}
+    >
+      <p style={{ fontSize: '0.95rem' }}>{summary}</p>
+    </div>
   </div>
 )}
 
@@ -151,3 +167,5 @@ export default function PaperZoom({ params }) {
     </>
   );
 }
+
+
