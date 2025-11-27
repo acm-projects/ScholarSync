@@ -194,11 +194,11 @@ function handleFreshDrop(e) {
         }));
       }
       else if (mode === "status") {
-        const allStatuses = ["Reading", "Finished", "Want to Read", "Unchanged"]; // add default group
+        const allStatuses = ["Reading", "Finished", "Want to Read", "Unchanged"];
         return allStatuses.map(statusName => ({
           groupName: statusName,
           papers: filtered.filter(p => {
-            const paperStatus = status[p.paperID] || "Unchanged"; // default if not set
+            const paperStatus = status[p.paperID] || "Unchanged";
             return paperStatus === statusName;
           })
         })).filter(group => group.papers.length > 0);
