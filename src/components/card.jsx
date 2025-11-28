@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 function Pop({ onEnd, children }) {
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-25 p-16"
+      className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-[9999] p-16"
       onClick={onEnd}
     >
       <div
@@ -22,12 +22,12 @@ function Pop({ onEnd, children }) {
   );
 }
 
-function BookmarkButton({onClick, bookmarked}){
-  return(
-    <button onClick={onClick} style={{color: "#ef4444"}}> 
-      {bookmarked 
-        ? <BookmarkFilledIcon style={{ width: '28px', height: '28px'}}/>  
-        : <BookmarkIcon style={{ width: '28px', height: '28px'}}/>}
+function BookmarkButton({ onClick, bookmarked }) {
+  return (
+    <button onClick={onClick} style={{ color: "#ef4444" }}>
+      {bookmarked
+        ? <BookmarkFilledIcon style={{ width: '28px', height: '28px' }} />
+        : <BookmarkIcon style={{ width: '28px', height: '28px' }} />}
     </button>
   );
 }
@@ -37,17 +37,25 @@ const CardPage = ({ paper }) => {
   const [bookmarked, setBookmarked] = useState(false);
   const [open, setOpen] = useState(false);
 
+  const paperID = paper?.paperID; 
+
   useEffect(() => {
-    if (!paper || !paper.paperID) return;
+    document.body.style.overflow = open ? 'hidden' : '';
+  }, [open]);
+
+  useEffect(() => {
+    if (!paperID) return;
 
     const saved = localStorage.getItem("bookmarkedStuff");
     const bookmarkedStuff = saved ? JSON.parse(saved) : [];
-    const isBookmarked = bookmarkedStuff.some(p => p.id === paper.paperID);
+    const isBookmarked = bookmarkedStuff.some(p => p.id === paperID);
+
     setBookmarked(isBookmarked);
-  }, [paper]);
+  }, [paperID]);
+
 
   function titleClicked() {
-    router.push(`/papers/${paper.paperID}`);
+    router.push(`/papers/${paperID}`);
   }
 
   async function handleBookmark() {
@@ -66,27 +74,31 @@ const CardPage = ({ paper }) => {
     let arr = saved ? JSON.parse(saved) : [];
 
     if (nextState) {
-      arr = arr.filter(p => p.id !== paper.paperID);
-
-      arr.push({ ...paper, status: "Want to Read" });
+      arr = arr.filter(p => p.id !== paperID);
+      arr.push({
+        ...paper,
+        id: paperID,
+        status: "" 
+      });
     } else {
-      arr = arr.filter(p => p.id !== paper.paperID);
+      arr = arr.filter(p => p.id !== paperID);
     }
 
     localStorage.setItem("bookmarkedStuff", JSON.stringify(arr));
 
     const payload = {
       username,
-      paperID: String(paper.paperID),
+      paperID: String(paperID),
       title: paper.title,
       author: paper.author,
       tags: paper.tags,
       pdfLink: paper.pdfLink || "",
       date: paper.date,
       action: nextState ? "save" : "remove",
-      ...(nextState && { status: "Status" }), 
+      status: ""
     };
 
+    try {
       const res = await fetch("/api/save-paper", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -94,64 +106,71 @@ const CardPage = ({ paper }) => {
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Failed to update bookmark");
-
+      if (!res.ok) {
+        console.error(data.error || "Failed to update bookmark");
+      }
+    } catch (e) {
+      console.error("Bookmark error:", e);
+    }
   }
 
   return (
     <>
-      <div className="card hover:bg-[#ffffff] shadow-sm" >
-        <div 
-          style={{height: '200px', width: '200px', overflow: 'hidden', position: 'relative', flexShrink: 0, cursor: "pointer"}}
-          onClick={() => setOpen(true)}
-        >
+      <div className="card hover:bg-[#ffffff] shadow-sm">
+        {!open && (
           <div
             style={{
-              transform: 'scale(0.14)',
-              transformOrigin: 'top left',
-              width: '50px',
-              height: '150px', 
-              position: 'absolute',
-              marginLeft: "1rem",
-              marginTop: "1rem",
-              top: 0,
-              left: 0,
+              width: '200px',
+              height: '200px',
+              overflow: 'hidden',
+              cursor: 'pointer',
+              padding: '10px',
             }}
+            onClick={() => setOpen(true)}
           >
-            <PAPERdet paper={paper} />
+            <div style={{ zoom: 0.14, transformOrigin: 'top left' }}>
+              <PAPERdet paper={paper} />
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="Main -mt-44 mr-2 ml-3">
           <div className="mb-9 flex justify-end">
-            <BookmarkButton bookmarked={bookmarked} onClick={handleBookmark}/>
+            <BookmarkButton bookmarked={bookmarked} onClick={handleBookmark} />
           </div>
+
           <h3 className="card-title" onClick={titleClicked}>{paper.title}</h3>
           <p className="card-author">{paper.author}</p>
           <p className="card-description">{paper.description}</p>
         </div>
 
-        <div className="mt-auto pt-3 flex items-end justify-between">
-          <div className="flex gap-2 ml-45 mb-18">
-            {paper.tags.slice(0,3).map((tag,index) => {
+        <div className="relative pt-3 items-end w-full">
+          <div className="flex gap-2 mb-6" style={{ marginLeft: '11rem' }}>
+            {paper.tags.slice(0, 3).map((tag, index) => {
               const textColor = "#111111";
-              const color = {0: 'green',1: 'yellow', 2: 'red'};
-              return <TagChip key={index} text={tag} color={color[index]} textColor={textColor}/>;
+              const color = { 0: 'green', 1: 'yellow', 2: 'red' }[index];
+              return (
+                <TagChip
+                  key={index}
+                  text={tag}
+                  color={color}
+                  textColor={textColor}
+                />
+              );
             })}
           </div>
-          <div className="mt-auto mb-27 mr-5 flex items-end text-xs text-black"> Date Published: {paper.date} </div>
         </div>
       </div>
 
       {open && (
         <Pop onEnd={() => setOpen(false)}>
           <div className="w-full max-w-4xl">
-            <PAPERdet paper={paper} full />
+            <PAPERdet paper={paper} />
           </div>
         </Pop>
       )}
     </>
   );
-}
+};
 
 export default CardPage;

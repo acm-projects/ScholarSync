@@ -17,6 +17,8 @@ export default function Navbar() {
           <Link href="/homeresearchpage" className="hover:text-[#ef4444] font-medium  transition-colors">Opportunities</Link>
           <Link href="/discovery" className="hover:text-[#ef4444] font-medium transition-colors">Papers</Link>
           <Link href="/LibrarySt" className="hover:text-[#ef4444] font-medium transition-colors">Library</Link>
+          <Link href="/Create" className="hover:text-[#ef4444] font-medium transition-colors">Create</Link>
+
           <Link
             href="/profile"
             className="rounded-md bg-[#ef4444] px-3 py-1.5 text-[#ffffff] font-medium hover:bg-[#dc2626] transition"

@@ -10,9 +10,10 @@ const Login = () => {
   const [username, setusername] = useState('');
 
   const handle = async (e) => {
+  const handle = async (e) => {
     e.preventDefault();
 
-    if (!username || !password) {
+    if (!email || !password) {
       alert('Please fill in all fields');
       return;
     }
@@ -32,12 +33,7 @@ const Login = () => {
       }
 
       alert('Login successful!');
-
-      // Add username to memory
-      window.localStorage.setItem("username", username);
-
-      // Optionally redirect after login
-      window.location.href = '/dashboard'; // replace with your logged-in route
+      window.location.href = '/dashboard'; 
     } catch (err) {
       console.error('Error connecting to backend:', err);
       alert('Error connecting to backend');
@@ -93,5 +89,5 @@ const Login = () => {
         </div>
       );
     }
-  
+  }
 export default Login;

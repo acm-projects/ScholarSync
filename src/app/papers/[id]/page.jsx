@@ -20,7 +20,7 @@ export default function PaperZoom({ params }) {
     fetch(`/api/paper`)
       .then((res) => res.json())
       .then((data) => {
-        const found = data.find((p) => p.id === paperId);
+        const found = data.find((p) => p.paperID === paperId);
         setPaper(found || null);
         setLoadingPaper(false);
       })
@@ -46,7 +46,7 @@ export default function PaperZoom({ params }) {
       const res = await fetch(`/api/summary`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ pdfLink: paper.pdfLink, paperID: paper.id }),
+        body: JSON.stringify({ pdfLink: paper.pdfLink, paperID: paper.paperID }),
       });
 
       const data = await res.json();
@@ -64,7 +64,6 @@ export default function PaperZoom({ params }) {
     <>
       <Navbar />
 
-      {/* Back Button */}
       <button
         onClick={() => router.back()}
         style={{
@@ -85,7 +84,6 @@ export default function PaperZoom({ params }) {
         ← Back
       </button>
 
-      {/* Generate Summary Button */}
       <button
         style={{
           position: 'fixed',
@@ -107,7 +105,6 @@ export default function PaperZoom({ params }) {
         {generatingSummary ? 'Generating...' : 'Generate Summary'}
       </button>
 
-      {/* Sidebar */}
       {showSidebar && (
         <div
           style={{
@@ -127,7 +124,6 @@ export default function PaperZoom({ params }) {
             flexDirection: 'column',
           }}
         >
-          {/* Close button */}
           <div
             onClick={() => setShowSidebar(false)}
             style={{
@@ -158,7 +154,6 @@ export default function PaperZoom({ params }) {
         </div>
       )}
 
-      {/* Main PDF viewer container */}
       <div
         style={{
           backgroundColor: '#F8F8F8',

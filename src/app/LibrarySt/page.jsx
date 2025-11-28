@@ -220,7 +220,7 @@ function handleFreshDrop(e) {
     
   if (!mounted) return null;
 
-  return (
+   return (
      <div className="min-h-screen" style={{ backgroundColor: "#F5F5F5" }}>
           <div className="relative z-9 bg-white border-white rounded-b-2xl shadow">
           <Navbar />
@@ -268,8 +268,6 @@ function handleFreshDrop(e) {
       </div>
     </div>
 
-
-
     <div className = "Main">
     
     {savedPaper.length === 0 ? (
@@ -306,7 +304,7 @@ function handleFreshDrop(e) {
     </div>
       <hr style={{ margin: "2rem 3.5rem", borderColor: "#ccc" }} />
 
-           {paperSets.map((group) =>(
+          {mode === "workspace" &&paperSets.map((group) =>(
 
           <div key = {group.groupName} onDrop = {(e) => handleDrop(e,group.groupName)} onDragOver={allowDrop} className="Wbox">
 
@@ -316,18 +314,17 @@ function handleFreshDrop(e) {
         marginLeft: '3.5rem',
         marginBottom: '0.5rem',
         display: 'inline-block',
-        width: '25%',
+        width: '25%', 
         fontSize: 19, 
         textAlign: 'left',
         fontWeight: '600',
       }}
     >
-      {group.groupName}
-
+      {group.groupName} 
       </h3>
             
           
-        <div className="card-grid" style={{display:'flex', flexDirection: 'column',paddingBottom: '0.5rem' ,position: "relative",}}>
+        <div className="card-grid" style={{display:'flex', flexDirection: 'column' ,position: "relative",}}>
       
             <div className="cards" style={{     
                     display: "flex",
@@ -335,7 +332,7 @@ function handleFreshDrop(e) {
                     overflowX: 'auto',
                     gap: '0.5rem',
                     padding: "1rem 3.5rem",
-                    marginBottom: '1.0rem',
+                    marginBottom: '0.5rem',
                     width: '100%',
                 }}>
 
@@ -346,7 +343,7 @@ function handleFreshDrop(e) {
       <Card key = {paper.paperID} style={{
                 width: '20rem',
                 position: "relative", 
-                height: '410px',
+                height: '400px',
                 backgroundColor: '#FFFFFF'
               ,
                 marginBottom: '5.5rem',
@@ -358,7 +355,7 @@ function handleFreshDrop(e) {
             >
                 <div className = "options" style = {{position: "relative", display: "flex",
                 alignItems: "center",
-                backgroundColor: "#ebe7e7ff"  ,
+                backgroundColor: "#dbdbdbff"  ,
                 borderRadius: "5px",
                 gap: "6px",
                 color: "black",
@@ -425,7 +422,7 @@ function handleFreshDrop(e) {
                   <div
                   style={{
                     display: "flex",
-                    transform: 'scale(0.20)',
+                    zoom: 0.2,
                     transformOrigin: 'top left',
                     width: '1000px',
                     height: '1300px', 
@@ -433,7 +430,7 @@ function handleFreshDrop(e) {
                     justifyContent: 'center',
                   }}
                 >
-                <PAPERdet paper={paper} />
+                {mounted && <PAPERdet paper={paper} />}
                 </div>
                 </div>
 
@@ -443,7 +440,7 @@ function handleFreshDrop(e) {
             display: 'flex',          
             flexDirection: 'column', 
             justifyContent: 'flex-start',
-            minHeight: '95px',      
+            minHeight: '90px',      
   }}
 >
               <div className = "group">
@@ -453,7 +450,7 @@ function handleFreshDrop(e) {
   onClick={() => titleClicked(paper)}
   style={{
     fontWeight: "bolder",
-    fontSize: "12px",
+    fontSize: "15px",
     left: '4rem', 
     margin: "0.5rem 0 1rem 0", 
     width: "100%",             
@@ -465,12 +462,7 @@ function handleFreshDrop(e) {
 >
   {paper.title}
 </Card.Title>
-
               </div>
-                <Card.Text style= {{fontWeight: 'bolder', fontSize: 12, marginTop : '-1.0rem', color: '#555555'}}>
-                    Authors: {paper.author}
-                </Card.Text>
-
               </div>
                   </Card.Body>
             </Card>
@@ -484,144 +476,197 @@ function handleFreshDrop(e) {
 
     </div>
 ))}
-    <div
+
+<h3 style={{
+  color: "#000000ff",
+  marginLeft: "3.5rem",
+  marginTop: "2rem",
+  marginBottom: "1.5rem",
+  fontSize: 19,
+  fontWeight: "600",
+}}>
+  All Papers
+</h3>
+
+<div style={{
+  display: "flex", 
+  flexWrap: "wrap",
+  gap: "1rem",
+  padding: "1rem 3.5rem",
+  justifyContent: "flex-start",
+}}>
+  {savedPaper.map((paper) => (
+    <Card
+      key={paper.paperID}
+      draggable
+      onDragStart={(e) => handleDragStart(e, paper.paperID)}
       style={{
-        display: "flex", 
-        flexWrap: "wrap",
-        gap: "1rem",
-        padding: "2rem 3.5rem",
-        justifyContent: "flex-start",
+        width: "20rem",
+        height: "400px",
+        backgroundColor: "#FFFFFF",
+        padding: "1rem",
+        cursor: "grab",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
-    
-
-      {savedPaper.map((paper) => (
-        <Card
-          key={paper.paperID}
-          draggable
-          onDragStart={(e) => handleDragStart(e, paper.paperID)}
-          style={{
-            width: "20rem",
-            backgroundColor: "#FFFFFF",
-            padding: "1rem",
-            borderRadius: "8px",
-            cursor: "grab",
-            boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-          }}
-        >
-
-           <div className = "options" style = {{position: "relative", display: "flex",
-                alignItems: "center",
-                backgroundColor: "#ebe7e7ff"  ,
-                borderRadius: "5px",
-                gap: "6px",
-                color: "black",
-                padding: "2px 12px",
-                fontSize: 10,
-                marginTop: "15px",
-                width: "fit-content",
-                marginLeft: "12rem"
-               ,}} onClick={() => 
-    setOpenDropdowns(prev => ({
-        ...prev,
-        [paper.paperID]: !prev[paper.paperID]
-    }))
-} onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#d6d3d3" )} onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#ebe7e7ff"  )}>
-                
-               <Pencil1Icon style={{ color: "black",  width: "19px", height: "19px",}} />
-               <span style = {{ color: "black", fontSize: 12}}>
-                {status[String(paper.paperID)] || "Status"}
-                </span>
-                {openDropdowns[paper.paperID] && (
-    <div
-      style={{
-        position: "absolute",
-        top: "100%",
-        left: 10,
-        backgroundColor: "white",
-        border: "1px solid #ccc",
-        borderRadius: "5px",
-        marginTop: "4px",
-        width: "90%",
-        zIndex: 1000,
-      }}
-    >
-      {options.map((opt) => (
         <div
-          key={opt}
-          style={{
-            padding: "8px",
-            cursor: "pointer",
-            backgroundColor:
-              status[paper.paperID] === opt ? "#d6d3d3" : "white",
-          }}
-       onClick={() => {
-          setStatus(prev => ({ ...prev, [String(paper.paperID)]: opt }));
-          setOpenDropdowns(prev => ({ ...prev, [paper.paperID]: false }));
-        }}
-          onMouseEnter={(e) => {
-            if (status[String(paper.paperID)] !== opt)
-              e.currentTarget.style.backgroundColor = "#f0f0f0";
-          }}
-          onMouseLeave={(e) => {
-            if (status[paper.paperID] !== opt)
-              e.currentTarget.style.backgroundColor = "white";
-          }}
-        >
-          {opt}
-          </div>
-      ))}
-    </div>
-  )}
-                
+                className="options"
+                style={{
+                  position: "relative",
+                  display: "flex",
+                  alignItems: "center",
+                  backgroundColor: "#ebe7e7ff",
+                  borderRadius: "5px",
+                  gap: "6px",
+                  color: "black",
+                  padding: "2px 12px",
+                  fontSize: 10,
+                  marginTop: "15px",
+                  width: "fit-content",
+                  marginLeft: "12rem",
+                }}
+                onClick={() =>
+                  setOpenDropdowns((prev) => ({
+                    ...prev,
+                    [paper.paperID]: !prev[paper.paperID],
+                  }))
+                }
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.backgroundColor = "#d6d3d3")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.backgroundColor = "#ebe7e7ff")
+                }
+              >
+                <Pencil1Icon
+                  style={{ color: "black", width: "19px", height: "19px" }}
+                />
+                <span style={{ color: "black", fontSize: 12 }}>
+                  {status[String(paper.paperID)] || "Status"}
+                </span>
+
+                {openDropdowns[paper.paperID] && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "100%",
+                      left: 10,
+                      backgroundColor: "white",
+                      border: "1px solid #ccc",
+                      borderRadius: "5px",
+                      marginTop: "4px",
+                      width: "90%",
+                      zIndex: 1000,
+                    }}
+                  >
+                    {options.map((opt) => (
+                      <div
+                        key={opt}
+                        style={{
+                          padding: "8px",
+                          cursor: "pointer",
+                          backgroundColor:
+                            status[paper.paperID] === opt ? "#d6d3d3" : "white",
+                        }}
+                        onClick={() => {
+                          setStatus((prev) => ({
+                            ...prev,
+                            [String(paper.paperID)]: opt,
+                          }));
+                          setOpenDropdowns((prev) => ({
+                            ...prev,
+                            [paper.paperID]: false,
+                          }));
+                        }}
+                        onMouseEnter={(e) => {
+                          if (status[String(paper.paperID)] !== opt)
+                            e.currentTarget.style.backgroundColor = "#f0f0f0";
+                        }}
+                        onMouseLeave={(e) => {
+                          if (status[paper.paperID] !== opt)
+                            e.currentTarget.style.backgroundColor = "white";
+                        }}
+                      >
+                        {opt}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
-            <div style={{height: '286px',width: '100%',  overflow: 'hidden',position: 'relative', flexShrink: 0,}} >
-                  <div
+              <div
+                style={{
+                  height: "283px",
+                  width: "100%",
+                  overflow: "hidden",
+                  position: "relative",
+                  flexShrink: 0,
+                }}
+              >
+                <div
                   style={{
                     display: "flex",
-                    transform: 'scale(0.20)',
-                    transformOrigin: 'top left',
-                    width: '1000px',
-                    height: '1300px', 
-                     marginLeft: '2.4rem',
-                    justifyContent: 'center',
+                     zoom: 0.2,
+                    transformOrigin: "top left",
+                    width: "1000px",
+                    height: "1300px",
+                    marginLeft: "2.4rem",
+                    justifyContent: "center",
                   }}
                 >
-                  <PAPERdet paper = {paper} />
+                  <PAPERdet paper={paper} />
                 </div>
-                </div>
+              </div>
 
               <Card.Body
                 style={{
-            flexGrow: 1,            
-            display: 'flex',          
-            flexDirection: 'column', 
-            justifyContent: 'flex-start',
-            minHeight: '85px', }}
->
-              <div className = "group">
-                <div style={{ height: '1px', backgroundColor: '#E0E0E0', width: '100%' }}> </div>
-                 <div className='Hover'>
-                 <Card.Title 
-  
-                 onClick={() => titleClicked(paper)} style= {{fontWeight: 'bolder', fontSize: 16, marginRight : '1rem', marginTop : '1rem', flexShrink: 0,
-                whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: '#111111' }}>{paper.title}
-                </Card.Title>
+                  flexGrow: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "flex-start",
+                  minHeight: "95px",
+                }}
+              >
+                <div className="group">
+                  <div
+                    style={{
+                      height: "1.4px",
+                      backgroundColor: "#E0E0E0",
+                      width: "100%",
+                    }}
+                  ></div>
+                  <div className="Hover">
+                    <Card.Title
+                      onClick={() => titleClicked(paper)}
+                      style={{
+                        fontWeight: "bolder",
+                        fontSize: 16,
+                        marginTop: "0.5rem",
+                        marginBottom: "1rem",
+                        marginLeft: "0.2rem", 
+                        marginRight: "1rem",
+                        flexShrink: 0,
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        color: "#111111",
+                      }}
+                    >
+                      {paper.title}
+                    </Card.Title>
+                  </div>
+                </div>
+              </Card.Body>
+    </Card>
+  ))}
+</div>
 
-              </div>
-                <Card.Text style= {{fontWeight: 'bolder', fontSize: 12, marginBottom : '1rem', color: '#555555'}}>
-                    Authors: {paper.author}
-                </Card.Text>
 
-              </div>
-                  </Card.Body>
 
-        </Card>
-      ))}
-    </div>
   </>
 )}
+
 
 
 {(mode === "tag" || mode === "status") &&
@@ -635,7 +680,7 @@ function handleFreshDrop(e) {
       <h3
         style={{
           color: "#000000ff",
-          marginLeft: "3.5rem",
+          marginLeft: "5.5rem",
           marginBottom: "1.5rem",
           padding: "0.25rem 0.5rem",
           display: "inline-block",
@@ -647,7 +692,6 @@ function handleFreshDrop(e) {
       >
         {group.groupName}
       </h3>
-
       <div
         className="card-grid"
         style={{
@@ -666,7 +710,7 @@ function handleFreshDrop(e) {
             overflowX: "auto",
             gap: "1rem",
             padding: "1rem 3.5rem",
-            marginBottom: "2.5rem",
+            marginBottom: '0.5rem',
             width: "100%",
           }}
         >
@@ -676,7 +720,7 @@ function handleFreshDrop(e) {
               style={{
                 width: "20rem",
                 position: "relative",
-                height: "410px",
+                height: "400px",
                 backgroundColor: "#FFFFFF",
                 marginBottom: "5.5rem",
                 padding: "1rem",
@@ -783,7 +827,7 @@ function handleFreshDrop(e) {
                 <div
                   style={{
                     display: "flex",
-                    transform: "scale(0.20)",
+                     zoom: 0.2,
                     transformOrigin: "top left",
                     width: "1000px",
                     height: "1300px",
@@ -832,16 +876,6 @@ function handleFreshDrop(e) {
                       {paper.title}
                     </Card.Title>
                   </div>
-                  <Card.Text
-                    style={{
-                      fontWeight: "bolder",
-                      fontSize: 12,
-                      marginTop: "-1.0rem",
-                      color: "#555555",
-                    }}
-                  >
-                    Authors: {paper.author}
-                  </Card.Text>
                 </div>
               </Card.Body>
             </Card>

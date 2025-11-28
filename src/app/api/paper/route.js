@@ -40,7 +40,7 @@ export async function GET() {
           const item = result.Item || {};
 
           return {
-            id: paperID,
+            paperID: paperID,
             title: item.Title?.S || "Untitled Paper",
             author: item.Authors?.S || "Unknown Author",
             date: item.Year?.S || "N/A",

@@ -13,10 +13,9 @@ export default function DiscoverPaper() {
   const [query, setQuery] = useState("");
   const [visible, setVisible] = useState(9);
   const [selectedYear, setSelectedYear] = useState("");
-  const [papers, setPapers] = useState([]); // use state for dynamic papers
-  const [loading, setLoading] = useState(true); // loading state
+  const [papers, setPapers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Fetch papers from your /api/paper (DynamoDB)
   useEffect(() => {
     fetch("/api/paper")
       .then(async (res) => {
@@ -37,7 +36,7 @@ export default function DiscoverPaper() {
   }, []);
 
   const filtered = useMemo(() => {
-    let out = papers; // replaced PaperData with papers from API
+    let out = papers;
 
     if (query.trim()) {
       const q = normalize(query.trim());
@@ -63,7 +62,7 @@ export default function DiscoverPaper() {
     }
 
     return out;
-  }, [query, selectedYear, papers]); // include papers
+  }, [query, selectedYear, papers]);
 
   const toShow = filtered.slice(0, visible);
   const canLoadMore = visible < filtered.length;
@@ -111,7 +110,7 @@ export default function DiscoverPaper() {
     <main className="mx-auto px-20 py-15">
       <div className="papers-grid gap-8 sm:grid-cols-2 items-stretch ">
         {toShow.map(paper => (
-          <CardPage key={paper.id} paper={paper} />
+          <CardPage key={paper.paperID} paper={paper} />
         ))}
       </div>
 
