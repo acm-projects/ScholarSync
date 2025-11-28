@@ -1,7 +1,8 @@
 {
-  "/Create/page": "app/Create/page.js",
-  "/signuplogin/login/page": "app/signuplogin/login/page.js",
+  "/api/save-paper/route": "app/api/save-paper/route.js",
+  "/api/update-status/route": "app/api/update-status/route.js",
+  "/api/paper/route": "app/api/paper/route.js",
+  "/LibrarySt/page": "app/LibrarySt/page.js",
   "/discovery/page": "app/discovery/page.js",
-  "/landingpage/page": "app/landingpage/page.js",
-  "/homeresearchpage/page": "app/homeresearchpage/page.js"
+  "/papers/[id]/page": "app/papers/[id]/page.js"
 }
