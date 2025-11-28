@@ -1,11 +1,13 @@
 "use client";
 import './create.css';
 import React, { useState } from 'react';
+import TagTextBox from "@/components/tagtextbox";
 
 const Create = () => {
   const [username, setUsername] = useState('');
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+  const [skills, setSkills] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -62,6 +64,21 @@ const Create = () => {
       />
     </div>
   </div>
+
+
+<div className="skills">
+  <span className="label-text">Add skills most relevant to this role</span>
+
+  <div className="input">
+    <TagTextBox
+      label=""             
+      name="skills"
+      values={skills}
+      onChange={setSkills}
+      placeholder="Type a skill and press enter"
+    />
+  </div>
+</div>
 </div>
           <div className="Sign-submit-container">
             <button className="submit" type="submit">
