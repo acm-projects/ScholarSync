@@ -10,70 +10,54 @@ import { useEffect, useState } from 'react';
 
 function Pop({ onEnd, children }) {
   return (
-  <div
-  className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-[9999] p-16"
-  onClick={onEnd}
->
-  <div
-    className="bg-pink p-8 rounded max-w-[1100px] w-[95%] max-h-[90vh] overflow-y-auto shadow-lg"
-    onClick={(e) => e.stopPropagation()}
-  >
-    {children}
-  </div>
-</div>
+    <div
+      className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-[9999] p-16"
+      onClick={onEnd}
+    >
+      <div
+        className="bg-pink p-8 rounded max-w-[1100px] w-[95%] max-h-[90vh] overflow-y-auto shadow-lg"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {children}
+      </div>
+    </div>
   );
 }
 
-  function BookmarkButton({onClick, bookmarked}){
-    return(
-    <button onClick = {onClick} style={{color: "#ef4444"}}> 
-     {bookmarked ? <BookmarkFilledIcon style = {{ width: '28px', height: '28px'}}/>  :  <BookmarkIcon style = {{ width: '28px', height: '28px'}}/>}
+function BookmarkButton({ onClick, bookmarked }) {
+  return (
+    <button onClick={onClick} style={{ color: "#ef4444" }}>
+      {bookmarked
+        ? <BookmarkFilledIcon style={{ width: '28px', height: '28px' }} />
+        : <BookmarkIcon style={{ width: '28px', height: '28px' }} />}
     </button>
-    );
-  }
+  );
+}
 
 const CardPage = ({ paper }) => {
   const router = useRouter();
   const [bookmarked, setBookmarked] = useState(false);
   const [open, setOpen] = useState(false);
 
-    useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : '';
-  }, [open])
+  const paperID = paper?.paperID; 
 
   useEffect(() => {
-  if (!paper || !paper.id) return;
+    document.body.style.overflow = open ? 'hidden' : '';
+  }, [open]);
 
-  const saved = localStorage.getItem("bookmarkedStuff");
-  const bookmarkedStuff = saved ? JSON.parse(saved) : [];
-  const isBookmarked = bookmarkedStuff.some(p => p.id === paper.id);
-  setBookmarked(isBookmarked);
-}, [paper]);
+  useEffect(() => {
+    if (!paperID) return;
 
-useEffect(() => {
-  if (!paper || !paper.id) return;
+    const saved = localStorage.getItem("bookmarkedStuff");
+    const bookmarkedStuff = saved ? JSON.parse(saved) : [];
+    const isBookmarked = bookmarkedStuff.some(p => p.id === paperID);
 
-  const saved = localStorage.getItem("bookmarkedStuff");
-  let bookmarkedStuff = saved ? JSON.parse(saved) : [];
+    setBookmarked(isBookmarked);
+  }, [paperID]);
 
-  if (bookmarked) {
-    if (!bookmarkedStuff.some(p => p.id === paper.id)) {
-      bookmarkedStuff.push(paper);
-    }
-  } else {
-    bookmarkedStuff = bookmarkedStuff.filter(p => p.id !== paper.id);
-  }
-
-  localStorage.setItem("bookmarkedStuff", JSON.stringify(bookmarkedStuff));
-  console.log("Updated localStorage:", bookmarkedStuff); 
-}, [bookmarked, paper]);
-
-  function detailsPlease(){
-    router.push(`/papers/${paper.id}`); 
-  }
 
   function titleClicked() {
-    router.push(`/papers/${paper.id}`); 
+    router.push(`/papers/${paperID}`);
   }
   function handleBookmark(){
     setBookmarked((used) => !used);
@@ -120,11 +104,8 @@ useEffect(() => {
     })}
   </div>
 
-</div>
-
-</div>
-
-
+        </div>
+        </div>
     
 {open && (
   <Pop onEnd={() => setOpen(false)}>
@@ -135,7 +116,7 @@ useEffect(() => {
 )}
 
     </>
-
   );
-}
+};
+
 export default CardPage;

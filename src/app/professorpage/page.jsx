@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import Navbar from "@/components/navbar";
 import ToggleTabs from "@/components/toggletabsprofessor";
 import ProfessorCard from "@/components/professorcard";
@@ -11,32 +11,70 @@ import profAll from "@/data/professors_all.json" assert { type: "json" };
 import userTags from "@/data/user_tags.json" assert { type: "json" };
 import Loading from "@/components/loading";
 
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+//
+function computePctFromTags(tags) {
+  if (!tags || Array.isArray(tags)) return 0;
+
+  const green = Array.isArray(tags.green) ? tags.green.length : 0;
+  const yellow = Array.isArray(tags.yellow) ? tags.yellow.length : 0;
+  const red = Array.isArray(tags.red) ? tags.red.length : 0;
+
+  const W = { green: 33.3333, yellow: 22.2222, red: 11.1111 };
+
+  let remaining = 3;
+  let score = 0;
+
+  const takeGreen = Math.min(remaining, green);
+  score += takeGreen * W.green;
+  remaining -= takeGreen;
+
+  if (remaining > 0) {
+    const takeYellow = Math.min(remaining, yellow);
+    score += takeYellow * W.yellow;
+    remaining -= takeYellow;
+  }
+
+  if (remaining > 0) {
+    const takeRed = Math.min(remaining, red);
+    score += takeRed * W.red;
+    remaining -= takeRed;
+  }
+
+  return Math.min(100, Math.round(score));
+}
+
 export default function ProfessorsPage() {
   const [tab, setTab] = useState("recommended");
   const [query, setQuery] = useState("");
   const [visible, setVisible] = useState(6);
 
-  // dataset pick based on tab
   const dataset = useMemo(() => {
     return tab === "recommended"
       ? normalizeAllItems(profRecommended, userTags)
       : normalizeAllItems(profAll, userTags);
   }, [tab]);
 
-
-
-   // show loading if profAll is empty
-   if (tab === "all" && profAll === null) {
+  if (tab === "all" && profAll === null) {
     return <Loading />;
   }
-  
-  // filter + simple relevance sort
+
   const filtered = useMemo(() => {
     let out = dataset;
+
     if (query.trim()) {
       const q = query.toLowerCase();
       out = out.filter((it) => {
-        const tagArray = Array.isArray(it.tags) ? it.tags : Object.values(it.tags || {}).flat();
+        const tagArray = Array.isArray(it.tags)
+          ? it.tags
+          : Object.values(it.tags || {}).flat();
         const hay = [
           it.name || it.full_name,
           it.field || it.department || it.subtitle,
@@ -49,18 +87,24 @@ export default function ProfessorsPage() {
         return hay.some((s) => s.includes(q));
       });
     }
-    const score = (obj) =>
-      (obj?.tags?.green?.length || 0) * 3 +
-      (obj?.tags?.yellow?.length || 0) * 2 +
-      (obj?.tags?.red?.length || 0) * 1;
-    return [...out].sort((a, b) => score(b) - score(a));
-  }, [dataset, query]);
 
-  // page size
+    if (tab === "recommended") {
+      out = out.filter((it) => computePctFromTags(it.tags) > 0);
+      return [...out].sort(
+        (a, b) => computePctFromTags(b.tags) - computePctFromTags(a.tags)
+      );
+    }
+
+    if (tab === "all") {
+      return shuffle(out);
+    }
+
+    return out;
+  }, [dataset, query, tab]);
+
   const toShow = filtered.slice(0, visible);
   const canLoadMore = visible < filtered.length;
 
-  // helper: fallback photo by email
   const emailToPhotoPath = (email) =>
     email ? `/images/picure/${String(email).toLowerCase()}.jpg` : null;
 
@@ -69,13 +113,15 @@ export default function ProfessorsPage() {
 
   return (
     <div className="min-h-screen bg-[#f5f5f5] text-[#111827]">
-      {/* top nav */}
       <div className="relative z-10 rounded-b-2xl shadow">
         <Navbar />
       </div>
 
-      {/* controls */}
-      <div className={`-mt-5 w-full bg-[#ffffff] border-b border-[#e5e7eb] shadow-sm pt-3 pb-2 ${open ? "blur-[2px]" : ""}`}>
+      <div
+        className={`-mt-5 w-full bg-[#ffffff] border-b border-[#e5e7eb] shadow-sm pt-3 pb-2 ${
+          open ? "blur-[2px]" : ""
+        }`}
+      >
         <div className="w-full px-6 pt-5 pb-4 flex items-center">
           <div className="flex items-center gap-6 overflow-x-auto flex-1 min-w-0">
             <ToggleTabs
@@ -102,26 +148,33 @@ export default function ProfessorsPage() {
         </div>
       </div>
 
-      {/* Professor card takes from toshow */}
       <main className={`mx-auto px-20 mt-10 ${open ? "blur-[2px]" : ""}`}>
         <div className="grid gap-8 sm:grid-cols-2 items-stretch ">
           {toShow.map((item) => {
             const pid = String(item.id || item.email || item.full_name);
             const href = `/professorpage/fullcardpage?id=${encodeURIComponent(pid)}`;
+
+            const cardItem =
+              tab === "all"
+                ? item
+                : { ...item, match_percentage: null };
+
             return (
               <ProfessorCard
                 key={pid}
-                item={{ ...item, photo: item.photo || emailToPhotoPath(item.email) }}
-                showPct={tab === "recommended"}
+                item={{ ...cardItem, photo: cardItem.photo || emailToPhotoPath(cardItem.email) }}
+                showPct={true}
                 userTags={userTags}
                 href={href}
-                onOpen={(it) => { setSelected(it); setOpen(true); }}
+                onOpen={(it) => {
+                  setSelected(it);
+                  setOpen(true);
+                }}
               />
             );
           })}
         </div>
 
-        {/* load more */}
         <div className="mt-8 flex justify-center">
           {canLoadMore ? (
             <button
@@ -139,10 +192,22 @@ export default function ProfessorsPage() {
 
       {open && selected && (
         <div className="fixed inset-0 z-50 flex items-start md:items-center justify-center">
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px]" onClick={() => { setOpen(false); setSelected(null); }} />
+          <div
+            className="absolute inset-0 bg-black/50 backdrop-blur-[2px]"
+            onClick={() => {
+              setOpen(false);
+              setSelected(null);
+            }}
+          />
           <div className="relative z-10 w-full max-w-6xl mx-4 my-6">
             <div className="rounded-2xl overflow-hidden">
-              <FullProfessorCard item={selected} onClose={() => { setOpen(false); setSelected(null); }} />
+              <FullProfessorCard
+                item={selected}
+                onClose={() => {
+                  setOpen(false);
+                  setSelected(null);
+                }}
+              />
             </div>
           </div>
         </div>
