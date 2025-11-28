@@ -60,12 +60,13 @@ body {
 .input input::placeholder,
 .textarea-input textarea::placeholder {
     color: #9ca3af;
-    font-weight: 400;
+    font-weight: 600;
 }
 
 .input input:focus,
 .textarea-input textarea:focus {
-    border-color: #ef4444;
+    border: 2.5px solid #ef4444;; 
+
 }
 
 .Sign-submit-container {
@@ -75,15 +76,16 @@ body {
 }
 
 .Sign-submit-container button {
-    background-color: #ef4444;
-    color: white;
-    border: none;
-    padding: 0.75rem 2rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s ease;
+    background-color: #ef4444;         
+    color: white;                      
+    border: none;                
+    padding: 0.75rem 1rem;        
+    border-radius: 10px;                
+    font-size: 1rem;           
+    font-weight: 600;                  
+    cursor: pointer;                  
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+    transition: all 0.2s ease;         
 }
 
 .Sign-submit-container button:hover {
@@ -92,7 +94,7 @@ body {
 
 .label-text {
     display: block;
-    font-weight: 500;
+    font-weight: 700;
     color: #111827;
     margin-bottom: 0.5rem;
 }

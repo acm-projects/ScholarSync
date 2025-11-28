@@ -1,54 +1,56 @@
-"use client";
+'use client';
 import './create.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import TagTextBox from "@/components/tagtextbox";
 
 const Create = () => {
-  const [username, setUsername] = useState('');
+  // Get username from localStorage, cannot be changed
+  const [username] = useState(() => localStorage.getItem('username') || '');
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
-
-  // Get username from local storage when component mounts
-  useEffect(() => {
-    const storedUser = localStorage.getItem('username');
-    if (storedUser) {
-      setUsername(storedUser);
-    }
-  }, []);
+  const [skills, setSkills] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!title || !body) {
-      alert('Title and description are required!');
+    if (!username || !title || !body) {
+      setError("Please fill all required fields.");
       return;
     }
 
-    const postData = { username, title, body };
+    setLoading(true);
+    setError('');
+    setSuccess(false);
 
     try {
-      const response = await fetch('/api/posts', {
+      const res = await fetch('/api/posts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(postData),
+        body: JSON.stringify({ username, title, body, skills }),
       });
 
-      if (response.ok) {
-        alert('Post created successfully!');
-        setTitle('');
-        setBody('');
-      } else {
-        alert('Failed to create post.');
-      }
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to create post");
+
+      setSuccess(true);
+      setTitle('');
+      setBody('');
+      setSkills([]);
     } catch (err) {
       console.error(err);
-      alert('Something went wrong.');
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="containerCreate">
       <div className="Header">
-        <div className="text" style={{ justifyContent: "center" }}>
+        <div className="text" style={{ justifyContent:"center" }}>
           Create a Post
         </div>
       </div>
@@ -58,7 +60,11 @@ const Create = () => {
           <div className="user">
             <span className="label-text">Username</span>
             <div className="input">
-              <input type="text" value={username} readOnly />
+              <input
+                type="text"
+                value={username || 'No username found in localStorage'}
+                readOnly
+              />
             </div>
           </div>
 
@@ -85,11 +91,31 @@ const Create = () => {
               />
             </div>
           </div>
+
+          <div className="skills">
+            <span className="label-text">Add skills most relevant to this role (max 3)</span>
+            <div className="input">
+              <TagTextBox
+                label=""
+                name="skills"
+                values={skills}
+                onChange={(newSkills) => {
+                  if (newSkills.length <= 3) {
+                    setSkills(newSkills);
+                  }
+                }}
+                placeholder="Type a skill and press enter"
+              />
+            </div>
+          </div>
         </div>
 
+        {error && <p style={{ color: 'red', marginTop: '0.5rem' }}>{error}</p>}
+        {success && <p style={{ color: 'green', marginTop: '0.5rem' }}>Post created successfully!</p>}
+
         <div className="Sign-submit-container">
-          <button className="submit" type="submit">
-            Post
+          <button className="submit" type="submit" disabled={loading}>
+            {loading ? 'Posting...' : 'Post'}
           </button>
         </div>
       </form>
