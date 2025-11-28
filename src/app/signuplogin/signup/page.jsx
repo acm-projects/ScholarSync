@@ -1,22 +1,20 @@
 'use client';
 
-//import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import Link from "next/link";
 import { useState } from 'react';
-
 import './signup.css';
 import Image from 'next/image';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [username, setusername] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handle = async (e) => {
     e.preventDefault();
 
-    if (!email || !password || !confirmPassword) {
+    if (!email || !password || !confirmPassword || !username) {
       alert('Please fill in all fields');
       return;
     }
@@ -42,11 +40,9 @@ const Signup = () => {
 
       alert('Signup successful! Please check your email to confirm.');
 
-      // Add username to memory
       window.localStorage.setItem("username", username);
-
-      // Redict to login page
       window.location.href = '/signuplogin/login';
+
     } catch (err) {
       console.error('Error connecting to backend:', err);
       alert('Error connecting to backend');
@@ -54,76 +50,74 @@ const Signup = () => {
   };
 
   return (
-    <div>
-      <div className="container">
-        <div className="Header">
-          <div className="text">Signup</div>
-        </div>
-        <form onSubmit = {handle}>
-          <div className="inputs">
-            <div className="input">
-              <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-            </div>
-            <div className="input">
-              <input type="Username" placeholder="Username" value={username} onChange={(e) => setusername(e.target.value)}/>
-            </div>
-            <div className="input">
-              <input type="password" placeholder="Create Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-            </div>
-            <div className="input">
-              <input type= "password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-            </div>
-                  
-                  
-            <div className= "Sign-submit-container">
-              <button className = "submit" type = "submit">
-                Sign up
-              </button>
-            </div>
+    <div className="container">
+      <div className="Header">
+        <div className="text">Sign Up</div>
+      </div>
+
+      <form onSubmit={handle}>
+        <div className="inputs">
+          <div className="input">
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
-        </form>
 
-        <div className = "account">
-          Already have an account? 
-          <Link href="/signuplogin/login">
-            <span>Login</span>
-          </Link>
-        </div>
+          <div className="input">
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
 
-        <div className = "divide">        
-          <Image
-            src="/Separator.png"
-            alt="or"
-            width={280}
-            height={20}
-          />
-        </div>
-                
-        <div className= "CG-submit-container">
-          <Image
-            src="/google.png"
-            alt="icon"
-            width={21}
-            height={21}
-          />
-          <div className = "submit">
-            Continue with Google
+          <div className="input">
+            <input
+              type="password"
+              placeholder="Create Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          <div className="input">
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </div>
+
+          <div className="Sign-submit-container">
+            <button className="submit" type="submit">Sign up</button>
           </div>
         </div>
+      </form>
 
-        <div className= "CL-submit-container">
-          <Image
-            src="/LinkedIn.png"
-            alt="icon"
-            width={21}
-            height={21}
-          />
+      <div className="account">
+        Already have an account?
+        <Link href="/signuplogin/login">
+          <span>Login</span>
+        </Link>
+      </div>
 
-          <div className = "submit">
-            Continue with LinkedIn
-          </div>
-        </div>
+      <div className="divide">
+        <Image src="/Separator.png" alt="or" width={280} height={20} />
+      </div>
 
+      <div className="CG-submit-container">
+        <Image src="/google.png" alt="Google" width={21} height={21} />
+        <div className="submit">Continue with Google</div>
+      </div>
+
+      <div className="CL-submit-container">
+        <Image src="/LinkedIn.png" alt="LinkedIn" width={21} height={21} />
+        <div className="submit">Continue with LinkedIn</div>
       </div>
     </div>
   );

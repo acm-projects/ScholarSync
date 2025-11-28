@@ -3,12 +3,10 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import './login.css';
-import Image from 'next/image';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const handle = async (e) => {
     e.preventDefault();
@@ -45,53 +43,53 @@ const Login = () => {
       alert('Error connecting to backend');
     }
   };
-    return (
-        <div>
-          <div className="container">
-          <div className="Header">
-              <div className="text">Login</div>
-            </div>
 
-            <form onSubmit = {handle}>
-            
-            <div className="inputs">
-                <div className="input">
-                    <input type="username" placeholder="Username"  value={username} onChange={(e) => {setUsername(e.target.value)}}/>
-                </div>
-                
-                <div className="input">
-                <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                </div>
+  return (
+    <div className="container">
+      <div className="Header">
+        <div className="text">Login</div>
+      </div>
 
-                <div className = "forgot">
-                <span>Forgot Password? </span>
-                </div>
-                      
-                <div className= "Login-submit-container">
-                <button className = "submit" type = "submit">
-                    Login
-                </button>
-                </div>
+      <form onSubmit={handle}>
+        <div className="inputs">
+          <div className="input">
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
 
-                </div>
+          <div className="input">
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
 
-                </form>
+          <div className="forgot">
+            <span>Forgot Password?</span>
+          </div>
 
-                <div className = "account">
-                Don't have an account? 
-                <Link href = "/signuplogin/signup">
-                <span className="signup-link">Signup</span>
-                </Link>
-                </div>
-        
-
-                <div className = "divide">        
-          
-                </div>
-
+          <div className="Login-submit-container">
+            <button className="submit" type="submit">
+              Login
+            </button>
           </div>
         </div>
-      );
-    }
-  
+      </form>
+
+      <div className="account">
+        Don't have an account?{' '}
+        <Link href="/signuplogin/signup">
+          <span className="signup-link">Signup</span>
+        </Link>
+      </div>
+    </div>
+  );
+};
+
 export default Login;

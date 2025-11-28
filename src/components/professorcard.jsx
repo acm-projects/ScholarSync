@@ -22,7 +22,9 @@ function pickTopTagsColored(colored) {
 
 function computeThreeTagPctAndColor(topTags) {
   const W = { green: 33.3333, yellow: 22.2222, red: 11.1111 };
-  let g = 0, y = 0, r = 0;
+  let g = 0,
+    y = 0,
+    r = 0;
   for (const t of asArray(topTags).slice(0, 3)) {
     if (t.color === "green") g += W.green;
     else if (t.color === "yellow") y += W.yellow;
@@ -78,13 +80,19 @@ export default function ProfessorCard({ item, userTags, showPct = true , theme =
   const [photo, setPhoto] = useState(null);
   const [errored, setErrored] = useState(false);
 
+  // ----------------------------------------
+  // ✅ FIXED: SSR-safe image loading
+  // ----------------------------------------
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     let alive = true;
     setPhoto(null);
     setErrored(false);
     (async () => {
       for (const url of candidates) {
         if (!url) continue;
+
         const ok = await new Promise((resolve) => {
           const img = new Image();
           img.onload = () => resolve(true);
@@ -93,6 +101,7 @@ export default function ProfessorCard({ item, userTags, showPct = true , theme =
         });
         if (ok && alive) { setPhoto(url); return; }
       }
+
       if (alive) setErrored(true);
     })();
     return () => { alive = false; };
@@ -189,11 +198,7 @@ export default function ProfessorCard({ item, userTags, showPct = true , theme =
 
         <div className="mt-auto pt-6 flex-shrink-0">
           <div
-            className=" my-[-10px]
-              whitespace-nowrap overflow-x-auto
-              [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden
-              -mr-[184px] pr-[184px]
-            "
+            className="my-[-10px] whitespace-nowrap overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden -mr-[184px] pr-[184px]"
           >
             {topTags.length ? (
               topTags.map((t, i) => (
@@ -215,7 +220,14 @@ export default function ProfessorCard({ item, userTags, showPct = true , theme =
         <div className="mt-2 self-end mr-0">
           <div className="relative" style={{ width: size, height: size }}>
             <svg width={size} height={size} viewBox="0 0 160 160">
-              <circle cx="80" cy="80" r={r} fill="none" stroke="#e5e7eb" strokeWidth="12" />
+              <circle
+                cx="80"
+                cy="80"
+                r={r}
+                fill="none"
+                stroke="#e5e7eb"
+                strokeWidth="12"
+              />
               <circle
                 cx="80"
                 cy="80"

@@ -17,14 +17,22 @@
 .card-title {
   margin-bottom: 0rem;
   margin-top: -3rem;
- margin-left: 10rem;
+  margin-left: 10rem;
   font-size: 22px;
   font-weight: 600;
   color: #111111;
-  
+  cursor: pointer;         
+  text-decoration: none;   
+  transition: text-decoration 0.2s ease, color 0.2s ease;
 }
 
-
+.card-title:hover {
+  text-decoration: underline; 
+  color: #0096C7;             
+}
+.card-title:hover {
+  color: #2563EB !important;
+}
 
 
 .card-date {
@@ -50,10 +58,15 @@
   align-self: flex-end;
 }
 
+
 .card-description {
   margin-bottom: 1;
   margin-left: 10rem;
   font-size: 14px;
-
   color: #111111;
+
+  max-height: 150px;
+  overflow-y: auto;
+  padding-right: 8px;
+
 }

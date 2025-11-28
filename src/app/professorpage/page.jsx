@@ -151,7 +151,6 @@ export default function ProfessorsPage() {
       });
   }, []);
 
-  // dataset pick based on tab
   const dataset = useMemo(() => {
     return tab === "recommended"
       ? profRecommended ? normalizeAllItems(profRecommended, userTags) : []
