@@ -28,3 +28,7 @@
 .custom3__placeholder {
   color: rgb(0, 0, 0)!important;
 }
+
+.Hover:hover * {
+  color: #2563EB !important;
+}

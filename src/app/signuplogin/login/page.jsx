@@ -3,27 +3,28 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import './login.css';
-import Image from 'next/image';
 
 const Login = () => {
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [username, setusername] = useState('');
 
-  const handle = async (e) => {
   const handle = async (e) => {
     e.preventDefault();
 
-    if (!email || !password) {
+    if (!username || !password) {
       alert('Please fill in all fields');
       return;
     }
 
     try {
-      const response = await fetch('https://eckapa4iqi.execute-api.us-east-2.amazonaws.com/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await fetch(
+        'https://eckapa4iqi.execute-api.us-east-2.amazonaws.com/login',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password }),
+        }
+      );
 
       const data = await response.json();
 
@@ -33,61 +34,60 @@ const Login = () => {
       }
 
       alert('Login successful!');
-      window.location.href = '/dashboard'; 
+      localStorage.setItem('username', username); // save username
+      window.location.href = '/homeresearchpage';
     } catch (err) {
       console.error('Error connecting to backend:', err);
       alert('Error connecting to backend');
     }
   };
-    return (
-        <div>
-          <div className="container">
-          <div className="Header">
-              <div className="text">Login</div>
-            </div>
 
-            <form onSubmit = {handle}>
-            
-            <div className="inputs">
-                <div className="input">
-                    <input type="email" placeholder="Username"  value={username} onChange={(e) => setusername(e.target.value)}/>
-                </div>
-                
-                <div className="input">
-                <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                </div>
+  return (
+    <div className="container">
+      <div className="Header">
+        <div className="text">Login</div>
+      </div>
 
-                <div className = "forgot">
-                <span>Forgot Password? </span>
-                </div>
-                      
-                <div className= "Login-submit-container">
-                  <Link href="/homeresearchpage">
-                    <button className = "submit" type = "submit">
-                      Login
-                    </button>
-                </Link>
-                </div>
+      <form onSubmit={handle}>
+        <div className="inputs">
+          <div className="input">
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
 
-                </div>
+          <div className="input">
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
 
-                </form>
+          <div className="forgot">
+            <span>Forgot Password?</span>
+          </div>
 
-                <div className = "account">
-                Don't have an account? 
-                <Link href = "/signuplogin/signup">
-                <span className="signup-link">Signup</span>
-                </Link>
-                </div>
-        
-
-                <div className = "divide">        
-          
-                </div>
-
+          <div className="Login-submit-container">
+            <button className="submit" type="submit">
+              Login
+            </button>
           </div>
         </div>
-      );
-    }
-  }
+      </form>
+
+      <div className="account">
+        Don't have an account?{' '}
+        <Link href="/signuplogin/signup">
+          <span className="signup-link">Signup</span>
+        </Link>
+      </div>
+    </div>
+  );
+};
+
 export default Login;

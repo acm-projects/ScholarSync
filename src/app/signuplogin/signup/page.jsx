@@ -52,7 +52,7 @@ const Signup = () => {
   return (
     <div className="container">
       <div className="Header">
-        <div className="text">Signup</div>
+        <div className="text">Sign Up</div>
       </div>
 
       <form onSubmit={handle}>

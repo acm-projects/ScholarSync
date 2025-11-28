@@ -73,86 +73,98 @@ export default function PaperZoom({ params }) {
           padding: '0.5rem 1rem',
           borderRadius: '20px',
           backgroundColor: '#ef4444',
+          fontSize: '13px',
           color: '#fff',
           border: 'none',
           cursor: 'pointer',
           fontWeight: 'bold',
           boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
-          transform: 'scale(0.80)',
+          transform: 'scale(0.50)'
         }}
       >
         ← Back
       </button>
+<button
+  style={{
+    position: 'fixed',
+    top: '6rem', 
+    right: '2rem', 
+    padding: '0.5rem 1rem',
+    borderRadius: '20px',
+    backgroundColor: '#ef4444',
+    color: '#fff',
+    border: 'none',
+    cursor: 'pointer',
+    fontWeight: 'bold',
+    fontSize: '13px',
+    boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+    transform: 'scale(0.80)'
+  }}
+  onClick={generateSummary}
+>
+  Generate Summary
+</button>
+{showSidebar && (
+  <div
+    style={{
+      position: 'fixed',
+      top: '5.3rem',
+      right: 0,
+      width: '300px',
+      height:'calc(100vh - 5.3rem)',
+      backgroundColor: 'hsl(0, 0%, 94%)',
+      color: '#111',
+      borderLeft: '1px solid #E0E0E0',
+      padding: '2rem 1.5rem 1.5rem 1.5rem',
+      boxShadow: '-4px 0 12px rgba(0,0,0,0.05)',
+      zIndex: 999,
+      display: 'flex',
+      flexDirection: 'column',
+    }}
+  >
+   <div style={{ position: 'relative', paddingBottom: '1rem' }}>
+  <button
+  onClick={() => setShowSidebar(false)}
+  style={{
+    position: 'fixed',           
+    top: '5.8rem',                   
+    right: '300px',         
+    transform: 'translateX(50%)',  
+    width: '28px',
+    height: '28px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    cursor: 'pointer',
+    fontSize: '1.25rem',
+    color: '#555',
+    backgroundColor: '#f5f5f5',
+    border: 'none',
+    borderRadius: '15%',
+    boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
+    transition: 'all 0.2s ease',
+    zIndex: 1001,
+  }}
+  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#e0e0e0')}
+  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#f5f5f5')}
+  aria-label="Close sidebar"
+>
+  &gt;
+</button>
 
-      <button
-        style={{
-          position: 'fixed',
-          top: '89px',
-          right: '2rem',
-          padding: '0.5rem 1rem',
-          borderRadius: '20px',
-          backgroundColor: '#ef4444',
-          color: '#fff',
-          border: 'none',
-          cursor: 'pointer',
-          fontWeight: 'bold',
-          boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
-          transform: 'scale(0.80)',
-        }}
-        onClick={generateSummary}
-        disabled={generatingSummary}
-      >
-        {generatingSummary ? 'Generating...' : 'Generate Summary'}
-      </button>
-
-      {showSidebar && (
-        <div
-          style={{
-            position: 'fixed',
-            top: '5.3rem',
-            right: 0,
-            width: '300px',
-            height: '100vh',
-            backgroundColor: 'hsl(0, 0%, 94%)',
-            color: '#111',
-            borderLeft: '1px solid #E0E0E0',
-            padding: '2rem 1.5rem',
-            overflowY: 'auto',
-            boxShadow: '-4px 0 12px rgba(0,0,0,0.05)',
-            zIndex: 999,
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          <div
-            onClick={() => setShowSidebar(false)}
-            style={{
-              position: 'absolute',
-              top: '0.3rem',
-              left: '1rem',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              cursor: 'pointer',
-              fontWeight: 'bold',
-              fontSize: '1.2rem',
-              color: '#555',
-              backgroundColor: '#f5f5f5',
-              borderRadius: '50%',
-              width: '28px',
-              height: '28px',
-              boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
-            }}
-          >
-            x
-          </div>
-
-          <h3 style={{ fontWeight: 700, marginBottom: '1rem', marginTop: '1.5rem' }}>
-            Summary
-          </h3>
-          <p style={{ fontSize: '0.95rem' }}>{summary}</p>
-        </div>
-      )}
+    <h3 style={{ fontWeight: 700, marginBottom: '1rem' }}>Summary</h3>
+    </div>
+     <div
+      style={{
+        overflowY: 'auto',
+        paddingRight: '0.5rem',
+        flexGrow: 1,
+      }}
+    >
+      <p style={{ fontSize: '0.95rem' }}>{summary}</p>
+    </div>
+  </div>
+)}
 
       <div
         style={{

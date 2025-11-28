@@ -204,7 +204,7 @@ function handleFreshDrop(e) {
         })).filter(group => group.papers.length > 0);
       }
       
-      else if (mode === "workspace"){
+      if (mode === "workspace"){
           if (Object.keys(workspace).length === 0)
             return [];
           return Object.entries(workspace).reverse().map(([name, data]) => ({
@@ -271,7 +271,7 @@ function handleFreshDrop(e) {
     <div className = "Main">
     
     {savedPaper.length === 0 ? (
-      <p>NOPE!</p>
+      <p>User hasn't saved any papers</p>
     ) : (
       <div>
             {mode === "workspace" && (
@@ -477,122 +477,96 @@ function handleFreshDrop(e) {
     </div>
 ))}
 
-<h3 style={{
-  color: "#000000ff",
-  marginLeft: "3.5rem",
-  marginTop: "2rem",
-  marginBottom: "1.5rem",
-  fontSize: 19,
-  fontWeight: "600",
-}}>
-  All Papers
-</h3>
-
-<div style={{
-  display: "flex", 
-  flexWrap: "wrap",
-  gap: "1rem",
-  padding: "1rem 3.5rem",
-  justifyContent: "flex-start",
-}}>
-  {savedPaper.map((paper) => (
-    <Card
-      key={paper.paperID}
-      draggable
-      onDragStart={(e) => handleDragStart(e, paper.paperID)}
+    <div
       style={{
-        width: "20rem",
-        height: "400px",
-        backgroundColor: "#FFFFFF",
-        padding: "1rem",
-        cursor: "grab",
-        display: "flex",
-        flexDirection: "column",
+        display: "flex", 
+        flexWrap: "wrap",
+        gap: "1rem",
+        padding: "2rem 3.5rem",
+        justifyContent: "flex-start",
       }}
     >
-        <div
-                className="options"
-                style={{
-                  position: "relative",
-                  display: "flex",
-                  alignItems: "center",
-                  backgroundColor: "#ebe7e7ff",
-                  borderRadius: "5px",
-                  gap: "6px",
-                  color: "black",
-                  padding: "2px 12px",
-                  fontSize: 10,
-                  marginTop: "15px",
-                  width: "fit-content",
-                  marginLeft: "12rem",
-                }}
-                onClick={() =>
-                  setOpenDropdowns((prev) => ({
-                    ...prev,
-                    [paper.paperID]: !prev[paper.paperID],
-                  }))
-                }
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#d6d3d3")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#ebe7e7ff")
-                }
-              >
-                <Pencil1Icon
-                  style={{ color: "black", width: "19px", height: "19px" }}
-                />
-                <span style={{ color: "black", fontSize: 12 }}>
-                  {status[String(paper.paperID)] || "Status"}
-                </span>
+    
 
-                {openDropdowns[paper.paperID] && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "100%",
-                      left: 10,
-                      backgroundColor: "white",
-                      border: "1px solid #ccc",
-                      borderRadius: "5px",
-                      marginTop: "4px",
-                      width: "90%",
-                      zIndex: 1000,
-                    }}
-                  >
-                    {options.map((opt) => (
-                      <div
-                        key={opt}
-                        style={{
-                          padding: "8px",
-                          cursor: "pointer",
-                          backgroundColor:
-                            status[paper.paperID] === opt ? "#d6d3d3" : "white",
-                        }}
-                        onClick={() => {
-                          setStatus((prev) => ({
-                            ...prev,
-                            [String(paper.paperID)]: opt,
-                          }));
-                          setOpenDropdowns((prev) => ({
-                            ...prev,
-                            [paper.paperID]: false,
-                          }));
-                        }}
-                        onMouseEnter={(e) => {
-                          if (status[String(paper.paperID)] !== opt)
-                            e.currentTarget.style.backgroundColor = "#f0f0f0";
-                        }}
-                        onMouseLeave={(e) => {
-                          if (status[paper.paperID] !== opt)
-                            e.currentTarget.style.backgroundColor = "white";
-                        }}
-                      >
-                        {opt}
-                      </div>
-                    ))}
-                  </div>
-                )}
+      {savedPaper.map((paper) => (
+        <Card
+          key={paper.id}
+          draggable
+          onDragStart={(e) => handleDragStart(e, paper.id)}
+          style={{
+            width: "20rem",
+            backgroundColor: "#FFFFFF",
+            padding: "1rem",
+            borderRadius: "8px",
+            cursor: "grab",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+          }}
+        >
+
+           <div className = "options" style = {{position: "relative", display: "flex",
+                alignItems: "center",
+                backgroundColor: "#ebe7e7ff"  ,
+                borderRadius: "5px",
+                gap: "6px",
+                color: "black",
+                padding: "2px 12px",
+                fontSize: 10,
+                marginTop: "15px",
+                width: "fit-content",
+                marginLeft: "12rem"
+               ,}} onClick={() => 
+    setOpenDropdowns(prev => ({
+        ...prev,
+        [paper.id]: !prev[paper.id]
+    }))
+} onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#d6d3d3" )} onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#ebe7e7ff"  )}>
+                
+               <Pencil1Icon style={{ color: "black",  width: "19px", height: "19px",}} />
+               <span style = {{ color: "black", fontSize: 12}}>
+                {status[String(paper.id)] || "Status"}
+                </span>
+                {openDropdowns[paper.id] && (
+    <div
+      style={{
+        position: "absolute",
+        top: "100%",
+        left: 10,
+        backgroundColor: "white",
+        border: "1px solid #ccc",
+        borderRadius: "5px",
+        marginTop: "4px",
+        width: "90%",
+        zIndex: 1000,
+      }}
+    >
+      {options.map((opt) => (
+        <div
+          key={opt}
+          style={{
+            padding: "8px",
+            cursor: "pointer",
+            backgroundColor:
+              status[paper.id] === opt ? "#d6d3d3" : "white",
+          }}
+       onClick={() => {
+          setStatus(prev => ({ ...prev, [String(paper.id)]: opt }));
+          setOpenDropdowns(prev => ({ ...prev, [paper.id]: false }));
+        }}
+          onMouseEnter={(e) => {
+            if (status[String(paper.id)] !== opt)
+              e.currentTarget.style.backgroundColor = "#f0f0f0";
+          }}
+          onMouseLeave={(e) => {
+            if (status[paper.id] !== opt)
+              e.currentTarget.style.backgroundColor = "white";
+          }}
+        >
+          {opt}
+          </div>
+      ))}
+    </div>
+  )}
+                
               </div>
 
               <div

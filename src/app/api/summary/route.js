@@ -45,7 +45,6 @@ async function storeSummaryInTable(paperID, summary) {
   await dynamo.send(command);
 }
 
-// API handler
 export async function POST(req) {
   try {
     const { pdfLink, paperID } = await req.json();
@@ -61,7 +60,7 @@ export async function POST(req) {
     // Return existing summary if available
     const existingSummary = await getSummaryFromTable(paperID);
     if (existingSummary && existingSummary.trim().length > 0) {
-      console.log("✅ Returning existing summary from DynamoDB");
+      console.log("Returning existing summary from DynamoDB");
       return new Response(JSON.stringify({ summary: existingSummary }), { status: 200 });
     }
 
@@ -105,9 +104,8 @@ ${truncatedText}
     const response = await bedrock.send(command);
     const summary = response?.content?.[0]?.text?.trim() || "No summary generated.";
 
-    // Store in DynamoDB
     await storeSummaryInTable(paperID, summary);
-    console.log("✅ Summary stored in DynamoDB");
+    console.log("Summary stored in DynamoDB");
 
     return new Response(JSON.stringify({ summary }), { status: 200 });
   } catch (err) {

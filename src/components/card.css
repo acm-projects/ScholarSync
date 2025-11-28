@@ -30,8 +30,9 @@
   text-decoration: underline; 
   color: #0096C7;             
 }
-
-
+.card-title:hover {
+  color: #2563EB !important;
+}
 
 
 .card-date {

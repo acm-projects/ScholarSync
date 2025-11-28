@@ -56,7 +56,6 @@ export default function ProfessorsPage() {
   const [query, setQuery] = useState("");
   const [visible, setVisible] = useState(6);
 
-  // dataset pick based on tab
   const dataset = useMemo(() => {
     return tab === "recommended"
       ? normalizeAllItems(profRecommended, userTags)
