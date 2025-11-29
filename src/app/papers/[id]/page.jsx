@@ -8,7 +8,8 @@ import './markdown.css';
 
 export default function PaperZoom({ params }) {
   const router = useRouter();
-  const paperId = parseInt(params.id, 10);
+  const { id } = React.use(params);   
+  const paperId = parseInt(id, 10);
   const paper = papers.find((p) => p.id === paperId);
   const [showSidebar, setShowSidebar] = useState(false);
   const [summary, setSummary] = useState('');
@@ -40,16 +41,16 @@ export default function PaperZoom({ params }) {
           position: 'fixed',
           top: '6rem',
           left: '2rem',
-          padding: '0.5rem 1rem',
+          padding: '0.8rem 1.4rem',
           borderRadius: '20px',
           backgroundColor: '#ef4444',
-          fontSize: '13px',
+          fontSize: '15px',
           color: '#fff',
           border: 'none',
           cursor: 'pointer',
           fontWeight: 'bold',
           boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
-          transform: 'scale(0.50)'
+          transform: 'scale(0.80)'
         }}
       >
         ← Back
@@ -59,14 +60,14 @@ export default function PaperZoom({ params }) {
     position: 'fixed',
     top: '6rem', 
     right: '2rem', 
-    padding: '0.5rem 1rem',
+    padding: '0.8rem 1.4rem',
     borderRadius: '20px',
     backgroundColor: '#ef4444',
     color: '#fff',
     border: 'none',
     cursor: 'pointer',
     fontWeight: 'bold',
-    fontSize: '13px',
+    fontSize: '15px',
     boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
     transform: 'scale(0.80)'
   }}

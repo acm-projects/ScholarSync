@@ -2,8 +2,10 @@
 import './create.css';
 import React, { useState } from 'react';
 import TagTextBox from "@/components/tagtextbox";
+import { useRouter } from 'next/navigation';
 
 const Create = () => {
+  const router = useRouter(); 
   const [username, setUsername] = useState('');
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
@@ -22,6 +24,25 @@ const Create = () => {
   return (
       <div className="containerCreate">
         <div className="Header">
+          <button
+        onClick={() => router.back()}
+        style={{
+          position: "fixed",
+          top: "2rem",
+          left: "2rem",
+          padding: "0.8rem 1.4rem",
+          borderRadius: "24px",
+          backgroundColor: "#ef4444",
+          color: "#fff",
+          border: "none",
+          cursor: "pointer",
+          fontWeight: "bold",
+          fontSize: "15px",
+          boxShadow: "0 2px 6px rgba(0,0,0,0.2)"
+        }}
+      >
+  ← Back
+</button>
           <div className="text " style={{ justifyContent:"center" }}>
             Create a Post
           </div>
