@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useEffect } from "react";
 import Navbar from "@/components/navbar";
 import { LabeledInput } from "@/components/form";
 import Dropdown from "@/components/dropdown";
@@ -8,7 +8,6 @@ import ProfileCard from "@/components/profilecard";
 import Field from "@/components/field";
 import TagTextBox from "@/components/tagtextbox"; 
 import academics from "@/data/academics.json" assert { type: "json" };
-import profileDefaults from "@/data/profile.json" assert { type: "json" };
 
 /* option lists ) */
 const YEARS  = ["Freshman", "Sophomore", "Junior", "Senior", "Graduate"];
@@ -33,11 +32,41 @@ const EMPTY = {
 
 export default function ProfilePage() {
   /* state */
-  const base = useMemo(() => ({ ...EMPTY, ...(profileDefaults || {}) }), []);
-  const [form, setForm] = useState(base);
+  const [form, setForm] = useState(EMPTY);
   const [edit, setEdit] = useState(false);
   const [saving, setSaving] = useState(false);
   const fileRef = useRef(null);
+
+  /* Get username from localStorage */
+  const username = useMemo(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('username');
+    }
+    return null;
+  }, []);
+
+  /* Fetch user data on component mount */
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (!username) {
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/user-profile?username=${username}`);
+        if (response.ok) {
+          const userData = await response.json();
+          setForm(userData);
+        } else {
+          console.error('Failed to fetch user data');
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, [username]);
 
   /* computed display */
   const fullName = useMemo(
@@ -65,24 +94,52 @@ export default function ProfilePage() {
   const onTags = (name, values) => setField(name, values);
   const onFile  = (e) => setField("resumeFile", e.target.files?.[0] || null);
 
-  /* save */
+  /* save - update user in DynamoDB */
   const onSave = async () => {
+    if (!username) {
+      alert('No user identified');
+      return;
+    }
+
     setSaving(true);
     try {
-      const fd = new FormData();
-      Object.entries(form).forEach(([k, v]) => {
-        if (v == null) return;
-        fd.append(k, Array.isArray(v) ? JSON.stringify(v) : v);
+      const response = await fetch('/api/user-profile', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          ...form
+        }),
       });
-      await fetch("api.com", { method: "POST", body: fd });
-      setEdit(false);
+
+      if (response.ok) {
+        setEdit(false);
+        const updatedResponse = await fetch(`/api/user-profile?username=${username}`);
+        if (updatedResponse.ok) {
+          const updatedData = await updatedResponse.json();
+          setForm(updatedData);
+        }
+      } else {
+        throw new Error('Failed to update profile');
+      }
+    } catch (error) {
+      console.error('Error saving profile:', error);
+      alert('Failed to save profile');
     } finally {
       setSaving(false);
     }
   };
 
   const onCancel = () => {
-    setForm(base);
+    if (username) {
+      fetch(`/api/user-profile?username=${username}`)
+        .then(response => response.ok ? response.json() : null)
+        .then(userData => {
+          if (userData) setForm(userData);
+        });
+    }
     setEdit(false);
     if (fileRef.current) fileRef.current.value = "";
   };
@@ -177,21 +234,21 @@ export default function ProfilePage() {
                 {!edit ? (
                   <div className="text-base font-medium text-[#111827]">{form.major || <span className="text-[#6b7280]/80">Not set</span>}</div>
                 ) : (
-                  <Dropdown name="major" options={MAJORS} value={form.major} onChange={onChange} />
+                  <Dropdown name="major" options={MAJORS} value={form.major ?? ""} onChange={onChange} />
                 )}
               </Field>
               <Field label="Minor (optional)" locked={!edit}>
                 {!edit ? (
                   <div className="text-base font-medium text-[#111827]">{form.minor || <span className="text-[#6b7280]/80">Not set</span>}</div>
                 ) : (
-                  <Dropdown name="minor" options={MINORS} value={form.minor} onChange={onChange} />
+                  <Dropdown name="minor" options={MINORS} value={form.minor ?? ""} onChange={onChange} />
                 )}
               </Field>
               <Field label="Academic Year" locked={!edit}>
                 {!edit ? (
                   <div className="text-base font-medium text-[#111827]">{form.year || <span className="text-[#6b7280]/80">Not set</span>}</div>
                 ) : (
-                  <Dropdown name="year" options={YEARS} value={form.year} onChange={onChange} />
+                  <Dropdown name="year" options={YEARS} value={form.year ?? ""} onChange={onChange} />
                 )}
               </Field>
             </div>

@@ -9,24 +9,36 @@ export async function POST(req) {
     const data = await req.json();
 
     if (!data.username || !data.title || !data.body) {
-      return new Response(JSON.stringify({ error: "username, title, and body are required" }), {
-        status: 400,
-      });
+      return new Response(
+        JSON.stringify({ error: "username, title, and body are required" }),
+        { status: 400 }
+      );
     }
+
+    const timestamp = new Date().toISOString();
 
     await dynamoDb.send(
       new PutCommand({
         TableName: "Post",
         Item: {
-          ...data,
-          createdAt: new Date().toISOString(),
+          username: data.username, 
+          timestamp: timestamp,     
+          title: data.title,
+          body: data.body,
+          tags: data.tags || [],
         },
       })
     );
 
-    return new Response(JSON.stringify({ message: "Post created!" }), { status: 200 });
+    return new Response(
+      JSON.stringify({ message: "Post created!", timestamp }),
+      { status: 200 }
+    );
   } catch (err) {
     console.error(err);
-    return new Response(JSON.stringify({ error: "Failed to create post" }), { status: 500 });
+    return new Response(
+      JSON.stringify({ error: "Failed to create post" }),
+      { status: 500 }
+    );
   }
 }

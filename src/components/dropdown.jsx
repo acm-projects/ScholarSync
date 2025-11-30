@@ -43,7 +43,7 @@ export default function Dropdown({
       )}
 
       <Listbox
-        value={value}
+        value={value ?? ""}
         onChange={(v) => {
           emitChange(v);
           setQuery("");

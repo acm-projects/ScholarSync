@@ -18,7 +18,7 @@ export default function Navbar() {
         <nav className="hidden items-center gap-6 md:flex">
 
           <Link
-            href="/Create"
+            href="/create"
             className="hover:text-[#ef4444] font-medium transition-colors"
           >
             Create
@@ -48,10 +48,10 @@ export default function Navbar() {
             Library
           </Link>
            <Link
-            href="/signuplogin/signup"
+            href="/profile"
             className="rounded-md bg-[#ef4444] px-3 py-1.5 text-[#EEEef0] font-medium hover:bg-[#a9443f] transition"
           >
-            Sign Up
+            Profile
           </Link>
         </nav>
       </div>
@@ -65,4 +65,3 @@ export default function Navbar() {
           >
             Profile
           </Link> */
-

@@ -1,8 +1,12 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
   "/api/save-paper/route": "app/api/save-paper/route.js",
   "/api/update-status/route": "app/api/update-status/route.js",
   "/api/paper/route": "app/api/paper/route.js",
+  "/page": "app/page.js",
+  "/signuplogin/login/page": "app/signuplogin/login/page.js",
+  "/homeresearchpage/page": "app/homeresearchpage/page.js",
+  "/create/page": "app/create/page.js",
   "/LibrarySt/page": "app/LibrarySt/page.js",
-  "/discovery/page": "app/discovery/page.js",
-  "/papers/[id]/page": "app/papers/[id]/page.js"
+  "/discovery/page": "app/discovery/page.js"
 }

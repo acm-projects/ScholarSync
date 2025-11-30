@@ -29,7 +29,7 @@ const Create = () => {
       const res = await fetch('/api/posts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, title, body, skills }),
+        body: JSON.stringify({ username, title, body, tags: skills }),
       });
 
       const data = await res.json();
