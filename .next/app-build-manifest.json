@@ -11,39 +11,6 @@
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
     ],
-    "/signuplogin/login/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/signuplogin/login/page.css",
-      "static/chunks/app/signuplogin/login/page.js"
-    ],
-    "/homeresearchpage/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/homeresearchpage/page.js"
-    ],
-    "/create/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/create/page.css",
-      "static/chunks/app/create/page.js"
-    ],
-    "/LibrarySt/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/LibrarySt/page.css",
-      "static/chunks/app/LibrarySt/page.js"
-    ],
-    "/api/save-paper/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/save-paper/route.js"
-    ],
-    "/api/update-status/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/update-status/route.js"
-    ],
     "/discovery/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -55,10 +22,16 @@
       "static/chunks/main-app.js",
       "static/chunks/app/api/paper/route.js"
     ],
-    "/_not-found/page": [
+    "/papers/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/css/app/papers/[id]/page.css",
+      "static/chunks/app/papers/[id]/page.js"
+    ],
+    "/api/summary/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/summary/route.js"
     ]
   }
 }
