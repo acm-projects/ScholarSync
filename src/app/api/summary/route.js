@@ -56,7 +56,7 @@ export async function POST(req) {
 
     const existingSummary = await getSummaryFromTable(paperID);
     if (existingSummary && existingSummary.trim().length > 0) {
-      console.log("✅ Returning existing summary from DynamoDB");
+      console.log("Returning existing summary from DynamoDB");
       return new Response(JSON.stringify({ summary: existingSummary }), { status: 200 });
     }
 
