@@ -95,24 +95,36 @@ export default function OnboardingStep1() {
 
             <div className="mt-2 flex items-center justify-between md:col-span-2">
               <button
-                type="button"
-                onClick={() => router.back()}
-                className="rounded-md border border-[#d1d5db] bg-[#ffffff] px-4 py-2 text-sm font-medium text-[#374151] hover:bg-[#f3f4f6] hover:border-[#ef4444] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ef4444]"
-              >
-                Back
-              </button>
-              <button
-                type="submit"
-                disabled={!canContinue}
-                className={[
-                  "rounded-md px-5 py-2 text-sm font-semibold",
-                  !canContinue
-                    ? "bg-[#e5e7eb] text-[#9ca3af] cursor-not-allowed"
-                    : "bg-[#ef4444] text-white hover:bg-[#dc2626] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b91c1c]",
-                ].join(" ")}
-              >
-                Continue
-              </button>
+  type="submit"
+  disabled={!canContinue}
+  style={{
+    borderRadius: "0.375rem", 
+    padding: "0.5rem 1.25rem", 
+    fontSize: "0.875rem",
+    fontWeight: 600,
+    border: "none",
+    cursor: canContinue ? "pointer" : "not-allowed",
+    backgroundColor: canContinue ? "#ef4444" : "#e5e7eb",
+    color: canContinue ? "white" : "#9ca3af",
+    outline: "none",
+    transition: "background-color 0.2s",
+  }}
+  onMouseOver={(e) => {
+    if (canContinue) e.target.style.backgroundColor = "#dc2626"; 
+  }}
+  onMouseOut={(e) => {
+    if (canContinue) e.target.style.backgroundColor = "#ef4444"; 
+  }}
+  onFocus={(e) => {
+    if (canContinue) e.target.style.boxShadow = "0 0 0 2px #b91c1c";
+  }}
+  onBlur={(e) => {
+    e.target.style.boxShadow = "none";
+  }}
+>
+  Continue
+</button>
+
             </div>
           </form>
         </div>

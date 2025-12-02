@@ -11,103 +11,91 @@ const Create = () => {
   const [body, setBody] = useState('');
   const [skills, setSkills] = useState([]);
 
-  const handleSubmit = (e) => {
+  const handleContinue = (e) => {
     e.preventDefault();
-    const postData = {
+
+    const query = new URLSearchParams({
       username,
       title,
       body,
-    };
-   
+      skills: JSON.stringify(skills)
+    }).toString();
+
+    router.push(`/create/step2?${query}`);
   };
 
   return (
-      <div className="containerCreate">
-        <div className="Header">
-          <button
-        onClick={() => router.back()}
-        style={{
-          position: "fixed",
-          top: "2rem",
-          left: "2rem",
-          padding: "0.8rem 1.4rem",
-          borderRadius: "24px",
-          backgroundColor: "#ef4444",
-          color: "#fff",
-          border: "none",
-          cursor: "pointer",
-          fontWeight: "bold",
-          fontSize: "15px",
-          boxShadow: "0 2px 6px rgba(0,0,0,0.2)"
-        }}
-      >
-  ← Back
-</button>
-          <div className="text " style={{ justifyContent:"center" }}>
-            Create a Post
+    <div className="containerCreate">
+      <div className="Header">
+        <div className="text" style={{ justifyContent:"center" }}>
+          Create a Post
+        </div>
+      </div>
+
+      <form>
+        <div className="inputs">
+          <div className="user">
+            <span className="label-text">Username</span>
+            <div className="input">
+              <input
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="post-title">
+            <span className="label-text">Opportunity Title</span>
+            <div className="input">
+              <input
+                type="text"
+                placeholder="Opportunity Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="description">
+            <span className="label-text">Description</span>
+            <div className="textarea-input">
+              <textarea
+                placeholder="Write a job description"
+                value={body}
+                onChange={(e) => setBody(e.target.value)}
+                rows={6}
+              />
+            </div>
+          </div>
+
+          <div className="skills">
+            <span className="label-text">Add skills most relevant to this role</span>
+            <div className="input">
+              <TagTextBox
+                label=""             
+                name="skills"
+                values={skills}
+                onChange={setSkills}
+                placeholder="Type a skill and press enter"
+              />
+            </div>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit}>
-          <div className="inputs">
-  <div className="user">
-    <span className="label-text">Username</span>
-    <div className="input">
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
+ <div className="form-buttons" style={{ display: "flex", justifyContent: "space-between", marginTop: "2rem" }}>
+    <button type="button" onClick={() => router.back()} className="red-button">
+      ← Back
+    </button>
+
+    <button type="button" onClick={handleContinue} className="red-button">
+      Continue →
+    </button>
+  </div>
+   
+      </form>
     </div>
-  </div>
-
-  <div className="post-title">
-    <span className="label-text">Opportunity Title</span>
-    <div className="input">
-      <input
-        type="text"
-        placeholder="Opportunity Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-    </div>
-  </div>
-
-  <div className="description">
-    <span className="label-text">Description</span>
-    <div className="textarea-input">
-      <textarea
-        placeholder="Write a job description"
-        value={body}
-        onChange={(e) => setBody(e.target.value)}
-        rows={6}
-      />
-    </div>
-  </div>
-
-
-<div className="skills">
-  <span className="label-text">Add skills most relevant to this role</span>
-
-  <div className="input">
-    <TagTextBox
-      label=""             
-      name="skills"
-      values={skills}
-      onChange={setSkills}
-      placeholder="Type a skill and press enter"
-    />
-  </div>
-</div>
-</div>
-          <div className="Sign-submit-container">
-            <button className="submit" type="submit">
-              Post
-            </button>
-          </div>
-        </form>
-      </div>
   );
 };
 

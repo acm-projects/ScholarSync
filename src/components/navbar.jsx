@@ -1,5 +1,5 @@
 
-
+import Image from "next/image";
 import Link from "next/link";
 
 
@@ -7,22 +7,29 @@ export default function Navbar() {
   return (
     <header className="top-0 left-0 w-full h-18 z-50 bg-[#ffffff] text-[#11111] rounded-b-2xl">
       <div className="flex items-center justify-between px-6 py-6 text-black">
-        
-        <Link
-          href="../homeresearchpage"
-          className="font-extrabold text-3xl tracking-tight hover:text-[#ef4444] text-[#11111] "
-        >
-          ScholarSync
-        </Link>
 
+    <Link href="../professorpage" className="flex items-center gap-3">
+    <div className="w-12 h-12 relative"> 
+      <Image
+        src="/logo.png"
+        alt="Logo"
+        fill
+        className="rounded-full object-cover"
+      />
+    </div>
+    <span className="font-extrabold text-3xl tracking-tight hover:text-[#ef4444]">
+      ScholarSync
+    </span>
+  </Link>
         <nav className="hidden items-center gap-6 md:flex">
 
           <Link
-            href="/onboarding/onboarding1"
+            href="/create"
             className="hover:text-[#ef4444] font-medium transition-colors"
           >
-            Create
+            Post
           </Link>
+
           <Link
             href="/professorpage"
             className="hover:text-[#ef4444] font-medium transition-colors"
@@ -33,13 +40,15 @@ export default function Navbar() {
             href="/homeresearchpage"
             className="hover:text-[#ef4444] font-medium transition-colors"
           >
-            Discover
+            Opportunities
           </Link>
+
+
            <Link
             href="/discovery"
-            className="hover:text-[#ef4444]font-medium transition-colors"
+            className="hover:text-[#ef4444] font-medium transition-colors"
           >
-            Papers
+            Research
           </Link>
           <Link
             href="/LibrarySt"
