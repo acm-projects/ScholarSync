@@ -82,8 +82,8 @@ export default function PaperZoom({ params }) {
           transform: 'scale(0.80)'
         }}
       >
-        ← Back
-      </button>
+        ←  Back
+      </button> 
 <button
   style={{
     position: 'fixed',

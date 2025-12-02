@@ -1,6 +1,8 @@
 {
-  "/api/summary/route": "app/api/summary/route.js",
-  "/api/paper/route": "app/api/paper/route.js",
-  "/papers/[id]/page": "app/papers/[id]/page.js",
-  "/discovery/page": "app/discovery/page.js"
+  "/api/posts/route": "app/api/posts/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/discovery/page": "app/discovery/page.js",
+  "/create/page": "app/create/page.js",
+  "/create/step2/page": "app/create/step2/page.js",
+  "/professorpage/page": "app/professorpage/page.js"
 }

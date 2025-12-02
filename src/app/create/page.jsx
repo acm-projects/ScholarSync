@@ -2,10 +2,18 @@
 import './create.css';
 import React, { useState } from 'react';
 import TagTextBox from "@/components/tagtextbox";
+import { useRouter } from 'next/navigation';
 
 const Create = () => {
-  // Get username from localStorage, cannot be changed
-  const [username] = useState(() => localStorage.getItem('username') || '');
+  const router = useRouter();
+
+  const [username] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('username') || '';
+    }
+    return '';
+  });
+
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [skills, setSkills] = useState([]);
@@ -13,56 +21,40 @@ const Create = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleContinue = () => {
     if (!username || !title || !body) {
       setError("Please fill all required fields.");
       return;
     }
 
-    setLoading(true);
-    setError('');
-    setSuccess(false);
+    // Pass Step1 data to Step2 via query params
+    const query = new URLSearchParams({
+      username,
+      title,
+      body,
+      skills: JSON.stringify(skills)
+    }).toString();
 
-    try {
-      const res = await fetch('/api/posts', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, title, body, tags: skills }),
-      });
-
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Failed to create post");
-
-      setSuccess(true);
-      setTitle('');
-      setBody('');
-      setSkills([]);
-    } catch (err) {
-      console.error(err);
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
+    router.push(`/create/step2?${query}`);
   };
 
   return (
     <div className="containerCreate">
       <div className="Header">
-        <div className="text" style={{ justifyContent:"center" }}>
+        <div className="text" style={{ justifyContent: "center" }}>
           Create a Post
         </div>
       </div>
 
-      <form onSubmit={handleSubmit}>
+      <form>
         <div className="inputs">
           <div className="user">
             <span className="label-text">Username</span>
             <div className="input">
               <input
                 type="text"
-                value={username || 'No username found in localStorage'}
+                value={username || ''}
+                placeholder="No username found"
                 readOnly
               />
             </div>
@@ -110,12 +102,13 @@ const Create = () => {
           </div>
         </div>
 
-        {error && <p style={{ color: 'red', marginTop: '0.5rem' }}>{error}</p>}
-        {success && <p style={{ color: 'green', marginTop: '0.5rem' }}>Post created successfully!</p>}
+        <div className="form-buttons" style={{ display: "flex", justifyContent: "space-between", marginTop: "2rem" }}>
+          <button type="button" onClick={() => router.back()} className="red-button">
+            ← Back
+          </button>
 
-        <div className="Sign-submit-container">
-          <button className="submit" type="submit" disabled={loading}>
-            {loading ? 'Posting...' : 'Post'}
+          <button type="button" onClick={handleContinue} className="red-button">
+            Continue →
           </button>
         </div>
       </form>

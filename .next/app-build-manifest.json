@@ -6,11 +6,6 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
-    ],
     "/discovery/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -22,16 +17,32 @@
       "static/chunks/main-app.js",
       "static/chunks/app/api/paper/route.js"
     ],
-    "/papers/[id]/page": [
+    "/create/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/papers/[id]/page.css",
-      "static/chunks/app/papers/[id]/page.js"
+      "static/css/app/create/page.css",
+      "static/chunks/app/create/page.js"
     ],
-    "/api/summary/route": [
+    "/api/posts/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/api/summary/route.js"
+      "static/chunks/app/api/posts/route.js"
+    ],
+    "/create/step2/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/create/step2/page.css",
+      "static/chunks/app/create/step2/page.js"
+    ],
+    "/professorpage/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/professorpage/page.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }
