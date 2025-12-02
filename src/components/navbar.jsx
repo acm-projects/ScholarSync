@@ -43,7 +43,6 @@ export default function Navbar() {
             Opportunities
           </Link>
 
-
            <Link
             href="/discovery"
             className="hover:text-[#ef4444] font-medium transition-colors"

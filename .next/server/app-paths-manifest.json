@@ -1,7 +1,7 @@
 {
-  "/professorpage/page": "app/professorpage/page.js",
-  "/create/step2/page": "app/create/step2/page.js",
+  "/homeresearchpage/page": "app/homeresearchpage/page.js",
   "/create/page": "app/create/page.js",
-  "/onboarding/onboarding1/page": "app/onboarding/onboarding1/page.js",
-  "/onboarding/onboarding2/page": "app/onboarding/onboarding2/page.js"
+  "/create/step2/page": "app/create/step2/page.js",
+  "/signuplogin/signup/page": "app/signuplogin/signup/page.js",
+  "/onboarding/onboarding1/page": "app/onboarding/onboarding1/page.js"
 }

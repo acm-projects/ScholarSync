@@ -21,8 +21,6 @@ const Step2 = () => {
     e.preventDefault();
     const formData = { username, title, body, skills, email, phone, image };
     console.log("Final data:", formData);
-
-    // Redirect to professor page
     router.push("/professorpage");
   };
 
@@ -83,7 +81,7 @@ const Step2 = () => {
           <button
             type="button"
             className="red-button"
-            onClick={() => router.back()}
+            onClick={() => router.push(`/create?${searchParams.toString()}`)}
           >
             ← Back
           </button>
