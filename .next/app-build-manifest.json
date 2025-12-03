@@ -1,0 +1,75 @@
+{
+  "pages": {
+    "/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
+    ],
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
+    ],
+    "/professorpage/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/professorpage/page.js"
+    ],
+    "/create/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/create/page.css",
+      "static/chunks/app/create/page.js"
+    ],
+    "/create/step2/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/create/step2/page.css",
+      "static/chunks/app/create/step2/page.js"
+    ],
+    "/homeresearchpage/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/homeresearchpage/page.js"
+    ],
+    "/discovery/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/discovery/page.css",
+      "static/chunks/app/discovery/page.js"
+    ],
+    "/LibrarySt/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/LibrarySt/page.css",
+      "static/chunks/app/LibrarySt/page.js"
+    ],
+    "/api/save-paper/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/save-paper/route.js"
+    ],
+    "/api/update-status/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/update-status/route.js"
+    ],
+    "/papers/[id]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/papers/[id]/page.css",
+      "static/chunks/app/papers/[id]/page.js"
+    ],
+    "/api/paper/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/paper/route.js"
+    ],
+    "/api/summary/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/summary/route.js"
+    ]
+  }
+}
