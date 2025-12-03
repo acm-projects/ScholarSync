@@ -2,7 +2,7 @@
 
 import TagChip from "@/components/tagchip";
 import { useRouter } from "next/navigation";
-import { useState, useEffect, useMemo } from "react";
+import { useMemo } from "react";
 
 const asArray = (v) => (Array.isArray(v) ? v : []);
 
@@ -70,36 +70,8 @@ export default function OpportunityCard({ item, showPct = true, theme = "base", 
       ? "border border-[#e5e7eb] bg-[#ffffff] hover:bg-[#f9fafb] hover:border-[#d1d5db]"
       : "border border-[#fecaca] bg-[#fee2e2] hover:bg-[#fecaca] hover:border-[#fca5a5]";
 
-  const keySeed = String(item.title ?? "");
-  let hash = 0;
-  for (let i = 0; i < keySeed.length; i++) hash = (hash * 31 + keySeed.charCodeAt(i)) | 0;
-  const n = ((Math.abs(hash) % 6) + 1);
-
-  const candidates = [`/research${n}.jpg`, `/research${n}.jpeg`, `/research${n}.png`, `/research${n}.webp`];
-
-  const [resolvedImg, setResolvedImg] = useState(null);
-
-  useEffect(() => {
-    let alive = true;
-    (async () => {
-      for (const url of candidates) {
-        const ok = await new Promise((resolve) => {
-          const img = new Image();
-          img.onload = () => resolve(true);
-          img.onerror = () => resolve(false);
-          img.src = url;
-        });
-        if (ok && alive) {
-          setResolvedImg(url);
-          return;
-        }
-      }
-      if (alive) setResolvedImg("/research.webp");
-    })();
-    return () => { alive = false; };
-  }, [keySeed]);
-
-  const img = resolvedImg;
+  // Use uploaded image URL directly - no hard-coded placeholders
+  const imageUrl = item?.imageUrl || null;
 
   const stroke =
     badgeColor === "green"
@@ -133,15 +105,15 @@ export default function OpportunityCard({ item, showPct = true, theme = "base", 
     >
       <div className="w-[30%] p-3">
         <div className="relative h-full w-full">
-          {img ? (
+          {imageUrl ? (
             <img
-              src={img}
-              alt={item.title || "image"}
+              src={imageUrl}
+              alt={item.title || "Opportunity image"}
               className="h-full w-full object-cover rounded-xl border border-[#e5e7eb]"
             />
           ) : (
             <div className="absolute inset-0 rounded-xl bg-[#e5e7eb] grid place-items-center text-3xl font-bold text-[#6b7280]">
-              Image
+              No Image
             </div>
           )}
         </div>

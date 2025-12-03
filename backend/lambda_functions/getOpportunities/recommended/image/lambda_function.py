@@ -53,9 +53,10 @@ def lambda_handler(event, context):
         opportunities = response.get('Items', [])
 
         # Filter opportunities with embeddings and keep them aligned with vectors
+        # Exclude opportunities posted by the requesting user
         opp_entries = [
             entry for entry in opportunities
-            if entry.get('tag_embeddings')  # skip empty embeddings
+            if entry.get('tag_embeddings') and entry.get('username') != username  # skip empty embeddings and user's own posts
         ]
         # Get list of opportunity tag vectors
         opp_vectors = [
@@ -81,41 +82,46 @@ def lambda_handler(event, context):
                 })
             }
 
-        # Vectorize tags
-        user_embeddings = [e for e in create_embeddings_batch(user_tags) if e is not None]
+        # Handle case where no opportunities with embeddings exist (after filtering)
+        if len(opp_vectors) == 0:
+            ranked_opportunities = []
+        else:
+            # Vectorize tags
+            user_embeddings = [e for e in create_embeddings_batch(user_tags) if e is not None]
 
-        user_vector = np.mean(np.array(user_embeddings), axis=0)
-        user_vector /= np.linalg.norm(user_vector)
+            user_vector = np.mean(np.array(user_embeddings), axis=0)
+            user_vector /= np.linalg.norm(user_vector)
 
-        # Make prof_vectors into a 2D array
-        opp_vectors_array = np.vstack(opp_vectors)
+            # Make prof_vectors into a 2D array
+            opp_vectors_array = np.vstack(opp_vectors)
 
-        # Reshape user_vector to 2D (1, embedding_dim)
-        user_vec_2d = user_vector.reshape(1, -1)
+            # Reshape user_vector to 2D (1, embedding_dim)
+            user_vec_2d = user_vector.reshape(1, -1)
 
-        # Compute cosine similarity
-        similarities = cosine_similarity(user_vec_2d, opp_vectors_array)
+            # Compute cosine similarity
+            similarities = cosine_similarity(user_vec_2d, opp_vectors_array)
 
-        # Get indices sorted by descending similarity
-        ranking_indices = np.argsort(similarities[0])[::-1]
+            # Get indices sorted by descending similarity
+            ranking_indices = np.argsort(similarities[0])[::-1]
 
-        # Sorted similarities
-        sorted_similarities = similarities[0][ranking_indices]
+            # Sorted similarities
+            sorted_similarities = similarities[0][ranking_indices]
 
-        # Build ranked list for opportunities that had embeddings
-        # Return full opportunity object with similarity score added
-        ranked_opportunities = []
-        for idx, similarity in zip(ranking_indices, sorted_similarities):
-            opp = opp_entries[idx]
-            opp_copy = opp.copy()
-            opp_copy['score'] = min(float(similarity) / 0.7, 1)
-            ranked_opportunities.append(opp_copy)
+            # Build ranked list for opportunities that had embeddings
+            # Return full opportunity object with similarity score added
+            ranked_opportunities = []
+            for idx, similarity in zip(ranking_indices, sorted_similarities):
+                opp = opp_entries[idx]
+                opp_copy = opp.copy()
+                opp_copy['score'] = min(float(similarity) / 0.7, 1)
+                ranked_opportunities.append(opp_copy)
 
         # Collect opportunities without embeddings
         # Return full opportunity object with score set to None
+        # Exclude opportunities posted by the requesting user
         excluded_opportunities = []
         for entry in opportunities:
-            if not entry.get('tag_embeddings'):
+            if not entry.get('tag_embeddings') and entry.get('username') != username:
                 opp_copy = entry.copy()
                 opp_copy['score'] = None
                 excluded_opportunities.append(opp_copy)

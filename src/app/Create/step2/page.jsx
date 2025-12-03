@@ -34,10 +34,39 @@ const Step2 = () => {
     setSuccess(false);
 
     try {
+      // Upload image to S3 if provided and get the imageUrl
+      let imageUrl = null;
+      if (image && image.size > 0) {
+        const imageFormData = new FormData();
+        imageFormData.append('image', image);
+        
+        const imageRes = await fetch('/api/upload-image', {
+          method: 'POST',
+          body: imageFormData,
+        });
+
+        if (!imageRes.ok) {
+          const errorData = await imageRes.json();
+          throw new Error(errorData.error || 'Failed to upload image');
+        }
+
+        const imageData = await imageRes.json();
+        imageUrl = imageData.imageUrl || null;
+      }
+
+      // Send all data including imageUrl to Lambda function
       const res = await fetch('https://5076bt2yjd.execute-api.us-east-2.amazonaws.com/dev/postOpportunity', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, title, body, tags }),
+        body: JSON.stringify({ 
+          username, 
+          title, 
+          body, 
+          tags,
+          imageUrl,
+          email: email || null,
+          phone: phone || null,
+        }),
       });
 
       let data;
@@ -45,29 +74,25 @@ const Step2 = () => {
       if (contentType && contentType.includes('application/json')) {
         data = await res.json();
         // Handle API Gateway Lambda proxy response format
-            if (data.body && typeof data.body === 'string') {
-                data = JSON.parse(data.body);
-            }
+        if (data.body && typeof data.body === 'string') {
+          data = JSON.parse(data.body);
         }
-        else {
-            const text = await res.text();
-            data = text ? JSON.parse(text) : {};
-        }
+      } else {
+        const text = await res.text();
+        data = text ? JSON.parse(text) : {};
+      }
 
-        if (res.ok) {
-            router.push("/professorpage");
-        }
-        else {
-            alert("Upload failed: " + (data.error || "Unknown error"));
-        }
+      if (res.ok) {
+        router.push("/homeresearchpage");
+      } else {
+        alert("Upload failed: " + (data.error || "Unknown error"));
+      }
 
-        setSuccess(true);
-    }
-    catch (err) {
+      setSuccess(true);
+    } catch (err) {
       console.error(err);
       setError(err.message || "Failed to create post. Please try again.");
-    }
-    finally {
+    } finally {
       setLoading(false);
     }
   };

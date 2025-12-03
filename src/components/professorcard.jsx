@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import TagChip from "@/components/tagchip";
 
@@ -70,42 +70,21 @@ export default function ProfessorCard({ item, userTags, showPct = true , theme =
       ? "border border-[#e5e7eb] bg-[#ffffff] hover:bg-[#f9fafb] hover:border-[#d1d5db]"
       : "border border-[#fecaca] bg-[#fee2e2] hover:bg-[#fecaca] hover:border-[#fca5a5]";
 
-  const provided = item?.photo || item?.image || null;
-  const candidates = useMemo(() => {
-    const raw = name;
-    const enc = encodeURIComponent(name);
-    return [provided, `/${raw}.jpg`, `/${enc}.jpg`, `/${raw}.jpeg`, `/${enc}.jpeg`, `/${raw}.png`, `/${enc}.png`, `/${raw}.webp`, `/${enc}.webp`].filter(Boolean);
-  }, [name, provided]);
+  // Use S3 photo URL from DynamoDB (stored in 'photo' field)
+  const photoUrl = item?.photo || item?.image || null;
+  const [imageError, setImageError] = useState(false);
 
-  const [photo, setPhoto] = useState(null);
-  const [errored, setErrored] = useState(false);
-
-  // ----------------------------------------
-  // ✅ FIXED: SSR-safe image loading
-  // ----------------------------------------
+  // Debug logging
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (item?.full_name) {
+      console.log(`Professor ${item.full_name}: photoUrl =`, photoUrl);
+    }
+  }, [item?.full_name, photoUrl]);
 
-    let alive = true;
-    setPhoto(null);
-    setErrored(false);
-    (async () => {
-      for (const url of candidates) {
-        if (!url) continue;
-
-        const ok = await new Promise((resolve) => {
-          const img = new Image();
-          img.onload = () => resolve(true);
-          img.onerror = () => resolve(false);
-          img.src = url;
-        });
-        if (ok && alive) { setPhoto(url); return; }
-      }
-
-      if (alive) setErrored(true);
-    })();
-    return () => { alive = false; };
-  }, [candidates]);
+  // Reset error state when photo URL changes
+  useEffect(() => {
+    setImageError(false);
+  }, [photoUrl]);
 
   const initials =
     (name || "")
@@ -148,11 +127,12 @@ export default function ProfessorCard({ item, userTags, showPct = true , theme =
     >
       <div className="w-[30%] p-3">
         <div className="h-full w-full">
-          {photo && !errored ? (
+          {photoUrl && !imageError ? (
             <img
-              src={photo}
+              src={photoUrl}
               alt={name}
               className="h-full w-full object-cover rounded-xl border border-[#e5e7eb]"
+              onError={() => setImageError(true)}
             />
           ) : (
             <div className="h-full w-full rounded-xl bg-[#e5e7eb] grid place-items-center text-3xl font-bold text-[#6b7280]">

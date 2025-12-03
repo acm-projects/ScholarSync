@@ -89,8 +89,21 @@ export default function ProfessorsPage() {
         return response.json();
       })
       .then((data) => {
-        const processedData = Array.isArray(data) ? data : [];
+        // Handle API Gateway Lambda proxy response format
+        let processedData = data;
+        if (data.body && typeof data.body === 'string') {
+          processedData = JSON.parse(data.body);
+        } else if (data.body && Array.isArray(data.body)) {
+          processedData = data.body;
+        }
+        
+        processedData = Array.isArray(processedData) ? processedData : [];
         console.log("API returned:", processedData.length, "professors");
+        // Debug: Check if photos are in the data
+        if (processedData.length > 0) {
+          console.log("Sample professor data:", processedData[0]);
+          console.log("Has photo field:", processedData[0].photo);
+        }
         setProfAll(processedData);
         setLoadingProfAll(false);
       })
@@ -139,8 +152,21 @@ export default function ProfessorsPage() {
         return response.json();
       })
       .then((data) => {
-        const processedData = Array.isArray(data) ? data : [];
+        // Handle API Gateway Lambda proxy response format
+        let processedData = data;
+        if (data.body && typeof data.body === 'string') {
+          processedData = JSON.parse(data.body);
+        } else if (data.body && Array.isArray(data.body)) {
+          processedData = data.body;
+        }
+        
+        processedData = Array.isArray(processedData) ? processedData : [];
         console.log("API returned:", processedData.length, "recommended professors");
+        // Debug: Check if photos are in the data
+        if (processedData.length > 0) {
+          console.log("Sample professor data:", processedData[0]);
+          console.log("Has photo field:", processedData[0].photo);
+        }
         setProfRecommended(processedData);
         setLoadingProfRecommended(false);
       })
@@ -184,9 +210,6 @@ export default function ProfessorsPage() {
 
   const toShow = filtered.slice(0, visible);
   const canLoadMore = visible < filtered.length;
-
-  const emailToPhotoPath = (email) =>
-    email ? `/images/picure/${String(email).toLowerCase()}.jpg` : null;
 
   if ((tab === "all" && loadingProfAll) || (tab === "recommended" && loadingProfRecommended)) {
     return <Loading />;
@@ -238,7 +261,7 @@ export default function ProfessorsPage() {
             return (
               <ProfessorCard
                 key={pid}
-                item={{ ...item, photo: item.photo || emailToPhotoPath(item.email) }}
+                item={item}
                 showPct={true}
                 userTags={userTags}
                 href={href}

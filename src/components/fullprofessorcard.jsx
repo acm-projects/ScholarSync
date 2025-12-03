@@ -48,47 +48,17 @@ export default function FullProfessorCard({ item, onClose }) {
     return Array.from({ length: e - s + 1 }, (_, i) => s + i);
   }, [page, total]);
 
-  const [imgOk, setImgOk] = useState(true);
   const initials =
     (name || "").split(" ").filter(Boolean).map((w) => w[0]).join("").slice(0, 2).toUpperCase() || "NA";
 
-  const provided = item?.photo || item?.image || null;
-  const candidates = useMemo(() => {
-    const raw = name;
-    const enc = encodeURIComponent(name);
-    return [
-      provided,
-      `/${raw}.jpg`,
-      `/${enc}.jpg`,
-      `/${raw}.jpeg`,
-      `/${enc}.jpeg`,
-      `/${raw}.png`,
-      `/${enc}.png`,
-      `/${raw}.webp`,
-      `/${enc}.webp`,
-    ].filter(Boolean);
-  }, [name, provided]);
+  // Use S3 photo URL from DynamoDB (stored in 'photo' field)
+  const photoUrl = item?.photo || item?.image || null;
+  const [imageError, setImageError] = useState(false);
 
-  const [resolvedPhoto, setResolvedPhoto] = useState(null);
-
+  // Reset error state when photo URL changes
   useEffect(() => {
-    let alive = true;
-    setResolvedPhoto(null);
-    setImgOk(true);
-    (async () => {
-      for (const url of candidates) {
-        const ok = await new Promise((resolve) => {
-          const img = new Image();
-          img.onload = () => resolve(true);
-          img.onerror = () => resolve(false);
-          img.src = url;
-        });
-        if (ok && alive) { setResolvedPhoto(url); return; }
-      }
-      if (alive) setImgOk(false);
-    })();
-    return () => { alive = false; };
-  }, [candidates]);
+    setImageError(false);
+  }, [photoUrl]);
 
   return (
     <article className="mx-auto w-full max-w-7xl min-h-[calc(100vh-160px)] rounded-2xl border border-[#e5e7eb] bg-[#ffffff] p-4 md:p-8 lg:p-10 shadow flex flex-col text-[#111827]">
@@ -98,11 +68,12 @@ export default function FullProfessorCard({ item, onClose }) {
       </div>
 
       <header className="mb-5 flex items-start gap-5 flex-wrap">
-        {resolvedPhoto && imgOk ? (
+        {photoUrl && !imageError ? (
           <img
-            src={resolvedPhoto}
+            src={photoUrl}
             alt={name}
             className="h-28 w-28 rounded-xl object-cover border border-[#e5e7eb]"
+            onError={() => setImageError(true)}
           />
         ) : (
           <div className="h-28 w-28 rounded-xl bg-[#e5e7eb] grid place-items-center text-2xl font-bold text-[#6b7280]">

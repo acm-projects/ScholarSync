@@ -84,6 +84,17 @@ export default function FullPageCard({ item, onClose }) {
       {/* line break */}
       <div className="border-t border-[#e5e7eb] mb-5" />
 
+      {/* uploaded image if available */}
+      {item.imageUrl && (
+        <div className="mb-5">
+          <img
+            src={item.imageUrl}
+            alt={item.title || "Opportunity image"}
+            className="w-full max-h-96 object-cover rounded-xl border border-[#e5e7eb]"
+          />
+        </div>
+      )}
+
       {/* description */}
       <section className="flex-1">
         <h2 className="text-2xl md:text-2xl font-semibold mb-2">Description:</h2>

@@ -2,6 +2,7 @@ import boto3
 import json
 import re
 import requests
+import hashlib
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -12,11 +13,16 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import List, Optional
 
 # UTD Professor information
-BASE_URL = 'https://profiles.utdallas.edu/schools/ECS'
+BASE_URL = 'https://profiles.utdallas.edu/browse'
 
 # Initialize DynamoDB
 dynamodb = boto3.resource('dynamodb')
 professor_table = dynamodb.Table('UTD_Professor')
+
+# Initialize S3
+s3_client = boto3.client('s3', region_name='us-east-2')
+S3_BUCKET = 'prof-pic-scholarsync'
+S3_FOLDER = 'profile-pictures/'
 
 # Load embeddings model
 bedrock_client = boto3.client("bedrock-runtime", region_name="us-east-2")
@@ -67,6 +73,10 @@ def scrape_utd_profs(page):
                 driver.get(profile_url)
 
                 email = scrape_email(driver)
+
+                # Get and upload profile photo (use driver for dynamic content)
+                # Must be done before driver.quit()
+                photo_url = scrape_and_upload_photo(driver, email, profile_soup)
 
                 # Get Professional Preparation and Publications
                 links_tag = profile_soup.select_one('#links')
@@ -133,6 +143,10 @@ def scrape_utd_profs(page):
                 "tag_embeddings": vectorize_tags(tags),
                 "profile_url": profile_url
             }
+            
+            # Add photo URL if available
+            if photo_url:
+                item["photo"] = photo_url
 
             # Skip empty strings, None, and empty lists
             item = {
@@ -143,6 +157,16 @@ def scrape_utd_profs(page):
             # If professor_id is missing, skip this record
             if 'email' not in item:
                 continue
+
+            # Only add professor if "professor" (case-insensitive) appears in any title
+            if 'titles' in item and isinstance(item['titles'], list):
+                has_professor_title = any(
+                    'professor' in title.lower() or 'prof.' in title.lower() or 'research' in title.lower()
+                    for title in item['titles'] 
+                    if isinstance(title, str)
+                )
+                if not has_professor_title:
+                    continue
 
             # Add professor to UTD_Professors table
             professor_table.put_item(Item=item)
@@ -213,6 +237,89 @@ def scrape_tags(contact_info_tag):
             tags.append(link.text.strip())
 
     return tags
+
+def scrape_and_upload_photo(driver, email, profile_soup):
+    """
+    Extract profile photo from <img> with class="profile_photo" and upload to S3.
+    Returns the S3 URL if successful, None otherwise.
+    """
+    try:
+        # Try to find the image using Selenium first (for dynamic content)
+        img_url = None
+        try:
+            time.sleep(0.5)  # Wait for page to load
+            photo_img_element = driver.find_element(By.CSS_SELECTOR, 'img.profile_photo')
+            img_url = photo_img_element.get_attribute('src')
+        except Exception as e:
+            print(f"Could not find image via Selenium: {e}")
+            # Fallback to BeautifulSoup
+            photo_img = profile_soup.find('img', class_='profile_photo')
+            if photo_img and photo_img.get('src'):
+                img_url = photo_img['src']
+                print(f"Found image via BeautifulSoup: {img_url}")
+        
+        if not img_url:
+            return None
+        
+        # Handle relative URLs
+        if not img_url.startswith('http'):
+            if img_url.startswith('//'):
+                img_url = 'https:' + img_url
+            elif img_url.startswith('/'):
+                img_url = 'https://profiles.utdallas.edu' + img_url
+            else:
+                img_url = 'https://profiles.utdallas.edu/' + img_url
+        
+        # Download the image
+        img_response = requests.get(img_url, timeout=10)
+        if img_response.status_code != 200:
+            print(f"Failed to download image. Status code: {img_response.status_code}")
+            return None
+        
+        # Determine file extension from content type or URL
+        content_type = img_response.headers.get('content-type', '')
+        if 'jpeg' in content_type or 'jpg' in content_type:
+            ext = '.jpg'
+        elif 'png' in content_type:
+            ext = '.png'
+        elif 'gif' in content_type:
+            ext = '.gif'
+        elif 'webp' in content_type:
+            ext = '.webp'
+        else:
+            # Try to get extension from URL
+            if '.' in img_url:
+                ext = '.' + img_url.split('.')[-1].split('?')[0].lower()
+            else:
+                ext = '.jpg'  # Default to jpg
+        
+        # Create S3 key using email (sanitized) as filename
+        if email:
+            # Sanitize email for filename (replace @ and . with -)
+            safe_email = email.replace('@', '-at-').replace('.', '-')
+            s3_key = f"{S3_FOLDER}{safe_email}{ext}"
+        else:
+            # Fallback to hash of image URL if no email
+            img_hash = hashlib.md5(img_url.encode()).hexdigest()
+            s3_key = f"{S3_FOLDER}{img_hash}{ext}"
+        
+        # Upload to S3
+        s3_client.put_object(
+            Bucket=S3_BUCKET,
+            Key=s3_key,
+            Body=img_response.content,
+            ContentType=content_type or 'image/jpeg'
+        )
+        
+        # Return the S3 URL
+        s3_url = f"https://{S3_BUCKET}.s3.us-east-2.amazonaws.com/{s3_key}"
+        return s3_url
+        
+    except Exception as e:
+        print(f"Error uploading profile photo: {e}")
+        import traceback
+        traceback.print_exc()
+        return None
 
 def vectorize_tags(tags):
     # Return an empty list if tags is empty
@@ -352,4 +459,4 @@ def create_embeddings_batch(texts: List[str], max_workers: int = 10) -> List[Opt
     
     return embeddings
         
-scrape_utd_profs(3)
+scrape_utd_profs(2)

@@ -104,21 +104,40 @@ def lambda_handler(event, context):
 
         # Build ranked list for professors that had embeddings
         # Return full professor object with similarity score added
+        # Filter out professors with no publications
         ranked_professors = []
         for idx, similarity in zip(ranking_indices, sorted_similarities):
             prof = prof_entries[idx]
-            prof_copy = prof.copy()
-            prof_copy['score'] = min(float(similarity) / 0.7, 1)
-            ranked_professors.append(prof_copy)
+            # Check if professor has publications
+            publications = prof.get('publications')
+            has_publications = (
+                publications is not None and 
+                isinstance(publications, list) and 
+                len(publications) > 0
+            )
+            # Only include professors with publications
+            if has_publications:
+                prof_copy = prof.copy()
+                prof_copy['score'] = min(float(similarity) / 0.7, 1)
+                ranked_professors.append(prof_copy)
 
         # Collect professors without embeddings
         # Return full professor object with score set to None
         excluded_professors = []
         for entry in profs:
             if not entry.get('tag_embeddings'):
-                prof_copy = entry.copy()
-                prof_copy['score'] = None
-                excluded_professors.append(prof_copy)
+                # Check if professor has publications
+                publications = entry.get('publications')
+                has_publications = (
+                    publications is not None and 
+                    isinstance(publications, list) and 
+                    len(publications) > 0
+                )
+                # Only include professors with publications
+                if has_publications:
+                    prof_copy = entry.copy()
+                    prof_copy['score'] = None
+                    excluded_professors.append(prof_copy)
 
         # Return successfully
         return {

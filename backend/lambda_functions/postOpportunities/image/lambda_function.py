@@ -29,6 +29,9 @@ def lambda_handler(event, context):
         title = body.get('title')
         body_text = body.get('body')
         tags = body.get('tags')
+        imageUrl = body.get('imageUrl')  # Optional: S3 URL for uploaded image
+        email = body.get('email')  # Optional: contact email
+        phone = body.get('phone')  # Optional: contact phone
 
         # Validate required parameters
         if not username:
@@ -88,6 +91,14 @@ def lambda_handler(event, context):
             'tags': tags,
             'tag_embeddings': tag_embeddings
         }
+        
+        # Add optional fields if provided
+        if imageUrl:
+            item['imageUrl'] = imageUrl
+        if email:
+            item['email'] = email
+        if phone:
+            item['phone'] = phone
 
         # Put item in DynamoDB
         opportunity_table.put_item(Item=item)
