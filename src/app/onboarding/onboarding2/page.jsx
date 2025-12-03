@@ -23,7 +23,7 @@ export default function OnboardingStep2() {
           ...(next.careerGoals || []),
         ])
       );
-      next.alltags = merged;
+      next.allTags = merged;
       return next;
     });
   };

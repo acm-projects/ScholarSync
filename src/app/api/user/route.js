@@ -6,16 +6,32 @@ const docClient = DynamoDBDocumentClient.from(client);
 
 // POST https://localhost:3000/api/user
 // Request body:
-// { username, firstname, lastname, major, minor, year, skills, interests, resumeFile, allTags }
+// { username, firstname, lastname, major, minor, year, skills, interests, resumeFile, allTags, tags }
 export async function POST(request) {
     try {
         // Get key-values from request
-        const { username, firstname, lastname, major, minor, year, skills, interests, resumeFile, allTags } = await request.json();
+        let body;
+        try {
+            body = await request.json();
+        } catch (e) {
+            return new Response(JSON.stringify({ error: "Invalid JSON in request body" }), {
+                status: 400,
+                headers: { "Content-Type": "application/json" }
+            });
+        }
+        
+        const { username, firstname, lastname, major, minor, year, skills, interests, resumeFile, allTags, tags } = body;
         
         // Check if there is a username
         if (!username) {
-            return new Response("username is required", { status: 400 });
+            return new Response(JSON.stringify({ error: "username is required" }), {
+                status: 400,
+                headers: { "Content-Type": "application/json" }
+            });
         }
+
+        console.log("Received tags:", tags);
+        console.log("Tags type:", typeof tags, Array.isArray(tags));
 
         // Specify columns being updated
         const updateFields = {
@@ -27,16 +43,35 @@ export async function POST(request) {
             skills,
             interests,
             resumeFile,
-            allTags
+            allTags,
+            tags  // This is what the lambda functions expect
         };
 
-        // Filter the fields for any null values
+        // ALWAYS include tags - even if empty array, this is critical for lambda functions
+        // Default to empty array if not provided
+        updateFields.tags = Array.isArray(tags) ? tags : [];
+
+        // Filter the fields for any null values (but keep empty arrays for tags)
         const entries = Object.entries(updateFields);
         const validFields = [];
         for (const [key, value] of entries) {
-            if (value !== undefined) {
+            // Always include tags even if empty array
+            if (key === 'tags' && Array.isArray(value)) {
+                validFields.push([key, value]);
+            } else if (value !== undefined && value !== null && value !== '') {
                 validFields.push([key, value]);
             }
+        }
+        
+        console.log("Valid fields to update:", validFields.map(([k]) => k));
+        console.log("Tags being saved:", updateFields.tags);
+
+        // Check if there are any valid fields to update
+        if (validFields.length === 0) {
+            return new Response(JSON.stringify({ error: "No valid fields to update" }), {
+                status: 400,
+                headers: { "Content-Type": "application/json" }
+            });
         }
 
         // Create expressionParts, attributeNames, and attributeValues for the Update Command
@@ -68,6 +103,9 @@ export async function POST(request) {
         // Send command
         const response = await docClient.send(command);
         
+        console.log("Update successful. Response attributes:", response.Attributes);
+        console.log("Tags in response:", response.Attributes?.tags);
+        
         // Return successful response code, as well as the entire item after the update
         return new Response(JSON.stringify(response.Attributes), {
             status: 200,
@@ -83,4 +121,5 @@ export async function POST(request) {
             headers: { "Content-Type": "application/json" }
         });
     }
-};
+}
+

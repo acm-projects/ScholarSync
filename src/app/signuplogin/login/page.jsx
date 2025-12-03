@@ -30,9 +30,9 @@ const Login = () => {
         return;
       }
 
-      // Add username to memory
-      window.localStorage.setItem("username", username);
-      console.log("Username:", username);
+      // Store username in lowercase to match DynamoDB (Cognito stores usernames in lowercase)
+      window.localStorage.setItem("username", username.toLowerCase());
+      console.log("Username:", username.toLowerCase());
 
       alert('Login successful!');
 

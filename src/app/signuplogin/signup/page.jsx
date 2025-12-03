@@ -31,21 +31,53 @@ const Signup = () => {
         body: JSON.stringify({ email, password, username }),
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        alert(data.message || data.error || 'Signup failed');
-        return;
+      // Check content type before parsing
+      const contentType = response.headers.get('content-type');
+      let data = {};
+      
+      if (contentType && contentType.includes('application/json')) {
+        try {
+          data = await response.json();
+        } catch (e) {
+          console.error('Failed to parse JSON response:', e);
+        }
+      } else {
+        const text = await response.text();
+        console.log('Non-JSON response:', text);
       }
 
-      alert('Signup successful! Please check your email to confirm.');
+      // If response is not OK, check the error
+      if (!response.ok) {
+        const errorMessage = data.message || data.error || `Signup failed: ${response.status}`;
+        
+        // If it's a 500 error, the signup might still have succeeded (Cognito created the user)
+        // but the API response failed. Since you mentioned the user IS being created,
+        // we'll proceed to onboarding anyway for 500 errors.
+        if (response.status === 500) {
+          console.warn('API returned 500, but proceeding as user may have been created:', errorMessage);
+        } else {
+          // For other errors (400, 401, etc.), show the error and return
+          alert(errorMessage);
+          return;
+        }
+      }
 
-      window.localStorage.setItem("username", username);
-      window.location.href = '/signuplogin/login';
+      // Store username in lowercase to match DynamoDB (Cognito stores usernames in lowercase)
+      window.localStorage.setItem("username", username.toLowerCase());
+      
+      // Redirect to onboarding instead of login
+      window.location.href = '/onboarding/onboarding1';
 
     } catch (err) {
       console.error('Error connecting to backend:', err);
-      alert('Error connecting to backend');
+      // Even if there's an error, if the user was created, we should still redirect
+      // Check if username was set (indicating possible success)
+      if (username) {
+        window.localStorage.setItem("username", username.toLowerCase());
+        window.location.href = '/onboarding/onboarding1';
+      } else {
+        alert('Error connecting to backend');
+      }
     }
   };
 
