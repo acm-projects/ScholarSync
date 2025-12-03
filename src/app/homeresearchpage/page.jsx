@@ -1,14 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Navbar from "@/components/navbar";
 import { normalizeAllItems } from "@/components/pagesort";
 import { sortByDate } from "@/components/datesort";
 import ToggleTabs from "@/components/toggletabs";
 import OpportunityCard from "@/components/opportunitycard";
 import FullPageCard from "@/components/fullpagecard";
-import recommendedData from "@/data/opportunities_recommended.json";
-import allData from "@/data/opportunities_all.json";
 import userTags from "@/data/user_tags.json";
 
 export default function OpportunitiesPage() {
@@ -19,12 +17,52 @@ export default function OpportunitiesPage() {
   const [activeFilter, setActiveFilter] = useState("");
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
+  const [recommendedData, setRecommendedData] = useState(null);
+  const [allData, setAllData] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const username = window.localStorage.getItem("username");
+    if (!username) {
+      console.error("Username not found in localStorage");
+      return;
+    }
+
+    setLoading(true);
+    let url;
+    if (tab === "recommended") {
+      url = `https://5076bt2yjd.execute-api.us-east-2.amazonaws.com/dev/opportunityRecImage?username=${encodeURIComponent(username)}`;
+    } else {
+      url = `https://5076bt2yjd.execute-api.us-east-2.amazonaws.com/dev/opportunityAllImage?username=${encodeURIComponent(username)}`;
+    }
+    
+    fetch(url)
+      .then(async (res) => {
+        if (!res.ok) {
+          throw new Error(`API Error: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (tab === "recommended") {
+          setRecommendedData(data);
+        } else {
+          setAllData(data);
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching opportunities:", err);
+        setLoading(false);
+      });
+  }, [tab]);
 
   const dataset = useMemo(() => {
-    return tab === "recommended"
-      ? normalizeAllItems(recommendedData, userTags)
-      : normalizeAllItems(allData, userTags);
-  }, [tab]);
+    if (tab === "recommended") {
+      return normalizeAllItems(recommendedData || [], userTags);
+    }
+    return normalizeAllItems(allData || [], userTags);
+  }, [tab, recommendedData, allData]);
 
   const filtered = useMemo(() => {
     let out = dataset;
@@ -80,6 +118,19 @@ export default function OpportunitiesPage() {
 
   const toShow = filtered.slice(0, visible);
   const canLoadMore = visible < filtered.length;
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#f5f5f5] text-[#111827]">
+        <div className="relative z-10 rounded-b-2xl shadow">
+          <Navbar />
+        </div>
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="text-lg text-[#6b7280]">Loading opportunities...</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#f5f5f5] text-[#111827]">
@@ -151,9 +202,9 @@ export default function OpportunitiesPage() {
 
       <main className={`mx-auto px-20 mt-10 ${open ? "blur-sm" : ""}`}>
         <div className="grid gap-8 sm:grid-cols-2 items-stretch">
-          {toShow.map((item) => (
+          {toShow.map((item, index) => (
             <OpportunityCard
-              key={item.id}
+              key={`${item.title || 'opportunity'}-${index}`}
               item={item}
               showPct
               useProvidedPct={tab === "all"}

@@ -8,7 +8,7 @@ const Create = () => {
   const [username] = useState(() => localStorage.getItem('username') || '');
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
-  const [skills, setSkills] = useState([]);
+  const [tags, setTags] = useState([]);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
@@ -26,22 +26,36 @@ const Create = () => {
     setSuccess(false);
 
     try {
-      const res = await fetch('/api/posts', {
+      const res = await fetch('https://5076bt2yjd.execute-api.us-east-2.amazonaws.com/dev/postOpportunity', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, title, body, skills }),
+        body: JSON.stringify({ username, title, body, tags }),
       });
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Failed to create post");
+      let data;
+      const contentType = res.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        data = await res.json();
+        // Handle API Gateway Lambda proxy response format
+        if (data.body && typeof data.body === 'string') {
+          data = JSON.parse(data.body);
+        }
+      } else {
+        const text = await res.text();
+        data = text ? JSON.parse(text) : {};
+      }
+
+      if (!res.ok) {
+        throw new Error(data.error || data.message || "Failed to create post");
+      }
 
       setSuccess(true);
       setTitle('');
       setBody('');
-      setSkills([]);
+      setTags([]);
     } catch (err) {
       console.error(err);
-      setError(err.message);
+      setError(err.message || "Failed to create post. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -92,16 +106,16 @@ const Create = () => {
             </div>
           </div>
 
-          <div className="skills">
-            <span className="label-text">Add skills most relevant to this role (max 3)</span>
+          <div className="tags">
+            <span className="label-text">Add tags most relevant to this role (max 3)</span>
             <div className="input">
               <TagTextBox
                 label=""
-                name="skills"
-                values={skills}
-                onChange={(newSkills) => {
-                  if (newSkills.length <= 3) {
-                    setSkills(newSkills);
+                name="tags"
+                values={tags}
+                onChange={(newTags) => {
+                  if (newTags.length <= 3) {
+                    setTags(newTags);
                   }
                 }}
                 placeholder="Type a skill and press enter"

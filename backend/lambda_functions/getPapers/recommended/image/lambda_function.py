@@ -5,12 +5,11 @@ import numpy as np  # pyright: ignore[reportMissingImports]
 from decimal import Decimal
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import List, Optional
-import random
 
 # Load DynamoDB tables
 dynamodb = boto3.resource('dynamodb', region_name="us-east-2")
 user_table = dynamodb.Table('User')
-opportunity_table = dynamodb.Table('Post')
+paper_table = dynamodb.Table('ScholarPapers')
 
 # Load model
 bedrock_client = boto3.client("bedrock-runtime", region_name="us-east-2")
@@ -49,19 +48,19 @@ def lambda_handler(event, context):
         
         user_tags = user.get('tags')
 
-        # Access opportunity tags
-        response = opportunity_table.scan() # Get all opportunity entries
-        opportunities = response.get('Items', [])
+        # Access paper tags
+        response = paper_table.scan() # Get all paper entries
+        papers = response.get('Items', [])
 
-        # Filter opportunities with embeddings and keep them aligned with vectors
-        opp_entries = [
-            entry for entry in opportunities
+        # Filter papers with embeddings and keep them aligned with vectors
+        paper_entries = [
+            entry for entry in papers
             if entry.get('tag_embeddings')  # skip empty embeddings
         ]
-        # Get list of opportunity tag vectors
-        opp_vectors = [
+        # Get list of paper tag vectors
+        paper_vectors = [
             np.array([float(x) for x in entry.get('tag_embeddings', [])])
-            for entry in opp_entries
+            for entry in paper_entries
         ]
 
         if user_tags == None:
@@ -73,8 +72,8 @@ def lambda_handler(event, context):
                 })
             }
         
-        if opp_vectors == None:
-            # Handle opportunity tags not found error
+        if paper_vectors == None:
+            # Handle paper tags not found error
             return {
                 'statusCode': 500,
                 'body': json.dumps({
@@ -89,40 +88,39 @@ def lambda_handler(event, context):
         user_vector /= np.linalg.norm(user_vector)
 
         # Make prof_vectors into a 2D array
-        opp_vectors_array = np.vstack(opp_vectors)
+        paper_vectors_array = np.vstack(paper_vectors)
 
         # Reshape user_vector to 2D (1, embedding_dim)
         user_vec_2d = user_vector.reshape(1, -1)
 
         # Compute cosine similarity
-        similarities = cosine_similarity(user_vec_2d, opp_vectors_array)
+        similarities = cosine_similarity(user_vec_2d, paper_vectors_array)
 
-        # Build list for opportunities that had embeddings (in original order)
-        # Return full opportunity object with similarity score added
-        ranked_opportunities = []
-        for idx, opp in enumerate(opp_entries):
-            opp_copy = opp.copy()
-            opp_copy['score'] = min(float(similarities[0][idx]) / 0.7, 1)
-            ranked_opportunities.append(opp_copy)
+        # Build list for papers that had embeddings (in original order)
+        # Return full paper object with similarity score added
+        ranked_papers = []
+        for idx, paper in enumerate(paper_entries):
+            paper_copy = paper.copy()
+            paper_copy['score'] = min(float(similarities[0][idx]) / 0.7, 1)
+            ranked_papers.append(paper_copy)
 
-        # Collect opportunities without embeddings
-        # Return full opportunity object with score set to None
-        excluded_opportunities = []
-        for entry in opportunities:
+        # Collect papers without embeddings
+        # Return full paper object with score set to None
+        excluded_papers = []
+        for entry in papers:
             if not entry.get('tag_embeddings'):
-                opp_copy = entry.copy()
-                opp_copy['score'] = None
-                excluded_opportunities.append(opp_copy)
+                paper_copy = entry.copy()
+                paper_copy['score'] = None
+                excluded_papers.append(paper_copy)
 
-        # Randomize the order of both lists
-        random.shuffle(ranked_opportunities)
-        random.shuffle(excluded_opportunities)
+        # Sort ranked_papers by score in descending
+        ranked_papers.sort(key=lambda x: x['score'], reverse=True)
 
         # Return successfully
         return {
             'statusCode': 200,
             # Convert Decimal values to floats for JSON formatting
-            'body': json.dumps(ranked_opportunities + excluded_opportunities, default=decimal_default)
+            'body': json.dumps(ranked_papers + excluded_papers, default=decimal_default)
         }
 
     except Exception as e:

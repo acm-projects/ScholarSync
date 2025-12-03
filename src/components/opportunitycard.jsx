@@ -58,18 +58,19 @@ export default function OpportunityCard({ item, showPct = true, theme = "base", 
   const hasProvidedPct = providedPctRaw !== undefined && providedPctRaw !== null && String(providedPctRaw).trim() !== "";
   // Convert score (0-1) to percentage (0-100) if needed
   const rawValue = hasProvidedPct ? parseFloat(String(providedPctRaw)) : null;
-  const providedPct = rawValue !== null ? (rawValue <= 1 ? rawValue * 100 : Math.max(0, Math.min(100, rawValue))) : null;
+  const providedPct = rawValue !== null ? Math.round(rawValue <= 1 ? rawValue * 100 : Math.max(0, Math.min(100, rawValue))) : null;
 
-  const computed = !useProvidedPct && showPct ? computeThreeTagPctAndColor(topTags) : { pct: null, color: "gray" };
-  const pct = useProvidedPct ? providedPct : computed.pct;
-  const badgeColor = useProvidedPct ? rangeColor(providedPct) : computed.color;
+  // Always use provided score if available, otherwise compute from tags
+  const computed = !hasProvidedPct && showPct ? computeThreeTagPctAndColor(topTags) : { pct: null, color: "gray" };
+  const pct = hasProvidedPct ? providedPct : computed.pct;
+  const badgeColor = hasProvidedPct ? rangeColor(providedPct) : computed.color;
 
   const cardStyle =
     theme === "base"
       ? "border border-[#e5e7eb] bg-[#ffffff] hover:bg-[#f9fafb] hover:border-[#d1d5db]"
       : "border border-[#fecaca] bg-[#fee2e2] hover:bg-[#fecaca] hover:border-[#fca5a5]";
 
-  const keySeed = String(item.id ?? item.title ?? "");
+  const keySeed = String(item.title ?? "");
   let hash = 0;
   for (let i = 0; i < keySeed.length; i++) hash = (hash * 31 + keySeed.charCodeAt(i)) | 0;
   const n = ((Math.abs(hash) % 6) + 1);
@@ -151,16 +152,16 @@ export default function OpportunityCard({ item, showPct = true, theme = "base", 
           <div className="text-2xl font-bold text-[#111827] truncate">{item.title}</div>
         </div>
 
-        <div className="text-m text-[#4b5563] truncate">Posted: {item.datePosted} By {item.author}</div>
+        <div className="text-m text-[#4b5563] truncate">Posted: {item.timestamp ? new Date(item.timestamp).toLocaleDateString() : 'N/A'} By {item.username || 'Unknown'}</div>
 
         <p className="mt-2 text-m font-medium leading-6 text-[#374151] line-clamp-3" style={{ hyphens: "auto", overflowWrap: "anywhere" }}>
-          {item.description}
+          {item.body || item.description || ''}
         </p>
 
         <div className="mt-auto pt-6">
           <div className="whitespace-nowrap overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden -mr-[184px] pr-[184px]">
             {topTags.map((t, i) => (
-              <span key={`${item.id}-t-${i}`} className="inline-block mr-2 align-middle">
+              <span key={`${item.title || 'tag'}-t-${i}`} className="inline-block mr-2 align-middle">
                 <TagChip text={t.text} color={t.color} />
               </span>
             ))}

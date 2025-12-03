@@ -1,4 +1,4 @@
-import { BedrockRuntimeClient, ConverseCommand } from "@aws-sdk/client-bedrock-runtime";
+import { BedrockRuntimeClient, InvokeModelCommand } from "@aws-sdk/client-bedrock-runtime";
 import { DynamoDBClient, GetItemCommand, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
 import pdf from "pdf-parse";
 
@@ -8,9 +8,8 @@ const bedrock = new BedrockRuntimeClient({ region: process.env.AWS_REGION || "us
 const dynamo = new DynamoDBClient({ region: process.env.AWS_REGION || "us-east-2" });
 
 const TABLE_NAME = process.env.DYNAMO_TABLE_NAME || "ScholarPapers";
-const MODEL_ID = "anthropic.claude-3-5-sonnet-20241022-v2:0";
+const MODEL_ID = "us.anthropic.claude-3-5-sonnet-20240620-v1:0";
 
-// Extract text from PDF
 async function extractTextFromPdf(pdfUrl) {
   const res = await fetch(pdfUrl);
   if (!res.ok) throw new Error("Failed to fetch PDF from S3 URL");
@@ -20,7 +19,6 @@ async function extractTextFromPdf(pdfUrl) {
   return data.text;
 }
 
-// Get existing summary from DynamoDB
 async function getSummaryFromTable(paperID) {
   const command = new GetItemCommand({
     TableName: TABLE_NAME,
@@ -31,7 +29,6 @@ async function getSummaryFromTable(paperID) {
   return result.Item?.Summary?.S || null;
 }
 
-// Store new summary in DynamoDB
 async function storeSummaryInTable(paperID, summary) {
   const command = new UpdateItemCommand({
     TableName: TABLE_NAME,
@@ -57,53 +54,65 @@ export async function POST(req) {
 
     console.log("Processing paperID:", paperID);
 
-    // Return existing summary if available
     const existingSummary = await getSummaryFromTable(paperID);
     if (existingSummary && existingSummary.trim().length > 0) {
       console.log("Returning existing summary from DynamoDB");
       return new Response(JSON.stringify({ summary: existingSummary }), { status: 200 });
     }
 
-    // Extract text from PDF
     const extractedText = await extractTextFromPdf(pdfLink);
     if (!extractedText || extractedText.length < 100) {
       throw new Error("PDF has no readable text or is image-only");
     }
 
-    const maxLength = 10000;
+    const maxLength = 15000;
     const truncatedText =
       extractedText.length > maxLength ? extractedText.slice(0, maxLength) : extractedText;
 
-    const message = {
-      role: "user",
-      content: [
-        {
-          text: `
-Summarize the following academic paper in 5-6 sentences as a cohesive paragraph.
+    const prompt = `
+Summarize the following academic paper in 5-6 sentences as a cohesive paragraph. 
 Be detailed and specific, focusing on:
 - The main contribution
 - The methodology
 - The key findings and conclusions
+Make the summary detailed and knowledgeable.
 Avoid generic phrases like "Here is a summary" or "This paper discusses."
 
 Paper content:
 ${truncatedText}
-          `
-        }
-      ]
-    };
+`;
 
-    const command = new ConverseCommand({
+    const body = JSON.stringify({
+      anthropic_version: "bedrock-2023-05-31",
+      max_tokens: 500,
+      temperature: 0.1,
+      system: "You are an expert academic paper summarizer.",
+      messages: [{ role: "user", content: prompt }],
+    });
+
+    const command = new InvokeModelCommand({
       modelId: MODEL_ID,
-      messages: [message],
-      system: ["You are a helpful assistant that summarizes academic papers."],
-      maxTokens: 500,
-      temperature: 0.1
+      body,
+      contentType: "application/json",
+      accept: "application/json",
     });
 
     const response = await bedrock.send(command);
-    const summary = response?.content?.[0]?.text?.trim() || "No summary generated.";
+    const decoded = new TextDecoder().decode(response.body);
 
+    let parsed;
+    try {
+      parsed = JSON.parse(decoded);
+    } catch {
+      parsed = { content: [{ text: decoded }] };
+    }
+
+    const summary =
+      parsed?.content?.[0]?.text?.trim() ||
+      parsed?.completion?.trim() ||
+      "No summary generated.";
+
+    // Store summary
     await storeSummaryInTable(paperID, summary);
     console.log("Summary stored in DynamoDB");
 

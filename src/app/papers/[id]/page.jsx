@@ -1,12 +1,13 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import Navbar from '@/components/navbar';
 import { useRouter } from 'next/navigation';
 import './markdown.css';
 
 export default function PaperZoom({ params }) {
   const router = useRouter();
-  const paperId = params.id;
+  const resolvedParams = use(params);
+  const paperId = resolvedParams.id;
 
   const [paper, setPaper] = useState(null);
   const [loadingPaper, setLoadingPaper] = useState(true);
@@ -70,16 +71,16 @@ export default function PaperZoom({ params }) {
           position: 'fixed',
           top: '6rem',
           left: '2rem',
-          padding: '0.5rem 1rem',
+          padding: '0.8rem 1.4rem',
           borderRadius: '20px',
           backgroundColor: '#ef4444',
-          fontSize: '13px',
+          fontSize: '15px',
           color: '#fff',
           border: 'none',
           cursor: 'pointer',
           fontWeight: 'bold',
           boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
-          transform: 'scale(0.50)'
+          transform: 'scale(0.80)'
         }}
       >
         ← Back
@@ -89,14 +90,14 @@ export default function PaperZoom({ params }) {
     position: 'fixed',
     top: '6rem', 
     right: '2rem', 
-    padding: '0.5rem 1rem',
+    padding: '0.8rem 1.4rem',
     borderRadius: '20px',
     backgroundColor: '#ef4444',
     color: '#fff',
     border: 'none',
     cursor: 'pointer',
     fontWeight: 'bold',
-    fontSize: '13px',
+    fontSize: '15px',
     boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
     transform: 'scale(0.80)'
   }}

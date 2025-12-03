@@ -148,7 +148,7 @@ const CardPage = ({ paper }) => {
 
         <div className="relative pt-3 items-end w-full">
           <div className="flex gap-2 mb-6" style={{ marginLeft: '11rem' }}>
-            {paper.tags.slice(0, 3).map((tag, index) => {
+            {(Array.isArray(paper.tags) ? paper.tags : []).slice(0, 3).map((tag, index) => {
               const textColor = "#111111";
               const color = { 0: 'green', 1: 'yellow', 2: 'red' }[index];
               return (

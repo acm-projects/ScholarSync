@@ -36,8 +36,8 @@ const Login = () => {
 
       alert('Login successful!');
 
-      // Optionally redirect after login
-      window.location.href = '/dashboard'; // replace with your logged-in route
+      // Redirect to professor page after login
+      window.location.href = '/professorpage';
     } catch (err) {
       console.error('Error connecting to backend:', err);
       alert('Error connecting to backend');

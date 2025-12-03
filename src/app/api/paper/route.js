@@ -32,7 +32,7 @@ export async function GET() {
       paperIDs.map(async (paperID) => {
         try {
           const command = new GetItemCommand({
-            TableName: process.env.DYNAMO_TABLE_NAME,
+            TableName: "ScholarPapers",
             Key: { paperID: { S: paperID } },
           });
 
@@ -45,7 +45,7 @@ export async function GET() {
             author: item.Authors?.S || "Unknown Author",
             date: item.Year?.S || "N/A",
             tags: item.Tags?.L?.map((t) => t.S) || [],
-            pdfLink: `https://scholarsync-papers.s3.${process.env.AWS_DEFAULT_REGION}.amazonaws.com/papers/${paperID}.pdf`,
+            pdfLink: `https://scholarsync-papers.s3.us-east-2.amazonaws.com/papers/${paperID}.pdf`,
             abstract: item.Abstract?.S || "No abstract available.",
             sourceURL: item.SourceURL?.S || "",
             content: item.Abstract?.S || "",

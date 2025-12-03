@@ -5,7 +5,6 @@ import numpy as np  # pyright: ignore[reportMissingImports]
 from decimal import Decimal
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import List, Optional
-import random
 
 # Load DynamoDB tables
 dynamodb = boto3.resource('dynamodb', region_name="us-east-2")
@@ -97,12 +96,19 @@ def lambda_handler(event, context):
         # Compute cosine similarity
         similarities = cosine_similarity(user_vec_2d, opp_vectors_array)
 
-        # Build list for opportunities that had embeddings (in original order)
+        # Get indices sorted by descending similarity
+        ranking_indices = np.argsort(similarities[0])[::-1]
+
+        # Sorted similarities
+        sorted_similarities = similarities[0][ranking_indices]
+
+        # Build ranked list for opportunities that had embeddings
         # Return full opportunity object with similarity score added
         ranked_opportunities = []
-        for idx, opp in enumerate(opp_entries):
+        for idx, similarity in zip(ranking_indices, sorted_similarities):
+            opp = opp_entries[idx]
             opp_copy = opp.copy()
-            opp_copy['score'] = min(float(similarities[0][idx]) / 0.7, 1)
+            opp_copy['score'] = min(float(similarity) / 0.7, 1)
             ranked_opportunities.append(opp_copy)
 
         # Collect opportunities without embeddings
@@ -113,10 +119,6 @@ def lambda_handler(event, context):
                 opp_copy = entry.copy()
                 opp_copy['score'] = None
                 excluded_opportunities.append(opp_copy)
-
-        # Randomize the order of both lists
-        random.shuffle(ranked_opportunities)
-        random.shuffle(excluded_opportunities)
 
         # Return successfully
         return {

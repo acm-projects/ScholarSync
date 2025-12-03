@@ -33,8 +33,8 @@ export default function FullPageCard({ item, onClose }) {
 
   // data we show
   const tags = getAllTags(item);
-  const author = item.author || "";
-  const posted = item.datePosted || "";
+  const username = item.username || "";
+  const posted = item.timestamp ? new Date(item.timestamp).toLocaleDateString() : "";
   const email = item.email || item.contactEmail || "";
   const mailto = `mailto:${email || ""}?subject=${encodeURIComponent(
     item.title || "Opportunity Inquiry"
@@ -64,9 +64,9 @@ export default function FullPageCard({ item, onClose }) {
         <h1 className="col-start-1 row-start-1 text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight truncate">
           {item.title}
         </h1>
-        {author ? (
+        {username ? (
           <div className="col-start-1 row-start-2 mt-1 text-base md:text-lg font-medium text-[#4b5563] truncate">
-            By {author}
+            By {username}
           </div>
         ) : (
           <div className="col-start-1 row-start-2" />
@@ -88,7 +88,7 @@ export default function FullPageCard({ item, onClose }) {
       <section className="flex-1">
         <h2 className="text-2xl md:text-2xl font-semibold mb-2">Description:</h2>
         <div className="text-[#374151] text-2xl md:text-xl leading-7 whitespace-pre-line">
-          {item.description}
+          {item.body || ''}
         </div>
       </section>
 
@@ -100,7 +100,7 @@ export default function FullPageCard({ item, onClose }) {
         <div className="flex items-center flex-wrap gap-2">
           <span className="text-sm font-semibold text-[#6b7280] mr-1">Related tags:</span>
           {tags.map((t, i) => (
-            <TagChip key={`full-${item.id}-${i}`} text={t.text} color={t.color} />
+            <TagChip key={`full-${item.title || 'tag'}-${i}`} text={t.text} color={t.color} />
           ))}
         </div>
       </footer>

@@ -17,16 +17,44 @@ export default function DiscoverPaper() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/paper")
+    const username = window.localStorage.getItem("username");
+    if (!username) {
+      console.error("Username not found in localStorage");
+      setLoading(false);
+      return;
+    }
+
+    const url = `https://7ca26mboek.execute-api.us-east-2.amazonaws.com/dev/papersRecImage?username=${encodeURIComponent(username)}`;
+    
+    fetch(url)
       .then(async (res) => {
         if (!res.ok) {
           const text = await res.text();
           throw new Error(`API Error: ${res.status} - ${text}`);
         }
-        return res.json();
-      })
-      .then((data) => {
-        setPapers(data);
+        const data = await res.json();
+        
+        // API Gateway returns the parsed body, so data should be the array directly
+        // But handle both cases: direct array or wrapped response
+        let papersData = Array.isArray(data) ? data : (data.body ? (Array.isArray(data.body) ? data.body : JSON.parse(data.body)) : []);
+        
+        // Transform DynamoDB items to frontend format
+        // DynamoDB items from boto3.resource have capitalized field names
+        const transformedPapers = papersData.map((paper) => ({
+          paperID: paper.paperID || paper.paperid,
+          title: paper.Title || paper.title || "Untitled Paper",
+          author: paper.Authors || paper.author || "Unknown Author",
+          date: paper.Year || paper.date || "N/A",
+          tags: Array.isArray(paper.Tags) ? paper.Tags : (Array.isArray(paper.tags) ? paper.tags : []),
+          pdfLink: paper.PDFLink || paper.pdfLink || `https://scholarsync-papers.s3.us-east-2.amazonaws.com/papers/${paper.paperID || paper.paperid || ''}.pdf`,
+          abstract: paper.Abstract || paper.abstract || "No abstract available.",
+          sourceURL: paper.SourceURL || paper.sourceURL || "",
+          content: paper.Abstract || paper.abstract || paper.content || "",
+          description: paper.Abstract || paper.abstract || paper.description || "",
+        }));
+        
+        console.log("Fetched papers:", transformedPapers.length, "Sample:", transformedPapers[0]);
+        setPapers(transformedPapers);
         setLoading(false);
       })
       .catch((err) => {
