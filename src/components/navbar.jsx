@@ -5,8 +5,8 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <header className="top-0 left-0 w-full h-18 z-50 bg-[#ffffff] text-[#11111] rounded-b-2xl">
-      <div className="flex items-center justify-between px-6 py-6 text-black">
+    <header className="sticky top-0 left-0 w-full z-50 bg-[#ffffff] text-[#111827] rounded-b-2xl shadow-sm">
+     <div className="flex items-center justify-between px-6 py-4">
 
     <Link href="../professorpage" className="flex items-center gap-3">
     <div className="w-12 h-12 relative"> 

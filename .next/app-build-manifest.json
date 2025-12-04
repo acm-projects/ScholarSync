@@ -112,10 +112,21 @@
       "static/chunks/main-app.js",
       "static/chunks/app/api/update-status/route.js"
     ],
-    "/_not-found/page": [
+    "/papers/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/css/app/papers/[id]/page.css",
+      "static/chunks/app/papers/[id]/page.js"
+    ],
+    "/api/paper/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/paper/route.js"
+    ],
+    "/api/summary/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/summary/route.js"
     ]
   }
 }

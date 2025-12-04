@@ -121,14 +121,12 @@ export default function OpportunitiesPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#f5f5f5] text-[#111827]">
-        <div className="relative z-10 rounded-b-2xl shadow">
-          <Navbar />
-        </div>
-        <div className="flex items-center justify-center min-h-[60vh]">
-          <div className="text-lg text-[#6b7280]">Loading opportunities...</div>
-        </div>
+      <div className="min-h-screen flex items-center justify-center bg-[#f5f5f5] text-[#111827]">
+      <div className="flex flex-col items-center gap-5">
+        <div className="w-24 h-24 rounded-full border-8 border-[#fecaca] border-t-[#ef4444] animate-spin" />
+        <div className="text-3xl font-semibold tracking-wide text-[#ef4444]">Loading…</div>
       </div>
+    </div>
     );
   }
 

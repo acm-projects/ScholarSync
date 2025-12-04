@@ -136,21 +136,7 @@ const Signup = () => {
         <Link href="/signuplogin/login">
           <span>Login</span>
         </Link>
-      </div>
-
-      <div className="divide">
-        <Image src="/Separator.png" alt="or" width={280} height={20} />
-      </div>
-
-      <div className="CG-submit-container">
-        <Image src="/google.png" alt="Google" width={21} height={21} />
-        <div className="submit">Continue with Google</div>
-      </div>
-
-      <div className="CL-submit-container">
-        <Image src="/LinkedIn.png" alt="LinkedIn" width={21} height={21} />
-        <div className="submit">Continue with LinkedIn</div>
-      </div>
+      </div>  
     </div>
   );
 }
