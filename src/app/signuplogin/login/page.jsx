@@ -39,7 +39,7 @@ const Login = () => {
                 </div>
                       
                 <div className= "Login-submit-container">
-                  <Link href="/homeresearchpage">
+                  <Link href="/professorpage">
                     <button className = "submit" type = "submit">
                       Login
                     </button>

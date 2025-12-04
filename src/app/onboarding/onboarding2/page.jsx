@@ -33,7 +33,7 @@ export default function OnboardingStep2() {
     return keys.reduce((n, k) => n + ((data[k]?.length ?? 0) > 0 ? 1 : 0), 0);
   }, [data]);
 
-  const canContinue = filledCount >= 3;
+  const canContinue = filledCount >= 2;
 
   const onContinue = (e) => {
     e.preventDefault();
@@ -101,7 +101,7 @@ export default function OnboardingStep2() {
 
             {!canContinue && (
               <p className="text-sm text-[#6b7280]">
-                * Please add tags in <span className="font-semibold text-[#111827]">at least 3 of the 6 sections</span> to continue.
+                * Please add tags in <span className="font-semibold text-[#111827]">at least 2 of the 6 sections</span> to continue.
               </p>
             )}
 
